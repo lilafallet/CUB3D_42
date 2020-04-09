@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 17:57:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/09 19:59:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,17 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 {
 	size_t	i;
 	int		ret;
+	t_vector	*resol;
 
 	i = 0;
 	ret = FALSE;
 	ft_printf("PARSER_RESOLUTION\n"); //
+	resol = vct_splitchr(vct, 'R');	
+	ft_printf("resol->str splitichr = %s\n", resol->str); //
+	//TESTER IS_WHITESPACE
+	while ((resol = vct_split(vct, "R ", EACH_SEP)) != NULL)
+		ft_printf("resol->str split = %s\n", resol->str); //
+		
 	/*while (str[i] != '\0')
 	{
 		if (str[i] == CHAR_RESOLUTION)
@@ -35,7 +42,7 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 		}
 		else if (str[i] == CHAR_TEXTURE_SPR)
 		{
-			printf("HELLO 2\n"); //
+			printf("HELLO 2\n"); /8 /
 			ret = hub_recup_texture_resolution(str, i, machine, SPRITE_TEXTURE);
 			if (ret == TRUE)
 				machine->information |= BT_SPR;
