@@ -40,7 +40,7 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 			ft_printf("IS WHITESPACE\n"); //
 			count_space++;
 		}
-		if (count_space > 2 || count_num > 2)
+		if (count_space > 2 || count_num > 2) //SPACE DE 3 ?? VOIR LES APRES LES CHIFFRES
 		{
 			ft_printf("TROP DE SPACE\n"); //
 			vct_del(&resol);
