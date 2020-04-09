@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/09 16:38:11 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/09 17:03:05 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,14 @@ INCLUDES_LIB = ./libft/includes/
 
 HEADER = $(INCLUDES)cub3d.h
 
-SRCS += main.c
+SRCS += ft_cub3d.c
+SRCS += errors.c
+SRCS += initialisation.c
 
 OBJ_DIR = ./objs/
 
 vpath %.c sources/
+vpath %.c sources/utils/
 
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 16:36:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/09 17:01:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,38 +158,9 @@ typedef struct	s_state_machine
 
 typedef	int	(*t_function)(char *, t_state_machine *);
 
-/*int				main(int ac, char **av);
-int				first_parser(t_state_machine *machine, char *line);
-void			initialisation_info_final(int nb_line, char **dest, char *src);
-void			printf_errors(unsigned long flag, unsigned long line);
-int				ft_cub3d(t_state_machine *machine, int fd);
-void			ft_free(t_state_machine *machine, char *line);
-int				is_white_space(char *str);
-int				is_texture(char c);
-int				recup_resolution(char *str, t_state_machine *machine, int flag);
-int				recup_texture(char *str, t_state_machine *machine, int index);
-int				is_direction(char *str, size_t i);
-int				add_texture(t_state_machine *machine, int index, char *line);
-int				recup_color(char *str, char **color, int flag);
-int				what_position(char *str, char *position);
-int				parser_color_details(char *str, t_state_machine *machine,
-										char c, int flag);
-int				process_texture(int first_index, char *str, size_t i,
-								t_state_machine *machine);
-int				fill_str_resolution_color(char *str, char **str_axe_color,
-											int i, int flag);
-void			ft_free_tab(size_t size, char **str);
-int				hub_verification(char **str, int state,
-									t_state_machine *machine);
-int				hub_verification_map(t_state_machine *machine, char *line,
-									unsigned long nb_line);
-int				hub_recup_texture_resolution(char *str, size_t index,
-												t_state_machine *machine,
-												int flag);
-int				hub_recup_color(char *str, size_t index,
-									t_state_machine *machine, char c, int flag);
-unsigned long	atoul(const char *str);
-int				another_number(char *str, size_t i);
-void			what_state(t_state_machine *machine);*/
+int				main(int ac, char **av);
+int				hub_verification_map(t_state_machine *machine, t_vector *line,
+										unsigned long nb_line);
+void			ft_free(t_state_machine *machine, t_vector *line);
 
 #endif
