@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 17:01:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/09 17:45:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,12 @@ typedef struct	s_state_machine
 	char				pad[4];
 }				t_state_machine;
 
-typedef	int	(*t_function)(char *, t_state_machine *);
+typedef	int	(*t_function)(t_vector *, t_state_machine *);
 
 int				main(int ac, char **av);
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_state_machine *machine, t_vector *line);
+int				first_parser(t_state_machine *machine, t_vector *line);
 
 #endif
