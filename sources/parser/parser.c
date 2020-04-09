@@ -6,27 +6,58 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 19:59:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/09 22:23:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
+
 static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 {
 	size_t	i;
 	int		ret;
 	t_vector	*resol;
+	int			count_space;
+	int			count_num;
 
 	i = 0;
 	ret = FALSE;
-	ft_printf("PARSER_RESOLUTION\n"); //
+	count_space = 0;
+	count_num = 0;
 	resol = vct_splitchr(vct, 'R');	
-	ft_printf("resol->str splitichr = %s\n", resol->str); //
-	//TESTER IS_WHITESPACE
-	while ((resol = vct_split(vct, "R ", EACH_SEP)) != NULL)
+	ft_printf("resol->str splitchr = %s\n", resol->str); //
+	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
+	{
+		ft_printf("WHITE_SPACE IS FALSE\n"); //
+		return (FALSE);
+	}
+	while ((resol = vct_split(vct, " ", EACH_SEP)) != NULL)
+	{
 		ft_printf("resol->str split = %s\n", resol->str); //
-		
+		if (vct_apply(resol, IS_WHITESPACE) == TRUE)
+		{
+			ft_printf("IS WHITESPACE\n"); //
+			count_space++;
+		}
+		if (count_space > 2 || count_num > 2)
+		{
+			ft_printf("TROP DE SPACE\n"); //
+			vct_del(&resol);
+			return (FALSE);
+		}
+		if (vct_apply(resol, IS_DIGIT) == TRUE)
+		{
+			ft_printf("IS DIGIT\n"); //
+			machine->info.str_resolution[count_num] = vct_strdup(resol);
+			ft_printf("machine->info.str_resolution[%d] = %s\n",
+						count_num, machine->info.str_resolution[count_num]); //
+			count_num++;
+		}
+	}
+	machine->state = TEXTURE;
+	vct_del(&resol);
+	return (TRUE);
 	/*while (str[i] != '\0')
 	{
 		if (str[i] == CHAR_RESOLUTION)
@@ -57,8 +88,6 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 			printf("HELLO 4\n"); //
 		i++;
 	}*/
-	machine->state = TEXTURE;
-	return (ret);
 }
 
 static int	parser_texture(t_vector *vct, t_state_machine *machine)
