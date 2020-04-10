@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 17:45:05 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 15:10:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_state_machine *machine, t_vector *line);
 int				first_parser(t_state_machine *machine, t_vector *line);
+void			printf_errors(unsigned long flag, unsigned long line);
 
 #endif

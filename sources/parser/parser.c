@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 14:54:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 15:32:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 	ret = FALSE;
 	count_num = 0;
 	resol = vct_splitchr(vct, 'R');	
+	vct_del(&resol);
+	ft_printf("PARSER_RESOLUTION\n"); //
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
 	{
 		vct_del(&resol);
@@ -31,26 +33,24 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 	}
 	while ((resol = vct_split(vct, " \t", ALL_SEP)) != NULL)
 	{
-		if (vct_apply(resol, IS_WHITESPACE) == TRUE)
 		if (vct_apply(resol, IS_DIGIT) == TRUE)
 		{
+			machine->information |= BT_RESOLUTION;
 			machine->info.str_resolution[count_num] = vct_strdup(resol);
 			count_num++;
 		}
-		if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
+		else if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
 				(vct_apply(resol, IS_DIGIT) == FALSE))
 		{
+			machine->information |= ERROR_RESOLUTION;
 			vct_del(&resol);
 			return (FAILURE);
 		}
-	}
-	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
-	{
 		vct_del(&resol);
-		return (FAILURE);
 	}
 	machine->state = TEXTURE;
 	vct_del(&resol);
+	ft_printf("PARSER_RESOLUTION IS TRUE\n"); //
 	return (TRUE);
 	/*while (str[i] != '\0')
 	{
@@ -173,12 +173,14 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 	ret = 0;
 	if (line->len == 0)
 	{
+		ft_printf("LEN LINE = 0\n"); //
 		nb_line++;
 		//what_state(machine);
 		return (LEN_ZERO);
 	}
 	while (i < NB_STATE)
-	{	
+	{
+		ft_printf("RENTRE DANS LA BOUCLE\n"); //	
 		ret = function[machine->state](line, machine);
 		if (ret == FAILURE)
 			return (FAILURE);

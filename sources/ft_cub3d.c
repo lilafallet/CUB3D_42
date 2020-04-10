@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 17:19:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 15:26:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@ static int	process_cub3d(t_state_machine *machine, t_vector *line,
 							unsigned long nb_line)
 {
 	ft_printf("PROCESS_CUB3D\n\n"); //
-	(void)nb_line;
 	first_parser(machine, line);
-	/*if (machine->information & IS_ERROR)
+	if (machine->information & IS_ERROR)
 	{
+		ft_printf("TU RENTRES LA ?\n"); //
 		ft_free(machine, line);
 		printf_errors(machine->information, nb_line + 1);
 		return (FAILURE);
 	}
-	free(line);
-	line = NULL;*/
+	ft_printf("TU RETOURNES SUCCESS\n"); //
 	return (SUCCESS);
 }
 
@@ -47,18 +46,11 @@ static int	ft_cub3d(t_state_machine *machine, int fd)
 	{
 		ft_printf("LINE = %s\n", line->str); //
 		if (process_cub3d(machine, line, nb_line) == FAILURE)
-		{
-			vct_del(&line); //A ENLEVER
 			return (FAILURE);
-		}
 		nb_line++;
 	}
 	if (hub_verification_map(machine, line, nb_line) == FAILURE)
-	{
-		vct_del(&line); //A ENLEVER
 		return (FAILURE);
-	}
-	vct_del(&line); //A ENLEVER
 	ft_free(machine, line);
 	return (SUCCESS);
 }
@@ -72,7 +64,7 @@ int	main(int ac, char **av)
 	ft_bzero(&machine, sizeof(machine));
 	if (ac != 2)
 	{
-		//printf_errors(ERR_USAGE, 0);
+		printf_errors(ERR_USAGE, 0);
 		return (EXIT_FAILURE);
 	}
 	fd = open(av[1], O_RDONLY); /*ouvrir le fichier en mode read only*/
