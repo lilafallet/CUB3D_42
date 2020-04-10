@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/09 17:42:58 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/10 16:53:56 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS += ft_cub3d.c
 SRCS += errors.c
 SRCS += initialisation.c
 SRCS += parser.c
+SRCS += parser_details.c
 
 OBJ_DIR = ./objs/
 

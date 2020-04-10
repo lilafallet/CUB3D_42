@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 15:10:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 17:32:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@
 # define BUFFER_SIZE 4096
 
 # define NB_TEXTURE 5
-# define NB_STATE 5
+# define NB_STATE 4
 # define NB_COLOR 3
 # define NB_RESOLUTION 2
 # define ALL 5
@@ -118,7 +118,6 @@ enum			e_state
 {
 	RESOLUTION, /*0*/
 	TEXTURE, /*1*/
-	SPRITE_TEXTURE, /*2*/
 	COLOR, /*3*/
 	MAP /*4*/
 };
@@ -164,5 +163,7 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 void			ft_free(t_state_machine *machine, t_vector *line);
 int				first_parser(t_state_machine *machine, t_vector *line);
 void			printf_errors(unsigned long flag, unsigned long line);
+int				resolution_details(t_vector *resol, char **str_resolution,
+									t_vector *vct);
 
 #endif

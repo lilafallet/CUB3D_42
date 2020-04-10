@@ -6,82 +6,33 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 15:32:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 17:31:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
+static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 {
-	size_t	i;
-	int		ret;
 	t_vector	*resol;
 	int			count_num;
+	int			ret;
 
-	i = 0;
-	ret = FALSE;
 	count_num = 0;
+	ret = TRUE;
 	resol = vct_splitchr(vct, 'R');	
-	vct_del(&resol);
 	ft_printf("PARSER_RESOLUTION\n"); //
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
-	{
-		vct_del(&resol);
-		return (FAILURE);
-	}
-	while ((resol = vct_split(vct, " \t", ALL_SEP)) != NULL)
-	{
-		if (vct_apply(resol, IS_DIGIT) == TRUE)
-		{
-			machine->information |= BT_RESOLUTION;
-			machine->info.str_resolution[count_num] = vct_strdup(resol);
-			count_num++;
-		}
-		else if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
-				(vct_apply(resol, IS_DIGIT) == FALSE))
-		{
-			machine->information |= ERROR_RESOLUTION;
-			vct_del(&resol);
-			return (FAILURE);
-		}
-		vct_del(&resol);
-	}
-	machine->state = TEXTURE;
+		ret = FAILURE;
 	vct_del(&resol);
-	ft_printf("PARSER_RESOLUTION IS TRUE\n"); //
-	return (TRUE);
-	/*while (str[i] != '\0')
-	{
-		if (str[i] == CHAR_RESOLUTION)
-		{
-			printf("HELLO 1\n"); //
-			ret = hub_recup_texture_resolution(str, i, machine, RESOLUTION);
-			printf("ret = %d\n", ret); //
-			if (ret == FAILURE)
-				machine->information |= ERROR_RESOLUTION;
-			if (ret == TRUE)
-				machine->information |= BT_RESOLUTION;
-			return (ret);
-		}
-		else if (str[i] == CHAR_TEXTURE_SPR)
-		{
-			printf("HELLO 2\n"); /8 /
-			ret = hub_recup_texture_resolution(str, i, machine, SPRITE_TEXTURE);
-			if (ret == TRUE)
-				machine->information |= BT_SPR;
-			return (ret);
-		}
-		if (str[i] != SPACE && str[i] != TAB)
-		{
-			printf("HELLO 3\n"); //
-			machine->information |= ERROR_RESOLUTION;
-			return (FAILURE);
-		}
-			printf("HELLO 4\n"); //
-		i++;
-	}*/
+	if (ret != FAILURE)
+		ret = resolution_details(resol, machine->info.str_resolution, vct);
+	if (ret != FAILURE)
+		machine->state = TEXTURE;
+	machine->information |= (ret == FAILURE ? ERROR_RESOLUTION : BT_RESOLUTION);	
+	vct_del(&resol);
+	return (ret);
 }
 
 static int	parser_texture(t_vector *vct, t_state_machine *machine)
@@ -159,9 +110,7 @@ static int			parser_map(t_vector *vct, t_state_machine *machine)
 
 int			first_parser(t_state_machine *machine, t_vector *line)
 {
-	static t_function	function[5] = {parser_resolution_text_spr,
-										parser_texture,
-										parser_resolution_text_spr,
+	static t_function	function[4] = {parser_resolution, parser_texture,
 										parser_color, parser_map};
 	static int	nb_line = 1; //
 	int			ret;
