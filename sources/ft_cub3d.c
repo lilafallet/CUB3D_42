@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 15:26:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 18:35:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ static int	process_cub3d(t_state_machine *machine, t_vector *line,
 	first_parser(machine, line);
 	if (machine->information & IS_ERROR)
 	{
-		ft_printf("TU RENTRES LA ?\n"); //
 		ft_free(machine, line);
 		printf_errors(machine->information, nb_line + 1);
 		return (FAILURE);
 	}
-	ft_printf("TU RETOURNES SUCCESS\n"); //
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 17:32:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 22:27:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # endif
 
 # define LEN_ZERO 1
+
+# define ERROR 2
+# define NEXT 4
 
 # define CHAR_RESOLUTION 'R'
 # define STR_TEXTURE_NO "NO"
@@ -94,6 +97,8 @@
 # define ERR2				"Wrong texture = voir ce qu'il faut faire\n"
 # define ERR3				"Wrong color = voir ce qu'il faut faire\n"
 # define ERR4				"Bad map = voir ce qu'il faut faire\n"
+
+# define STRING_CHECK_R		"SFCNSEW"
 
 # define BUFFER_SIZE 4096
 
@@ -165,5 +170,6 @@ int				first_parser(t_state_machine *machine, t_vector *line);
 void			printf_errors(unsigned long flag, unsigned long line);
 int				resolution_details(t_vector *resol, char **str_resolution,
 									t_vector *vct);
+int				is_next_or_error_resolution(t_vector *vct);
 
 #endif

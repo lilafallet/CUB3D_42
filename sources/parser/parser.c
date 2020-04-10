@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 17:31:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 22:39:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,44 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	t_vector	*resol;
 	int			count_num;
 	int			ret;
+	t_vector	*cpy_vct;
 
+	cpy_vct = vct_new();
+	vct_cpy(cpy_vct, vct);
 	count_num = 0;
-	ret = TRUE;
-	resol = vct_splitchr(vct, 'R');	
+	resol = vct_splitchr(cpy_vct, 'R');
 	ft_printf("PARSER_RESOLUTION\n"); //
+	ft_printf("resol->str = %s\n", resol->str); //
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
-		ret = FAILURE;
+	{
+		ft_printf("RENTRES ICI\n");
+		ret = is_next_or_error_resolution(resol);
+		ft_printf("RET = %d\n\n", ret); //
+		if (ret == NEXT)	
+			machine->state = TEXTURE;
+		if (ret == ERROR)
+			machine->information |= ERROR_RESOLUTION;
+		vct_del(&resol);
+		vct_del(&cpy_vct);
+		return (ret);
+	}
 	vct_del(&resol);
-	if (ret != FAILURE)
-		ret = resolution_details(resol, machine->info.str_resolution, vct);
-	if (ret != FAILURE)
+	ret = resolution_details(resol, machine->info.str_resolution, cpy_vct);
+	if (ret & NEXT && ret & TRUE)
+	{
+		ft_printf("AJOUTE MACHINE\n"); //
 		machine->state = TEXTURE;
-	machine->information |= (ret == FAILURE ? ERROR_RESOLUTION : BT_RESOLUTION);	
-	vct_del(&resol);
+		machine->information |= BT_RESOLUTION;
+	}
+	if (ret & TRUE)
+		ft_printf("TRUE\n"); //
+	if (ret & NEXT)
+		ft_printf("NEXT\n\n"); //
+	if (ret & ERROR)
+	{
+		machine->information |= ERROR_RESOLUTION;
+		ft_printf("ERROR\n\n"); //
+	}
 	return (ret);
 }
 
@@ -44,6 +68,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	i = 0;
 	ret = FALSE;
 	ft_printf("PARSER_TEXTURE\n"); //
+	ft_printf("vct->str = %s\n", vct->str); //
 	/*while (str[i] != '\0')
 	{
 		if (str[i] == SPACE || str[i] == TAB)
@@ -129,11 +154,10 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 	}
 	while (i < NB_STATE)
 	{
-		ft_printf("RENTRE DANS LA BOUCLE\n"); //	
 		ret = function[machine->state](line, machine);
-		if (ret == FAILURE)
+		if (ret & ERROR)
 			return (FAILURE);
-		if (ret == FALSE)
+		if (ret & NEXT)
 			i++;
 		else
 			break ;
