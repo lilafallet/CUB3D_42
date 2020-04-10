@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 22:27:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 23:18:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,7 @@ void			printf_errors(unsigned long flag, unsigned long line);
 int				resolution_details(t_vector *resol, char **str_resolution,
 									t_vector *vct);
 int				is_next_or_error_resolution(t_vector *vct);
+int				is_resolution(t_vector *resol, t_vector *vct);
+int				is_true_and_next(t_state_machine *machine, int ret);
 
 #endif

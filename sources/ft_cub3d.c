@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 18:35:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 23:12:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int	ft_cub3d(t_state_machine *machine, int fd)
 	line = vct_new();
 	while ((ret = vct_readline(line, fd)) > 0)
 	{
-		ft_printf("LINE = %s\n", line->str); //
 		if (process_cub3d(machine, line, nb_line) == FAILURE)
 			return (FAILURE);
 		nb_line++;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 22:39:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 23:31:11 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,21 @@
 static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 {
 	t_vector	*resol;
-	int			count_num;
 	int			ret;
 	t_vector	*cpy_vct;
 
+	ft_printf("PARSER_RESOLUTION\n"); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	count_num = 0;
-	resol = vct_splitchr(cpy_vct, 'R');
-	ft_printf("PARSER_RESOLUTION\n"); //
-	ft_printf("resol->str = %s\n", resol->str); //
-	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
-	{
-		ft_printf("RENTRES ICI\n");
-		ret = is_next_or_error_resolution(resol);
-		ft_printf("RET = %d\n\n", ret); //
-		if (ret == NEXT)	
-			machine->state = TEXTURE;
-		if (ret == ERROR)
-			machine->information |= ERROR_RESOLUTION;
-		vct_del(&resol);
-		vct_del(&cpy_vct);
-		return (ret);
-	}
-	vct_del(&resol);
-	ret = resolution_details(resol, machine->info.str_resolution, cpy_vct);
-	if (ret & NEXT && ret & TRUE)
-	{
-		ft_printf("AJOUTE MACHINE\n"); //
-		machine->state = TEXTURE;
-		machine->information |= BT_RESOLUTION;
-	}
-	if (ret & TRUE)
-		ft_printf("TRUE\n"); //
+	resol = NULL;
+	ret = is_resolution(resol, cpy_vct);
+	if (ret != ERROR && ret != NEXT)
+		ret = resolution_details(resol, machine->info.str_resolution, cpy_vct);
 	if (ret & NEXT)
-		ft_printf("NEXT\n\n"); //
+		ret = is_true_and_next(machine, ret);
 	if (ret & ERROR)
-	{
 		machine->information |= ERROR_RESOLUTION;
-		ft_printf("ERROR\n\n"); //
-	}
+	vct_del(&cpy_vct);
 	return (ret);
 }
 
@@ -141,7 +116,6 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 	int			ret;
 	int			i;
 
-	ft_printf("FIRST PARSER\n"); //
 	ft_printf("TEST LINE %d: %s\n\n", nb_line, line->str); //
 	i = 0;
 	ret = 0;
