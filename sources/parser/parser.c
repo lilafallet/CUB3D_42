@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/09 22:23:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/10 14:54:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,36 @@ static int	parser_resolution_text_spr(t_vector *vct, t_state_machine *machine)
 	size_t	i;
 	int		ret;
 	t_vector	*resol;
-	int			count_space;
 	int			count_num;
 
 	i = 0;
 	ret = FALSE;
-	count_space = 0;
 	count_num = 0;
 	resol = vct_splitchr(vct, 'R');	
-	ft_printf("resol->str splitchr = %s\n", resol->str); //
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
 	{
-		ft_printf("WHITE_SPACE IS FALSE\n"); //
-		return (FALSE);
+		vct_del(&resol);
+		return (FAILURE);
 	}
-	while ((resol = vct_split(vct, " ", EACH_SEP)) != NULL)
+	while ((resol = vct_split(vct, " \t", ALL_SEP)) != NULL)
 	{
-		ft_printf("resol->str split = %s\n", resol->str); //
 		if (vct_apply(resol, IS_WHITESPACE) == TRUE)
-		{
-			ft_printf("IS WHITESPACE\n"); //
-			count_space++;
-		}
-		if (count_space > 2 || count_num > 2) //SPACE DE 3 ?? VOIR LES APRES LES CHIFFRES
-		{
-			ft_printf("TROP DE SPACE\n"); //
-			vct_del(&resol);
-			return (FALSE);
-		}
 		if (vct_apply(resol, IS_DIGIT) == TRUE)
 		{
-			ft_printf("IS DIGIT\n"); //
 			machine->info.str_resolution[count_num] = vct_strdup(resol);
-			ft_printf("machine->info.str_resolution[%d] = %s\n",
-						count_num, machine->info.str_resolution[count_num]); //
 			count_num++;
 		}
+		if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
+				(vct_apply(resol, IS_DIGIT) == FALSE))
+		{
+			vct_del(&resol);
+			return (FAILURE);
+		}
+	}
+	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
+	{
+		vct_del(&resol);
+		return (FAILURE);
 	}
 	machine->state = TEXTURE;
 	vct_del(&resol);
@@ -174,7 +168,7 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 	int			i;
 
 	ft_printf("FIRST PARSER\n"); //
-	ft_printf("TEST LINE %d: %s\n", nb_line, line->str); //
+	ft_printf("TEST LINE %d: %s\n\n", nb_line, line->str); //
 	i = 0;
 	ret = 0;
 	if (line->len == 0)
