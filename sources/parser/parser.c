@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/11 17:11:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/11 22:59:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,39 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 static int	parser_texture(t_vector *vct, t_state_machine *machine)
 {
 	int			ret;
-	t_vector	*text;
+	t_vector	*texture;
 	t_vector	*cpy_vct;
+	char		*tab_texture[5] = {"NO", "SO", "WE", "EA", "S"};
+	size_t		index;
 
 	ft_printf("PARSER_TEXTURE\n"); //
-	ft_printf("text->str = %s\n", vct_getstr(vct)); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	text = NULL;
-	ret = is_texture(text, cpy_vct);
+	texture = vct_new();
+	ret = is_texture(texture, cpy_vct, tab_texture);
+	index = ret;
+	if (ret >= 0 && ret <= 4)
+	{
+		ret = texture_details(texture, cpy_vct, tab_texture[ret]);
+		ft_printf("ret = %d\n", ret); //
+	}
+	else
+		ret = (ret == FAILURE ? ERROR : NEXT);
+	if (ret & ERROR)
+		machine->information |= ERROR_RESOLUTION;
+	if (ret & NEXT)
+	{
+		machine->state = COLOR;
+		if (ret & TRUE)
+		{
+			what_bitwaze(machine, index);
+			machine->info.str_texture[index] = vct_strdup(cpy_vct);
+			ft_printf("machine->information.str_texture[%d] = %s\n\n", index,
+						machine->info.str_texture[index]); //
+		}
+	}
+	vct_del(&cpy_vct);
+	vct_del(&texture);
 	return (ret);
 }
 

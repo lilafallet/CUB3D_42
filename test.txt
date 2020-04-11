@@ -1,5 +1,1 @@
-  NO ./path_to_the_north_texture
-	L SO ./path_to_the_south_texture
-		N WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+			NO ./path_to_the_north_texture
