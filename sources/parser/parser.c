@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 23:31:11 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/11 17:11:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	int			ret;
 	t_vector	*cpy_vct;
 
-	ft_printf("PARSER_RESOLUTION\n"); //
+	ft_printf("PARSER_RESOLUTION\n\n"); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
+	ret = TRUE;
 	ret = is_resolution(resol, cpy_vct);
 	if (ret != ERROR && ret != NEXT)
 		ret = resolution_details(resol, machine->info.str_resolution, cpy_vct);
@@ -36,26 +37,16 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 
 static int	parser_texture(t_vector *vct, t_state_machine *machine)
 {
-	size_t	i;
-	int		first_index;
-	int		ret;
+	int			ret;
+	t_vector	*text;
+	t_vector	*cpy_vct;
 
-	i = 0;
-	ret = FALSE;
 	ft_printf("PARSER_TEXTURE\n"); //
-	ft_printf("vct->str = %s\n", vct->str); //
-	/*while (str[i] != '\0')
-	{
-		if (str[i] == SPACE || str[i] == TAB)
-			i++;
-		if ((first_index = is_texture(str[i])) != FAILURE)
-		{
-			ret = process_texture(first_index, str, i, machine);
-			return (ret);
-		}
-		i++;
-	}*/
-	machine->state = COLOR;
+	ft_printf("text->str = %s\n", vct_getstr(vct)); //
+	cpy_vct = vct_new();
+	vct_cpy(cpy_vct, vct);
+	text = NULL;
+	ret = is_texture(text, cpy_vct);
 	return (ret);
 }
 

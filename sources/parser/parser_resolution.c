@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_details.c                                   :+:      :+:    :+:   */
+/*   parser_resolution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/10 17:06:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 23:31:34 by lfallet          ###   ########.fr       */
+/*   Created: 2020/04/11 14:48:49 by lfallet           #+#    #+#             */
+/*   Updated: 2020/04/11 17:11:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	is_resolution(t_vector *resol, t_vector *vct)
 	int	ret;
 
 	ret = TRUE;
+	if (vct_chr(vct, 'R') == FAILURE)
+		return (NEXT);
 	resol = vct_splitchr(vct, 'R');
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
 		ret = is_next_or_error_resolution(resol);
