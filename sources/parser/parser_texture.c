@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:53:41 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 18:15:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 20:51:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,14 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	ft_printf("count_path = %d\n", count_path); //
 	ret_cpy = vct_getstr(cpy_vct);
 	ret_cpy = ft_strdup(ret_cpy + count_path + 1);
-	if (ft_strequ(ret_str, ret_cpy) == FALSE)
-	{
-		ft_printf("IS FALSE\n"); //
-		free(ret_str);
-		ret_str = vct_getstr(cpy_vct);
-		ret_str = ft_strdup(ret_str + count_path + 1);
-		ft_printf("ret_str = %s\n", ret_str); //
-		vct_addstr(new_vct, ret_str);
-		vct_cpy(vct, new_vct);
-	}
-	else
-		vct_cpy(vct, texture);
+	ft_printf("YOUHOOOOOU\n"); //
+	ft_printf("IS FALSE\n"); //
+	free(ret_str);
+	ret_str = vct_getstr(cpy_vct);
+	ret_str = ft_strdup(ret_str + count_path + 1);
+	ft_printf("ret_str = %s\n", ret_str); //
+	vct_addstr(new_vct, ret_str);
+	vct_cpy(vct, new_vct);
 	vct_del(&cpy_vct);
 	vct_del(&new_vct);
 	free(ret_str);
