@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:48:49 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/11 19:45:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 15:20:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ static int	is_error(char **str_resolution, t_vector *resol)
 	if (count_num <= 1)
 	{
 		str_resolution[count_num] = vct_strdup(resol);
+		if (str_resolution[0] != NULL && str_resolution[1] != NULL) //
+		{
+			ft_printf("machine->info.str_resolution[0] = %s\n", str_resolution[0]); //
+			ft_printf("machine->info.str_resolution[1] = %s\n", str_resolution[1]); //
+		}
 		count_num++;
 	}
 	else

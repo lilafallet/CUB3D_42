@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/11 22:59:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 16:44:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	int			ret;
 	t_vector	*cpy_vct;
 
-	ft_printf("PARSER_RESOLUTION\n\n"); //
+	ft_printf("PARSER_RESOLUTION\n"); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
@@ -57,7 +57,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	else
 		ret = (ret == FAILURE ? ERROR : NEXT);
 	if (ret & ERROR)
-		machine->information |= ERROR_RESOLUTION;
+		machine->information |= ERROR_TEXTURE;
 	if (ret & NEXT)
 	{
 		machine->state = COLOR;
@@ -65,12 +65,13 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		{
 			what_bitwaze(machine, index);
 			machine->info.str_texture[index] = vct_strdup(cpy_vct);
-			ft_printf("machine->information.str_texture[%d] = %s\n\n", index,
+			ft_printf("machine->information.str_texture[%d] = %s\n", index,
 						machine->info.str_texture[index]); //
 		}
 	}
 	vct_del(&cpy_vct);
 	vct_del(&texture);
+	ft_printf("ret = %d\n\n", ret); //
 	return (ret);
 }
 
@@ -80,7 +81,7 @@ static int			parser_color(t_vector *vct, t_state_machine *machine)
 	int		ret;
 
 	i = 0;
-	ret = FALSE;
+	ret = NEXT;
 	ft_printf("PARSER_COLOR\n"); //
 	/*while (str[i] != '\0')
 	{
@@ -120,6 +121,7 @@ static int			parser_map(t_vector *vct, t_state_machine *machine)
 	if (position != FAILURE)
 		machine->information |= (unsigned long)((1 << position) << 20);
 	index++;*/
+	machine->state = RESOLUTION;
 	return (ret);
 }
 

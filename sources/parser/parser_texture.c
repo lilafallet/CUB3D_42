@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:53:41 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 13:23:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 16:25:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	char	*ret_str;
 	size_t	len;
 	int		count_path;
+	t_vector	*cpy_vct;
+	
 
-	ft_printf("TEXTURE_DETAILS\n"); //	
+	ft_printf("TEXTURE_DETAILS\n"); //
+	cpy_vct = vct_new();	
 	len = ft_strlen(str_texture);
 	count_path = 0;
 	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct));
-	vct_addstr(texture, ret_str + len);
-	vct_cpy(vct, texture);
-	ft_printf("texture->str 1 = %s\n", vct_getstr(texture)); //
-	while ((texture = vct_split(vct, "./", ALL_SEP)) != NULL)
+	vct_addstr(cpy_vct, ret_str + len);
+	while ((texture = vct_split(cpy_vct, "./", ALL_SEP)) != NULL)
 	{
-		ft_printf("texture->str 2 = %s\n", vct_getstr(texture)); //
 		if (count_path == 1)
 		{
 			ft_printf("AFTER PATH\n");
@@ -73,6 +73,7 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	}
 	vct_cpy(vct, texture);
 	vct_del(&texture);
+	vct_del(&cpy_vct);
 	return (ret);
 }
 
