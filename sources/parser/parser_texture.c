@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:53:41 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 20:51:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 21:19:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-void	what_bitwaze(t_state_machine *machine, size_t index)
+void	what_bitwaze(t_state_machine *machine, int index)
 {
 	ft_printf("WHAT BITWAZE\n"); //	
 	if (index == 0)
@@ -38,9 +38,11 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	t_vector	*cpy_vct;
 	char		*ret_cpy;
 	t_vector	*new_vct;
+	size_t		clen;
 	
 
 	ft_printf("TEXTURE_DETAILS\n"); //
+	ret = TRUE;
 	cpy_vct = vct_new();	
 	new_vct = vct_new();
 	len = ft_strlen(str_texture);
@@ -80,17 +82,17 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 		vct_del(&texture);
 	}
 	vct_del(&texture);
-	count_path = vct_clen(cpy_vct, '/');
+	clen = vct_clen(cpy_vct, '/'); //peut etre faire une nouvelle variable ?
 	ft_printf("cpy_vct->str end = %s\n", vct_getstr(cpy_vct)); //
 	ft_printf("ret_str = %s\n", ret_str); //
-	ft_printf("count_path = %d\n", count_path); //
+	ft_printf("clen = %d\n", clen); //
 	ret_cpy = vct_getstr(cpy_vct);
-	ret_cpy = ft_strdup(ret_cpy + count_path + 1);
+	ret_cpy = ft_strdup(ret_cpy + clen + 1);
 	ft_printf("YOUHOOOOOU\n"); //
 	ft_printf("IS FALSE\n"); //
 	free(ret_str);
 	ret_str = vct_getstr(cpy_vct);
-	ret_str = ft_strdup(ret_str + count_path + 1);
+	ret_str = ft_strdup(ret_str + clen + 1);
 	ft_printf("ret_str = %s\n", ret_str); //
 	vct_addstr(new_vct, ret_str);
 	vct_cpy(vct, new_vct);
@@ -101,10 +103,9 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	return (ret);
 }
 
-int	texture_next_error(t_vector *vct, char **str_texture, size_t index, t_vector *texture)
+static int	texture_next_error(t_vector *vct, char **str_texture, int index)
 {
 	size_t	len;
-	int		ret;
 	char	*cpy_texture;
 	size_t	i;
 
@@ -119,16 +120,16 @@ int	texture_next_error(t_vector *vct, char **str_texture, size_t index, t_vector
 		i++;
 	}
 	if (len != i )
-		index = FAILURE;
+		index = NO_CHAR;
 	free(cpy_texture);
 	return (index);
 }
 
-int	is_texture(t_vector *texture, t_vector *vct, char **tab_texture)
+int	is_texture(t_vector *vct, char **tab_texture)
 {
 	int		ret;
 	char	*ret_str;
-	size_t	index;
+	int		index;
 
 	ft_printf("IS_TEXTURE\n"); //	
 	ret = TRUE;
@@ -148,6 +149,6 @@ int	is_texture(t_vector *texture, t_vector *vct, char **tab_texture)
 		ret = index;
 	}
 	if (ret_str != NULL)
-		ret = texture_next_error(vct, tab_texture, index, texture);
+		ret = texture_next_error(vct, tab_texture, index);
 	return (ret);
 }

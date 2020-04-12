@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/11 22:12:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 21:19:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define ERROR 2
 # define NEXT 4
+# define NO_CHAR 5
 
 # define CHAR_RESOLUTION 'R'
 # define STR_TEXTURE_NO "NO"
@@ -173,7 +174,9 @@ int				resolution_details(t_vector *resol, char **str_resolution,
 int				is_next_or_error_resolution(t_vector *vct);
 int				is_resolution(t_vector *resol, t_vector *vct);
 int				is_true_and_next(t_state_machine *machine, int ret);
-int				is_texture(t_vector *text, t_vector *vct, char **tab_texture);
-void			what_bitwaze(t_state_machine *machine, size_t index);
+int				is_texture(t_vector *vct, char **tab_texture);
+void			what_bitwaze(t_state_machine *machine, int index);
+int				texture_details(t_vector *texture, t_vector *vct,
+									char *str_texture);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 16:44:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 21:23:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	t_vector	*texture;
 	t_vector	*cpy_vct;
 	char		*tab_texture[5] = {"NO", "SO", "WE", "EA", "S"};
-	size_t		index;
+	int			index;
 
 	ft_printf("PARSER_TEXTURE\n"); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	texture = vct_new();
-	ret = is_texture(texture, cpy_vct, tab_texture);
+	ret = is_texture(cpy_vct, tab_texture);
 	index = ret;
 	if (ret >= 0 && ret <= 4)
 	{
@@ -55,7 +55,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		ft_printf("ret = %d\n", ret); //
 	}
 	else
-		ret = (ret == FAILURE ? ERROR : NEXT);
+		ret = (ret == NO_CHAR ? ERROR : NEXT);
 	if (ret & ERROR)
 		machine->information |= ERROR_TEXTURE;
 	if (ret & NEXT)
@@ -83,6 +83,7 @@ static int			parser_color(t_vector *vct, t_state_machine *machine)
 	i = 0;
 	ret = NEXT;
 	ft_printf("PARSER_COLOR\n"); //
+	(void)vct;
 	/*while (str[i] != '\0')
 	{
 		if (str[i] == CHAR_F_COLOR)
@@ -113,6 +114,9 @@ static int			parser_map(t_vector *vct, t_state_machine *machine)
 
 	ret = TRUE;
 	ft_printf("PARSER_MAP\n"); //
+	(void)index;
+	(void)position;
+	(void)vct;
 	/*machine->info.str_map[index] = ft_memdup(str, ft_strlen(str));
 	printf("machine->info.str_map[%lu] = %s\n", index, machine->info.str_map[index]); //
 	position = what_position(machine->info.str_map[index],
