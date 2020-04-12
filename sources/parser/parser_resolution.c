@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:48:49 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 15:20:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 20:42:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ int	is_resolution(t_vector *resol, t_vector *vct)
 	if (vct_chr(vct, 'R') == FAILURE)
 		return (NEXT);
 	resol = vct_splitchr(vct, 'R');
+	ft_printf("vct->str =%s\n", vct_getstr(vct)); //
+	if ((vct_getfirstchar(vct) != ' ') && (vct_getfirstchar(vct) != '\t'))
+	{
+		vct_del(&resol);
+		return (ERROR);
+	}
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
 		ret = is_next_or_error_resolution(resol);
 	vct_del(&resol);
