@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 14:53:41 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 16:25:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/12 18:15:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,26 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	size_t	len;
 	int		count_path;
 	t_vector	*cpy_vct;
+	char		*ret_cpy;
+	t_vector	*new_vct;
 	
 
 	ft_printf("TEXTURE_DETAILS\n"); //
 	cpy_vct = vct_new();	
+	new_vct = vct_new();
 	len = ft_strlen(str_texture);
 	count_path = 0;
 	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct));
 	vct_addstr(cpy_vct, ret_str + len);
+	ret_str = NULL;
 	while ((texture = vct_split(cpy_vct, "./", ALL_SEP)) != NULL)
 	{
 		if (count_path == 1)
 		{
+			free(ret_str);
+			ret_str = vct_strdup(texture);
+			ft_printf("texture->str = %s\n", vct_getstr(texture)); //
+			ft_printf("cpy_vct->str = %s\n", vct_getstr(cpy_vct)); //
 			ft_printf("AFTER PATH\n");
 			if (vct_apply(texture, IS_ASCII) == FALSE)
 				ft_printf("ASCII IS FALSE\n"); //
@@ -60,20 +68,40 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 		}
 		if (ft_strequ(vct_getstr(texture), "./") == TRUE)
 		{
-			ft_printf("FIND PATH\n"); //
+			//ft_printf("FIND PATH\n"); //
 			count_path++;
 		}
 		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
 		{
-			ft_printf("BEFORE PATH AND NOT WHITESPACE\n"); //
+		//	ft_printf("BEFORE PATH AND NOT WHITESPACE\n"); //
 			ret = ERROR;
 			break ;
 		}
 		vct_del(&texture);
 	}
-	vct_cpy(vct, texture);
 	vct_del(&texture);
+	count_path = vct_clen(cpy_vct, '/');
+	ft_printf("cpy_vct->str end = %s\n", vct_getstr(cpy_vct)); //
+	ft_printf("ret_str = %s\n", ret_str); //
+	ft_printf("count_path = %d\n", count_path); //
+	ret_cpy = vct_getstr(cpy_vct);
+	ret_cpy = ft_strdup(ret_cpy + count_path + 1);
+	if (ft_strequ(ret_str, ret_cpy) == FALSE)
+	{
+		ft_printf("IS FALSE\n"); //
+		free(ret_str);
+		ret_str = vct_getstr(cpy_vct);
+		ret_str = ft_strdup(ret_str + count_path + 1);
+		ft_printf("ret_str = %s\n", ret_str); //
+		vct_addstr(new_vct, ret_str);
+		vct_cpy(vct, new_vct);
+	}
+	else
+		vct_cpy(vct, texture);
 	vct_del(&cpy_vct);
+	vct_del(&new_vct);
+	free(ret_str);
+	free(ret_cpy);
 	return (ret);
 }
 
