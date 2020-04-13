@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:41:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 20:54:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ enum			e_state
 	COLOR, /*3*/
 	MAP /*4*/
 };
-typedef struct  st_f_info
+
+typedef struct	st_f_info
 {
 	unsigned long	resolution_x;
 	unsigned long	resolution_y;
