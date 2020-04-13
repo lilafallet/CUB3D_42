@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:41:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:59:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-int	texture_next_error(t_vector *vct, char **str_texture, int index)
+int		texture_next_error(t_vector *vct, char **str_texture, int index)
 {
 	size_t	len;
 	char	*cpy_texture;
@@ -52,7 +52,7 @@ void	is_next_error(int ret, t_state_machine *machine, int index, t_vector *vct)
 	}
 }
 
-int	process_texture(int ret, t_vector *vct, char **tab_texture)
+int		process_texture(int ret, t_vector *vct, char **tab_texture)
 {
 	t_vector	*texture;
 

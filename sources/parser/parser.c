@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:09:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:53:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	return (ret);
 }
 
-static int			parser_color(t_vector *vct, t_state_machine *machine)
+static int	parser_color(t_vector *vct, t_state_machine *machine)
 {
 	size_t	i;
 	int		ret;
@@ -84,7 +84,7 @@ static int			parser_color(t_vector *vct, t_state_machine *machine)
 	return (ret);
 }
 
-static int			parser_map(t_vector *vct, t_state_machine *machine)
+static int	parser_map(t_vector *vct, t_state_machine *machine)
 {
 	int				ret;
 	static size_t	index = 0;
@@ -111,9 +111,9 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 {
 	static t_function	function[4] = {parser_resolution, parser_texture,
 										parser_color, parser_map};
-	static int	nb_line = 1; //
-	int			ret;
-	int			i;
+	static int			nb_line = 1; //
+	int					ret;
+	int					i;
 
 	ft_printf("TEST LINE %d: %s\n\n", nb_line, line->str); //
 	i = 0;

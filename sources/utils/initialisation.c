@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 15:27:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:47:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free(t_state_machine *machine, t_vector *line)
 	vct_del(&line);
 	line = NULL;
 	free(machine->str_info_final);
-	ft_free_tab(NB_RESOLUTION, machine->info.str_resolution);	
+	ft_free_tab(NB_RESOLUTION, machine->info.str_resolution);
 	ft_free_tab(NB_TEXTURE, machine->info.str_texture);
 	ft_free_tab(NB_COLOR, machine->info.str_color_f);
 	ft_free_tab(NB_COLOR, machine->info.str_color_c);

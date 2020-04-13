@@ -6,9 +6,10 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 15:29:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:49:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "cub3d.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -29,13 +30,14 @@ void	printf_errors(unsigned long flag, unsigned long line)
 	index = flag >> 24;
 	while (i < NB_ERROR)
 	{
-		if (index & (1 << i)) 
+		if (index & (1 << i))
 			ft_dprintf(STDERR_FILENO, "Error [line %ld]: %s\n", line, error[i]);
 		i++;
 	}
 }
 
-int	hub_verification_map(t_state_machine *machine, t_vector *line, unsigned long nb_line)
+int		hub_verification_map(t_state_machine *machine, t_vector *line,
+								unsigned long nb_line)
 {
 	int	ret;
 
@@ -49,5 +51,5 @@ int	hub_verification_map(t_state_machine *machine, t_vector *line, unsigned long
 		printf_errors(machine->information, nb_line + 1); //regler le probleme de ligne pas bonne
 		return (FAILURE);
 	}
-	return (ret);		
+	return (ret);
 }

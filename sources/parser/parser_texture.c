@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:41:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:57:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-void	what_bitwaze(t_state_machine *machine, int index)
+void		what_bitwaze(t_state_machine *machine, int index)
 {
 	ft_printf("WHAT BITWAZE\n"); //	
 	if (index == 0)
@@ -59,8 +59,8 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 
 static void	final_path(t_vector *cpy_vct, char *ret_str, t_vector *vct)
 {
-	size_t	clen;
-	char	*ret_cpy;
+	size_t		clen;
+	char		*ret_cpy;
 	t_vector	*new_vct;
 
 	new_vct = vct_new();
@@ -78,16 +78,15 @@ static void	final_path(t_vector *cpy_vct, char *ret_str, t_vector *vct)
 	free(ret_cpy);
 }
 
-int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
+int			texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 {
-	int	ret;
-	char	*ret_str;
-	size_t	len;
-	int		count_path;
+	int			ret;
+	char		*ret_str;
+	size_t		len;
+	int			count_path;
 	t_vector	*cpy_vct;
 	
-
-	cpy_vct = vct_new();	
+	cpy_vct = vct_new();
 	ft_printf("TEXTURE_DETAILS\n"); //
 	ret = TRUE;
 	len = ft_strlen(str_texture);
@@ -102,7 +101,7 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	return (ret);
 }
 
-int	is_texture(t_vector *vct, char **tab_texture)
+int			is_texture(t_vector *vct, char **tab_texture)
 {
 	int		ret;
 	char	*ret_str;
@@ -118,7 +117,7 @@ int	is_texture(t_vector *vct, char **tab_texture)
 								vct_getlen(vct));
 		if (ret_str != NULL)
 			break ;
-		index ++;
+		index++;
 	}
 	if (ret_str == NULL)
 	{

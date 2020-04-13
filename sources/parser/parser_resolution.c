@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 16:05:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:51:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_next_or_error_resolution(t_vector *vct)
+int			is_next_or_error_resolution(t_vector *vct)
 {
 	char	*str;
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/10 23:12:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:49:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_cub3d(t_state_machine *machine, int fd)
 	return (SUCCESS);
 }
 
-int	main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int				fd;
 	t_state_machine	machine;
