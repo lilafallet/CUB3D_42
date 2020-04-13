@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 21:19:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/13 19:41:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,11 @@ int				is_texture(t_vector *vct, char **tab_texture);
 void			what_bitwaze(t_state_machine *machine, int index);
 int				texture_details(t_vector *texture, t_vector *vct,
 									char *str_texture);
+int				process_texture(int ret, t_vector *vct, char **tab_texture);
+void			is_next_error(int ret, t_state_machine *machine, int index,
+								t_vector *vct);
+int				texture_next_error(t_vector *vct, char **str_texture,
+									int index);
+int				process_texture(int ret, t_vector *vct, char **tab_texture);
 
 #endif

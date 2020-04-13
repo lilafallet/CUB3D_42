@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/11 14:53:41 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/12 21:19:31 by lfallet          ###   ########.fr       */
+/*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
+/*   Updated: 2020/04/13 19:41:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,55 @@ void	what_bitwaze(t_state_machine *machine, int index)
 	printf("machine->information = %lu\n", machine->information); //
 }
 
+static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
+{
+	int	ret;
+	int	count_path;
+
+	ft_printf("PROCESS_SPLIT\n"); //
+	count_path = 0;
+	ret = TRUE;
+	while ((texture = vct_split(vct, "./", ALL_SEP)) != NULL)
+	{
+		if (count_path == 1)
+		{
+			*ret_str = vct_strdup(texture);
+			ret = (vct_apply(texture, IS_ASCII) == FALSE) ? ERROR : TRUE | NEXT;
+		}
+		if (ft_strequ(vct_getstr(texture), "./") == TRUE)
+			count_path++;
+		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
+		{
+			ret = ERROR;
+			break ;
+		}
+		vct_del(&texture);
+	}
+	vct_del(&texture);
+	return (ret);
+}
+
+static void	final_path(t_vector *cpy_vct, char *ret_str, t_vector *vct)
+{
+	size_t	clen;
+	char	*ret_cpy;
+	t_vector	*new_vct;
+
+	new_vct = vct_new();
+	clen = vct_clen(cpy_vct, '/');
+	ret_cpy = vct_getstr(cpy_vct);
+	ret_cpy = ft_strdup(ret_cpy + clen + 1);
+	free(ret_str);
+	ret_str = vct_getstr(cpy_vct);
+	ret_str = ft_strdup(ret_str + clen + 1);
+	vct_addstr(new_vct, ret_str);
+	vct_cpy(vct, new_vct);
+	vct_del(&cpy_vct);
+	vct_del(&new_vct);
+	free(ret_str);
+	free(ret_cpy);
+}
+
 int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 {
 	int	ret;
@@ -36,93 +85,21 @@ int	texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	size_t	len;
 	int		count_path;
 	t_vector	*cpy_vct;
-	char		*ret_cpy;
-	t_vector	*new_vct;
-	size_t		clen;
 	
 
+	cpy_vct = vct_new();	
 	ft_printf("TEXTURE_DETAILS\n"); //
 	ret = TRUE;
-	cpy_vct = vct_new();	
-	new_vct = vct_new();
 	len = ft_strlen(str_texture);
 	count_path = 0;
 	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct));
 	vct_addstr(cpy_vct, ret_str + len);
 	ret_str = NULL;
-	while ((texture = vct_split(cpy_vct, "./", ALL_SEP)) != NULL)
-	{
-		if (count_path == 1)
-		{
-			free(ret_str);
-			ret_str = vct_strdup(texture);
-			ft_printf("texture->str = %s\n", vct_getstr(texture)); //
-			ft_printf("cpy_vct->str = %s\n", vct_getstr(cpy_vct)); //
-			ft_printf("AFTER PATH\n");
-			if (vct_apply(texture, IS_ASCII) == FALSE)
-				ft_printf("ASCII IS FALSE\n"); //
-			else
-			{
-				ft_printf("ASCII IS TRUE\n"); //
-				ret = TRUE | NEXT;
-				break ;
-			}
-		}
-		if (ft_strequ(vct_getstr(texture), "./") == TRUE)
-		{
-			//ft_printf("FIND PATH\n"); //
-			count_path++;
-		}
-		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
-		{
-		//	ft_printf("BEFORE PATH AND NOT WHITESPACE\n"); //
-			ret = ERROR;
-			break ;
-		}
-		vct_del(&texture);
-	}
+	free(ret_str);
+	ret = process_split(texture, cpy_vct, &ret_str);
 	vct_del(&texture);
-	clen = vct_clen(cpy_vct, '/'); //peut etre faire une nouvelle variable ?
-	ft_printf("cpy_vct->str end = %s\n", vct_getstr(cpy_vct)); //
-	ft_printf("ret_str = %s\n", ret_str); //
-	ft_printf("clen = %d\n", clen); //
-	ret_cpy = vct_getstr(cpy_vct);
-	ret_cpy = ft_strdup(ret_cpy + clen + 1);
-	ft_printf("YOUHOOOOOU\n"); //
-	ft_printf("IS FALSE\n"); //
-	free(ret_str);
-	ret_str = vct_getstr(cpy_vct);
-	ret_str = ft_strdup(ret_str + clen + 1);
-	ft_printf("ret_str = %s\n", ret_str); //
-	vct_addstr(new_vct, ret_str);
-	vct_cpy(vct, new_vct);
-	vct_del(&cpy_vct);
-	vct_del(&new_vct);
-	free(ret_str);
-	free(ret_cpy);
+	final_path(cpy_vct, ret_str, vct);
 	return (ret);
-}
-
-static int	texture_next_error(t_vector *vct, char **str_texture, int index)
-{
-	size_t	len;
-	char	*cpy_texture;
-	size_t	i;
-
-	ft_printf("TEXTURE_NEXT_ERROR\n"); //	
-	i = 0;
-	cpy_texture = ft_memdup(vct_getstr(vct), vct_getlen(vct));
-	len = vct_clen(vct, str_texture[index][0]);
-	while (i < len)
-	{
-		if (ft_iswhitespace(cpy_texture[i]) == FALSE)
-			break ;
-		i++;
-	}
-	if (len != i )
-		index = NO_CHAR;
-	free(cpy_texture);
-	return (index);
 }
 
 int	is_texture(t_vector *vct, char **tab_texture)
