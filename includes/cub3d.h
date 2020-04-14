@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 20:54:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 15:32:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,20 +170,19 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 void			ft_free(t_state_machine *machine, t_vector *line);
 int				first_parser(t_state_machine *machine, t_vector *line);
 void			printf_errors(unsigned long flag, unsigned long line);
-int				resolution_details(t_vector *resol, char **str_resolution,
+int				split_resolution(t_vector *resol, char **str_resolution,
 									t_vector *vct);
 int				is_next_or_error_resolution(t_vector *vct);
 int				is_resolution(t_vector *resol, t_vector *vct);
-int				is_true_and_next(t_state_machine *machine, int ret);
+int				init_machine_resolution(t_state_machine *machine, int ret);
 int				is_texture(t_vector *vct, char **tab_texture);
 void			what_bitwaze(t_state_machine *machine, int index);
-int				texture_details(t_vector *texture, t_vector *vct,
+int				pre_process_split(t_vector *texture, t_vector *vct,
 									char *str_texture);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
-void			is_next_error(int ret, t_state_machine *machine, int index,
-								t_vector *vct);
-int				texture_next_error(t_vector *vct, char **str_texture,
-									int index);
+int				clean_before(t_vector *vct, char **str_texture, int index);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
+void			init_machine_texture(int ret, t_state_machine *machine,
+										int index, t_vector *vct);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 12:56:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 17:03:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void		what_bitwaze(t_state_machine *machine, int index)
 {
-	ft_printf("WHAT BITWAZE\n"); //	
 	if (index == 0)
 		machine->information |= BT_NO;
 	else if (index == 1)
@@ -26,7 +25,6 @@ void		what_bitwaze(t_state_machine *machine, int index)
 		machine->information |= BT_EA;
 	else if (index == 4)
 		machine->information |= BT_SPR;
-	printf("machine->information = %lu\n", machine->information); //
 }
 
 static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
@@ -34,21 +32,23 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 	int	ret;
 	int	count_path;
 
-	ft_printf("PROCESS_SPLIT\n"); //
 	count_path = 0;
 	ret = TRUE;
 	while ((texture = vct_split(vct, "./", ALL_SEP)) != NULL)
 	{
 		if (count_path == 1)
 		{
-			*ret_str = vct_strdup(texture);
+			free(*ret_str);
+			*ret_str = vct_strdup(texture); /*path apres le "./"*/
 			ret = (vct_apply(texture, IS_ASCII) == FALSE) ? ERROR : TRUE | NEXT;
+			/*si str comporte des char non ascii alors c'est une erreur*/
+			break ; 
 		}
 		if (ft_strequ(vct_getstr(texture), "./") == TRUE)
-			count_path++;
+			count_path++; /*on a trouve le path*/
 		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
 		{
-			ret = ERROR;
+			ret = ERROR; /*char indesirable avant le path*/
 			break ;
 		}
 		vct_del(&texture);
@@ -57,28 +57,25 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 	return (ret);
 }
 
-static void	final_path(t_vector *cpy_vct, char *ret_str, t_vector *vct)
+static void	final_path(t_vector *cpy_vct, t_vector *vct)
 {
 	size_t		clen;
 	char		*ret_cpy;
-	t_vector	*new_vct;
 
-	new_vct = vct_new();
-	clen = vct_clen(cpy_vct, '/');
+	clen = vct_clen(cpy_vct, '/'); /*permet d'avoir l'indice*/
 	ret_cpy = vct_getstr(cpy_vct);
-	ret_cpy = ft_strdup(ret_cpy + clen + 1);
-	free(ret_str);
-	ret_str = vct_getstr(cpy_vct);
-	ret_str = ft_strdup(ret_str + clen + 1);
-	vct_addstr(new_vct, ret_str);
-	vct_cpy(vct, new_vct);
+	ret_cpy = ft_strdup(ret_cpy + clen + 1); /*permet d'avoir la string apres le
+	"./"*/
 	vct_del(&cpy_vct);
-	vct_del(&new_vct);
-	free(ret_str);
+	cpy_vct = vct_new();
+	vct_addstr(cpy_vct, ret_cpy); /*ajout de la nouvelle chaine qui permet
+	d'avoir plusieurs "./"*/
+	vct_cpy(vct, cpy_vct);
+	vct_del(&cpy_vct);
 	free(ret_cpy);
 }
 
-int			texture_details(t_vector *texture, t_vector *vct, char *str_texture)
+int			pre_process_split(t_vector *texture, t_vector *vct, char *str_texture)
 {
 	int			ret;
 	char		*ret_str;
@@ -87,17 +84,21 @@ int			texture_details(t_vector *texture, t_vector *vct, char *str_texture)
 	t_vector	*cpy_vct;
 	
 	cpy_vct = vct_new();
-	ft_printf("TEXTURE_DETAILS\n"); //
 	ret = TRUE;
 	len = ft_strlen(str_texture);
 	count_path = 0;
-	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct));
-	vct_addstr(cpy_vct, ret_str + len);
+	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct)); /*copie
+	dans ret_str de la ligne jusqu'au premier charactere de NO,SO,WE,EA ou S*/
+	vct_addstr(cpy_vct, ret_str + len); /*cpy_vct = ret_str apres l'indicateur*/
 	ret_str = NULL;
 	free(ret_str);
-	ret = process_split(texture, cpy_vct, &ret_str);
+	ret = process_split(texture, cpy_vct, &ret_str); /*fonction qui va permettre
+	de trouver le path + voir si char indesirable apres l'indicateur +
+	ret_str = path apres le "./"*/
 	vct_del(&texture);
-	final_path(cpy_vct, ret_str, vct);
+	final_path(cpy_vct, vct); /*fonction qui permet d'avoir un path qui contient
+	plus d'un "./"*/
+	free(ret_str);
 	return (ret);
 }
 
@@ -107,24 +108,24 @@ int			is_texture(t_vector *vct, char **tab_texture)
 	char	*ret_str;
 	int		index;
 
-	ft_printf("IS_TEXTURE\n"); //	
 	ret = TRUE;
 	ret_str = NULL;
 	index = 0;
-	while (index < 5)
+	while (index < 5) 
 	{
+		/*chercher "NO", "SO", "WE", "EA", "S"*/
 		ret_str = ft_strnstr(vct_getstr(vct), tab_texture[index],
 								vct_getlen(vct));
 		if (ret_str != NULL)
 			break ;
-		index++;
+		index++; /*recuperation de l'index*/
 	}
 	if (ret_str == NULL)
+		ret = NO_CHAR;
+	else if (ret_str != NULL)
 	{
-		index++;
-		ret = index;
+		ret = clean_before(vct, tab_texture, index); /*savoir si char
+		indesirable avant NO, SO, WE, EA, S*/
 	}
-	if (ret_str != NULL)
-		ret = texture_next_error(vct, tab_texture, index);
 	return (ret);
 }

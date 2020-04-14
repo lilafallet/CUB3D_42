@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:53:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 16:39:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,19 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
 	ret = TRUE;
-	ret = is_resolution(resol, cpy_vct);
-	if (ret != ERROR && ret != NEXT)
-		ret = resolution_details(resol, machine->info.str_resolution, cpy_vct);
+	ret = is_resolution(resol, cpy_vct); /*appelle fonction qui va permettre de
+	dire si il s'agit de la resolution ou non (TRUE ou ERROR)*/
+	if (ret != ERROR && ret != NEXT) /*si il s'agit bien de la resolution*/
+	{
+		ret = split_resolution(resol, machine->info.str_resolution, cpy_vct);
+		/*utilisation de la fonction split pour trouver chaque nombre et
+		determine si 2 nombres ou plus ou moins (ERROR)*/
+	}
 	if (ret & NEXT)
-		ret = is_true_and_next(machine, ret);
+	{
+		ret = init_machine_resolution(machine, ret); /*initialisation de
+		machine->state et machine->information*/
+	}
 	if (ret & ERROR)
 		machine->information |= ERROR_RESOLUTION;
 	vct_del(&cpy_vct);
@@ -41,14 +49,30 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	t_vector	*cpy_vct;
 	char		*tab_texture[5] = {"NO", "SO", "WE", "EA", "S"};
 	int			index;
+	t_vector	*texture;
 
 	ft_printf("PARSER_TEXTURE\n"); //
+	texture = vct_new();
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	ret = is_texture(cpy_vct, tab_texture);
-	index = ret;
-	ret = process_texture(ret, cpy_vct, tab_texture);
-	is_next_error(ret, machine, index, cpy_vct);
+	ret = is_texture(cpy_vct, tab_texture); /*appelle fonction qui va permettre
+	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
+	index = ret; /*ret vaut l'indice du tableau des textures
+	0 = NO
+	1 = SO
+	2 = WE
+	3 = EA
+	4 = SPR*/
+	if (ret >= 0 && ret <= 4) /*TRUE*/
+	{
+		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]); /*utilisation
+		de la fonction split pour trouver le path et integration du path dans
+		la machine*/
+	}
+	else /*pas trouve "NO, "SO", "WE", "EA" ou "S"*/
+		ret = ERROR;
+	init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
+	machine->state et machine->information*/
 	vct_del(&cpy_vct);
 	return (ret);
 }
