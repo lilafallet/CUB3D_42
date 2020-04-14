@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 15:32:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 18:20:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@
 # define ERR4				"Bad map = voir ce qu'il faut faire\n"
 
 # define STRING_CHECK_R		"SFCNSEW"
+# define STRING_SPACE_TAB " \t"
 
 # define BUFFER_SIZE 4096
 
@@ -109,6 +110,11 @@
 # define NB_RESOLUTION 2
 # define ALL 5
 # define NB_POSITION_MAP 1
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define S 4
 
 # define INDEX_RESOLUTION_X 0
 # define INDEX_RESOLUTION_Y 1

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 16:39:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 18:16:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 {
 	int			ret;
 	t_vector	*cpy_vct;
-	char		*tab_texture[5] = {"NO", "SO", "WE", "EA", "S"};
+	char		*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
 	int			index;
 	t_vector	*texture;
 
@@ -63,7 +63,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	2 = WE
 	3 = EA
 	4 = SPR*/
-	if (ret >= 0 && ret <= 4) /*TRUE*/
+	if (ret >= NO && ret <= S) /*TRUE*/
 	{
 		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]); /*utilisation
 		de la fonction split pour trouver le path et integration du path dans

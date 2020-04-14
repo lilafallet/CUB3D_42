@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 16:59:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 18:19:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 
 	ret = NEXT | TRUE;
 	count = 0;
-	while ((resol = vct_split(vct, " \t", ALL_SEP)) != NULL)
+	while ((resol = vct_split(vct, STRING_SPACE_TAB, ALL_SEP)) != NULL)
 	{
 		if (vct_apply(resol, IS_DIGIT) == TRUE) /*si numero*/
 		{
@@ -77,7 +77,7 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 		}
 		vct_del(&resol);
 	}
-	if (count != 2)
+	if (count != NB_RESOLUTION)
 		ret = ERROR;
 	vct_del(&resol);
 	return (ret);
@@ -99,10 +99,10 @@ int	is_resolution(t_vector *resol, t_vector *vct)
 	int	ret;
 
 	ret = TRUE;
-	if (vct_chr(vct, 'R') == FAILURE)
+	if (vct_chr(vct, CHAR_RESOLUTION) == FAILURE)
 		return (NEXT);
-	resol = vct_splitchr(vct, 'R');
-	if ((vct_getfirstchar(vct) != ' ') && (vct_getfirstchar(vct) != '\t'))
+	resol = vct_splitchr(vct, CHAR_RESOLUTION);
+	if ((vct_getfirstchar(vct) != SPACE) && (vct_getfirstchar(vct) != TAB))
 	{
 		vct_del(&resol); /*si il n'y a pas d'espace/tab ou si il y'a un
 		caractere indesirable*/

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 17:03:07 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 18:23:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 void		what_bitwaze(t_state_machine *machine, int index)
 {
-	if (index == 0)
+	if (index == NO)
 		machine->information |= BT_NO;
-	else if (index == 1)
+	else if (index == SO)
 		machine->information |= BT_SO;
-	else if (index == 2)
+	else if (index == WE)
 		machine->information |= BT_WE;
-	else if (index == 3)
+	else if (index == EA)
 		machine->information |= BT_EA;
-	else if (index == 4)
+	else if (index == S)
 		machine->information |= BT_SPR;
 }
 
@@ -34,7 +34,7 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 
 	count_path = 0;
 	ret = TRUE;
-	while ((texture = vct_split(vct, "./", ALL_SEP)) != NULL)
+	while ((texture = vct_split(vct, PATH, ALL_SEP)) != NULL)
 	{
 		if (count_path == 1)
 		{
@@ -44,7 +44,7 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 			/*si str comporte des char non ascii alors c'est une erreur*/
 			break ; 
 		}
-		if (ft_strequ(vct_getstr(texture), "./") == TRUE)
+		if (ft_strequ(vct_getstr(texture), PATH) == TRUE)
 			count_path++; /*on a trouve le path*/
 		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
 		{
@@ -62,7 +62,7 @@ static void	final_path(t_vector *cpy_vct, t_vector *vct)
 	size_t		clen;
 	char		*ret_cpy;
 
-	clen = vct_clen(cpy_vct, '/'); /*permet d'avoir l'indice*/
+	clen = vct_clen(cpy_vct, SLASH); /*permet d'avoir l'indice*/
 	ret_cpy = vct_getstr(cpy_vct);
 	ret_cpy = ft_strdup(ret_cpy + clen + 1); /*permet d'avoir la string apres le
 	"./"*/
@@ -111,7 +111,7 @@ int			is_texture(t_vector *vct, char **tab_texture)
 	ret = TRUE;
 	ret_str = NULL;
 	index = 0;
-	while (index < 5) 
+	while (index < NB_TEXTURE) 
 	{
 		/*chercher "NO", "SO", "WE", "EA", "S"*/
 		ret_str = ft_strnstr(vct_getstr(vct), tab_texture[index],
