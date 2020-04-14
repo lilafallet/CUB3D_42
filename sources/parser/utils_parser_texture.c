@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:59:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/14 12:49:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int		process_texture(int ret, t_vector *vct, char **tab_texture)
 	if (ret >= 0 && ret <= 4)
 		ret = texture_details(texture, vct, tab_texture[ret]);
 	else
+	{
+		vct_del(&texture);
 		ret = (ret == NO_CHAR ? ERROR : NEXT | TRUE);
+	}
 	return (ret);
 }
