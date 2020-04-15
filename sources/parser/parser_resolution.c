@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 18:57:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 19:15:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 	count = 0;
 	while ((resol = vct_split(vct, STRING_SPACE_TAB, ALL_SEP)) != NULL)
 	{
-		ft_printf("SPLIT_RESOLUTION -> resol->str = %s\n", vct_getstr(resol)); //
 		if (vct_apply(resol, IS_DIGIT) == TRUE) /*si numero*/
 		{
 			count++;
@@ -103,7 +102,6 @@ int	is_resolution(t_vector *resol, t_vector *vct)
 	if (vct_chr(vct, CHAR_RESOLUTION) == FAILURE)
 		return (NEXT);
 	resol = vct_splitchr(vct, CHAR_RESOLUTION);
-	ft_printf("IS_RESOLUTION -> resol->str = %s\n", vct_getstr(resol)); //
 	if ((vct_getfirstchar(vct) != SPACE) && (vct_getfirstchar(vct) != TAB))
 	{
 		vct_del(&resol); /*si il n'y a pas d'espace/tab ou si il y'a un

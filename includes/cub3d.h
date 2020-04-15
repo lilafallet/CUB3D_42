@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 14:45:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 19:01:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ typedef struct	s_info
 	char			*str_text_so;
 	char			*str_text_we;
 	char			*str_text_ea;
-	char			*str_color_f[NB_COLOR];
-	char			*str_color_c[NB_COLOR];
+	int				tab_color_f[NB_COLOR];
+	int				tab_color_c[NB_COLOR];
 	char			*str_map[BUFFER_SIZE];
 	char			str_position[NB_POSITION_MAP];
 	char			pad[7];
@@ -193,6 +193,8 @@ int				process_texture(int ret, t_vector *vct, char **tab_texture);
 void			init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
 int				is_color(t_vector *vct, char **tab_color);
-int				pre_split_color(t_vector *vct, char *str);
+int				pre_split_color(t_vector *vct, char *str,
+									t_state_machine *machine);
+void			init_machine_color(t_state_machine *machine, int ret);
 
 #endif

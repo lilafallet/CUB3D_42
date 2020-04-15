@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 14:45:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 19:18:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,10 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	else /*si pas trouve F ou C*/
 		ret = NEXT;
 	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
-		ret = pre_split_color(cpy_vct, tab_color[index]);
+		ret = pre_split_color(cpy_vct, tab_color[index], machine);
+	if (ret == ERROR)
+		machine->information |= ERROR_COLOR;
 	vct_del(&cpy_vct);
-	if (ret == ERROR) //
-	{
-		ft_printf("RET ============================================= ERROR\n"); //
-		//machine->information |= ERROR_COLOR;
-	}
 	return (ret);	
 }
 

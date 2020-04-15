@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 16:20:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 19:22:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	is_color(t_vector *vct, char **tab_color)
 			break ;
 		index++; /*recup index qui va determiner si il s'agit de F ou de G*/
 	}
-	ft_printf("IS_COLOR -> index = %d\n", index); //
 	return (index);
 }
 
@@ -49,11 +48,10 @@ static int	verif_before(t_vector *vct, size_t clen)
 	return (ret);
 }
 
-static int	error_or_true(t_vector *color, size_t count_loops)
+static int	error_or_true(t_vector *color, size_t count_loops, size_t count_num)
 {
 	int				ret;
 
-	printf("SPLIT_COLOR -> count_loops = %zu\n", count_loops); //
 	ret = TRUE;
 	if ((count_loops == 0 || count_loops == 6) &&
 			vct_apply(color, IS_WHITESPACE) == FALSE)
@@ -66,11 +64,55 @@ static int	error_or_true(t_vector *color, size_t count_loops)
 	else if ((count_loops == 3 || count_loops == 5) && vct_apply(color,
 				IS_WHITESPACEDIGIT) == FALSE)
 		ret = ERROR;
+	if (count_num != NB_COLOR && count_loops > 5)
+		ret = ERROR; 
 	count_loops++;
 	return (ret);
 }
 
-static int	split_color(t_vector *vct, char *str)
+static int	recuperation_color(t_vector *color, char type_color,
+								t_state_machine *machine)
+{
+	int	ret;
+	int	num;
+	static size_t	index = 0;
+	
+	ret = TRUE;
+	num = ft_atoi(vct_getstr(color));
+	if (num < 0 || num > 255)
+		ret = ERROR;
+	if (type_color == 'F')
+	{
+		machine->info.tab_color_f[index] = num;
+		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
+				index, machine->info.tab_color_f[index]); //
+		ret = TRUE;
+		index++;
+	}
+	else
+	{
+		machine->info.tab_color_c[index] = num;	
+		printf("RECUPERATION_COLOR -> machine->info.tab_color_c[%zu] = %d\n",
+				index, machine->info.tab_color_c[index]); //
+		ret = TRUE;
+		index++;
+	}	
+	if (index == NB_COLOR && ret != ERROR)
+	{
+		if (type_color == 'F')
+			machine->information |= BT_COLOR_F;	
+		else
+			machine->information |= BT_COLOR_C;	
+		if (((machine->information & BT_COLOR_F) == TRUE) &&
+				((machine->information & BT_COLOR_C == TRUE)))
+			machine->state = MAP;
+		index = 0;
+	}
+	return (ret);
+}
+
+static int	split_color(t_vector *vct, char *str, char type_color,
+							t_state_machine *machine)
 {
 	int	ret;
 	t_vector	*color;
@@ -78,7 +120,6 @@ static int	split_color(t_vector *vct, char *str)
 	size_t		count_num;
 	size_t		count_loops;
 
-	color = vct_new();
 	cpy_vct = vct_new();
 	vct_addstr(cpy_vct, str);
 	ret = TRUE;
@@ -86,34 +127,41 @@ static int	split_color(t_vector *vct, char *str)
 	count_loops = 0;
 	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
 	{
-		ret = error_or_true(color, count_loops);
-		ft_printf("SPLIT_COLOR -> color->str = %s\n", vct_getstr(color));
+		ret = error_or_true(color, count_loops, count_num);
 		if (ret == ERROR)
 			break ;
+		if (vct_apply(color, IS_DIGIT) == TRUE && count_loops != 0)
+		{
+			ret = recuperation_color(color, type_color, machine);	
+			count_num++;
+			if (ret == ERROR)
+				break ;
+		}
 		count_loops++;
 		vct_del(&color);
 	}
 	vct_del(&cpy_vct);
+	vct_del(&color);
 	return (ret);
 }
 
-int	pre_split_color(t_vector *vct, char *str)
+int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 {
 	size_t	clen;
 	int		ret;
 	char	*str_clen;
+	char	type_color;
 
 	ret = TRUE; //
 	str_clen = NULL;
 	clen = vct_clen(vct, str[0]);
-	printf("SPLIT_COLOR -> clen = %zu\n", clen); //
+	type_color = vct_getcharat(vct, clen);
 	ret = verif_before(vct, clen); /*verif si char indesirable avant indic*/
 	if (ret == TRUE)
 	{
 		str_clen = vct_getstr(vct); /*ajoute vct->str a str_clen*/
 		str_clen = ft_strdup(str_clen + clen + 1); /*str_clen= str apres indic*/
-		ft_printf("SPLIT_COLOR -> str_clen = %s\n", str_clen); //
-		ret = split_color(vct, str_clen);
+		ret = split_color(vct, str_clen, type_color, machine);
 	}
 	free(str_clen);
 	return (ret);
