@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 17:01:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 12:28:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,22 @@ void	init_machine_texture(int ret, t_state_machine *machine, int index,
 						machine->info.str_texture[index]); //
 		}
 	}
+}
+
+int	next_or_error_texture(t_vector *vct)
+{
+	char	*tab_other[OTHER_TEXTURE] = {"R", "F", "C"};
+	size_t	index;
+	char	*str;
+
+	index = 0;
+	str = NULL;
+	while (index < OTHER_TEXTURE)
+	{
+		str = ft_strnstr(vct_getstr(vct), tab_other[index], vct_getlen(vct));
+		if (str != NULL)
+			break ;
+		index++;
+	}
+	return (str == NULL ? ERROR : NEXT);
 }

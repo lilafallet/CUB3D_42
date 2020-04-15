@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 18:20:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 12:29:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@
 # define WE 2
 # define EA 3
 # define S 4
+# define NB_INDIC_COLOR 2 
+# define OTHER_TEXTURE 3
 
 # define INDEX_RESOLUTION_X 0
 # define INDEX_RESOLUTION_Y 1
@@ -190,5 +192,7 @@ int				clean_before(t_vector *vct, char **str_texture, int index);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
 void			init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
+int				is_color(t_vector *vct, char **tab_color);
+int				next_or_error_texture(t_vector *vct);
 
 #endif

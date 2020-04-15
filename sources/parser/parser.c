@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 18:16:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 12:31:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	ret = is_texture(cpy_vct, tab_texture); /*appelle fonction qui va permettre
 	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
+	ft_printf("PARSER_TEXTURE -> ret = %d\n", ret); //
 	index = ret; /*ret vaut l'indice du tableau des textures
 	0 = NO
 	1 = SO
@@ -70,42 +71,26 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		la machine*/
 	}
 	else /*pas trouve "NO, "SO", "WE", "EA" ou "S"*/
-		ret = ERROR;
+		ret = next_or_error_texture(cpy_vct);
 	init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
 	machine->state et machine->information*/
 	vct_del(&cpy_vct);
+	vct_del(&texture);
 	return (ret);
 }
 
 static int	parser_color(t_vector *vct, t_state_machine *machine)
 {
-	size_t	i;
-	int		ret;
+	int	ret;
+	t_vector	*cpy_vct;
+	char	*tab_color[NB_INDIC_COLOR] = {"F", "G"};
 
-	i = 0;
-	ret = NEXT;
-	ft_printf("PARSER_COLOR\n"); //
-	(void)vct;
-	/*while (str[i] != '\0')
-	{
-		if (str[i] == CHAR_F_COLOR)
-		{
-			ret = hub_recup_color(str, i, machine, str[i], COLOR_F);
-			if (ret == FAILURE)
-				machine->information |= ERROR_COLOR;
-			return (ret);
-		}
-		else if (str[i] == CHAR_C_COLOR)
-		{
-			ret = hub_recup_color(str, i, machine, str[i], COLOR_C);
-			if (ret == FAILURE)
-				machine->information |= ERROR_COLOR;
-			return (ret);
-		}
-		i++;
-	}*/
-	machine->state = MAP;
-	return (ret);
+	cpy_vct = vct_new();
+	vct_cpy(cpy_vct, vct);
+	ret = is_color(cpy_vct, tab_color);
+	
+	vct_del(&cpy_vct);
+	return (ret);	
 }
 
 static int	parser_map(t_vector *vct, t_state_machine *machine)
