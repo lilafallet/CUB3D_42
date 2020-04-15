@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 12:31:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 14:45:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	ret = is_texture(cpy_vct, tab_texture); /*appelle fonction qui va permettre
 	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
-	ft_printf("PARSER_TEXTURE -> ret = %d\n", ret); //
 	index = ret; /*ret vaut l'indice du tableau des textures
 	0 = NO
 	1 = SO
@@ -70,8 +69,8 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		de la fonction split pour trouver le path et integration du path dans
 		la machine*/
 	}
-	else /*pas trouve "NO, "SO", "WE", "EA" ou "S"*/
-		ret = next_or_error_texture(cpy_vct);
+	else
+		ret = NEXT;
 	init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
 	machine->state et machine->information*/
 	vct_del(&cpy_vct);
@@ -81,15 +80,27 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 
 static int	parser_color(t_vector *vct, t_state_machine *machine)
 {
-	int	ret;
+	int			ret;
 	t_vector	*cpy_vct;
-	char	*tab_color[NB_INDIC_COLOR] = {"F", "G"};
+	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
+	int			index;
 
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);
-	
+	index = ret;
+	if (ret <= COLOR_F && ret >= COLOR_C) /*si F ou C*/
+		ret = TRUE;
+	else /*si pas trouve F ou C*/
+		ret = NEXT;
+	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
+		ret = pre_split_color(cpy_vct, tab_color[index]);
 	vct_del(&cpy_vct);
+	if (ret == ERROR) //
+	{
+		ft_printf("RET ============================================= ERROR\n"); //
+		//machine->information |= ERROR_COLOR;
+	}
 	return (ret);	
 }
 

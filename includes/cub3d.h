@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 12:29:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 14:45:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@
 
 # define MINUS '-'
 
-# define COLOR_C 1
-# define COLOR_F 2
+# define COLOR_C 0
+# define COLOR_F 1
 
 # include "libft.h"
 
@@ -193,6 +193,6 @@ int				process_texture(int ret, t_vector *vct, char **tab_texture);
 void			init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
 int				is_color(t_vector *vct, char **tab_color);
-int				next_or_error_texture(t_vector *vct);
+int				pre_split_color(t_vector *vct, char *str);
 
 #endif
