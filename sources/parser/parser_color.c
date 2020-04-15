@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 15:31:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/15 16:20:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,48 @@ static int	verif_before(t_vector *vct, size_t clen)
 	}
 	return (ret);
 }
-	
+
+static int	error_or_true(t_vector *color, size_t count_loops)
+{
+	int				ret;
+
+	printf("SPLIT_COLOR -> count_loops = %zu\n", count_loops); //
+	ret = TRUE;
+	if ((count_loops == 0 || count_loops == 6) &&
+			vct_apply(color, IS_WHITESPACE) == FALSE)
+		ret = ERROR;
+	else if (count_loops == 1 && vct_apply(color, IS_DIGIT) == FALSE)
+		ret = ERROR;
+	else if ((count_loops == 2 || count_loops == 4) && vct_apply(color,
+				IS_WHITESPACECOMA) == FALSE)
+		ret = ERROR;
+	else if ((count_loops == 3 || count_loops == 5) && vct_apply(color,
+				IS_WHITESPACEDIGIT) == FALSE)
+		ret = ERROR;
+	count_loops++;
+	return (ret);
+}
+
 static int	split_color(t_vector *vct, char *str)
 {
 	int	ret;
 	t_vector	*color;
 	t_vector	*cpy_vct;
-	size_t		count_loops;
 	size_t		count_num;
-	
+	size_t		count_loops;
+
 	color = vct_new();
 	cpy_vct = vct_new();
 	vct_addstr(cpy_vct, str);
 	ret = TRUE;
-	count_loops = 0;
 	count_num = 0;
-	while ((color = vct_split(cpy_vct, ",_", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
+	count_loops = 0;
+	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
 	{
-		if (count_loops == 0 && vct_apply(color, IS_WHITESPACE) == FALSE)
-			ret = ERROR;
-		else if (count_loops == 1 && vct_apply(color, IS_DIGIT) == FALSE)
-			ret = ERROR;
+		ret = error_or_true(color, count_loops);
 		ft_printf("SPLIT_COLOR -> color->str = %s\n", vct_getstr(color));
+		if (ret == ERROR)
+			break ;
 		count_loops++;
 		vct_del(&color);
 	}
@@ -82,7 +102,7 @@ int	pre_split_color(t_vector *vct, char *str)
 	size_t	clen;
 	int		ret;
 	char	*str_clen;
-	
+
 	ret = TRUE; //
 	str_clen = NULL;
 	clen = vct_clen(vct, str[0]);
