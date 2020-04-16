@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 15:35:07 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 16:24:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int				pre_process_split(t_vector *texture, t_vector *vct,
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
 int				clean_before(t_vector *vct, char **str_texture, int index);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
-void			init_machine_texture(int ret, t_state_machine *machine,
+int				init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
 int				is_color(t_vector *vct, char **tab_color);
 int				pre_split_color(t_vector *vct, char *str,

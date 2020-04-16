@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:12:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 16:39:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	}
 	else
 		ret = NEXT;
-	init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
+	ret = init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
 	machine->state et machine->information*/
+	ft_printf("machine->information.str_texture[%d] = %s\n", index,
+				machine->info.str_texture[index]); //
 	vct_del(&cpy_vct);
 	vct_del(&texture);
 	return (ret);
@@ -103,6 +105,9 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	}
 	if (ret == ERROR)
 		machine->information |= ERROR_COLOR;
+	if (ret == TRUE && ((machine->information & BT_COLOR_F == FALSE ||
+			machine->information & BT_COLOR_C == FALSE)))
+		ret = ERROR;
 	vct_del(&cpy_vct);
 	return (ret);	
 }
