@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 21:45:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 22:48:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 	size_t	index;
 	int		ret;
 
+	ft_printf("TU RENTRES ICI ?\n"); //
 	i = 0;
 	ret = 0;
 	while (i < 5)
@@ -29,7 +30,7 @@ static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 	}
 	tab_len[5] = vct_strlen(vct, "R");
 	index = ft_bubblesort_minindex(tab_len, 5);
-	if (index == 1 || index == 2)
+	if (index == 0 || index == 1 || index == 2)
 	{
 		machine->state = TEXTURE;
 		ret = NEXT;
@@ -42,7 +43,10 @@ static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
 			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
 			&& tab_len[4] == vct_getlen(vct))
+	{
+		ft_printf("RENTRE ICI 2\n"); //
 		ret = TRUE;
+	}
 	return (ret); 
 }
 

@@ -6,12 +6,52 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:39:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 22:43:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
+
+static int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
+{
+	char *tab_other_resolution[4] = {"R", "NO", "SO", "WE"};
+	size_t	tab_len[5];
+	size_t	i;
+	size_t	index;
+	int		ret;
+
+	i = 0;
+	ret = 0;
+	while (i < 4)
+	{
+		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
+		i++;
+	}
+	tab_len[4] = clen;
+	index = ft_bubblesort_minindex(tab_len, 5);
+	printf("WHAT_INFORMATION_COLOR -> len vct = %zu\n", vct_getlen(vct)); //
+	printf("WHAT_INFORMATION_COLOR -> len R = %zu\n", tab_len[0]); //
+	printf("WHAT_INFORMATION_COLOR -> len NO = %zu\n", tab_len[1]); //
+	printf("WHAT_INFORMATION_COLOR -> len SO = %zu\n", tab_len[2]); //
+	printf("WHAT_INFORMATION_COLOR -> len WE = %zu\n", tab_len[2]); //
+	printf("WHAT_INFORMATION_COLOR -> clen = %zu\n", tab_len[4]); //
+	printf("WHAT_INFORMATION_COLOR -> index = %zu\n", index); //
+	if (index == 0)
+	{
+		machine->state = RESOLUTION;
+		ret = NEXT;
+	} 
+	if (index == 1 || index == 2 || index == 3)
+	{
+		machine->state = TEXTURE;
+		ret = NEXT;
+	} 
+	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct))
+		ret = TRUE;
+	return (ret); 
+}
 
 int	is_color(t_vector *vct, char **tab_color)
 {
@@ -30,7 +70,7 @@ int	is_color(t_vector *vct, char **tab_color)
 	return (index);
 }
 
-static int	verif_before(t_vector *vct, size_t clen)
+static int	verif_before(t_vector *vct, size_t clen, t_state_machine *machine)
 {
 	size_t	i;
 	char	*str;
@@ -42,7 +82,11 @@ static int	verif_before(t_vector *vct, size_t clen)
 	while (i < clen)
 	{
 		if (str[i] != SPACE && str[i] != TAB)
-			ret = ERROR;
+		{
+			ret = what_information_color(vct, clen, machine);
+			if (ret == NEXT)
+				break ;
+		}
 		i++;
 	}
 	return (ret);
@@ -168,7 +212,7 @@ int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 	str_clen = NULL;
 	clen = vct_clen(vct, str[0]);
 	type_color = vct_getcharat(vct, clen); /*recuperation de F ou C*/
-	ret = verif_before(vct, clen); /*verif si char indesirable avant indic*/
+	ret = verif_before(vct, clen, machine); /*verif si char indesirable avant indic*/
 	if (ret == TRUE)
 	{
 		str_clen = vct_getstr(vct); /*ajoute vct->str a str_clen*/

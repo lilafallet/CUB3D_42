@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 20:44:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 22:51:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	t_vector	*cpy_vct;
 
 	ft_printf("PARSER_RESOLUTION\n"); //
+	if (machine->information & BT_RESOLUTION)
+		ret = ERROR;
+	ft_printf("PARSER_RESOLUTION -> ret = %d\n", ret); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
-	ret = TRUE;
-	ret = is_resolution(resol, cpy_vct, machine); /*appelle fonction qui va permettre de
+	if (ret != ERROR)
+		ret = is_resolution(resol, cpy_vct, machine); /*appelle fonction qui va permettre de
 	dire si il s'agit de la resolution ou non (TRUE ou ERROR)*/
 	if (ret != ERROR && ret != NEXT) /*si il s'agit bien de la resolution*/
 	{
