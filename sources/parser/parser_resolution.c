@@ -6,11 +6,45 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 19:15:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 21:45:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
+{
+	char *tab_other_resolution[5] = {"NO", "SO", "WE", "F", "C"};
+	size_t	tab_len[6];
+	size_t	i;
+	size_t	index;
+	int		ret;
+
+	i = 0;
+	ret = 0;
+	while (i < 5)
+	{
+		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
+		i++;
+	}
+	tab_len[5] = vct_strlen(vct, "R");
+	index = ft_bubblesort_minindex(tab_len, 5);
+	if (index == 1 || index == 2)
+	{
+		machine->state = TEXTURE;
+		ret = NEXT;
+	}
+	if (index == 3 || index == 4)
+	{
+		machine->state = COLOR;
+		ret = NEXT;
+	}
+	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
+			&& tab_len[4] == vct_getlen(vct))
+		ret = TRUE;
+	return (ret); 
+}
 
 static int			not_resolution(t_vector *vct)
 {
@@ -94,12 +128,18 @@ int	init_machine_resolution(t_state_machine *machine, int ret)
 	return (ret);
 }
 
-int	is_resolution(t_vector *resol, t_vector *vct)
+int	is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine)
 {
 	int	ret;
 
 	ret = TRUE;
 	if (vct_chr(vct, CHAR_RESOLUTION) == FAILURE)
+	{
+		ft_printf("RENTRE ICI 1\n"); //
+		return (NEXT);
+	}
+	ret = what_information_resolution(vct, machine);
+	if (ret == NEXT)
 		return (NEXT);
 	resol = vct_splitchr(vct, CHAR_RESOLUTION);
 	if ((vct_getfirstchar(vct) != SPACE) && (vct_getfirstchar(vct) != TAB))

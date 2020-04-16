@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 20:19:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:46:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,6 @@ void			printf_errors(unsigned long flag, unsigned long line);
 int				split_resolution(t_vector *resol, char **str_resolution,
 									t_vector *vct);
 int				is_next_or_error_resolution(t_vector *vct);
-int				is_resolution(t_vector *resol, t_vector *vct);
 int				init_machine_resolution(t_state_machine *machine, int ret);
 void			what_bitwaze(t_state_machine *machine, int index);
 int				pre_process_split(t_vector *texture, t_vector *vct,
@@ -199,5 +198,6 @@ void			init_machine_color(t_state_machine *machine, int ret);
 int				is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine);
 int				clean_before(t_vector *vct, char **str_texture, int index,
 								t_state_machine *machine);
+int				is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine);
 
 #endif

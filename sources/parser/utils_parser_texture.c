@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 20:23:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:47:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-static int what_information(t_vector *vct, size_t clen_text, t_state_machine *machine)
+static int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine)
 {
 	const char	*tab_other_texture[3] = {"R", "F", "C"};
 	size_t	tab_len[4];
@@ -54,7 +54,7 @@ int		clean_before(t_vector *vct, char **str_texture, int index, t_state_machine 
 	if (len != i && len != 0) /*si il y a un char indesirable*/
 	{
 		clen_text = vct_clen(vct, str_texture[index][0]);
-		index = what_information(vct, clen_text, machine);
+		index = what_information_texture(vct, clen_text, machine);
 	}
 	free(cpy_texture);
 	return (index);
