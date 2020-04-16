@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 19:18:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 11:55:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,12 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	else /*si pas trouve F ou C*/
 		ret = NEXT;
 	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
-		ret = pre_split_color(cpy_vct, tab_color[index], machine);
+	{
+		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
+		/*fonction qui permet de determiner si il s'agit de l'indication F ou C
+		+ avoir la chaine de caractere apres l'indication F ou C + split +
+		recuperation des couleurs */
+	}
 	if (ret == ERROR)
 		machine->information |= ERROR_COLOR;
 	vct_del(&cpy_vct);
