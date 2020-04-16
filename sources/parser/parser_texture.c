@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/14 18:23:05 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 13:04:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int			pre_process_split(t_vector *texture, t_vector *vct, char *str_texture)
 	ret = process_split(texture, cpy_vct, &ret_str); /*fonction qui va permettre
 	de trouver le path + voir si char indesirable apres l'indicateur +
 	ret_str = path apres le "./"*/
-	vct_del(&texture);
 	final_path(cpy_vct, vct); /*fonction qui permet d'avoir un path qui contient
 	plus d'un "./"*/
 	free(ret_str);
