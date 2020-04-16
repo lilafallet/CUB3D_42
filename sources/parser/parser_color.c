@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 12:44:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 15:35:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	error_or_true(t_vector *color, size_t count_loops, size_t count_num)
 	else if (count_loops == 1 && vct_apply(color, IS_DIGIT) == FALSE)
 		ret = ERROR; /*1 doit = COLOR*/
 	else if ((count_loops == 2 || count_loops == 4) && vct_apply(color,
-				IS_WHITESPACECOMA) == FALSE)
+				IS_WHITESPACECOMMA) == FALSE)
 		ret = ERROR; /*2+4 doit = WHITESPACE || COMA*/
 	else if ((count_loops == 3 || count_loops == 5) && vct_apply(color,
 				IS_WHITESPACEDIGIT) == FALSE)
@@ -122,14 +122,17 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 	t_vector	*cpy_vct;
 	size_t		count_num;
 	size_t		count_loops;
+	size_t		count_comma;
 
 	cpy_vct = vct_new();
 	vct_addstr(cpy_vct, str); /*ajout de str (chaine apres F ou C) a cpy_vct*/
 	ret = TRUE;
 	count_num = 0;
 	count_loops = 0;
+	count_comma = 0;
 	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
 	{
+		ft_printf("SPLIT_COLOR -> color->str = %s\n", vct_getstr(color)); //
 		ret = error_or_true(color, count_loops, count_num); /*fonction qui
 		permet de determiner si chaque separation est ce qu'on attend
 		(espace/tab, chiffre ou virgule)*/
@@ -143,9 +146,16 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 			if (ret == ERROR)
 				break ;
 		}
+		if (vct_chr(color, COMMA) != FAILURE)
+		{
+			count_comma++;
+			printf("ERROR_OR_TRUE -> count_comma = %zu\n", count_comma); //
+		}
 		count_loops++;
 		vct_del(&color);
 	}
+	if (count_comma != NB_COMMA)
+		ret = ERROR; 
 	vct_del(&cpy_vct);
 	vct_del(&color);
 	return (ret);

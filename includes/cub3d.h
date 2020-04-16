@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 19:01:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 15:35:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 # define PLUS '+'
 # define COMMA ','
 # define INDEX_TEXTURE 2
+# define NB_COMMA 2
 
 # define ERROR_ARGUMENTS "Error of arguments: OUVRIR FENETRE(lire pdf)\n\n"
 # define WRONG_INFORMATIONS "Wrong informations : REGARDER QUOI FAIRE\n\n"
