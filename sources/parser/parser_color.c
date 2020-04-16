@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 15:35:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 15:42:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 	count_comma = 0;
 	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
 	{
-		ft_printf("SPLIT_COLOR -> color->str = %s\n", vct_getstr(color)); //
 		ret = error_or_true(color, count_loops, count_num); /*fonction qui
 		permet de determiner si chaque separation est ce qu'on attend
 		(espace/tab, chiffre ou virgule)*/
@@ -147,10 +146,7 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 				break ;
 		}
 		if (vct_chr(color, COMMA) != FAILURE)
-		{
 			count_comma++;
-			printf("ERROR_OR_TRUE -> count_comma = %zu\n", count_comma); //
-		}
 		count_loops++;
 		vct_del(&color);
 	}

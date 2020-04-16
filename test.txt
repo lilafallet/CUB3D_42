@@ -1,2 +1,8 @@
-C         120,245,       2              
- F 120,245,2    
+R 1920 1080
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_textur./ffe
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+S ./path_to_the_sprite_texture
+F 220,100,0
+C 225,30,0

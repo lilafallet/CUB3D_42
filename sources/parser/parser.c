@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 13:09:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 16:12:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	int			index;
 
+	ft_printf("PARSER_COLOR\n"); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);

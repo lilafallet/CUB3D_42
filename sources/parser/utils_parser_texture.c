@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/15 12:38:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 16:17:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int		clean_before(t_vector *vct, char **str_texture, int index)
 void	init_machine_texture(int ret, t_state_machine *machine, int index,
 								t_vector *vct)
 {
+	ft_printf("TU RENTRES ICI ?\n"); //
 	if (ret & ERROR)
 		machine->information |= ERROR_TEXTURE;
 	if (ret & NEXT)
 	{
-		machine->state = COLOR;
 		if (ret & TRUE)
 		{
 			what_bitwaze(machine, index);
@@ -49,5 +49,11 @@ void	init_machine_texture(int ret, t_state_machine *machine, int index,
 			ft_printf("machine->information.str_texture[%d] = %s\n", index,
 						machine->info.str_texture[index]); //
 		}
+		if (machine->information & BT_NO && machine->information & BT_SO &&
+			machine->information & BT_WE && machine->information & BT_EA &&
+			machine->information & BT_SPR)
+				machine->state = COLOR;
+		else
+				machine->state = TEXTURE;
 	}
 }

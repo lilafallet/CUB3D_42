@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 13:04:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 16:10:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 		{
 			free(*ret_str);
 			*ret_str = vct_strdup(texture); /*path apres le "./"*/
-			ret = (vct_apply(texture, IS_ASCII) == FALSE) ? ERROR : TRUE | NEXT;
-			/*si str comporte des char non ascii alors c'est une erreur*/
+			if (vct_apply(texture, IS_ASCII) == FALSE)
+				ret = FALSE;
+			else
+				ret = TRUE | NEXT;
 			break ; 
 		}
 		if (ft_strequ(vct_getstr(texture), PATH) == TRUE)
