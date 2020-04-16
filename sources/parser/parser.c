@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:39:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:22:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	texture = vct_new();
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	ret = is_texture(cpy_vct, tab_texture); /*appelle fonction qui va permettre
+	ret = is_texture(cpy_vct, tab_texture, machine); /*appelle fonction qui va permettre
 	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
 	index = ret; /*ret vaut l'indice du tableau des textures
 	0 = NO
@@ -63,6 +63,12 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	2 = WE
 	3 = EA
 	4 = SPR*/
+	if (ret == NEXT_OTHERCHAR)
+	{
+		vct_del(&cpy_vct);
+		vct_del(&texture);
+		return (NEXT);
+	}
 	if (ret >= NO && ret <= S) /*TRUE*/
 	{
 		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]); /*utilisation

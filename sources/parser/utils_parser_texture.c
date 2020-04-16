@@ -6,18 +6,41 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:29:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:23:51 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-int		clean_before(t_vector *vct, char **str_texture, int index)
+static int what_information(t_vector *vct, size_t clen_text, t_state_machine *machine)
+{
+	const char	*tab_other_texture[3] = {"R", "F", "C"};
+	size_t	tab_len[4];
+	size_t	i;
+	size_t	index;
+
+	i = 0;	
+	while (i < 3)
+	{
+		tab_len[i] = vct_clen(vct, tab_other_texture[i][0]);
+		i++;
+	}
+	tab_len[3] = clen_text;
+	index = ft_bubblesort_minindex(tab_len, 4);
+	if (index == 0)
+		machine->state = RESOLUTION; 
+	if (index == 1 || index == 2)
+		machine->state = COLOR; 
+	return (NEXT_OTHERCHAR);
+}
+
+int		clean_before(t_vector *vct, char **str_texture, int index, t_state_machine *machine)
 {
 	size_t	len;
 	char	*cpy_texture;
 	size_t	i;
+	size_t	clen_text;
 
 	i = 0;
 	cpy_texture = ft_memdup(vct_getstr(vct), vct_getlen(vct));
@@ -29,7 +52,10 @@ int		clean_before(t_vector *vct, char **str_texture, int index)
 		i++;
 	}
 	if (len != i && len != 0) /*si il y a un char indesirable*/
-		index = NO_CHAR;
+	{
+		clen_text = vct_clen(vct, str_texture[index][0]);
+		index = what_information(vct, clen_text, machine);
+	}
 	free(cpy_texture);
 	return (index);
 }
@@ -37,7 +63,6 @@ int		clean_before(t_vector *vct, char **str_texture, int index)
 int	init_machine_texture(int ret, t_state_machine *machine, int index,
 								t_vector *vct)
 {
-	ft_printf("TU RENTRES ICI ?\n"); //
 	if (ret & ERROR)
 		machine->information |= ERROR_TEXTURE;
 	if (ret & NEXT)

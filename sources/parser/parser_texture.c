@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:10:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:15:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int			pre_process_split(t_vector *texture, t_vector *vct, char *str_texture)
 	return (ret);
 }
 
-int			is_texture(t_vector *vct, char **tab_texture)
+int			is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine)
 {
 	int		ret;
 	char	*ret_str;
@@ -125,7 +125,7 @@ int			is_texture(t_vector *vct, char **tab_texture)
 		ret = NO_CHAR;
 	else if (ret_str != NULL)
 	{
-		ret = clean_before(vct, tab_texture, index); /*savoir si char
+		ret = clean_before(vct, tab_texture, index, machine); /*savoir si char
 		indesirable avant NO, SO, WE, EA, S*/
 	}
 	return (ret);

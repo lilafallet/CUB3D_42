@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 16:24:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/16 20:19:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERROR 2
 # define NEXT 4
 # define NO_CHAR 5
+# define NEXT_OTHERCHAR 6
 
 # define CHAR_RESOLUTION 'R'
 # define STR_TEXTURE_NO "NO"
@@ -184,12 +185,10 @@ int				split_resolution(t_vector *resol, char **str_resolution,
 int				is_next_or_error_resolution(t_vector *vct);
 int				is_resolution(t_vector *resol, t_vector *vct);
 int				init_machine_resolution(t_state_machine *machine, int ret);
-int				is_texture(t_vector *vct, char **tab_texture);
 void			what_bitwaze(t_state_machine *machine, int index);
 int				pre_process_split(t_vector *texture, t_vector *vct,
 									char *str_texture);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
-int				clean_before(t_vector *vct, char **str_texture, int index);
 int				process_texture(int ret, t_vector *vct, char **tab_texture);
 int				init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
@@ -197,5 +196,8 @@ int				is_color(t_vector *vct, char **tab_color);
 int				pre_split_color(t_vector *vct, char *str,
 									t_state_machine *machine);
 void			init_machine_color(t_state_machine *machine, int ret);
+int				is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine);
+int				clean_before(t_vector *vct, char **str_texture, int index,
+								t_state_machine *machine);
 
 #endif
