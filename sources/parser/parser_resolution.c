@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 13:29:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 15:29:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 	size_t	index;
 	int		ret;
 
-	ft_printf("TU RENTRES ICI ?\n"); //
 	i = 0;
 	ret = 0;
 	while (i < 5)
@@ -147,10 +146,7 @@ int	is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine)
 
 	ret = TRUE;
 	if (vct_chr(vct, CHAR_RESOLUTION) == FAILURE)
-	{
-		ft_printf("RENTRE ICI 1\n"); //
 		return (NEXT);
-	}
 	ret = what_information_resolution(vct, machine);
 	if (ret == NEXT)
 		return (NEXT);

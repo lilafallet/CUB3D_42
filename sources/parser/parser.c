@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:12:48 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 15:56:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	ret = TRUE;
 	if (machine->information & BT_RESOLUTION)
 		ret = ERROR;
-	ft_printf("PARSER_RESOLUTION -> ret = %d\n", ret); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
@@ -78,8 +77,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	4 = SPR*/
 	if (ret == NEXT_OTHERCHAR)
 	{
-		ft_printf("RENTRES ICI STP :(((((((((((((((((((((((((((((((((((((((((((((\n"); //
-		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine);
+		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine, ret);
 		vct_del(&cpy_vct);
 		vct_del(&texture);
 		return (NEXT);
@@ -94,7 +92,6 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		ret = NEXT;
 	ret = init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
 	machine->state et machine->information*/
-	ft_printf("PARSER_TEXTURE -> ret = %d\n", ret); //
 	ft_printf("machine->information.str_texture[%d] = %s\n", index,
 				machine->info.str_texture[index]); //
 	if (machine->information & BT_RESOLUTION &&
@@ -119,7 +116,6 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	int			index;
 
 	ft_printf("PARSER_COLOR\n"); //
-	ft_printf("PARSER_COLOR = vct->str = %s\n", vct_getstr(vct)); //
 	if (machine->information & BT_COLOR_F && machine->information & BT_COLOR_C)
 	{
 		machine->information |= ERROR_COLOR;
@@ -128,6 +124,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);
+	ft_printf("PARSER_COLOR -> ret = %d\n", ret); //
 	index = ret;
 	if (ret == COLOR_C || ret == COLOR_F) /*si F ou C*/
 		ret = TRUE;
@@ -135,14 +132,13 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 		ret = NEXT;
 	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
 	{
-		ft_printf("TU RENTRES ICI 3 ==============================\n");
 		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
 		/*fonction qui permet de determiner si il s'agit de l'indication F ou C
 		+ avoir la chaine de caractere apres l'indication F ou C + split +
 		recuperation des couleurs */
 	}
 	if (ret == NEXT)
-		ret = what_information_color(vct, vct_getlen(vct), machine);
+		ret = what_information_color(vct, vct_getlen(vct), machine, NEXT_OTHERCHAR);
 	if (ret == ERROR)
 		machine->information |= ERROR_COLOR;
 	if (ret == TRUE && (((machine->information & BT_COLOR_F) == FALSE ||
@@ -162,6 +158,7 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 	ret = what_information_map(vct, vct_getlen(vct), machine);
 	if (ret == NEXT)
 		return (NEXT);
+	
 	return (ret);
 }
 

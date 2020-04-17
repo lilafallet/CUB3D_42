@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 13:52:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 16:01:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,9 +200,9 @@ int				is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine);
 int				pre_split_color(t_vector *vct, char *str,
 									t_state_machine *machine);
 int				what_information_color(t_vector *vct, size_t clen,
-										t_state_machine *machine);
+										t_state_machine *machine, int ret_before);
 int 			what_information_texture(t_vector *vct, size_t clen_text,
-											t_state_machine *machine);
+											t_state_machine *machine, int ret);
 int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
 

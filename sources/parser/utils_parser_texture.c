@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 13:44:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 15:49:48 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine)
+int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine, int ret)
 {
 	const char	*tab_other_texture[3] = {"R", "F", "C"};
 	size_t	tab_len[4];
@@ -32,6 +32,10 @@ int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *m
 		machine->state = RESOLUTION; 
 	if (index == 1 || index == 2)
 		machine->state = COLOR; 
+	if (tab_len[0] == clen_text && tab_len[1] == clen_text
+			&& tab_len[2] == clen_text && tab_len[3] == clen_text
+			&& ret == NEXT_OTHERCHAR)
+		machine->state = COLOR;
 	return (NEXT_OTHERCHAR);
 }
 
@@ -54,7 +58,7 @@ int		clean_before(t_vector *vct, char **str_texture, int index, t_state_machine 
 	if (len != i && len != 0) /*si il y a un char indesirable*/
 	{
 		clen_text = vct_clen(vct, str_texture[index][0]);
-		index = what_information_texture(vct, clen_text, machine);
+		index = what_information_texture(vct, clen_text, machine, TRUE);
 	}
 	free(cpy_texture);
 	return (index);
@@ -76,7 +80,6 @@ int	init_machine_texture(int ret, t_state_machine *machine, int index,
 			machine->information & BT_WE && machine->information & BT_EA &&
 			machine->information & BT_SPR)
 		{
-				ft_printf("RENTRE ICI 5 =====================================================\n"); //
 				machine->state = COLOR;
 				ret = ERROR;
 		}

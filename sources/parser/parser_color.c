@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 13:29:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 16:01:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
+int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine, int ret_before)
 {
 	char *tab_other_resolution[4] = {"R", "NO", "SO", "WE"};
 	size_t	tab_len[5];
@@ -30,13 +30,6 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
 	}
 	tab_len[4] = clen;
 	index = ft_bubblesort_minindex(tab_len, 5);
-	printf("WHAT_INFORMATION_COLOR -> len vct = %zu\n", vct_getlen(vct)); //
-	printf("WHAT_INFORMATION_COLOR -> len R = %zu\n", tab_len[0]); //
-	printf("WHAT_INFORMATION_COLOR -> len NO = %zu\n", tab_len[1]); //
-	printf("WHAT_INFORMATION_COLOR -> len SO = %zu\n", tab_len[2]); //
-	printf("WHAT_INFORMATION_COLOR -> len WE = %zu\n", tab_len[2]); //
-	printf("WHAT_INFORMATION_COLOR -> clen = %zu\n", tab_len[4]); //
-	printf("WHAT_INFORMATION_COLOR -> index = %zu\n", index); //
 	if (index == 0)
 	{
 		machine->state = RESOLUTION;
@@ -48,9 +41,10 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
 		ret = NEXT;
 	}
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct))
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct) && ret_before == TRUE)
 		ret = TRUE;
-	else
+	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct) && ret_before == NEXT_OTHERCHAR)
 	{
 		machine->state = MAP;
 		ret = NEXT;
@@ -65,7 +59,6 @@ int	is_color(t_vector *vct, char **tab_color)
 
 	index = 0;
 	str = NULL;
-	ft_printf("TU RENTRES ICI 1 ==============================\n");
 	while (index < NB_INDIC_COLOR)
 	{
 		str = ft_strnstr(vct_getstr(vct), tab_color[index], vct_getlen(vct));
@@ -73,7 +66,6 @@ int	is_color(t_vector *vct, char **tab_color)
 			break ;
 		index++; /*recup index qui va determiner si il s'agit de F ou de G*/
 	}
-	ft_printf("IS_COLOR -> index = %d\n", index); //
 	return (index);
 }
 
@@ -90,7 +82,7 @@ static int	verif_before(t_vector *vct, size_t clen, t_state_machine *machine)
 	{
 		if (str[i] != SPACE && str[i] != TAB)
 		{
-			ret = what_information_color(vct, clen, machine);
+			ret = what_information_color(vct, clen, machine, ret);
 			if (ret == NEXT)
 				break ;
 		}
@@ -168,7 +160,6 @@ static int	recuperation_color(t_vector *color, char type_color,
 			&& machine->information & BT_SO && machine->information & BT_WE
 			&& machine->information & BT_EA && machine->information & BT_SPR)
 	{
-		ft_printf("RENTRE ICI JE TME SUPPLI SINON JE VAIS PA ETRE CNTENENT !!!!!!!!!!!!!!!!\n"); //
 		ret = TRUE;
 		machine->state = MAP;
 	}
