@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 20:47:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 12:45:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ int	init_machine_texture(int ret, t_state_machine *machine, int index,
 			machine->information & BT_WE && machine->information & BT_EA &&
 			machine->information & BT_SPR)
 		{
+				ft_printf("RENTRE ICI 5 =====================================================\n"); //
 				machine->state = COLOR;
-				ret = NEXT;
+				ret = ERROR;
 		}
 		else
 		{

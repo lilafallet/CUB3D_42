@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 11:59:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 12:46:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		ret = NEXT;
 	ret = init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
 	machine->state et machine->information*/
+	ft_printf("PARSER_TEXTURE -> ret = %d\n", ret); //
 	ft_printf("machine->information.str_texture[%d] = %s\n", index,
 				machine->info.str_texture[index]); //
 	vct_del(&cpy_vct);
@@ -108,6 +109,12 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	int			index;
 
 	ft_printf("PARSER_COLOR\n"); //
+	ft_printf("PARSER_COLOR = vct->str = %s\n", vct_getstr(vct)); //
+	if (machine->information & BT_COLOR_F && machine->information & BT_COLOR_C)
+	{
+		machine->information |= ERROR_COLOR;
+		ret = ERROR;
+	}
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);
@@ -180,7 +187,10 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 	{
 		ret = function[machine->state](line, machine);
 		if (ret & ERROR)
+		{
+			nb_line++; /*debug*/
 			return (FAILURE);
+		}
 		if (ret & NEXT)
 			i++;
 		else

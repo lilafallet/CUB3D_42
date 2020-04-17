@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 11:59:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 12:50:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
 	{
 		machine->state = RESOLUTION;
 		ret = NEXT;
-	} 
+	}
 	if (index == 1 || index == 2 || index == 3)
 	{
 		machine->state = TEXTURE;
 		ret = NEXT;
-	} 
+	}
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
 			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct))
 		ret = TRUE;
