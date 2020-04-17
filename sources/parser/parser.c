@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 22:51:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 11:59:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	t_vector	*cpy_vct;
 
 	ft_printf("PARSER_RESOLUTION\n"); //
+	ret = TRUE;
 	if (machine->information & BT_RESOLUTION)
 		ret = ERROR;
 	ft_printf("PARSER_RESOLUTION -> ret = %d\n", ret); //
@@ -55,9 +56,19 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	t_vector	*texture;
 
 	ft_printf("PARSER_TEXTURE\n"); //
+	ret = TRUE;
+	if (machine->information & BT_NO && machine->information & BT_SO &&
+		machine->information & BT_WE && machine->information & BT_EA &&
+		machine->information & BT_SPR)
+	{
+		ft_printf("RENTRE ICI STP ------------------------------------\n"); //
+		machine->information |= ERROR_TEXTURE;
+		return (ERROR);
+	}	
 	texture = vct_new();
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
+	if (ret != ERROR)
 	ret = is_texture(cpy_vct, tab_texture, machine); /*appelle fonction qui va permettre
 	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
 	index = ret; /*ret vaut l'indice du tableau des textures
@@ -101,21 +112,24 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);
 	index = ret;
-	if (ret <= COLOR_F && ret >= COLOR_C) /*si F ou C*/
+	if (ret == COLOR_C || ret == COLOR_F) /*si F ou C*/
 		ret = TRUE;
 	else /*si pas trouve F ou C*/
 		ret = NEXT;
 	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
 	{
+		ft_printf("TU RENTRES ICI 3 ==============================\n");
 		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
 		/*fonction qui permet de determiner si il s'agit de l'indication F ou C
 		+ avoir la chaine de caractere apres l'indication F ou C + split +
 		recuperation des couleurs */
 	}
+	if (ret == NEXT)
+		ret = what_information_color(vct, vct_getlen(vct), machine);
 	if (ret == ERROR)
 		machine->information |= ERROR_COLOR;
-	if (ret == TRUE && ((machine->information & BT_COLOR_F == FALSE ||
-			machine->information & BT_COLOR_C == FALSE)))
+	if (ret == TRUE && (((machine->information & BT_COLOR_F) == FALSE ||
+			(machine->information & BT_COLOR_C) == FALSE)))
 		ret = ERROR;
 	vct_del(&cpy_vct);
 	return (ret);	

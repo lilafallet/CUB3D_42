@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 22:43:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 11:59:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-static int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
+int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
 {
 	char *tab_other_resolution[4] = {"R", "NO", "SO", "WE"};
 	size_t	tab_len[5];
@@ -60,6 +60,7 @@ int	is_color(t_vector *vct, char **tab_color)
 
 	index = 0;
 	str = NULL;
+	ft_printf("TU RENTRES ICI 1 ==============================\n");
 	while (index < NB_INDIC_COLOR)
 	{
 		str = ft_strnstr(vct_getstr(vct), tab_color[index], vct_getlen(vct));
@@ -67,6 +68,7 @@ int	is_color(t_vector *vct, char **tab_color)
 			break ;
 		index++; /*recup index qui va determiner si il s'agit de F ou de G*/
 	}
+	ft_printf("IS_COLOR -> index = %d\n", index); //
 	return (index);
 }
 
@@ -147,8 +149,8 @@ static int	recuperation_color(t_vector *color, char type_color,
 			machine->information |= BT_COLOR_F;	
 		else
 			machine->information |= BT_COLOR_C;	
-		if (((machine->information & BT_COLOR_F) == TRUE) &&
-				((machine->information & BT_COLOR_C == TRUE)))
+		if (machine->information & BT_COLOR_F &&
+				machine->information & BT_COLOR_C)
 		{
 			/*quand on a trouve les deux (F et C) on passe a la prochaine info*/
 			machine->state = MAP;
