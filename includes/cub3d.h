@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 16:01:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 17:16:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,5 +205,7 @@ int 			what_information_texture(t_vector *vct, size_t clen_text,
 											t_state_machine *machine, int ret);
 int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
+int				is_map(t_vector *vct);
+int				recuperation_map(t_vector *vct, t_state_machine *machine);
 
 #endif

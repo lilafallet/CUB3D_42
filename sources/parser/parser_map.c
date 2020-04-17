@@ -6,11 +6,81 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:19:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 18:03:42 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	verification_map(t_vector *line, t_vector *vct,
+								t_state_machine *machine)
+{
+	int ret;
+	t_vector	*map;
+
+	ret = TRUE;
+	ft_printf("VERIFICATION_MAP -> vct->str = %s\n", vct_getstr(vct)); //
+	while ((map = vct_split(vct, "12NSEW", ALL_SEP)) != NULL)
+	{
+		ft_printf("VERIFICATION_MAP -> map->str = %s\n", vct_getstr(map)); //
+		vct_del(&map);
+	}
+	return (ret);
+}
+
+int	recuperation_map(t_vector *vct, t_state_machine *machine)
+{
+	int	ret;
+	t_vector	*cpy_vct;
+	char		*str;
+	size_t		clen;
+
+	ret = TRUE;
+	cpy_vct = vct_new();
+	clen = vct_clen(vct, '1');
+	str = vct_getstr(vct);
+	str = ft_strdup(str + clen);
+	vct_addstr(cpy_vct, str);
+	ft_printf("cpy_vct->str = %s\n", vct_getstr(cpy_vct));
+	ret = verification_map(vct, cpy_vct, machine);
+	vct_del(&cpy_vct);
+	return (ret);
+}
+
+static int	verif_before(t_vector *vct, size_t clen)
+{
+	char	*str;
+	size_t	i;
+	int		ret;
+
+	str = vct_getstr(vct);
+	i = 0;
+	ret = TRUE;
+	while (i < clen)
+	{
+		if (str[i] != SPACE && str[i] != TAB)
+			ret = ERROR;
+		i++;
+	}
+	free(str);
+	return (ret);
+}
+
+int	is_map(t_vector *vct)
+{
+	int	ret;
+	t_vector	*cpy_vct;
+	size_t		clen;
+
+	ret = TRUE;
+	clen = 0;
+	cpy_vct = vct_new();
+	vct_cpy(cpy_vct, vct);
+	clen = vct_clen(cpy_vct, '1');
+	if (clen != 0)
+		ret = verif_before(cpy_vct, clen);
+	return (ret);
+}
 
 int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machine)
 {
@@ -48,3 +118,5 @@ int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machin
 		machine->state = COLOR;
 	return (NEXT);
 }
+
+

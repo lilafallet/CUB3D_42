@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:56:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 17:15:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,14 +151,25 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 static int	parser_map(t_vector *vct, t_state_machine *machine)
 {
 	int	ret;
+	t_vector	*cpy_vct;
 
 	ret = TRUE;
 	ft_printf("PARSER_MAP\n");
 	ft_printf("PARSER_MAP - > vct->str = %s\n", vct_getstr(vct)); //
-	ret = what_information_map(vct, vct_getlen(vct), machine);
+	cpy_vct = vct_new();
+	vct_cpy(cpy_vct, vct);
+	ret = what_information_map(cpy_vct, vct_getlen(vct), machine);
 	if (ret == NEXT)
 		return (NEXT);
-	
+	ret = is_map(cpy_vct);
+	if (ret == ERROR)
+	{
+		machine->information |= ERROR_MAP;
+		vct_del(&cpy_vct);
+		return (ERROR);
+	}
+	ret = recuperation_map(cpy_vct, machine);
+	vct_del(&cpy_vct);
 	return (ret);
 }
 
@@ -191,10 +202,7 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 		if (ret & NEXT)
 			i++;
 		else
-		{
-			ft_printf("TU RENTRES ICI EHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOH\n");
 			break ;
-		}
 	}
 	nb_line++; /*debug*/
 	return (ret);
