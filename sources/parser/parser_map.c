@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 14:01:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 15:19:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machin
 	{
 		tab_len[i] = vct_clen(vct, tab_other_map_c[index]);
 		i++;
+		index++;
 	}
 	tab_len[8] = clen_map;
 	index = ft_bubblesort_minindex(tab_len, 9);
+	if (tab_len[0] == clen_map && tab_len[1] == clen_map
+			&& tab_len[2] == clen_map && tab_len[3] == clen_map 
+			&& tab_len[4] == clen_map && tab_len[5] == clen_map
+			&& tab_len[6] == clen_map && tab_len[7] == clen_map)
+		return (TRUE);
 	if (index == 0 || index == 1 || index == 2 || index == 3 || index == 4)
 		machine->state = TEXTURE;
 	if (index == 5)
