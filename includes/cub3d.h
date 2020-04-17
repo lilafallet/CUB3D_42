@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 17:16:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 21:21:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,14 @@ enum			e_state
 	MAP /*4*/
 };
 
+enum			e_map
+{
+	VOID, /*0*/
+	WALL, /*1*/
+	SPRITE, /*3*/
+	POSITION /*4*/
+};
+
 typedef struct	st_f_info
 {
 	unsigned long	resolution_x;
@@ -156,6 +164,7 @@ typedef struct	s_info
 	char			*str_text_ea;
 	int				tab_color_f[NB_COLOR];
 	int				tab_color_c[NB_COLOR];
+	enum e_map		**tab_map;
 	char			*str_map[BUFFER_SIZE];
 	char			str_position[NB_POSITION_MAP];
 	char			pad[7];
@@ -206,6 +215,13 @@ int 			what_information_texture(t_vector *vct, size_t clen_text,
 int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
 int				is_map(t_vector *vct);
-int				recuperation_map(t_vector *vct, t_state_machine *machine);
-
+int				recuperation_map(t_vector *line, t_state_machine *machine);
+int				recuperation_void(t_vector *vct, t_state_machine *machine,
+									size_t count_line, size_t index);
+int				recuperation_wall(t_vector *vct, t_state_machine *machine,
+									size_t count_line, size_t index);
+int				recuperation_sprite(t_vector *vct, t_state_machine *machine,
+									size_t count_line, size_t index);
+int				recuperation_position(t_vector *vct, t_state_machine *machine,
+									size_t count_line, size_t index);
 #endif

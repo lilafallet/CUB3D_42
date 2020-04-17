@@ -6,44 +6,53 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 18:03:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 22:05:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	verification_map(t_vector *line, t_vector *vct,
-								t_state_machine *machine)
+int	recuperation_map(t_vector *line, t_state_machine *machine)
 {
 	int ret;
 	t_vector	*map;
+	static size_t count_line = 0;
+	char		c;
+	size_t		index;
 
 	ret = TRUE;
-	ft_printf("VERIFICATION_MAP -> vct->str = %s\n", vct_getstr(vct)); //
-	while ((map = vct_split(vct, "12NSEW", ALL_SEP)) != NULL)
+	machine->info.tab_map = (enum e_map **)malloc(sizeof(enum e_map *) * (1096)); 
+	index = 0;
+	//machine->info.tab_map[0][1] = WALL; 
+	while ((map = vct_split(line, "12NSEW", ALL_SEP)) != NULL)
 	{
+		machine->info.tab_map[count_line] = (enum e_map *)malloc(sizeof(enum e_map) * vct_getlen(line));
 		ft_printf("VERIFICATION_MAP -> map->str = %s\n", vct_getstr(map)); //
+		if (vct_apply(map, IS_WHITESPACE) == TRUE)
+		{
+			ret = recuperation_void(map, machine, count_line, index);
+		}
+		if (vct_apply(map, IS_DIGIT) == TRUE)
+		{
+			c = vct_getfirstchar(map);
+			if (c == '0')
+				ret = recuperation_void(map, machine, count_line, index);
+			if (c == '1')
+				ret = recuperation_wall(map, machine, count_line, index);
+			if (c == '2')
+				ret = recuperation_sprite(map, machine, count_line, index);
+		}
+		if (vct_apply(map, IS_ALPHA) == TRUE)
+		{
+			c = vct_getfirstchar(map);
+			if (c == 'N' || c == 'S' || c == "W" || c == 'E')
+				ret = recuperation_position(map, machine, count_line, index);
+		}
+		index += vct_getlen(map);
 		vct_del(&map);
 	}
-	return (ret);
-}
-
-int	recuperation_map(t_vector *vct, t_state_machine *machine)
-{
-	int	ret;
-	t_vector	*cpy_vct;
-	char		*str;
-	size_t		clen;
-
-	ret = TRUE;
-	cpy_vct = vct_new();
-	clen = vct_clen(vct, '1');
-	str = vct_getstr(vct);
-	str = ft_strdup(str + clen);
-	vct_addstr(cpy_vct, str);
-	ft_printf("cpy_vct->str = %s\n", vct_getstr(cpy_vct));
-	ret = verification_map(vct, cpy_vct, machine);
-	vct_del(&cpy_vct);
+	count_line++;
+	vct_del(&map);
 	return (ret);
 }
 
