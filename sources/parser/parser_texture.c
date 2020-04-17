@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 20:15:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 13:39:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,9 @@ int			is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine)
 			break ;
 		index++; /*recuperation de l'index*/
 	}
+	ft_printf("IS_TEXTURE -> ret_str = %s\n", ret_str); //
 	if (ret_str == NULL)
-		ret = NO_CHAR;
+		ret = NEXT_OTHERCHAR;
 	else if (ret_str != NULL)
 	{
 		ret = clean_before(vct, tab_texture, index, machine); /*savoir si char

@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 12:45:15 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 13:44:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-static int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine)
+int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine)
 {
 	const char	*tab_other_texture[3] = {"R", "F", "C"};
 	size_t	tab_len[4];

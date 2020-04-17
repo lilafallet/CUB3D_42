@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/16 22:48:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 13:29:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,15 @@ int	init_machine_resolution(t_state_machine *machine, int ret)
 	{
 		ret &= ~NEXT;
 		machine->information |= BT_RESOLUTION;
+	}
+	if (machine->information & BT_RESOLUTION &&
+			machine->information & BT_COLOR_F &&
+			machine->information & BT_COLOR_C && machine->information & BT_NO
+			&& machine->information & BT_SO && machine->information & BT_WE
+			&& machine->information & BT_EA && machine->information & BT_SPR)
+	{
+		ret = TRUE;
+		machine->state = MAP;
 	}
 	return (ret);
 }

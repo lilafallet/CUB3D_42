@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/15 10:36:40 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/17 13:52:56 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS += parser_resolution.c
 SRCS += parser_texture.c
 SRCS += parser_color.c
 SRCS += utils_parser_texture.c
+SRCS += parser_map.c
 
 OBJ_DIR = ./objs/
 

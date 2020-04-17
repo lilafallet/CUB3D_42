@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 12:50:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 13:29:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine)
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
 			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct))
 		ret = TRUE;
+	else
+	{
+		machine->state = MAP;
+		ret = NEXT;
+	}
 	return (ret); 
 }
 
@@ -156,6 +161,16 @@ static int	recuperation_color(t_vector *color, char type_color,
 			machine->state = MAP;
 		}
 		index = 0;
+	}
+	if (machine->information & BT_RESOLUTION &&
+			machine->information & BT_COLOR_F &&
+			machine->information & BT_COLOR_C && machine->information & BT_NO
+			&& machine->information & BT_SO && machine->information & BT_WE
+			&& machine->information & BT_EA && machine->information & BT_SPR)
+	{
+		ft_printf("RENTRE ICI JE TME SUPPLI SINON JE VAIS PA ETRE CNTENENT !!!!!!!!!!!!!!!!\n"); //
+		ret = TRUE;
+		machine->state = MAP;
 	}
 	return (ret);
 }

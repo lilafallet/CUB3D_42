@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 12:46:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/17 13:52:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		machine->information & BT_WE && machine->information & BT_EA &&
 		machine->information & BT_SPR)
 	{
-		ft_printf("RENTRE ICI STP ------------------------------------\n"); //
 		machine->information |= ERROR_TEXTURE;
 		return (ERROR);
 	}	
@@ -69,7 +68,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	if (ret != ERROR)
-	ret = is_texture(cpy_vct, tab_texture, machine); /*appelle fonction qui va permettre
+		ret = is_texture(cpy_vct, tab_texture, machine); /*appelle fonction qui va permettre
 	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
 	index = ret; /*ret vaut l'indice du tableau des textures
 	0 = NO
@@ -79,6 +78,8 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	4 = SPR*/
 	if (ret == NEXT_OTHERCHAR)
 	{
+		ft_printf("RENTRES ICI STP :(((((((((((((((((((((((((((((((((((((((((((((\n"); //
+		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine);
 		vct_del(&cpy_vct);
 		vct_del(&texture);
 		return (NEXT);
@@ -96,6 +97,15 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	ft_printf("PARSER_TEXTURE -> ret = %d\n", ret); //
 	ft_printf("machine->information.str_texture[%d] = %s\n", index,
 				machine->info.str_texture[index]); //
+	if (machine->information & BT_RESOLUTION &&
+			machine->information & BT_COLOR_F &&
+			machine->information & BT_COLOR_C && machine->information & BT_NO
+			&& machine->information & BT_SO && machine->information & BT_WE
+			&& machine->information & BT_EA && machine->information & BT_SPR)
+	{
+		ret = TRUE;
+		machine->state = MAP;
+	}
 	vct_del(&cpy_vct);
 	vct_del(&texture);
 	return (ret);
@@ -144,24 +154,12 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 
 static int	parser_map(t_vector *vct, t_state_machine *machine)
 {
-	int				ret;
-	static size_t	index = 0;
-	int				position;
+	int	ret;
 
 	ret = TRUE;
-	ft_printf("PARSER_MAP\n"); //
-	(void)index;
-	(void)position;
-	(void)vct;
-	/*machine->info.str_map[index] = ft_memdup(str, ft_strlen(str));
-	printf("machine->info.str_map[%lu] = %s\n", index, machine->info.str_map[index]); //
-	position = what_position(machine->info.str_map[index],
-								machine->info.str_position);
-	printf("position = %d\n\n", position); //
-	if (position != FAILURE)
-		machine->information |= (unsigned long)((1 << position) << 20);
-	index++;*/
-	machine->state = RESOLUTION;
+	ft_printf("PARSER_MAP\n");
+	ft_printf("PARSER_MAP - > vct->str = %s\n", vct_getstr(vct)); //
+	ret = what_information_map(vct, vct_getlen(vct), machine);
 	return (ret);
 }
 
@@ -194,7 +192,10 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 		if (ret & NEXT)
 			i++;
 		else
+		{
+			ft_printf("TU RENTRES ICI EHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOH\n");
 			break ;
+		}
 	}
 	nb_line++; /*debug*/
 	return (ret);
