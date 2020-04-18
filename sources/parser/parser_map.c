@@ -6,11 +6,12 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 19:00:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 22:38:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h> //
 
 int	recuperation_map(t_vector *line, t_state_machine *machine)
 {
@@ -21,15 +22,13 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	size_t		index;
 
 	ret = TRUE;
-	map = vct_new();
-	machine->info.tab_map = (enum e_map **)malloc(sizeof(enum e_map *) * (1096)); 
 	index = 0;
-	vct_addstr(map, vct_getstr(line));
+	map = vct_dup(line);
+	machine->info.tab_map[count_line] = (enum e_map *)malloc
+		(sizeof(enum e_map) * vct_getlen(line));
 	printf("VERIFICATION_MAP -> line->len = %zu\n", vct_getlen(line)); //
 	while (index < vct_getlen(line))
 	{
-		machine->info.tab_map[count_line] = (enum e_map *)malloc
-			(sizeof(enum e_map) * vct_getlen(line));
 		c = vct_getfirstchar(map);
 		if (ft_iswhitespace(c) == TRUE)
 			ret = recuperation_eachelem(machine, count_line, index, OUT);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 17:16:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 21:40:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 		return (ERROR);
 	}
 	ret = recuperation_map(cpy_vct, machine);
+	if (ret == ERROR)
+		machine->information |= ERROR_MAP;
 	vct_del(&cpy_vct);
 	return (ret);
 }
