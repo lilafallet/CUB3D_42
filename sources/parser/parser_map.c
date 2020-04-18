@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 22:05:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 17:18:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,35 +21,36 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	size_t		index;
 
 	ret = TRUE;
+	map = vct_new();
 	machine->info.tab_map = (enum e_map **)malloc(sizeof(enum e_map *) * (1096)); 
 	index = 0;
-	//machine->info.tab_map[0][1] = WALL; 
-	while ((map = vct_split(line, "12NSEW", ALL_SEP)) != NULL)
+	vct_addstr(map, vct_getstr(line));
+	printf("VERIFICATION_MAP -> line->len = %zu\n", vct_getlen(line)); //
+	while (index < vct_getlen(line))
 	{
-		machine->info.tab_map[count_line] = (enum e_map *)malloc(sizeof(enum e_map) * vct_getlen(line));
-		ft_printf("VERIFICATION_MAP -> map->str = %s\n", vct_getstr(map)); //
-		if (vct_apply(map, IS_WHITESPACE) == TRUE)
+		machine->info.tab_map[count_line] = (enum e_map *)malloc
+			(sizeof(enum e_map) * vct_getlen(line));
+		c = vct_getfirstchar(map);
+		if (ft_iswhitespace(c) == TRUE)
+			ret = recuperation_eachelem(machine, count_line, index, VOID);
+		if (ft_isdigit(c) == TRUE)
 		{
-			ret = recuperation_void(map, machine, count_line, index);
-		}
-		if (vct_apply(map, IS_DIGIT) == TRUE)
-		{
-			c = vct_getfirstchar(map);
 			if (c == '0')
-				ret = recuperation_void(map, machine, count_line, index);
+				ret = recuperation_eachelem(machine, count_line, index, VOID);
 			if (c == '1')
-				ret = recuperation_wall(map, machine, count_line, index);
+				ret = recuperation_eachelem(machine, count_line, index, WALL);
 			if (c == '2')
-				ret = recuperation_sprite(map, machine, count_line, index);
+				ret = recuperation_eachelem(machine, count_line, index, SPRITE);
 		}
-		if (vct_apply(map, IS_ALPHA) == TRUE)
-		{
-			c = vct_getfirstchar(map);
-			if (c == 'N' || c == 'S' || c == "W" || c == 'E')
-				ret = recuperation_position(map, machine, count_line, index);
+		if (ft_isalpha(c) == TRUE)
+		{	
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+				ret = recuperation_eachelem(machine, count_line, index, POSITION);
 		}
-		index += vct_getlen(map);
-		vct_del(&map);
+		if (ret == ERROR)
+			break ;
+		vct_pop(map);
+		index++;
 	}
 	count_line++;
 	vct_del(&map);
@@ -94,7 +95,7 @@ int	is_map(t_vector *vct)
 int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machine)
 {
 	char	*tab_other_map_str[4] = {"NO", "SO", "WE", "EA"};
-	char	tab_other_map_c[4] = {"S", "R", "F", "C"};
+	char	tab_other_map_c[4] = {'S', 'R', 'F', 'C'};
 	size_t	tab_len[9];
 	size_t	i;
 	size_t	index;

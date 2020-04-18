@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 21:21:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 17:15:51 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,12 +216,8 @@ int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
 int				is_map(t_vector *vct);
 int				recuperation_map(t_vector *line, t_state_machine *machine);
-int				recuperation_void(t_vector *vct, t_state_machine *machine,
-									size_t count_line, size_t index);
-int				recuperation_wall(t_vector *vct, t_state_machine *machine,
-									size_t count_line, size_t index);
-int				recuperation_sprite(t_vector *vct, t_state_machine *machine,
-									size_t count_line, size_t index);
-int				recuperation_position(t_vector *vct, t_state_machine *machine,
-									size_t count_line, size_t index);
+int 			recuperation_eachelem(t_state_machine *machine,
+										size_t count_line, size_t index,
+										int flag);
+
 #endif
