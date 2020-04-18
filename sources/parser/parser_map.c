@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 22:38:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 00:08:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	static size_t count_line = 0;
 	char		c;
 	size_t		index;
+	static size_t		count_position = 0;
 
 	ret = TRUE;
 	index = 0;
@@ -44,8 +45,17 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 		if (ft_isalpha(c) == TRUE)
 		{	
 			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
 				ret = recuperation_eachelem(machine, count_line, index, POSITION);
+				count_position++;
+				printf("COUNT_POSITION ===================================%zu\n", count_position); //
+			}
 		}
+		if (count_position >= 2)
+		{
+			ft_printf("RENTRE ICI JE T'EN SUPPLI PLEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASE\n"); //
+			ret = ERROR;
+		}	
 		if (ret == ERROR)
 			break ;
 		vct_pop(map);
@@ -72,7 +82,6 @@ static int	verif_before(t_vector *vct, size_t clen)
 			ret = ERROR;
 		i++;
 	}
-	free(str);
 	return (ret);
 }
 
@@ -84,11 +93,11 @@ int	is_map(t_vector *vct)
 
 	ret = TRUE;
 	clen = 0;
-	cpy_vct = vct_new();
-	vct_cpy(cpy_vct, vct);
+	cpy_vct = vct_dup(vct);
 	clen = vct_clen(cpy_vct, '1');
 	if (clen != 0)
 		ret = verif_before(cpy_vct, clen);
+	vct_del(&cpy_vct);
 	return (ret);
 }
 
