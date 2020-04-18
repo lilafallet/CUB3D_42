@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 17:21:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 19:04:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,30 @@ int recuperation_eachelem(t_state_machine *machine, size_t count_line, size_t in
 		machine->info.tab_map[count_line][index] = SPRITE;
 	if (flag == POSITION)
 		machine->info.tab_map[count_line][index] = POSITION;
+	if (flag == OUT)
+		machine->info.tab_map[count_line][index] = OUT;
 	printf("[%zu][%zu] = %d\n", count_line, index, machine->info.tab_map[count_line][index]);
 	return (TRUE);
+}
+
+int	verif_line(t_vector *line, t_state_machine *machine, size_t count_line)
+{
+	int	ret;
+	size_t	len;
+
+	ret = TRUE;
+	len = vct_getlen(line);
+	printf("VERIF_LINE -> len = %zu\n", len); //
+	if (machine->info.tab_map[count_line][len - 1] != OUT &&
+			machine->info.tab_map[count_line][len - 1] != WALL)
+		ret = ERROR;
+	else if (machine->info.tab_map[count_line][len - 1] == OUT)
+	{
+		while (machine->info.tab_map[count_line][len - 1] == OUT)
+			len--;
+		if (machine->info.tab_map[count_line][len - 1] != WALL)
+			ret = ERROR;
+	}
+	ft_printf("VERIF_LINE -> ret = %d\n", ret); //
+	return (ret);
 }

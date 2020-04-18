@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 17:15:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 19:00:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,16 +134,17 @@ enum			e_state
 {
 	RESOLUTION, /*0*/
 	TEXTURE, /*1*/
-	COLOR, /*3*/
-	MAP /*4*/
+	COLOR, /*2*/
+	MAP /*3*/
 };
 
 enum			e_map
 {
 	VOID, /*0*/
 	WALL, /*1*/
-	SPRITE, /*3*/
-	POSITION /*4*/
+	SPRITE, /*2*/
+	POSITION, /*3*/
+	OUT /*4*/
 };
 
 typedef struct	st_f_info
@@ -219,5 +220,6 @@ int				recuperation_map(t_vector *line, t_state_machine *machine);
 int 			recuperation_eachelem(t_state_machine *machine,
 										size_t count_line, size_t index,
 										int flag);
+int				verif_line(t_vector *line, t_state_machine *machine, size_t count_line);
 
 #endif

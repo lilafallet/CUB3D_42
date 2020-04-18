@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 17:18:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/18 19:00:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 			(sizeof(enum e_map) * vct_getlen(line));
 		c = vct_getfirstchar(map);
 		if (ft_iswhitespace(c) == TRUE)
-			ret = recuperation_eachelem(machine, count_line, index, VOID);
+			ret = recuperation_eachelem(machine, count_line, index, OUT);
 		if (ft_isdigit(c) == TRUE)
 		{
 			if (c == '0')
@@ -52,6 +52,7 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 		vct_pop(map);
 		index++;
 	}
+	ret = verif_line(line, machine, count_line);
 	count_line++;
 	vct_del(&map);
 	return (ret);
