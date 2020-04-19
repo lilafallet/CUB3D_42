@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 21:40:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 12:38:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,15 +151,20 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 {
 	int	ret;
 	t_vector	*cpy_vct;
+	static size_t	count_loops_function = 0;
 
 	ret = TRUE;
 	ft_printf("PARSER_MAP\n");
 	ft_printf("PARSER_MAP - > vct->str = %s\n", vct_getstr(vct)); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	ret = what_information_map(cpy_vct, vct_getlen(vct), machine);
+	if (count_loops_function == 0)
+		ret = what_information_map(cpy_vct, vct_getlen(vct), machine);
 	if (ret == NEXT)
+	{	
+		count_loops_function++;
 		return (NEXT);
+	}
 	ret = is_map(cpy_vct);
 	if (ret == ERROR)
 	{
