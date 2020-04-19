@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 00:00:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 18:10:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,16 @@ static int	ft_cub3d(t_state_machine *machine, int fd)
 
 	nb_line = 0;
 	line = vct_new();
-	machine->info.tab_map = (enum e_map **)malloc(sizeof(enum e_map *) * (1096 + 1)); 
-	ft_bzero(machine->info.tab_map, 1096 + 1);
+	machine->info.tab_map = NULL; 
 	while ((ret = vct_readline(line, fd)) > 0)
 	{
 		if (process_cub3d(machine, line, nb_line) == FAILURE)
 			return (FAILURE);
 		nb_line++;
 	}
+	ret = verification_global_map(machine);
+	if (ret == ERROR)
+		printf_errors(machine->information, nb_line);
 	if (hub_verification_map(machine, line, nb_line) == FAILURE)
 		return (FAILURE);
 	ft_free(machine, line);

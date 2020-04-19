@@ -6,12 +6,57 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 23:34:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 18:19:51 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
+
+static int is_wall_or_void(t_state_machine *machine, size_t y, size_t x)
+{
+	return (machine->info.tab_map[y][x] == VOID ||
+				machine->info.tab_map[y][x] == WALL);
+}
+
+int	verification_global_map(t_state_machine *machine)
+{
+	size_t	x;
+	size_t	y;
+	int		ret;
+
+	y = 0;
+	ret = TRUE;
+	ft_printf("------------------------ START\n");
+	ft_printf("MAX LINE = %d\n", machine->info.max_line); //
+	ft_printf("MAX INDEX = %d\n", machine->info.max_index); //
+	while (y < machine->info.max_line)
+	{
+		x = 0;
+		while (x < machine->info.max_index)
+		{
+			if (machine->info.tab_map[y][x] == VOID)
+			{
+				if ((x != 0 && (is_wall_or_void(machine, y, x - 1) == FALSE)) ||
+					(x != machine->info.max_index &&
+					(is_wall_or_void(machine, y, x + 1) == FALSE))
+					|| (y != 0 && (is_wall_or_void(machine, y - 1, x) == FALSE))
+					|| (y != machine->info.max_line &&
+					(is_wall_or_void(machine, y + 1, x) == FALSE)))
+				{	
+						machine->information |= ERROR_MAP;
+						ret = ERROR;
+						ft_printf("\033[31mERROR\033[0m\n");
+						return (ret);
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	ft_printf("RET FINAL =============================================== %d\n", ret); //
+	return (ret);
+}
 
 int recuperation_eachelem(t_state_machine *machine, size_t count_line, size_t index, int flag)
 {

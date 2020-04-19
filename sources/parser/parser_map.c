@@ -6,12 +6,43 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 00:08:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 18:16:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
+
+static int	realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index)
+{
+	enum e_map **cpy_tab;
+	size_t		i;
+	size_t		j;
+
+	if (old_index == 0 || new_index > old_index)
+		machine->info.max_index = new_index;
+	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
+	ft_bzero(cpy_tab, count_line);
+	i = 0;
+	while (i < (count_line - 1))
+	{
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
+		ft_bzero(cpy_tab[i], machine->info.max_index);
+		j = 0;
+		while (j < old_index)
+		{
+			cpy_tab[i][j] = machine->info.tab_map[i][j];
+			j++;
+		}
+		free(machine->info.tab_map[i]);
+		i++;
+	}
+	cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
+	ft_bzero(cpy_tab[i], machine->info.max_index);
+	free(machine->info.tab_map);
+	machine->info.tab_map = cpy_tab;
+	return (SUCCESS);
+}
 
 int	recuperation_map(t_vector *line, t_state_machine *machine)
 {
@@ -25,8 +56,7 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	ret = TRUE;
 	index = 0;
 	map = vct_dup(line);
-	machine->info.tab_map[count_line] = (enum e_map *)malloc
-		(sizeof(enum e_map) * vct_getlen(line));
+	realloc_tab(machine, count_line + 1, machine->info.max_index, vct_getlen(line));
 	printf("VERIFICATION_MAP -> line->len = %zu\n", vct_getlen(line)); //
 	while (index < vct_getlen(line))
 	{
@@ -61,8 +91,11 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 		vct_pop(map);
 		index++;
 	}
+	if (index > machine->info.max_index)
+		machine->info.max_index = index;
 	ret = verif_line(line, machine, count_line);
 	count_line++;
+	machine->info.max_line = count_line;
 	vct_del(&map);
 	return (ret);
 }

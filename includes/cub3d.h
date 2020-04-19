@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/18 19:00:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 17:20:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ typedef struct	st_f_info
 typedef struct	s_info
 {
 	size_t			index_map;
+	size_t			max_index;
+	size_t			max_line;
 	char			*str_texture[NB_TEXTURE];
 	char			*str_resolution[NB_RESOLUTION];
 	char			*str_text_spr;
@@ -221,5 +223,6 @@ int 			recuperation_eachelem(t_state_machine *machine,
 										size_t count_line, size_t index,
 										int flag);
 int				verif_line(t_vector *line, t_state_machine *machine, size_t count_line);
+int				verification_global_map(t_state_machine *machine);
 
 #endif
