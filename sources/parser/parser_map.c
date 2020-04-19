@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 18:16:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 21:50:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static int	realloc_tab(t_state_machine *machine, size_t count_line, size_t old_i
 	size_t		j;
 
 	if (old_index == 0 || new_index > old_index)
+	{
 		machine->info.max_index = new_index;
+	}
 	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
 	ft_bzero(cpy_tab, count_line);
 	i = 0;
@@ -38,7 +40,9 @@ static int	realloc_tab(t_state_machine *machine, size_t count_line, size_t old_i
 		i++;
 	}
 	cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
+	ft_printf("i = %d\n", i);
 	ft_bzero(cpy_tab[i], machine->info.max_index);
+	ft_printf("new = %d, old = %d,maxindex = %d\n", new_index, old_index, machine->info.max_index);
 	free(machine->info.tab_map);
 	machine->info.tab_map = cpy_tab;
 	return (SUCCESS);
@@ -93,9 +97,9 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	}
 	if (index > machine->info.max_index)
 		machine->info.max_index = index;
-	ret = verif_line(line, machine, count_line);
-	count_line++;
+//	ret = verif_line(line, machine, count_line);
 	machine->info.max_line = count_line;
+	count_line++;
 	vct_del(&map);
 	return (ret);
 }

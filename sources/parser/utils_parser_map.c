@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 18:19:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/19 21:48:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int is_wall_or_void(t_state_machine *machine, size_t y, size_t x)
 {
-	return (machine->info.tab_map[y][x] == VOID ||
+	return (machine->info.tab_map[y][x] == OUT ||
 				machine->info.tab_map[y][x] == WALL);
 }
 
@@ -35,7 +35,7 @@ int	verification_global_map(t_state_machine *machine)
 		x = 0;
 		while (x < machine->info.max_index)
 		{
-			if (machine->info.tab_map[y][x] == VOID)
+			if (machine->info.tab_map[y][x] == OUT)
 			{
 				if ((x != 0 && (is_wall_or_void(machine, y, x - 1) == FALSE)) ||
 					(x != machine->info.max_index &&
@@ -46,6 +46,7 @@ int	verification_global_map(t_state_machine *machine)
 				{	
 						machine->information |= ERROR_MAP;
 						ret = ERROR;
+						ft_printf("line = %d, col = %d: %d\n", y + 1, x + 1, machine->info.tab_map[y][x]); //
 						ft_printf("\033[31mERROR\033[0m\n");
 						return (ret);
 				}
@@ -54,6 +55,7 @@ int	verification_global_map(t_state_machine *machine)
 		}
 		y++;
 	}
+	
 	ft_printf("RET FINAL =============================================== %d\n", ret); //
 	return (ret);
 }
