@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 17:20:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/20 16:33:48 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ enum			e_map
 	WALL, /*1*/
 	SPRITE, /*2*/
 	POSITION, /*3*/
-	OUT /*4*/
+	OUT, /*4*/
+	STOP /*5*/
 };
 
 typedef struct	st_f_info
@@ -224,5 +225,11 @@ int 			recuperation_eachelem(t_state_machine *machine,
 										int flag);
 int				verif_line(t_vector *line, t_state_machine *machine, size_t count_line);
 int				verification_global_map(t_state_machine *machine);
+int				realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index);
+
+
+int	iter_map(t_state_machine *machine, int (*f)(t_state_machine *machine, size_t y, size_t x));
+int	clean_and_print(t_state_machine *machine, size_t i, size_t j);
+int	verif_map(t_state_machine *machine, size_t y, size_t x);
 
 #endif

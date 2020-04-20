@@ -6,43 +6,46 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 21:50:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/20 16:16:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-static int	realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index)
+int		realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index)
 {
 	enum e_map **cpy_tab;
 	size_t		i;
 	size_t		j;
 
 	if (old_index == 0 || new_index > old_index)
-	{
 		machine->info.max_index = new_index;
-	}
 	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
 	ft_bzero(cpy_tab, count_line);
 	i = 0;
-	while (i < (count_line - 1))
+	while (i < machine->info.max_line)
 	{
-		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
-		ft_bzero(cpy_tab[i], machine->info.max_index);
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * (machine->info.max_index));
+		ft_memset(cpy_tab[i], STOP, machine->info.max_index);
 		j = 0;
-		while (j < old_index)
+		while (j < machine->info.max_index
+				&& machine->info.tab_map[i][j] != STOP)
 		{
 			cpy_tab[i][j] = machine->info.tab_map[i][j];
 			j++;
 		}
+		while (j < machine->info.max_index)
+			cpy_tab[i][j++] = STOP;
 		free(machine->info.tab_map[i]);
 		i++;
 	}
-	cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
-	ft_printf("i = %d\n", i);
-	ft_bzero(cpy_tab[i], machine->info.max_index);
-	ft_printf("new = %d, old = %d,maxindex = %d\n", new_index, old_index, machine->info.max_index);
+	ft_printf("count_line %d, max_line %d\n", count_line, machine->info.max_line);
+	if (count_line != machine->info.max_line)
+	{
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
+		ft_memset(cpy_tab[i], STOP, machine->info.max_index);
+	}	
 	free(machine->info.tab_map);
 	machine->info.tab_map = cpy_tab;
 	return (SUCCESS);
@@ -55,16 +58,33 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	static size_t count_line = 0;
 	char		c;
 	size_t		index;
+	ssize_t		index_char;
 	static size_t		count_position = 0;
+	t_vector	*vct_char;
 
 	ret = TRUE;
 	index = 0;
 	map = vct_dup(line);
-	realloc_tab(machine, count_line + 1, machine->info.max_index, vct_getlen(line));
+	vct_char = vct_new();
+	vct_addstr(vct_char, "012NSWE \t");
+	realloc_tab(machine, count_line + 1, machine->info.max_index, vct_getlen(line) + 1);
 	printf("VERIFICATION_MAP -> line->len = %zu\n", vct_getlen(line)); //
-	while (index < vct_getlen(line))
+	while (index < vct_getlen(line) && ret != ERROR)
 	{
 		c = vct_getfirstchar(map);
+		index_char = vct_chr(vct_char, c);	
+		if (index_char < 3)
+			machine->info.tab_map[count_line][index] = (enum e_map)index_char;
+		else if (index_char > 6)
+			machine->info.tab_map[count_line][index] = OUT;
+		else if (count_position == 0)
+		{
+			machine->info.tab_map[count_line][index] = POSITION;
+			count_position++;
+		}
+		else
+			ret = ERROR;
+/*
 		if (ft_iswhitespace(c) == TRUE)
 			ret = recuperation_eachelem(machine, count_line, index, OUT);
 		if (ft_isdigit(c) == TRUE)
@@ -86,21 +106,25 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 			}
 		}
 		if (count_position >= 2)
+	}	
 		{
 			ft_printf("RENTRE ICI JE T'EN SUPPLI PLEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASE\n"); //
 			ret = ERROR;
 		}	
 		if (ret == ERROR)
-			break ;
+			break ;*/
 		vct_pop(map);
 		index++;
 	}
+	if (ret != ERROR)
+		machine->info.tab_map[count_line][index] = STOP;
 	if (index > machine->info.max_index)
 		machine->info.max_index = index;
 //	ret = verif_line(line, machine, count_line);
-	machine->info.max_line = count_line;
 	count_line++;
+	machine->info.max_line = count_line;
 	vct_del(&map);
+	vct_del(&vct_char);
 	return (ret);
 }
 

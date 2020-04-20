@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/13 19:49:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/20 12:50:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	printf_errors(unsigned long flag, unsigned long line)
 	while (i < NB_ERROR)
 	{
 		if (index & (1 << i))
+		{
+			ft_printf("C'EST ICI QUE TU AFFICHES BATARD ?\n"); //
 			ft_dprintf(STDERR_FILENO, "Error [line %ld]: %s\n", line, error[i]);
+		}
 		i++;
 	}
 }

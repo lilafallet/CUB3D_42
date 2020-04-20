@@ -6,114 +6,75 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 21:48:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/20 16:48:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-static int is_wall_or_void(t_state_machine *machine, size_t y, size_t x)
+static int is_valid(enum e_map map_case)
 {
-	return (machine->info.tab_map[y][x] == OUT ||
-				machine->info.tab_map[y][x] == WALL);
+	return (map_case == OUT || map_case == WALL);
 }
 
-int	verification_global_map(t_state_machine *machine)
+static int	is_bad_neighborhood(t_state_machine *machine, size_t x, size_t y)
+{
+	return ((x > 0 && is_valid(machine->info.tab_map[y][x - 1]) == FALSE)
+			|| (x + 1 < machine->info.max_index
+				&&  is_valid(machine->info.tab_map[y][x + 1]) == FALSE)
+			|| (y > 0 && is_valid(machine->info.tab_map[y - 1][x]) == FALSE)
+			|| (y + 1 < machine->info.max_line
+				&& is_valid(machine->info.tab_map[y + 1][x]) == FALSE));
+}
+
+int	iter_map(t_state_machine *machine, int (*f)(t_state_machine *machine, size_t y, size_t x))
 {
 	size_t	x;
 	size_t	y;
-	int		ret;
 
 	y = 0;
-	ret = TRUE;
-	ft_printf("------------------------ START\n");
-	ft_printf("MAX LINE = %d\n", machine->info.max_line); //
-	ft_printf("MAX INDEX = %d\n", machine->info.max_index); //
 	while (y < machine->info.max_line)
 	{
 		x = 0;
 		while (x < machine->info.max_index)
 		{
-			if (machine->info.tab_map[y][x] == OUT)
-			{
-				if ((x != 0 && (is_wall_or_void(machine, y, x - 1) == FALSE)) ||
-					(x != machine->info.max_index &&
-					(is_wall_or_void(machine, y, x + 1) == FALSE))
-					|| (y != 0 && (is_wall_or_void(machine, y - 1, x) == FALSE))
-					|| (y != machine->info.max_line &&
-					(is_wall_or_void(machine, y + 1, x) == FALSE)))
-				{	
-						machine->information |= ERROR_MAP;
-						ret = ERROR;
-						ft_printf("line = %d, col = %d: %d\n", y + 1, x + 1, machine->info.tab_map[y][x]); //
-						ft_printf("\033[31mERROR\033[0m\n");
-						return (ret);
-				}
-			}
+			if (f(machine, y, x) == FALSE)
+				return (FALSE);
 			x++;
 		}
-		y++;
+		y++;	
 	}
-	
-	ft_printf("RET FINAL =============================================== %d\n", ret); //
-	return (ret);
-}
-
-int recuperation_eachelem(t_state_machine *machine, size_t count_line, size_t index, int flag)
-{
-	static size_t	tmp_index = 0;
-	int				ret; 
-	
-	ret = TRUE;
-	if (index != tmp_index + 1 && index != 0)
-		return (ERROR);
-	tmp_index = index;
-	if (flag == VOID)
-		machine->info.tab_map[count_line][index] = VOID;
-	if (flag == WALL)
-		machine->info.tab_map[count_line][index] = WALL;
-	if (flag == SPRITE)
-		machine->info.tab_map[count_line][index] = SPRITE;
-	if (flag == POSITION)
-		machine->info.tab_map[count_line][index] = POSITION;
-	if (flag == OUT)
-		machine->info.tab_map[count_line][index] = OUT;
-	printf("[%zu][%zu] = %d\n", count_line, index, machine->info.tab_map[count_line][index]);
 	return (TRUE);
 }
 
-int	verif_line(t_vector *line, t_state_machine *machine, size_t count_line)
+int	clean_and_print(t_state_machine *machine, size_t i, size_t j)
 {
-	int	ret;
-	size_t	len;
-	size_t	index_end;
-	size_t	index_start;
+	if (machine->info.tab_map[i][j] == STOP)
+		machine->info.tab_map[i][j] = OUT;
+	ft_printf("%d%c", machine->info.tab_map[i][j],
+			(j + 1 == machine->info.max_index) ? '\n' : ' ');
+	return (TRUE);
+}
 
-	ret = TRUE;
-	len = vct_getlen(line);
-	index_end = len - 1;
-	index_start = 0;
-	if (count_line == 0)
+int	verif_map(t_state_machine *machine, size_t y, size_t x)
+{
+	if ((machine->info.tab_map[y][x] == OUT) 
+		&& is_bad_neighborhood(machine, x, y) == TRUE)
 	{
-		while (index_start < len)
-		{
-			if (machine->info.tab_map[count_line][index_start] != OUT && 
-					machine->info.tab_map[count_line][index_start] != WALL && 
-					machine->info.tab_map[count_line][index_start] != VOID) 
-				return (ERROR);
-			index_start++;
-		}	
+		machine->information |= ERROR_MAP;
+		ft_printf("line = %d, col = %d: %d\n", y + 1, x + 1, machine->info.tab_map[y][x]); //
+		ft_printf("\033[31mERROR\033[0m\n");
+		return (FALSE);
 	}
-	if (machine->info.tab_map[count_line][index_end] != OUT &&
-			machine->info.tab_map[count_line][index_end] != WALL)
-		ret = ERROR;
-	else if (machine->info.tab_map[count_line][index_end] == OUT)
-	{
-		while (machine->info.tab_map[count_line][index_end] == OUT)
-			index_end--;
-		if (machine->info.tab_map[count_line][index_end] != WALL)
-			ret = ERROR;
-	}
-	return (ret);
+	return (TRUE);
+}
+
+int	verification_global_map(t_state_machine *machine)
+{
+	realloc_tab(machine, machine->info.max_line, machine->info.max_index, machine->info.max_index);
+	iter_map(machine, clean_and_print);
+	if (iter_map(machine, verif_map) == FALSE)
+		return (ERROR);
+	return (TRUE);
 }
