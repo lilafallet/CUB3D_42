@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 15:36:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 17:22:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	int			ret;
 	t_vector	*cpy_vct;
 	char		*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
-	int			index;
 	t_vector	*texture;
 
 	ret = TRUE;
@@ -53,22 +52,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	texture = vct_new();
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	if (ret != ERROR)
-		ret = is_texture(cpy_vct, tab_texture, machine);
-	index = ret;
-	if (ret == NEXT_OTHERCHAR)
-		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine, ret);
-	if (ret >= NO && ret <= S && ret != NEXT_OTHERCHAR)
-		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]);
-	else
-		ret = NEXT;
-	if (ret != NEXT)
-		ret = init_machine_texture(ret, machine, index, cpy_vct);
-	if (have_all_texture(machine) == TRUE && ret == NEXT)
-	{
-		ret = TRUE;
-		machine->state = MAP;
-	}
+	ret = send_to_function_texture(cpy_vct, tab_texture, machine, texture);
 	vct_del(&cpy_vct);
 	vct_del(&texture);
 	return (ret);
@@ -79,7 +63,6 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	int			ret;
 	t_vector	*cpy_vct;
 	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
-	int			index;
 
 	if (machine->information & BT_COLOR_F && machine->information & BT_COLOR_C)
 	{
@@ -88,24 +71,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	}
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	ret = is_color(cpy_vct, tab_color);
-	index = ret;
-	if (ret == COLOR_C || ret == COLOR_F)
-		ret = TRUE;
-	else
-		ret = NEXT;
-	if (ret == TRUE)
-		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
-	if (ret == NEXT)
-	{
-		ret = what_information_color(vct, vct_getlen(vct), machine,
-										NEXT_OTHERCHAR);
-	}
-	if (ret == ERROR)
-		machine->information |= ERROR_COLOR;
-	if (ret == TRUE && (((machine->information & BT_COLOR_F) == FALSE ||
-			(machine->information & BT_COLOR_C) == FALSE)))
-		ret = ERROR;
+	ret = send_to_function_color(cpy_vct, tab_color, machine, vct);
 	vct_del(&cpy_vct);
 	return (ret);	
 }

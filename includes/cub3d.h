@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 15:04:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 17:19:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,5 +232,13 @@ int				iter_map(t_state_machine *machine,
 int				clean_and_print(t_state_machine *machine, size_t i, size_t j);
 int				verif_map(t_state_machine *machine, size_t y, size_t x);
 int				have_all_texture(t_state_machine *machine);
+int				send_to_function_texture(t_vector *vct,
+											char *tab_texture[NB_TEXTURE],
+											t_state_machine *machine,
+											t_vector *texture);
+int				send_to_function_color(t_vector *cpy_vct,
+										char *tab_color[NB_INDIC_COLOR],
+										t_state_machine *machine,
+										t_vector *vct);
 
 #endif

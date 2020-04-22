@@ -6,25 +6,39 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:11:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 17:11:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-void		what_bitwaze(t_state_machine *machine, int index)
+int			send_to_function_texture(t_vector *vct,
+										char *tab_texture[NB_TEXTURE],
+										t_state_machine *machine,
+										t_vector *texture)
 {
-	if (index == NO)
-		machine->information |= BT_NO;
-	else if (index == SO)
-		machine->information |= BT_SO;
-	else if (index == WE)
-		machine->information |= BT_WE;
-	else if (index == EA)
-		machine->information |= BT_EA;
-	else if (index == S)
-		machine->information |= BT_SPR;
+	int		ret;
+	int		index;
+	size_t	len;
+
+	ret = is_texture(vct, tab_texture, machine);
+	index = ret;
+	len = vct_getlen(vct);
+	if (ret == NEXT_OTHERCHAR)
+		what_information_texture(vct, len, machine, ret);
+	if (ret >= NO && ret <= S && ret != NEXT_OTHERCHAR)
+		ret = pre_process_split(texture, vct, tab_texture[ret]);
+	else
+		ret = NEXT;
+	if (ret != NEXT)
+		ret = init_machine_texture(ret, machine, index, vct);
+	if (have_all_texture(machine) == TRUE && ret == NEXT)
+	{
+		ret = TRUE;
+		machine->state = MAP;
+	}
+	return (ret);
 }
 
 static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)

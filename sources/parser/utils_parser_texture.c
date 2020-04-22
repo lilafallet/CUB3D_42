@@ -6,12 +6,26 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 15:03:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 16:53:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
+
+void		what_bitwaze(t_state_machine *machine, int index)
+{
+	if (index == NO)
+		machine->information |= BT_NO;
+	else if (index == SO)
+		machine->information |= BT_SO;
+	else if (index == WE)
+		machine->information |= BT_WE;
+	else if (index == EA)
+		machine->information |= BT_EA;
+	else if (index == S)
+		machine->information |= BT_SPR;
+}
 
 int	have_all_texture(t_state_machine *machine)
 {
