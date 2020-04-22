@@ -6,12 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/19 12:38:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:32:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h> /*DEBUG*/
 
 static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 {
@@ -19,7 +18,6 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	int			ret;
 	t_vector	*cpy_vct;
 
-	ft_printf("PARSER_RESOLUTION\n"); //
 	ret = TRUE;
 	if (machine->information & BT_RESOLUTION)
 		ret = ERROR;
@@ -27,19 +25,11 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	resol = NULL;
 	if (ret != ERROR)
-		ret = is_resolution(resol, cpy_vct, machine); /*appelle fonction qui va permettre de
-	dire si il s'agit de la resolution ou non (TRUE ou ERROR)*/
-	if (ret != ERROR && ret != NEXT) /*si il s'agit bien de la resolution*/
-	{
+		ret = is_resolution(resol, cpy_vct, machine);
+	if (ret != ERROR && ret != NEXT)
 		ret = split_resolution(resol, machine->info.str_resolution, cpy_vct);
-		/*utilisation de la fonction split pour trouver chaque nombre et
-		determine si 2 nombres ou plus ou moins (ERROR)*/
-	}
 	if (ret & NEXT)
-	{
-		ret = init_machine_resolution(machine, ret); /*initialisation de
-		machine->state et machine->information*/
-	}
+		ret = init_machine_resolution(machine, ret);
 	if (ret & ERROR)
 		machine->information |= ERROR_RESOLUTION;
 	vct_del(&cpy_vct);
@@ -54,7 +44,6 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	int			index;
 	t_vector	*texture;
 
-	ft_printf("PARSER_TEXTURE\n"); //
 	ret = TRUE;
 	if (machine->information & BT_NO && machine->information & BT_SO &&
 		machine->information & BT_WE && machine->information & BT_EA &&
@@ -67,14 +56,8 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	if (ret != ERROR)
-		ret = is_texture(cpy_vct, tab_texture, machine); /*appelle fonction qui va permettre
-	de determiner si il s'agit d'une texture ou non (TRUE or ERROR)*/
-	index = ret; /*ret vaut l'indice du tableau des textures
-	0 = NO
-	1 = SO
-	2 = WE
-	3 = EA
-	4 = SPR*/
+		ret = is_texture(cpy_vct, tab_texture, machine);
+	index = ret;
 	if (ret == NEXT_OTHERCHAR)
 	{
 		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine, ret);
@@ -82,18 +65,13 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		vct_del(&texture);
 		return (NEXT);
 	}
-	if (ret >= NO && ret <= S) /*TRUE*/
-	{
-		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]); /*utilisation
-		de la fonction split pour trouver le path et integration du path dans
-		la machine*/
-	}
+	if (ret >= NO && ret <= S)
+		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]);
 	else
 		ret = NEXT;
-	ret = init_machine_texture(ret, machine, index, cpy_vct); /*initialisation de
-	machine->state et machine->information*/
+	ret = init_machine_texture(ret, machine, index, cpy_vct);
 	ft_printf("machine->information.str_texture[%d] = %s\n", index,
-				machine->info.str_texture[index]); //
+				machine->info.str_texture[index]); //	
 	if (machine->information & BT_RESOLUTION &&
 			machine->information & BT_COLOR_F &&
 			machine->information & BT_COLOR_C && machine->information & BT_NO
@@ -115,7 +93,6 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	int			index;
 
-	ft_printf("PARSER_COLOR\n"); //
 	if (machine->information & BT_COLOR_F && machine->information & BT_COLOR_C)
 	{
 		machine->information |= ERROR_COLOR;
@@ -125,19 +102,17 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	vct_cpy(cpy_vct, vct);
 	ret = is_color(cpy_vct, tab_color);
 	index = ret;
-	if (ret == COLOR_C || ret == COLOR_F) /*si F ou C*/
+	if (ret == COLOR_C || ret == COLOR_F)
 		ret = TRUE;
-	else /*si pas trouve F ou C*/
+	else
 		ret = NEXT;
-	if (ret == TRUE) /*rentre seulement si on a trouve F ou C*/
-	{
+	if (ret == TRUE)
 		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
-		/*fonction qui permet de determiner si il s'agit de l'indication F ou C
-		+ avoir la chaine de caractere apres l'indication F ou C + split +
-		recuperation des couleurs */
-	}
 	if (ret == NEXT)
-		ret = what_information_color(vct, vct_getlen(vct), machine, NEXT_OTHERCHAR);
+	{
+		ret = what_information_color(vct, vct_getlen(vct), machine,
+										NEXT_OTHERCHAR);
+	}
 	if (ret == ERROR)
 		machine->information |= ERROR_COLOR;
 	if (ret == TRUE && (((machine->information & BT_COLOR_F) == FALSE ||
@@ -154,8 +129,6 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 	static size_t	count_loops_function = 0;
 
 	ret = TRUE;
-	ft_printf("PARSER_MAP\n");
-	ft_printf("PARSER_MAP - > vct->str = %s\n", vct_getstr(vct)); //
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	if (count_loops_function == 0)
@@ -183,33 +156,22 @@ int			first_parser(t_state_machine *machine, t_vector *line)
 {
 	static t_function	function[4] = {parser_resolution, parser_texture,
 										parser_color, parser_map};
-	static int			nb_line = 1; //
 	int					ret;
 	int					i;
 
-	ft_printf("TEST LINE %d: %s\n\n", nb_line, line->str); //
 	i = 0;
 	ret = 0;
 	if (line->len == 0)
-	{
-		ft_printf("LEN LINE = 0\n"); //
-		nb_line++;
-		//what_state(machine);
 		return (LEN_ZERO);
-	}
 	while (i < NB_STATE)
 	{
 		ret = function[machine->state](line, machine);
 		if (ret & ERROR)
-		{
-			nb_line++; /*debug*/
 			return (FAILURE);
-		}
 		if (ret & NEXT)
 			i++;
 		else
 			break ;
 	}
-	nb_line++; /*debug*/
 	return (ret);
 }

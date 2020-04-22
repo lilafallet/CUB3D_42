@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/20 16:16:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:04:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h> //
 
-int		realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index)
+int		realloc_tab(t_state_machine *machine, size_t count_line,
+						size_t old_index, size_t new_index)
 {
 	enum e_map **cpy_tab;
 	size_t		i;
@@ -26,7 +26,8 @@ int		realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, 
 	i = 0;
 	while (i < machine->info.max_line)
 	{
-		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * (machine->info.max_index));
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
+						(machine->info.max_index));
 		ft_memset(cpy_tab[i], STOP, machine->info.max_index);
 		j = 0;
 		while (j < machine->info.max_index
@@ -40,10 +41,10 @@ int		realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, 
 		free(machine->info.tab_map[i]);
 		i++;
 	}
-	ft_printf("count_line %d, max_line %d\n", count_line, machine->info.max_line);
 	if (count_line != machine->info.max_line)
 	{
-		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * machine->info.max_index);
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * 
+						machine->info.max_index);
 		ft_memset(cpy_tab[i], STOP, machine->info.max_index);
 	}	
 	free(machine->info.tab_map);
@@ -67,8 +68,8 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	map = vct_dup(line);
 	vct_char = vct_new();
 	vct_addstr(vct_char, "012NSWE \t");
-	realloc_tab(machine, count_line + 1, machine->info.max_index, vct_getlen(line) + 1);
-	printf("VERIFICATION_MAP -> line->len = %zu\n", vct_getlen(line)); //
+	realloc_tab(machine, count_line + 1, machine->info.max_index,
+					vct_getlen(line) + 1);
 	while (index < vct_getlen(line) && ret != ERROR)
 	{
 		c = vct_getfirstchar(map);
@@ -84,35 +85,6 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 		}
 		else
 			ret = ERROR;
-/*
-		if (ft_iswhitespace(c) == TRUE)
-			ret = recuperation_eachelem(machine, count_line, index, OUT);
-		if (ft_isdigit(c) == TRUE)
-		{
-			if (c == '0')
-				ret = recuperation_eachelem(machine, count_line, index, VOID);
-			if (c == '1')
-				ret = recuperation_eachelem(machine, count_line, index, WALL);
-			if (c == '2')
-				ret = recuperation_eachelem(machine, count_line, index, SPRITE);
-		}
-		if (ft_isalpha(c) == TRUE)
-		{	
-			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-			{
-				ret = recuperation_eachelem(machine, count_line, index, POSITION);
-				count_position++;
-				printf("COUNT_POSITION ===================================%zu\n", count_position); //
-			}
-		}
-		if (count_position >= 2)
-	}	
-		{
-			ft_printf("RENTRE ICI JE T'EN SUPPLI PLEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASE\n"); //
-			ret = ERROR;
-		}	
-		if (ret == ERROR)
-			break ;*/
 		vct_pop(map);
 		index++;
 	}
@@ -120,7 +92,6 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 		machine->info.tab_map[count_line][index] = STOP;
 	if (index > machine->info.max_index)
 		machine->info.max_index = index;
-//	ret = verif_line(line, machine, count_line);
 	count_line++;
 	machine->info.max_line = count_line;
 	vct_del(&map);
@@ -162,7 +133,8 @@ int	is_map(t_vector *vct)
 	return (ret);
 }
 
-int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machine)
+int	what_information_map(t_vector *vct, size_t clen_map,
+							t_state_machine *machine)
 {
 	char	*tab_other_map_str[4] = {"NO", "SO", "WE", "EA"};
 	char	tab_other_map_c[4] = {'S', 'R', 'F', 'C'};
@@ -198,5 +170,3 @@ int	what_information_map(t_vector *vct, size_t clen_map, t_state_machine *machin
 		machine->state = COLOR;
 	return (NEXT);
 }
-
-

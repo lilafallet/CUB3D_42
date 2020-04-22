@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/20 16:48:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:18:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	is_bad_neighborhood(t_state_machine *machine, size_t x, size_t y)
 				&& is_valid(machine->info.tab_map[y + 1][x]) == FALSE));
 }
 
-int	iter_map(t_state_machine *machine, int (*f)(t_state_machine *machine, size_t y, size_t x))
+int	iter_map(t_state_machine *machine, int (*f)(t_state_machine *machine,
+				size_t y, size_t x))
 {
 	size_t	x;
 	size_t	y;
@@ -53,7 +54,7 @@ int	clean_and_print(t_state_machine *machine, size_t i, size_t j)
 	if (machine->info.tab_map[i][j] == STOP)
 		machine->info.tab_map[i][j] = OUT;
 	ft_printf("%d%c", machine->info.tab_map[i][j],
-			(j + 1 == machine->info.max_index) ? '\n' : ' ');
+			(j + 1 == machine->info.max_index) ? '\n' : ' '); //DEBUG//
 	return (TRUE);
 }
 
@@ -63,8 +64,6 @@ int	verif_map(t_state_machine *machine, size_t y, size_t x)
 		&& is_bad_neighborhood(machine, x, y) == TRUE)
 	{
 		machine->information |= ERROR_MAP;
-		ft_printf("line = %d, col = %d: %d\n", y + 1, x + 1, machine->info.tab_map[y][x]); //
-		ft_printf("\033[31mERROR\033[0m\n");
 		return (FALSE);
 	}
 	return (TRUE);

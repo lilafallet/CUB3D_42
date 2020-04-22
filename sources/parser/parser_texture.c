@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:29:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:11:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 		if (count_path == 1)
 		{
 			free(*ret_str);
-			*ret_str = vct_strdup(texture); /*path apres le "./"*/
+			*ret_str = vct_strdup(texture);
 			if (vct_apply(texture, IS_ASCII) == FALSE)
 				ret = FALSE;
 			else
@@ -47,10 +47,10 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 			break ; 
 		}
 		if (ft_strequ(vct_getstr(texture), PATH) == TRUE)
-			count_path++; /*on a trouve le path*/
+			count_path++;
 		if (count_path == 0 && vct_apply(texture, IS_WHITESPACE) == FALSE)
 		{
-			ret = ERROR; /*char indesirable avant le path*/
+			ret = ERROR;
 			break ;
 		}
 		vct_del(&texture);
@@ -64,20 +64,19 @@ static void	final_path(t_vector *cpy_vct, t_vector *vct)
 	size_t		clen;
 	char		*ret_cpy;
 
-	clen = vct_clen(cpy_vct, SLASH); /*permet d'avoir l'indice*/
+	clen = vct_clen(cpy_vct, SLASH);
 	ret_cpy = vct_getstr(cpy_vct);
-	ret_cpy = ft_strdup(ret_cpy + clen + 1); /*permet d'avoir la string apres le
-	"./"*/
+	ret_cpy = ft_strdup(ret_cpy + clen + 1);
 	vct_del(&cpy_vct);
 	cpy_vct = vct_new();
-	vct_addstr(cpy_vct, ret_cpy); /*ajout de la nouvelle chaine qui permet
-	d'avoir plusieurs "./"*/
+	vct_addstr(cpy_vct, ret_cpy);
 	vct_cpy(vct, cpy_vct);
 	vct_del(&cpy_vct);
 	free(ret_cpy);
 }
 
-int			pre_process_split(t_vector *texture, t_vector *vct, char *str_texture)
+int			pre_process_split(t_vector *texture, t_vector *vct,
+								char *str_texture)
 {
 	int			ret;
 	char		*ret_str;
@@ -89,21 +88,18 @@ int			pre_process_split(t_vector *texture, t_vector *vct, char *str_texture)
 	ret = TRUE;
 	len = ft_strlen(str_texture);
 	count_path = 0;
-	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct)); /*copie
-	dans ret_str de la ligne jusqu'au premier charactere de NO,SO,WE,EA ou S*/
-	vct_addstr(cpy_vct, ret_str + len); /*cpy_vct = ret_str apres l'indicateur*/
+	ret_str = ft_strnstr(vct_getstr(vct), str_texture, vct_getlen(vct));
+	vct_addstr(cpy_vct, ret_str + len);
 	ret_str = NULL;
 	free(ret_str);
-	ret = process_split(texture, cpy_vct, &ret_str); /*fonction qui va permettre
-	de trouver le path + voir si char indesirable apres l'indicateur +
-	ret_str = path apres le "./"*/
-	final_path(cpy_vct, vct); /*fonction qui permet d'avoir un path qui contient
-	plus d'un "./"*/
+	ret = process_split(texture, cpy_vct, &ret_str);
+	final_path(cpy_vct, vct);
 	free(ret_str);
 	return (ret);
 }
 
-int			is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine)
+int			is_texture(t_vector *vct, char **tab_texture,
+						t_state_machine *machine)
 {
 	int		ret;
 	char	*ret_str;
@@ -114,19 +110,15 @@ int			is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine)
 	index = 0;
 	while (index < NB_TEXTURE) 
 	{
-		/*chercher "NO", "SO", "WE", "EA", "S"*/
 		ret_str = ft_strnstr(vct_getstr(vct), tab_texture[index],
 								vct_getlen(vct));
 		if (ret_str != NULL)
 			break ;
-		index++; /*recuperation de l'index*/
+		index++;
 	}
 	if (ret_str == NULL)
 		ret = NEXT_OTHERCHAR;
 	else if (ret_str != NULL)
-	{
-		ret = clean_before(vct, tab_texture, index, machine); /*savoir si char
-		indesirable avant NO, SO, WE, EA, S*/
-	}
+		ret = clean_before(vct, tab_texture, index, machine);
 	return (ret);
 }

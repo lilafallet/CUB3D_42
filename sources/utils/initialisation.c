@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/20 16:18:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:12:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_free(t_state_machine *machine, t_vector *line)
 	size_t	i;
 
 	i = 0;
-	ft_printf("FT_FREE\n"); //
 	vct_del(&line);
 	line = NULL;
 	free(machine->str_info_final);

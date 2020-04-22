@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:29:34 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:30:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
 			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
 			&& tab_len[4] == vct_getlen(vct))
-	{
-		ft_printf("RENTRE ICI 2\n"); //
 		ret = TRUE;
-	}
 	return (ret); 
 }
 
@@ -98,16 +95,15 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 	count = 0;
 	while ((resol = vct_split(vct, STRING_SPACE_TAB, ALL_SEP)) != NULL)
 	{
-		if (vct_apply(resol, IS_DIGIT) == TRUE) /*si numero*/
+		if (vct_apply(resol, IS_DIGIT) == TRUE) 
 		{
 			count++;
-			ret = count_num(str_resolution, resol); /*si trop ou pas assez de
-			numero*/
+			ret = count_num(str_resolution, resol);
 			if (ret == ERROR)
 				break ;
 		}
 		else if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
-				(vct_apply(resol, IS_DIGIT) == FALSE)) /*si char indesirable*/
+				(vct_apply(resol, IS_DIGIT) == FALSE))
 		{
 			ret = ERROR;
 			break ;
@@ -153,16 +149,11 @@ int	is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine)
 	resol = vct_splitchr(vct, CHAR_RESOLUTION);
 	if ((vct_getfirstchar(vct) != SPACE) && (vct_getfirstchar(vct) != TAB))
 	{
-		vct_del(&resol); /*si il n'y a pas d'espace/tab ou si il y'a un
-		caractere indesirable*/
+		vct_del(&resol);
 		return (ERROR);
 	}
 	if (vct_apply(resol, IS_WHITESPACE) == FALSE)
-	{
-		ret = not_resolution(resol); /*determiner si il s'agit d'une erreur dans
-		la resolution ou si il s'agit d'une texture, d'une couleur ou de la
-		map*/
-	}
+		ret = not_resolution(resol);
 	vct_del(&resol);
 	return (ret);
 }

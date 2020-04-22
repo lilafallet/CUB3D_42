@@ -6,14 +6,15 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 16:01:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:32:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine, int ret_before)
+int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
+							int ret_before)
 {
 	char *tab_other_resolution[4] = {"R", "NO", "SO", "WE"};
 	size_t	tab_len[5];
@@ -41,10 +42,12 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
 		ret = NEXT;
 	}
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct) && ret_before == TRUE)
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
+			&& ret_before == TRUE)
 		ret = TRUE;
 	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct) && ret_before == NEXT_OTHERCHAR)
+			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)\
+			&& ret_before == NEXT_OTHERCHAR)
 	{
 		machine->state = MAP;
 		ret = NEXT;
@@ -64,7 +67,7 @@ int	is_color(t_vector *vct, char **tab_color)
 		str = ft_strnstr(vct_getstr(vct), tab_color[index], vct_getlen(vct));
 		if (str != NULL)
 			break ;
-		index++; /*recup index qui va determiner si il s'agit de F ou de G*/
+		index++;
 	}
 	return (index);
 }
@@ -98,15 +101,15 @@ static int	error_or_true(t_vector *color, size_t count_loops, size_t count_num)
 	ret = TRUE;
 	if ((count_loops == 0 || count_loops == 6) &&
 			vct_apply(color, IS_WHITESPACE) == FALSE)
-		ret = ERROR; /*0+6 doit = WHITESPACE*/
+		ret = ERROR;
 	else if (count_loops == 1 && vct_apply(color, IS_DIGIT) == FALSE)
-		ret = ERROR; /*1 doit = COLOR*/
+		ret = ERROR;
 	else if ((count_loops == 2 || count_loops == 4) && vct_apply(color,
 				IS_WHITESPACECOMMA) == FALSE)
-		ret = ERROR; /*2+4 doit = WHITESPACE || COMA*/
+		ret = ERROR;
 	else if ((count_loops == 3 || count_loops == 5) && vct_apply(color,
 				IS_WHITESPACEDIGIT) == FALSE)
-		ret = ERROR; /*3+5 doit = WHITESPACE || DIGIT*/
+		ret = ERROR;
 	if (count_num != NB_COLOR && count_loops > 5)
 		ret = ERROR; 
 	count_loops++;
@@ -134,9 +137,9 @@ static int	recuperation_color(t_vector *color, char type_color,
 	}
 	else
 	{
-		machine->info.tab_color_c[index] = num;	
-		printf("RECUPERATION_COLOR -> machine->info.tab_color_c[%zu] = %d\n",
-				index, machine->info.tab_color_c[index]); //
+		machine->info.tab_color_c[index] = num;
+		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
+				index, machine->info.tab_color_f[index]); //
 		ret = TRUE;
 		index++;
 	}	
@@ -148,10 +151,7 @@ static int	recuperation_color(t_vector *color, char type_color,
 			machine->information |= BT_COLOR_C;	
 		if (machine->information & BT_COLOR_F &&
 				machine->information & BT_COLOR_C)
-		{
-			/*quand on a trouve les deux (F et C) on passe a la prochaine info*/
 			machine->state = MAP;
-		}
 		index = 0;
 	}
 	if (machine->information & BT_RESOLUTION &&
@@ -177,22 +177,19 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 	size_t		count_comma;
 
 	cpy_vct = vct_new();
-	vct_addstr(cpy_vct, str); /*ajout de str (chaine apres F ou C) a cpy_vct*/
+	vct_addstr(cpy_vct, str);
 	ret = TRUE;
 	count_num = 0;
 	count_loops = 0;
 	count_comma = 0;
-	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL) /*remplacer avec TAB ET SPACE*/
+	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL)
 	{
-		ret = error_or_true(color, count_loops, count_num); /*fonction qui
-		permet de determiner si chaque separation est ce qu'on attend
-		(espace/tab, chiffre ou virgule)*/
+		ret = error_or_true(color, count_loops, count_num);
 		if (ret == ERROR)
 			break ;
 		if (vct_apply(color, IS_DIGIT) == TRUE && count_loops != 0)
 		{
 			ret = recuperation_color(color, type_color, machine);
-			/*fonction qui recupere les couleurs R, G, B*/	
 			count_num++;
 			if (ret == ERROR)
 				break ;
@@ -216,15 +213,15 @@ int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 	char	*str_clen;
 	char	type_color;
 
-	ret = TRUE; //
+	ret = TRUE;
 	str_clen = NULL;
 	clen = vct_clen(vct, str[0]);
-	type_color = vct_getcharat(vct, clen); /*recuperation de F ou C*/
-	ret = verif_before(vct, clen, machine); /*verif si char indesirable avant indic*/
+	type_color = vct_getcharat(vct, clen);
+	ret = verif_before(vct, clen, machine);
 	if (ret == TRUE)
 	{
-		str_clen = vct_getstr(vct); /*ajoute vct->str a str_clen*/
-		str_clen = ft_strdup(str_clen + clen + 1); /*str_clen= str apres indic*/
+		str_clen = vct_getstr(vct);
+		str_clen = ft_strdup(str_clen + clen + 1);
 		ret = split_color(vct, str_clen, type_color, machine);
 	}
 	free(str_clen);

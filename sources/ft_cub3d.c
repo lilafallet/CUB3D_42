@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/20 12:48:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:01:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 #include <sys/types.h> /*open*/
 #include <sys/stat.h> /*open*/
 #include <fcntl.h> /*open*/
-#include <stdio.h> /*DEBUG*/
 #include <unistd.h> /*close*/
 
 static int	process_cub3d(t_state_machine *machine, t_vector *line,
 							unsigned long nb_line)
 {
-	ft_printf("PROCESS_CUB3D\n\n"); //
 	first_parser(machine, line);
 	if (machine->information & IS_ERROR)
 	{
@@ -48,11 +46,8 @@ static int	ft_cub3d(t_state_machine *machine, int fd)
 		nb_line++;
 	}
 	ret = verification_global_map(machine);
-	ft_printf("RET GLOBALE ========================================== %d\n"); //
 	if (ret == ERROR)
 		printf_errors(machine->information, nb_line);
-	//if (hub_verification_map(machine, line, nb_line) == FAILURE)
-	//	return (FAILURE);
 	ft_free(machine, line);
 	return (SUCCESS);
 }
@@ -69,7 +64,7 @@ int			main(int ac, char **av)
 		printf_errors(ERR_USAGE, 0);
 		return (EXIT_FAILURE);
 	}
-	fd = open(av[1], O_RDONLY); /*ouvrir le fichier en mode read only*/
+	fd = open(av[1], O_RDONLY);
 	ft_bzero(&machine, sizeof(machine));
 	if (ft_cub3d(&machine, fd) == FAILURE)
 	{

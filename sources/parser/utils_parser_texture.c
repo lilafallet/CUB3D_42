@@ -6,14 +6,15 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/17 15:49:48 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:25:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *machine, int ret)
+int what_information_texture(t_vector *vct, size_t clen_text,
+								t_state_machine *machine, int ret)
 {
 	const char	*tab_other_texture[3] = {"R", "F", "C"};
 	size_t	tab_len[4];
@@ -39,7 +40,8 @@ int what_information_texture(t_vector *vct, size_t clen_text, t_state_machine *m
 	return (NEXT_OTHERCHAR);
 }
 
-int		clean_before(t_vector *vct, char **str_texture, int index, t_state_machine *machine)
+int		clean_before(t_vector *vct, char **str_texture, int index,
+						t_state_machine *machine)
 {
 	size_t	len;
 	char	*cpy_texture;
@@ -52,10 +54,10 @@ int		clean_before(t_vector *vct, char **str_texture, int index, t_state_machine 
 	while (i < len)
 	{
 		if (ft_iswhitespace(cpy_texture[i]) == FALSE)
-			break ; /*voir si avant NO,SO,WE,WA,S si il y a char indesirable*/
+			break ;
 		i++;
 	}
-	if (len != i && len != 0) /*si il y a un char indesirable*/
+	if (len != i && len != 0)
 	{
 		clen_text = vct_clen(vct, str_texture[index][0]);
 		index = what_information_texture(vct, clen_text, machine, TRUE);
