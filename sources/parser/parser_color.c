@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:32:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 18:11:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ static int	recuperation_color(t_vector *color, char type_color,
 	{
 		machine->info.tab_color_c[index] = num;
 		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
-				index, machine->info.tab_color_f[index]); //
+				index, machine->info.tab_color_c[index]); //
 		ret = TRUE;
 		index++;
 	}	
@@ -166,43 +166,51 @@ static int	recuperation_color(t_vector *color, char type_color,
 	return (ret);
 }
 
-static int	split_color(t_vector *vct, char *str, char type_color,
-							t_state_machine *machine)
+static int	process_split_color(t_vector *cpy_vct, char type_color,
+									t_state_machine *machine)
 {
 	int	ret;
 	t_vector	*color;
-	t_vector	*cpy_vct;
-	size_t		count_num;
-	size_t		count_loops;
-	size_t		count_comma;
 
-	cpy_vct = vct_new();
-	vct_addstr(cpy_vct, str);
 	ret = TRUE;
-	count_num = 0;
-	count_loops = 0;
-	count_comma = 0;
 	while ((color = vct_split(cpy_vct, ", \t", ALL_SEP)) != NULL)
 	{
-		ret = error_or_true(color, count_loops, count_num);
+		ret = error_or_true(color, machine->info.count_loops,
+								machine->info.count_num);
 		if (ret == ERROR)
 			break ;
-		if (vct_apply(color, IS_DIGIT) == TRUE && count_loops != 0)
+		if (vct_apply(color, IS_DIGIT) == TRUE &&
+				machine->info.count_loops != 0)
 		{
 			ret = recuperation_color(color, type_color, machine);
-			count_num++;
+			machine->info.count_num++;
 			if (ret == ERROR)
 				break ;
 		}
 		if (vct_chr(color, COMMA) != FAILURE)
-			count_comma++;
-		count_loops++;
+			machine->info.count_comma++;
+		machine->info.count_loops++;
 		vct_del(&color);
 	}
-	if (count_comma != NB_COMMA)
+	vct_del(&color);
+	return (ret);
+}
+static int	split_color(t_vector *vct, char *str, char type_color,
+							t_state_machine *machine)
+{
+	int	ret;
+	t_vector	*cpy_vct;
+
+	cpy_vct = vct_new();
+	vct_addstr(cpy_vct, str);
+	ret = TRUE;
+	process_split_color(cpy_vct, type_color, machine);
+	if (machine->info.count_comma != NB_COMMA)
 		ret = ERROR; 
 	vct_del(&cpy_vct);
-	vct_del(&color);
+	machine->info.count_loops = 0;
+	machine->info.count_num = 0;
+	machine->info.count_comma = 0;
 	return (ret);
 }
 

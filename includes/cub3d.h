@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 17:19:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 17:58:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,9 @@ typedef struct	s_info
 	size_t			index_map;
 	size_t			max_index;
 	size_t			max_line;
+	size_t			count_num;
+	size_t			count_loops;
+	size_t			count_comma;
 	char			*str_texture[NB_TEXTURE];
 	char			*str_resolution[NB_RESOLUTION];
 	char			*str_text_spr;
