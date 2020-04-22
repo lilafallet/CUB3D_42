@@ -6,16 +6,16 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:01:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 14:35:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdlib.h>
-#include <sys/types.h> /*open*/
-#include <sys/stat.h> /*open*/
-#include <fcntl.h> /*open*/
-#include <unistd.h> /*close*/
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 static int	process_cub3d(t_state_machine *machine, t_vector *line,
 							unsigned long nb_line)

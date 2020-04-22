@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:32:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 15:36:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	t_vector	*texture;
 
 	ret = TRUE;
-	if (machine->information & BT_NO && machine->information & BT_SO &&
-		machine->information & BT_WE && machine->information & BT_EA &&
-		machine->information & BT_SPR)
+	if (have_all_texture(machine) == TRUE)
 	{
 		machine->information |= ERROR_TEXTURE;
 		return (ERROR);
@@ -59,24 +57,14 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		ret = is_texture(cpy_vct, tab_texture, machine);
 	index = ret;
 	if (ret == NEXT_OTHERCHAR)
-	{
 		what_information_texture(cpy_vct, vct_getlen(cpy_vct), machine, ret);
-		vct_del(&cpy_vct);
-		vct_del(&texture);
-		return (NEXT);
-	}
-	if (ret >= NO && ret <= S)
+	if (ret >= NO && ret <= S && ret != NEXT_OTHERCHAR)
 		ret = pre_process_split(texture, cpy_vct, tab_texture[ret]);
 	else
 		ret = NEXT;
-	ret = init_machine_texture(ret, machine, index, cpy_vct);
-	ft_printf("machine->information.str_texture[%d] = %s\n", index,
-				machine->info.str_texture[index]); //	
-	if (machine->information & BT_RESOLUTION &&
-			machine->information & BT_COLOR_F &&
-			machine->information & BT_COLOR_C && machine->information & BT_NO
-			&& machine->information & BT_SO && machine->information & BT_WE
-			&& machine->information & BT_EA && machine->information & BT_SPR)
+	if (ret != NEXT)
+		ret = init_machine_texture(ret, machine, index, cpy_vct);
+	if (have_all_texture(machine) == TRUE && ret == NEXT)
 	{
 		ret = TRUE;
 		machine->state = MAP;

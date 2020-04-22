@@ -6,12 +6,19 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:25:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/22 15:03:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
+
+int	have_all_texture(t_state_machine *machine)
+{
+	return (machine->information & BT_NO && machine->information & BT_SO &&
+		machine->information & BT_WE && machine->information & BT_EA &&
+		machine->information & BT_SPR);
+}
 
 int what_information_texture(t_vector *vct, size_t clen_text,
 								t_state_machine *machine, int ret)
