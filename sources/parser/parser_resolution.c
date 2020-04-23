@@ -6,27 +6,34 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:51:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/23 18:55:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
+static void	fill_tab_len_resolution(size_t tab_len[6], t_vector *vct,
+									char *tab_other_resolution[5])
 {
-	char *tab_other_resolution[5] = {"NO", "SO", "WE", "F", "C"};
-	size_t	tab_len[6];
 	size_t	i;
-	size_t	index;
-	int		ret;
 
 	i = 0;
-	ret = 0;
 	while (i < 5)
 	{
 		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
 		i++;
 	}
+}
+
+static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
+{
+	char *tab_other_resolution[5] = {"NO", "SO", "WE", "F", "C"};
+	size_t	tab_len[6];
+	size_t	index;
+	int		ret;
+
+	ret = 0;
+	fill_tab_len_resolution(tab_len, vct, tab_other_resolution);
 	tab_len[5] = vct_strlen(vct, "R");
 	index = ft_bubblesort_minindex(tab_len, 5);
 	if (index == 0 || index == 1 || index == 2)
@@ -86,6 +93,12 @@ static int	count_num(char **str_resolution, t_vector *resol)
 	return (ret);
 }
 
+static int	is_invalid_char(t_vector *resol)
+{
+	return ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
+				(vct_apply(resol, IS_DIGIT) == FALSE));
+}
+
 int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 {
 	int	ret;
@@ -102,8 +115,7 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 			if (ret == ERROR)
 				break ;
 		}
-		else if ((vct_apply(resol, IS_WHITESPACE) == FALSE) &&
-				(vct_apply(resol, IS_DIGIT) == FALSE))
+		else if (is_invalid_char(is_invalid_char(resol)) == TRUE)
 		{
 			ret = ERROR;
 			break ;
