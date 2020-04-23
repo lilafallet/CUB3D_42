@@ -6,24 +6,19 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:04:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/23 18:39:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		realloc_tab(t_state_machine *machine, size_t count_line,
-						size_t old_index, size_t new_index)
+static size_t	fill_line(t_state_machine *machine, enum e_map **cpy_tab)
 {
-	enum e_map **cpy_tab;
-	size_t		i;
-	size_t		j;
+	size_t	i;
+	size_t	j;
 
-	if (old_index == 0 || new_index > old_index)
-		machine->info.max_index = new_index;
-	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
-	ft_bzero(cpy_tab, count_line);
 	i = 0;
+	j = 0;
 	while (i < machine->info.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
@@ -41,6 +36,20 @@ int		realloc_tab(t_state_machine *machine, size_t count_line,
 		free(machine->info.tab_map[i]);
 		i++;
 	}
+	return (i);
+}
+
+int		realloc_tab(t_state_machine *machine, size_t count_line,
+						size_t old_index, size_t new_index)
+{
+	enum e_map **cpy_tab;
+	size_t		i;
+
+	if (old_index == 0 || new_index > old_index)
+		machine->info.max_index = new_index;
+	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
+	ft_bzero(cpy_tab, count_line);
+	i = fill_line(machine, cpy_tab);
 	if (count_line != machine->info.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * 
@@ -52,40 +61,52 @@ int		realloc_tab(t_state_machine *machine, size_t count_line,
 	return (SUCCESS);
 }
 
+static int	process_recuperation_map(t_state_machine *machine,
+										size_t count_line, size_t index,
+										t_vector *map)
+{
+	char	c;
+	ssize_t	index_char;
+	static	size_t	count_position = 0;
+	t_vector			*vct_char;
+
+	c = vct_getfirstchar(map);
+	vct_char = vct_new();
+	vct_addstr(vct_char, "012NSWE \t");
+	index_char = vct_chr(vct_char, c);	
+	if (index_char < 3)
+			machine->info.tab_map[count_line][index] = (enum e_map)index_char;
+	else if (index_char > 6)
+			machine->info.tab_map[count_line][index] = OUT;
+	else if (count_position == 0)
+	{
+		machine->info.tab_map[count_line][index] = POSITION;
+		count_position++;
+	}
+	else
+		return (ERROR);
+	vct_pop(map);
+	vct_del(&vct_char);
+	return (TRUE);
+}
+
 int	recuperation_map(t_vector *line, t_state_machine *machine)
 {
-	int ret;
-	t_vector	*map;
-	static size_t count_line = 0;
-	char		c;
-	size_t		index;
-	ssize_t		index_char;
-	static size_t		count_position = 0;
-	t_vector	*vct_char;
+	int 				ret;
+	t_vector			*map;
+	static size_t 		count_line = 0;
+	size_t				index;
 
 	ret = TRUE;
 	index = 0;
 	map = vct_dup(line);
-	vct_char = vct_new();
-	vct_addstr(vct_char, "012NSWE \t");
 	realloc_tab(machine, count_line + 1, machine->info.max_index,
 					vct_getlen(line) + 1);
 	while (index < vct_getlen(line) && ret != ERROR)
 	{
-		c = vct_getfirstchar(map);
-		index_char = vct_chr(vct_char, c);	
-		if (index_char < 3)
-			machine->info.tab_map[count_line][index] = (enum e_map)index_char;
-		else if (index_char > 6)
-			machine->info.tab_map[count_line][index] = OUT;
-		else if (count_position == 0)
-		{
-			machine->info.tab_map[count_line][index] = POSITION;
-			count_position++;
-		}
-		else
-			ret = ERROR;
-		vct_pop(map);
+		ret = process_recuperation_map(machine, count_line, index, map);
+		if (ret == ERROR)
+			break ;
 		index++;
 	}
 	if (ret != ERROR)
@@ -95,7 +116,6 @@ int	recuperation_map(t_vector *line, t_state_machine *machine)
 	count_line++;
 	machine->info.max_line = count_line;
 	vct_del(&map);
-	vct_del(&vct_char);
 	return (ret);
 }
 
@@ -133,21 +153,25 @@ int	is_map(t_vector *vct)
 	return (ret);
 }
 
-int	what_information_map(t_vector *vct, size_t clen_map,
-							t_state_machine *machine)
+static size_t	fill_tab_str(size_t tab_len[4], t_vector *vct,
+								char *tab_other_map_str[4])
 {
-	char	*tab_other_map_str[4] = {"NO", "SO", "WE", "EA"};
-	char	tab_other_map_c[4] = {'S', 'R', 'F', 'C'};
-	size_t	tab_len[9];
 	size_t	i;
-	size_t	index;
 
-	i = 0;	
+	i = 0;
 	while (i < 4)
 	{
 		tab_len[i] = vct_strlen(vct, tab_other_map_str[i]);
 		i++;
 	}
+	return (i);
+}
+
+static void	fill_tab_c(size_t tab_len[9], size_t i, char tab_other_map_c[4],
+						t_vector *vct)
+{
+	size_t	index;
+
 	index = 0;
 	while (i < 8)
 	{
@@ -155,6 +179,20 @@ int	what_information_map(t_vector *vct, size_t clen_map,
 		i++;
 		index++;
 	}
+}
+
+int	what_information_map(t_vector *vct, size_t clen_map,
+							t_state_machine *machine)
+{
+	char	*tab_other_map_str[4] = {"NO", "SO", "WE", "EA"};
+	char	tab_other_map_c[4] = {'S', 'R', 'F', 'C'};
+	size_t	tab_len[9];
+	size_t	index;
+	size_t	i;
+
+	index = 0;
+	i = fill_tab_str(tab_len, vct, tab_other_map_str);
+	fill_tab_c(tab_len, i, tab_other_map_c, vct);
 	tab_len[8] = clen_map;
 	index = ft_bubblesort_minindex(tab_len, 9);
 	if (tab_len[0] == clen_map && tab_len[1] == clen_map
