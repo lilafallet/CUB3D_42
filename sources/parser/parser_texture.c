@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 17:11:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/23 18:59:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 		{
 			free(*ret_str);
 			*ret_str = vct_strdup(texture);
-			if (vct_apply(texture, IS_ASCII) == FALSE)
-				ret = FALSE;
-			else
-				ret = TRUE | NEXT;
+			ret = vct_apply(texture, IS_ASCII) == FALSE ? FALSE : TRUE | NEXT;
 			break ; 
 		}
 		if (ft_strequ(vct_getstr(texture), PATH) == TRUE)
