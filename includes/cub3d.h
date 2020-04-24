@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:53:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 18:14:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 # define ERROR 2
 # define NEXT 4
-# define NO_CHAR 5
 # define NEXT_OTHERCHAR 6
 
 # define CHAR_RESOLUTION 'R'
@@ -41,11 +40,6 @@
 # define STR_TEXTURE_SO "SO"
 # define STR_TEXTURE_WE "WE"
 # define STR_TEXTURE_EA "EA"
-# define STR_TEXTURE_SPR "S"
-# define CHAR_TEXTURE_SPR 'S'
-# define STR_COLOR "FC"
-# define CHAR_F_COLOR 'F'
-# define CHAR_C_COLOR 'C'
 # define STR_MAP "012NSWE \t"
 # define STR_TEXTURE "NOSOWEEA"
 # define FIRST_TEXTURE "NSWE"
@@ -56,11 +50,9 @@
 # define TAB '\t'
 # define PATH "./"
 # define SIZE_PATH 2
-# define DOT '.'
 # define SLASH '/'
 # define PLUS '+'
 # define COMMA ','
-# define INDEX_TEXTURE 2
 # define NB_COMMA 2
 
 # define ERROR_ARGUMENTS "Error of arguments: OUVRIR FENETRE(lire pdf)\n\n"
@@ -112,7 +104,6 @@
 # define NB_STATE 4
 # define NB_COLOR 3
 # define NB_RESOLUTION 2
-# define ALL 5
 # define NB_POSITION_MAP 1
 # define NO 0
 # define SO 1
@@ -120,7 +111,6 @@
 # define EA 3
 # define S 4
 # define NB_INDIC_COLOR 2 
-# define OTHER_TEXTURE 3
 # define NB_INFO 4
 # define NB_DIFF_COLOR 4
 # define DIFF_LEN_COLOR 5
@@ -151,11 +141,6 @@
 # define IND_WE_RESOL 2
 # define IND_F_RESOL 3
 # define IND_C_RESOL 4
-
-# define INDEX_RESOLUTION_X 0
-# define INDEX_RESOLUTION_Y 1
-
-# define MINUS '-'
 
 # define COLOR_C 0
 # define COLOR_F 1
@@ -241,14 +226,17 @@ int				init_machine_texture(int ret, t_state_machine *machine,
 										int index, t_vector *vct);
 int				is_color(t_vector *vct, char **tab_color);
 void			init_machine_color(t_state_machine *machine, int ret);
-int				is_texture(t_vector *vct, char **tab_texture, t_state_machine *machine);
+int				is_texture(t_vector *vct, char **tab_texture,
+							t_state_machine *machine);
 int				clean_before(t_vector *vct, char **str_texture, int index,
 								t_state_machine *machine);
-int				is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine);
+int				is_resolution(t_vector *resol, t_vector *vct,
+								t_state_machine *machine);
 int				pre_split_color(t_vector *vct, char *str,
 									t_state_machine *machine);
 int				what_information_color(t_vector *vct, size_t clen,
-										t_state_machine *machine, int ret_before);
+										t_state_machine *machine,
+										int ret_before);
 int 			what_information_texture(t_vector *vct, size_t clen_text,
 											t_state_machine *machine, int ret);
 int				what_information_map(t_vector *vct, size_t clen_map,
@@ -258,9 +246,11 @@ int				recuperation_map(t_vector *line, t_state_machine *machine);
 int 			recuperation_eachelem(t_state_machine *machine,
 										size_t count_line, size_t index,
 										int flag);
-int				verif_line(t_vector *line, t_state_machine *machine, size_t count_line);
+int				verif_line(t_vector *line, t_state_machine *machine,
+							size_t count_line);
 int				verification_global_map(t_state_machine *machine);
-int				realloc_tab(t_state_machine *machine, size_t count_line, size_t old_index, size_t new_index);
+int				realloc_tab(t_state_machine *machine, size_t count_line,
+								size_t old_index, size_t new_index);
 int				iter_map(t_state_machine *machine,
 							int (*f)(t_state_machine *machine,
 							size_t y, size_t x));
