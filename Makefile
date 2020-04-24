@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/24 17:52:01 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/24 18:00:33 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,9 @@ OBJ_DIR = ./objs/
 vpath %.c sources/
 vpath %.c sources/utils/
 vpath %.c sources/parser/
+vpath %.c sources/recuperation/
+vpath %.c sources/utils_parser/
+vpath %.c sources/verif_parser/
 
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
