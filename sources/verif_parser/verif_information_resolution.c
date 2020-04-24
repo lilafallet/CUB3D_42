@@ -6,30 +6,15 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:45:36 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:53:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:37:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-void	fill_tab_len_resolution(size_t tab_len[DIFF_LEN_RESOL],
-									t_vector *vct,
-									char *tab_other_resolution[NB_DIFF_RESOL])
-{
-	size_t	i;
-
-	i = 0;
-	while (i < NB_DIFF_RESOL)
-	{
-		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
-		i++;
-	}
-}
-
 int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 {
-	char *tab_other_resolution[NB_DIFF_RESOL] = {"NO", "SO", "WE", "F", "C"};
+	char	*tab_other_resolution[NB_DIFF_RESOL] = {"NO", "SO", "WE", "F", "C"};
 	size_t	tab_len[DIFF_LEN_RESOL];
 	size_t	index;
 	int		ret;
@@ -49,12 +34,11 @@ int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 		ret = NEXT;
 	}
 	if (tab_len[IND_NO_RESOL] == vct_getlen(vct)
-			&& tab_len[IND_SO_RESOL] == vct_getlen(vct)
-			&& tab_len[IND_WE_RESOL] == vct_getlen(vct)
-			&& tab_len[IND_F_RESOL] == vct_getlen(vct)
-			&& tab_len[IND_C_RESOL] == vct_getlen(vct))
+		&& tab_len[IND_SO_RESOL] == vct_getlen(vct) && tab_len[IND_WE_RESOL]
+		== vct_getlen(vct) && tab_len[IND_F_RESOL] == vct_getlen(vct)
+		&& tab_len[IND_C_RESOL] == vct_getlen(vct))
 		ret = TRUE;
-	return (ret); 
+	return (ret);
 }
 
 int	is_resolution(t_vector *resol, t_vector *vct, t_state_machine *machine)
@@ -94,7 +78,7 @@ int	count_num(char **str_resolution, t_vector *resol)
 	if (count_num <= AXE_Y)
 	{
 		str_resolution[count_num] = vct_strdup(resol);
-		if (str_resolution[AXE_X] != NULL && str_resolution[AXE_Y] != NULL) //
+		if (str_resolution[AXE_X] != NULL && str_resolution[AXE_Y] != NULL)
 		{
 			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[AXE_X] = %s\n", str_resolution[AXE_X]); //
 			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[AXE_Y] = %s\n", str_resolution[AXE_Y]); //
@@ -106,7 +90,7 @@ int	count_num(char **str_resolution, t_vector *resol)
 	return (ret);
 }
 
-int			not_resolution(t_vector *vct)
+int	not_resolution(t_vector *vct)
 {
 	char	*str;
 	size_t	i;

@@ -6,14 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 19:33:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 16:53:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:03:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
 
-void		what_bitwaze(t_state_machine *machine, int index)
+void	what_bitwaze(t_state_machine *machine, int index)
 {
 	if (index == NO)
 		machine->information |= BT_NO;
@@ -27,22 +27,22 @@ void		what_bitwaze(t_state_machine *machine, int index)
 		machine->information |= BT_SPR;
 }
 
-int	have_all_texture(t_state_machine *machine)
+int		have_all_texture(t_state_machine *machine)
 {
 	return (machine->information & BT_NO && machine->information & BT_SO &&
 		machine->information & BT_WE && machine->information & BT_EA &&
 		machine->information & BT_SPR);
 }
 
-int what_information_texture(t_vector *vct, size_t clen_text,
+int		what_information_texture(t_vector *vct, size_t clen_text,
 								t_state_machine *machine, int ret)
 {
 	const char	*tab_other_texture[3] = {"R", "F", "C"};
-	size_t	tab_len[4];
-	size_t	i;
-	size_t	index;
+	size_t		tab_len[4];
+	size_t		i;
+	size_t		index;
 
-	i = 0;	
+	i = 0;
 	while (i < 3)
 	{
 		tab_len[i] = vct_clen(vct, tab_other_texture[i][0]);
@@ -51,9 +51,9 @@ int what_information_texture(t_vector *vct, size_t clen_text,
 	tab_len[3] = clen_text;
 	index = ft_bubblesort_minindex(tab_len, 4);
 	if (index == 0)
-		machine->state = RESOLUTION; 
+		machine->state = RESOLUTION;
 	if (index == 1 || index == 2)
-		machine->state = COLOR; 
+		machine->state = COLOR;
 	if (tab_len[0] == clen_text && tab_len[1] == clen_text
 			&& tab_len[2] == clen_text && tab_len[3] == clen_text
 			&& ret == NEXT_OTHERCHAR)
@@ -87,7 +87,7 @@ int		clean_before(t_vector *vct, char **str_texture, int index,
 	return (index);
 }
 
-int	init_machine_texture(int ret, t_state_machine *machine, int index,
+int		init_machine_texture(int ret, t_state_machine *machine, int index,
 								t_vector *vct)
 {
 	if (ret & ERROR)
@@ -103,13 +103,13 @@ int	init_machine_texture(int ret, t_state_machine *machine, int index,
 			machine->information & BT_WE && machine->information & BT_EA &&
 			machine->information & BT_SPR)
 		{
-				machine->state = COLOR;
-				ret = ERROR;
+			machine->state = COLOR;
+			ret = ERROR;
 		}
 		else
 		{
-				machine->state = TEXTURE;
-				ret = ERROR;
+			machine->state = TEXTURE;
+			ret = ERROR;
 		}
 	}
 	return (ret);

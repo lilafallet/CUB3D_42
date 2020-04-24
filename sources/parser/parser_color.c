@@ -6,19 +6,20 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:35:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:31:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-int	send_to_function_color(t_vector *cpy_vct, char *tab_color[NB_INDIC_COLOR],
-							t_state_machine *machine, t_vector *vct)
+int			send_to_function_color(t_vector *cpy_vct,
+									char *tab_color[NB_INDIC_COLOR],
+									t_state_machine *machine, t_vector *vct)
 {
 	int		ret;
 	int		index;
-	size_t	len;	
+	size_t	len;
 
 	ret = is_color(cpy_vct, tab_color);
 	index = ret;
@@ -28,7 +29,7 @@ int	send_to_function_color(t_vector *cpy_vct, char *tab_color[NB_INDIC_COLOR],
 	else
 		ret = NEXT;
 	if (ret == TRUE)
-		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
+		ret = pre_split_color(cpy_vct, tab_color[index], machine);
 	if (ret == NEXT)
 		ret = what_information_color(vct, len, machine, NEXT_OTHERCHAR);
 	if (ret == ERROR)
@@ -39,7 +40,7 @@ int	send_to_function_color(t_vector *cpy_vct, char *tab_color[NB_INDIC_COLOR],
 	return (ret);
 }
 
-int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
+int			pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 {
 	size_t	clen;
 	int		ret;
@@ -64,7 +65,7 @@ int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 static int	process_split_color(t_vector *cpy_vct, char type_color,
 									t_state_machine *machine)
 {
-	int	ret;
+	int			ret;
 	t_vector	*color;
 
 	ret = TRUE;
@@ -90,10 +91,11 @@ static int	process_split_color(t_vector *cpy_vct, char type_color,
 	vct_del(&color);
 	return (ret);
 }
-int	split_color(t_vector *vct, char *str, char type_color,
+
+int			split_color(t_vector *vct, char *str, char type_color,
 							t_state_machine *machine)
 {
-	int	ret;
+	int			ret;
 	t_vector	*cpy_vct;
 
 	cpy_vct = vct_new();
@@ -101,7 +103,7 @@ int	split_color(t_vector *vct, char *str, char type_color,
 	ret = TRUE;
 	process_split_color(cpy_vct, type_color, machine);
 	if (machine->info.count_comma != NB_COMMA)
-		ret = ERROR; 
+		ret = ERROR;
 	vct_del(&cpy_vct);
 	machine->info.count_loops = 0;
 	machine->info.count_num = 0;

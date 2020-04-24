@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 15:54:19 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/23 18:59:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:39:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	process_split(t_vector *texture, t_vector *vct, char **ret_str)
 			free(*ret_str);
 			*ret_str = vct_strdup(texture);
 			ret = vct_apply(texture, IS_ASCII) == FALSE ? FALSE : TRUE | NEXT;
-			break ; 
+			break ;
 		}
 		if (ft_strequ(vct_getstr(texture), PATH) == TRUE)
 			count_path++;
@@ -94,7 +94,7 @@ int			pre_process_split(t_vector *texture, t_vector *vct,
 	size_t		len;
 	int			count_path;
 	t_vector	*cpy_vct;
-	
+
 	cpy_vct = vct_new();
 	ret = TRUE;
 	len = ft_strlen(str_texture);
@@ -119,7 +119,7 @@ int			is_texture(t_vector *vct, char **tab_texture,
 	ret = TRUE;
 	ret_str = NULL;
 	index = 0;
-	while (index < NB_TEXTURE) 
+	while (index < NB_TEXTURE)
 	{
 		ret_str = ft_strnstr(vct_getstr(vct), tab_texture[index],
 								vct_getlen(vct));

@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:41:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:19:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	verif_before(t_vector *vct, size_t clen)
+static int		verif_before(t_vector *vct, size_t clen)
 {
 	char	*str;
 	size_t	i;
@@ -30,9 +30,9 @@ static int	verif_before(t_vector *vct, size_t clen)
 	return (ret);
 }
 
-int	is_map(t_vector *vct)
+int				is_map(t_vector *vct)
 {
-	int	ret;
+	int			ret;
 	t_vector	*cpy_vct;
 	size_t		clen;
 
@@ -60,7 +60,7 @@ static size_t	fill_tab_str(size_t tab_len[NB_DIFF_MAP_STR], t_vector *vct,
 	return (i);
 }
 
-static void	fill_tab_c(size_t tab_len[DIFF_LEN_MAP], size_t i,
+static void		fill_tab_c(size_t tab_len[DIFF_LEN_MAP], size_t i,
 						char tab_other_map_c[NB_DIFF_MAP_C], t_vector *vct)
 {
 	size_t	index;
@@ -74,7 +74,7 @@ static void	fill_tab_c(size_t tab_len[DIFF_LEN_MAP], size_t i,
 	}
 }
 
-int	what_information_map(t_vector *vct, size_t clen_map,
+int				what_information_map(t_vector *vct, size_t clen_map,
 							t_state_machine *machine)
 {
 	char	*tab_other_map_str[NB_DIFF_MAP_STR] = {"NO", "SO", "WE", "EA"};

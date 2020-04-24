@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:11:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:32:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 20:49:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	verif_before_color(t_vector *vct, size_t clen, t_state_machine *machine)
 
 int	is_color(t_vector *vct, char **tab_color)
 {
-	int	index;
+	int		index;
 	char	*str;
 
 	index = 0;
@@ -68,7 +68,7 @@ int	error_or_true(t_vector *color, size_t count_loops, size_t count_num)
 				IS_WHITESPACEDIGIT) == FALSE)
 		ret = ERROR;
 	if (count_num != NB_COLOR && count_loops > 5)
-		ret = ERROR; 
+		ret = ERROR;
 	count_loops++;
 	return (ret);
 }

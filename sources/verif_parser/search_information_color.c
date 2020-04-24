@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:16:52 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:22:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 20:51:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	fill_tab_len(size_t tab_len[DIFF_LEN_COLOR], t_vector *vct,
 	}
 }
 
-int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
-							int ret_before)
+int			what_information_color(t_vector *vct, size_t clen,
+									t_state_machine *machine, int ret_before)
 {
-	char *tab_other_resolution[NB_DIFF_COLOR] = {"R", "NO", "SO", "WE"};
+	char	*tab_other_resolution[NB_DIFF_COLOR] = {"R", "NO", "SO", "WE"};
 	size_t	tab_len[DIFF_LEN_COLOR];
 	size_t	index;
 	int		ret;
@@ -51,10 +51,10 @@ int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
 		machine->state = MAP;
 		ret = NEXT;
 	}
-	return (ret); 
+	return (ret);
 }
 
-int	what_state_color(size_t index, t_state_machine *machine)
+int			what_state_color(size_t index, t_state_machine *machine)
 {
 	int	ret;
 

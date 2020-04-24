@@ -6,13 +6,27 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:53:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:29:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
+void	fill_tab_len_resolution(size_t tab_len[DIFF_LEN_RESOL],
+									t_vector *vct,
+									char *tab_other_resolution[NB_DIFF_RESOL])
+{
+	size_t	i;
+
+	i = 0;
+	while (i < NB_DIFF_RESOL)
+	{
+		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
+		i++;
+	}
+}
+
+int		split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 {
 	int	ret;
 	int	count;
@@ -21,7 +35,7 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 	count = 0;
 	while ((resol = vct_split(vct, STRING_SPACE_TAB, ALL_SEP)) != NULL)
 	{
-		if (vct_apply(resol, IS_DIGIT) == TRUE) 
+		if (vct_apply(resol, IS_DIGIT) == TRUE)
 		{
 			count++;
 			ret = count_num(str_resolution, resol);
@@ -41,7 +55,7 @@ int	split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 	return (ret);
 }
 
-int	init_machine_resolution(t_state_machine *machine, int ret)
+int		init_machine_resolution(t_state_machine *machine, int ret)
 {
 	machine->state = TEXTURE;
 	if (ret & TRUE)

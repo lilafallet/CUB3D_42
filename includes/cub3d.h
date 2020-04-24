@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 18:14:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:28:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@
 # define WE 2
 # define EA 3
 # define S 4
-# define NB_INDIC_COLOR 2 
+# define NB_INDIC_COLOR 2
 # define NB_INFO 4
 # define NB_DIFF_COLOR 4
 # define DIFF_LEN_COLOR 5
@@ -149,23 +149,23 @@
 
 enum			e_state
 {
-	RESOLUTION, /*0*/
-	TEXTURE, /*1*/
-	COLOR, /*2*/
-	MAP /*3*/
+	RESOLUTION,
+	TEXTURE,
+	COLOR,
+	MAP
 };
 
 enum			e_map
 {
-	WAY, /*0*/
-	WALL, /*1*/
-	SPRITE, /*2*/
-	POSITION, /*3*/
-	OUT, /*4*/
-	STOP /*5*/
+	WAY,
+	WALL,
+	SPRITE,
+	POSITION,
+	OUT,
+	STOP
 };
 
-typedef struct	st_f_info
+typedef struct	s_f_info
 {
 	unsigned long	resolution_x;
 	unsigned long	resolution_y;
@@ -237,13 +237,13 @@ int				pre_split_color(t_vector *vct, char *str,
 int				what_information_color(t_vector *vct, size_t clen,
 										t_state_machine *machine,
 										int ret_before);
-int 			what_information_texture(t_vector *vct, size_t clen_text,
+int				what_information_texture(t_vector *vct, size_t clen_text,
 											t_state_machine *machine, int ret);
 int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
 int				is_map(t_vector *vct);
 int				recuperation_map(t_vector *line, t_state_machine *machine);
-int 			recuperation_eachelem(t_state_machine *machine,
+int				recuperation_eachelem(t_state_machine *machine,
 										size_t count_line, size_t index,
 										int flag);
 int				verif_line(t_vector *line, t_state_machine *machine,

@@ -6,11 +6,20 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:41:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:09:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int				clean_and_print(t_state_machine *machine, size_t i, size_t j)
+{
+	if (machine->info.tab_map[i][j] == STOP)
+		machine->info.tab_map[i][j] = OUT;
+	ft_printf("%d%c", machine->info.tab_map[i][j],
+			(j + 1 == machine->info.max_index) ? '\n' : ' '); //DEBUG//
+	return (TRUE);
+}
 
 static size_t	fill_line(t_state_machine *machine, enum e_map **cpy_tab)
 {
@@ -39,45 +48,45 @@ static size_t	fill_line(t_state_machine *machine, enum e_map **cpy_tab)
 	return (i);
 }
 
-int		realloc_tab(t_state_machine *machine, size_t count_line,
+int				realloc_tab(t_state_machine *machine, size_t count_line,
 						size_t old_index, size_t new_index)
 {
-	enum e_map **cpy_tab;
+	enum e_map	**cpy_tab;
 	size_t		i;
 
 	if (old_index == 0 || new_index > old_index)
 		machine->info.max_index = new_index;
-	cpy_tab  = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line)); 
+	cpy_tab = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line));
 	ft_bzero(cpy_tab, count_line);
 	i = fill_line(machine, cpy_tab);
 	if (count_line != machine->info.max_line)
 	{
-		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) * 
+		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
 						machine->info.max_index);
 		ft_memset(cpy_tab[i], STOP, machine->info.max_index);
-	}	
+	}
 	free(machine->info.tab_map);
 	machine->info.tab_map = cpy_tab;
 	return (SUCCESS);
 }
 
-static int	process_recuperation_map(t_state_machine *machine,
+static int		process_recuperation_map(t_state_machine *machine,
 										size_t count_line, size_t index,
 										t_vector *map)
 {
-	char	c;
-	ssize_t	index_char;
+	char			c;
+	ssize_t			index_char;
 	static	size_t	count_position = 0;
-	t_vector			*vct_char;
+	t_vector		*vct_char;
 
 	c = vct_getfirstchar(map);
 	vct_char = vct_new();
 	vct_addstr(vct_char, STR_MAP);
-	index_char = vct_chr(vct_char, c);	
+	index_char = vct_chr(vct_char, c);
 	if (index_char < WAY_WALL_SPRITE)
-			machine->info.tab_map[count_line][index] = (enum e_map)index_char;
+		machine->info.tab_map[count_line][index] = (enum e_map)index_char;
 	else if (index_char > OUTMAP)
-			machine->info.tab_map[count_line][index] = OUT;
+		machine->info.tab_map[count_line][index] = OUT;
 	else if (count_position == 0)
 	{
 		machine->info.tab_map[count_line][index] = POSITION;
@@ -90,12 +99,12 @@ static int	process_recuperation_map(t_state_machine *machine,
 	return (TRUE);
 }
 
-int	recuperation_map(t_vector *line, t_state_machine *machine)
+int				recuperation_map(t_vector *line, t_state_machine *machine)
 {
-	int 				ret;
-	t_vector			*map;
-	static size_t 		count_line = 0;
-	size_t				index;
+	int				ret;
+	t_vector		*map;
+	static size_t	count_line = 0;
+	size_t			index;
 
 	ret = TRUE;
 	index = 0;
