@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 17:32:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 13:58:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 
 int			first_parser(t_state_machine *machine, t_vector *line)
 {
-	static t_function	function[4] = {parser_resolution, parser_texture,
+	static t_function	function[NB_INFO] = {parser_resolution, parser_texture,
 										parser_color, parser_map};
 	int					ret;
 	int					i;

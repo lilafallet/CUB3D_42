@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/23 16:26:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 15:05:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static int	what_state_color(size_t index, t_state_machine *machine)
 	int	ret;
 
 	ret = TRUE;
-	if (index == 0)
+	if (index == IND_R_COLOR)
 	{
 		machine->state = RESOLUTION;
 		ret = NEXT;
 	}
-	if (index == 1 || index == 2 || index == 3)
+	if (index == IND_NO_COLOR || index == IND_SO_COLOR || index == IND_WE_COLOR)
 	{
 		machine->state = TEXTURE;
 		ret = NEXT;
@@ -31,13 +31,13 @@ static int	what_state_color(size_t index, t_state_machine *machine)
 	return (ret);
 }
 
-static void	fill_tab_len(size_t tab_len[5], t_vector *vct,
-							char *tab_other_resolution[4])
+static void	fill_tab_len(size_t tab_len[DIFF_LEN_COLOR], t_vector *vct,
+							char *tab_other_resolution[NB_DIFF_COLOR])
 {
 	size_t	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < NB_DIFF_COLOR)
 	{
 		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
 		i++;
@@ -47,21 +47,24 @@ static void	fill_tab_len(size_t tab_len[5], t_vector *vct,
 int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
 							int ret_before)
 {
-	char *tab_other_resolution[4] = {"R", "NO", "SO", "WE"};
-	size_t	tab_len[5];
+	char *tab_other_resolution[NB_DIFF_COLOR] = {"R", "NO", "SO", "WE"};
+	size_t	tab_len[DIFF_LEN_COLOR];
 	size_t	index;
 	int		ret;
 
 	fill_tab_len(tab_len, vct, tab_other_resolution);
-	tab_len[4] = clen;
-	index = ft_bubblesort_minindex(tab_len, 5);
+	tab_len[NB_DIFF_COLOR] = clen;
+	index = ft_bubblesort_minindex(tab_len, DIFF_LEN_COLOR);
 	ret = what_state_color(index, machine);
-	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
-			&& ret_before == TRUE)
+	if (tab_len[IND_R_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_NO_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_SO_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_WE_COLOR] == vct_getlen(vct) && ret_before == TRUE)
 		ret = TRUE;
-	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)\
+	if (tab_len[IND_R_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_NO_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_SO_COLOR] == vct_getlen(vct)
+			&& tab_len[IND_WE_COLOR] == vct_getlen(vct)
 			&& ret_before == NEXT_OTHERCHAR)
 	{
 		machine->state = MAP;
@@ -142,7 +145,7 @@ static int	recuperation_color(char type_color, t_state_machine *machine,
 		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
 				*index, machine->info.tab_color_f[*index]); //
 		ret = TRUE;
-		index++;
+		*index = *index + 1;
 	}
 	else
 	{

@@ -6,19 +6,20 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/23 18:55:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 15:43:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	fill_tab_len_resolution(size_t tab_len[6], t_vector *vct,
-									char *tab_other_resolution[5])
+static void	fill_tab_len_resolution(size_t tab_len[DIFF_LEN_RESOL],
+									t_vector *vct,
+									char *tab_other_resolution[NB_DIFF_RESOL])
 {
 	size_t	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < NB_DIFF_RESOL)
 	{
 		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
 		i++;
@@ -27,28 +28,30 @@ static void	fill_tab_len_resolution(size_t tab_len[6], t_vector *vct,
 
 static int	what_information_resolution(t_vector *vct, t_state_machine *machine)
 {
-	char *tab_other_resolution[5] = {"NO", "SO", "WE", "F", "C"};
-	size_t	tab_len[6];
+	char *tab_other_resolution[NB_DIFF_RESOL] = {"NO", "SO", "WE", "F", "C"};
+	size_t	tab_len[DIFF_LEN_RESOL];
 	size_t	index;
 	int		ret;
 
 	ret = 0;
 	fill_tab_len_resolution(tab_len, vct, tab_other_resolution);
-	tab_len[5] = vct_strlen(vct, "R");
-	index = ft_bubblesort_minindex(tab_len, 5);
-	if (index == 0 || index == 1 || index == 2)
+	tab_len[NB_DIFF_RESOL] = vct_strlen(vct, STR_RESOLUTION);
+	index = ft_bubblesort_minindex(tab_len, NB_DIFF_RESOL);
+	if (index == IND_NO_RESOL || index == IND_SO_RESOL || index == IND_WE_RESOL)
 	{
 		machine->state = TEXTURE;
 		ret = NEXT;
 	}
-	if (index == 3 || index == 4)
+	if (index == IND_F_RESOL || index == IND_C_RESOL)
 	{
 		machine->state = COLOR;
 		ret = NEXT;
 	}
-	if (tab_len[0] == vct_getlen(vct) && tab_len[1] == vct_getlen(vct)
-			&& tab_len[2] == vct_getlen(vct) && tab_len[3] == vct_getlen(vct)
-			&& tab_len[4] == vct_getlen(vct))
+	if (tab_len[IND_NO_RESOL] == vct_getlen(vct)
+			&& tab_len[IND_SO_RESOL] == vct_getlen(vct)
+			&& tab_len[IND_WE_RESOL] == vct_getlen(vct)
+			&& tab_len[IND_F_RESOL] == vct_getlen(vct)
+			&& tab_len[IND_C_RESOL] == vct_getlen(vct))
 		ret = TRUE;
 	return (ret); 
 }
@@ -62,7 +65,7 @@ static int			not_resolution(t_vector *vct)
 	ret = ERROR;
 	str = vct_getstr(vct);
 	i = 0;
-	if (ft_strchr(STRING_CHECK_R, str[0]) != NULL)
+	if (ft_strchr(STRING_CHECK_R, str[FIRST_CHAR]) != NULL)
 		ret = NEXT;
 	if (ft_strequ(str, STR_TEXTURE_NO) == TRUE ||
 			ft_strequ(str, STR_TEXTURE_SO) == TRUE ||
@@ -78,13 +81,13 @@ static int	count_num(char **str_resolution, t_vector *resol)
 	static int	count_num = 0;
 
 	ret = NEXT | TRUE;
-	if (count_num <= 1)
+	if (count_num <= AXE_Y)
 	{
 		str_resolution[count_num] = vct_strdup(resol);
-		if (str_resolution[0] != NULL && str_resolution[1] != NULL) //
+		if (str_resolution[AXE_X] != NULL && str_resolution[AXE_Y] != NULL) //
 		{
-			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[0] = %s\n", str_resolution[0]); //
-			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[1] = %s\n", str_resolution[1]); //
+			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[AXE_X] = %s\n", str_resolution[AXE_X]); //
+			ft_printf("RECUPERATION_RESOLUTION -> machine->info.str_resolution[AXE_Y] = %s\n", str_resolution[AXE_Y]); //
 		}
 		count_num++;
 	}

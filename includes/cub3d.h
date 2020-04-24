@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 17:58:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 15:36:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@
 # define STR_COLOR "FC"
 # define CHAR_F_COLOR 'F'
 # define CHAR_C_COLOR 'C'
-# define STR_MAP "012NSWE"
+# define STR_MAP "012NSWE \t"
 # define STR_TEXTURE "NOSOWEEA"
 # define FIRST_TEXTURE "NSWE"
+# define STR_RESOLUTION "R"
+# define CHAR_WALL '1'
 
 # define SPACE ' '
 # define TAB '\t'
@@ -119,6 +121,36 @@
 # define S 4
 # define NB_INDIC_COLOR 2 
 # define OTHER_TEXTURE 3
+# define NB_INFO 4
+# define NB_DIFF_COLOR 4
+# define DIFF_LEN_COLOR 5
+# define IND_R_COLOR 0
+# define IND_NO_COLOR 1
+# define IND_SO_COLOR 2
+# define IND_WE_COLOR 3
+# define NB_DIFF_MAP_STR 4
+# define NB_DIFF_MAP_C 4
+# define DIFF_LEN_MAP 9
+# define IND_NO_MAP 0
+# define IND_SO_MAP 1
+# define IND_WE_MAP 2
+# define IND_EA_MAP 3
+# define IND_S_MAP 4
+# define IND_R_MAP 5
+# define IND_F_MAP 6
+# define IND_C_MAP 7
+# define WAY_WALL_SPRITE 3
+# define OUTMAP 6
+# define AXE_X 0
+# define AXE_Y 1
+# define FIRST_CHAR 0
+# define NB_DIFF_RESOL 5
+# define DIFF_LEN_RESOL 6
+# define IND_NO_RESOL 0
+# define IND_SO_RESOL 1
+# define IND_WE_RESOL 2
+# define IND_F_RESOL 3
+# define IND_C_RESOL 4
 
 # define INDEX_RESOLUTION_X 0
 # define INDEX_RESOLUTION_Y 1
