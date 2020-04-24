@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/24 17:40:55 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/24 17:52:01 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS += recuperation_color.c
 SRCS += verif_information_color.c
 SRCS += search_information_color.c
 SRCS += recuperation_map.c
+SRCS += verif_information_resolution.c
 
 OBJ_DIR = ./objs/
 

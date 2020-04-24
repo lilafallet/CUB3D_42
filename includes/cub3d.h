@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 17:32:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 17:53:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,5 +288,13 @@ int				verif_before_color(t_vector *vct, size_t clen,
 int				what_state_color(size_t index, t_state_machine *machine);
 int				split_color(t_vector *vct, char *str, char type_color,
 								t_state_machine *machine);
+int				what_information_resolution(t_vector *vct,
+												t_state_machine *machine);
+int				is_invalid_char(t_vector *resol);
+int				count_num(char **str_resolution, t_vector *resol);
+int				not_resolution(t_vector *vct);
+void			fill_tab_len_resolution(size_t tab_len[DIFF_LEN_RESOL],
+									t_vector *vct,
+									char *tab_other_resolution[NB_DIFF_RESOL]);
 
 #endif
