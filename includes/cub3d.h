@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 21:28:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:49:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ typedef struct	s_state_machine
 	char				*str_tmp_info_final;
 	unsigned long		information;
 	struct s_info		info;
-	struct st_f_info	final_info;
+	struct s_f_info		final_info;
 	enum e_state		state;
 	char				pad[4];
 }				t_state_machine;
@@ -276,7 +276,7 @@ int				recuperation_color(char type_color, t_state_machine *machine,
 int				verif_before_color(t_vector *vct, size_t clen,
 								t_state_machine *machine);
 int				what_state_color(size_t index, t_state_machine *machine);
-int				split_color(t_vector *vct, char *str, char type_color,
+int				split_color(char *str, char type_color,
 								t_state_machine *machine);
 int				what_information_resolution(t_vector *vct,
 												t_state_machine *machine);

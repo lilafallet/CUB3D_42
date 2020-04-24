@@ -6,11 +6,12 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:09:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 20:39:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:50:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h> //
 
 int	hub_recuperation_color(t_vector *color, char type_color,
 							t_state_machine *machine)

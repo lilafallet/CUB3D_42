@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 16:05:38 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 21:29:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:47:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		split_resolution(t_vector *resol, char **str_resolution, t_vector *vct)
 			if (ret == ERROR)
 				break ;
 		}
-		else if (is_invalid_char(is_invalid_char(resol)) == TRUE)
+		else if (is_invalid_char(resol) == TRUE)
 		{
 			ret = ERROR;
 			break ;

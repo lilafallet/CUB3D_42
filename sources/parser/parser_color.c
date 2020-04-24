@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 21:31:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 21:49:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int			pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 	{
 		str_clen = vct_getstr(vct);
 		str_clen = ft_strdup(str_clen + clen + 1);
-		ret = split_color(vct, str_clen, type_color, machine);
+		ret = split_color(str_clen, type_color, machine);
 	}
 	free(str_clen);
 	return (ret);
@@ -92,8 +92,7 @@ static int	process_split_color(t_vector *cpy_vct, char type_color,
 	return (ret);
 }
 
-int			split_color(t_vector *vct, char *str, char type_color,
-							t_state_machine *machine)
+int			split_color(char *str, char type_color, t_state_machine *machine)
 {
 	int			ret;
 	t_vector	*cpy_vct;
