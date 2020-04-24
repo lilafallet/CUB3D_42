@@ -6,200 +6,58 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 10:36:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 15:05:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 17:35:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> //
 
-static int	what_state_color(size_t index, t_state_machine *machine)
+int	send_to_function_color(t_vector *cpy_vct, char *tab_color[NB_INDIC_COLOR],
+							t_state_machine *machine, t_vector *vct)
 {
-	int	ret;
-
-	ret = TRUE;
-	if (index == IND_R_COLOR)
-	{
-		machine->state = RESOLUTION;
-		ret = NEXT;
-	}
-	if (index == IND_NO_COLOR || index == IND_SO_COLOR || index == IND_WE_COLOR)
-	{
-		machine->state = TEXTURE;
-		ret = NEXT;
-	}
-	return (ret);
-}
-
-static void	fill_tab_len(size_t tab_len[DIFF_LEN_COLOR], t_vector *vct,
-							char *tab_other_resolution[NB_DIFF_COLOR])
-{
-	size_t	i;
-
-	i = 0;
-	while (i < NB_DIFF_COLOR)
-	{
-		tab_len[i] = vct_strlen(vct, tab_other_resolution[i]);
-		i++;
-	}
-}
-
-int	what_information_color(t_vector *vct, size_t clen, t_state_machine *machine,
-							int ret_before)
-{
-	char *tab_other_resolution[NB_DIFF_COLOR] = {"R", "NO", "SO", "WE"};
-	size_t	tab_len[DIFF_LEN_COLOR];
-	size_t	index;
 	int		ret;
+	int		index;
+	size_t	len;	
 
-	fill_tab_len(tab_len, vct, tab_other_resolution);
-	tab_len[NB_DIFF_COLOR] = clen;
-	index = ft_bubblesort_minindex(tab_len, DIFF_LEN_COLOR);
-	ret = what_state_color(index, machine);
-	if (tab_len[IND_R_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_NO_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_SO_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_WE_COLOR] == vct_getlen(vct) && ret_before == TRUE)
+	ret = is_color(cpy_vct, tab_color);
+	index = ret;
+	len = vct_getlen(vct);
+	if (ret == COLOR_C || ret == COLOR_F)
 		ret = TRUE;
-	if (tab_len[IND_R_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_NO_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_SO_COLOR] == vct_getlen(vct)
-			&& tab_len[IND_WE_COLOR] == vct_getlen(vct)
-			&& ret_before == NEXT_OTHERCHAR)
-	{
-		machine->state = MAP;
-		ret = NEXT;
-	}
-	return (ret); 
-}
-
-int	is_color(t_vector *vct, char **tab_color)
-{
-	int	index;
-	char	*str;
-
-	index = 0;
-	str = NULL;
-	while (index < NB_INDIC_COLOR)
-	{
-		str = ft_strnstr(vct_getstr(vct), tab_color[index], vct_getlen(vct));
-		if (str != NULL)
-			break ;
-		index++;
-	}
-	return (index);
-}
-
-static int	verif_before(t_vector *vct, size_t clen, t_state_machine *machine)
-{
-	size_t	i;
-	char	*str;
-	int		ret;
-
-	i = 0;
-	str = vct_getstr(vct);
-	ret = TRUE;
-	while (i < clen)
-	{
-		if (str[i] != SPACE && str[i] != TAB)
-		{
-			ret = what_information_color(vct, clen, machine, ret);
-			if (ret == NEXT)
-				break ;
-		}
-		i++;
-	}
-	return (ret);
-}
-
-static int	error_or_true(t_vector *color, size_t count_loops, size_t count_num)
-{
-	int				ret;
-
-	ret = TRUE;
-	if ((count_loops == 0 || count_loops == 6) &&
-			vct_apply(color, IS_WHITESPACE) == FALSE)
-		ret = ERROR;
-	else if (count_loops == 1 && vct_apply(color, IS_DIGIT) == FALSE)
-		ret = ERROR;
-	else if ((count_loops == 2 || count_loops == 4) && vct_apply(color,
-				IS_WHITESPACECOMMA) == FALSE)
-		ret = ERROR;
-	else if ((count_loops == 3 || count_loops == 5) && vct_apply(color,
-				IS_WHITESPACEDIGIT) == FALSE)
-		ret = ERROR;
-	if (count_num != NB_COLOR && count_loops > 5)
-		ret = ERROR; 
-	count_loops++;
-	return (ret);
-}
-
-static int	recuperation_color(char type_color, t_state_machine *machine,
-								int num, size_t *index)
-{
-	int	ret;
-
-	if (type_color == 'F')
-	{
-		machine->info.tab_color_f[*index] = num;
-		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
-				*index, machine->info.tab_color_f[*index]); //
-		ret = TRUE;
-		*index = *index + 1;
-	}
 	else
-	{
-		machine->info.tab_color_c[*index] = num;
-		printf("RECUPERATION_COLOR -> machine->info.tab_color_f[%zu] = %d\n",
-				*index, machine->info.tab_color_c[*index]); //
-		ret = TRUE;
-		*index = *index + 1;
-	}
+		ret = NEXT;
+	if (ret == TRUE)
+		ret = pre_split_color(cpy_vct, tab_color[index], machine); 
+	if (ret == NEXT)
+		ret = what_information_color(vct, len, machine, NEXT_OTHERCHAR);
+	if (ret == ERROR)
+		machine->information |= ERROR_COLOR;
+	if (ret == TRUE && (((machine->information & BT_COLOR_F) == FALSE ||
+			(machine->information & BT_COLOR_C) == FALSE)))
+		ret = ERROR;
 	return (ret);
 }
 
-static int	have_all_info(t_state_machine *machine)
+int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
 {
-	return (machine->information & BT_RESOLUTION &&
-			machine->information & BT_COLOR_F &&
-			machine->information & BT_COLOR_C && machine->information & BT_NO
-			&& machine->information & BT_SO && machine->information & BT_WE
-			&& machine->information & BT_EA && machine->information & BT_SPR);
-}
+	size_t	clen;
+	int		ret;
+	char	*str_clen;
+	char	type_color;
 
-static int	have_all_color(t_state_machine *machine)
-{
-	return (machine->information & BT_COLOR_F &&
-				machine->information & BT_COLOR_C);
-}
-
-static int	hub_recuperation_color(t_vector *color, char type_color,
-								t_state_machine *machine)
-{
-	int				ret;
-	int				num;
-	static size_t	index = 0;
-	
 	ret = TRUE;
-	num = ft_atoi(vct_getstr(color));
-	if (num < 0 || num > 255)
-		ret = ERROR;
-	ret = recuperation_color(type_color,machine, num, &index);
-	if (index == NB_COLOR && ret != ERROR)
+	str_clen = NULL;
+	clen = vct_clen(vct, str[0]);
+	type_color = vct_getcharat(vct, clen);
+	ret = verif_before_color(vct, clen, machine);
+	if (ret == TRUE)
 	{
-		if (type_color == 'F')
-			machine->information |= BT_COLOR_F;	
-		else
-			machine->information |= BT_COLOR_C;	
-		if (have_all_color(machine) == TRUE)
-			machine->state = MAP;
-		index = 0;
+		str_clen = vct_getstr(vct);
+		str_clen = ft_strdup(str_clen + clen + 1);
+		ret = split_color(vct, str_clen, type_color, machine);
 	}
-	if (have_all_info(machine) == TRUE)
-	{
-		ret = TRUE;
-		machine->state = MAP;
-	}
+	free(str_clen);
 	return (ret);
 }
 
@@ -232,7 +90,7 @@ static int	process_split_color(t_vector *cpy_vct, char type_color,
 	vct_del(&color);
 	return (ret);
 }
-static int	split_color(t_vector *vct, char *str, char type_color,
+int	split_color(t_vector *vct, char *str, char type_color,
 							t_state_machine *machine)
 {
 	int	ret;
@@ -248,27 +106,5 @@ static int	split_color(t_vector *vct, char *str, char type_color,
 	machine->info.count_loops = 0;
 	machine->info.count_num = 0;
 	machine->info.count_comma = 0;
-	return (ret);
-}
-
-int	pre_split_color(t_vector *vct, char *str, t_state_machine *machine)
-{
-	size_t	clen;
-	int		ret;
-	char	*str_clen;
-	char	type_color;
-
-	ret = TRUE;
-	str_clen = NULL;
-	clen = vct_clen(vct, str[0]);
-	type_color = vct_getcharat(vct, clen);
-	ret = verif_before(vct, clen, machine);
-	if (ret == TRUE)
-	{
-		str_clen = vct_getstr(vct);
-		str_clen = ft_strdup(str_clen + clen + 1);
-		ret = split_color(vct, str_clen, type_color, machine);
-	}
-	free(str_clen);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 15:36:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/24 17:32:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,5 +275,18 @@ int				send_to_function_color(t_vector *cpy_vct,
 										char *tab_color[NB_INDIC_COLOR],
 										t_state_machine *machine,
 										t_vector *vct);
+int				have_all_info(t_state_machine *machine);
+int				have_all_color(t_state_machine *machine);
+int				error_or_true(t_vector *color, size_t count_loops,
+								size_t count_num);
+int				hub_recuperation_color(t_vector *color, char type_color,
+											t_state_machine *machine);
+int				recuperation_color(char type_color, t_state_machine *machine,
+									int num, size_t *index);
+int				verif_before_color(t_vector *vct, size_t clen,
+								t_state_machine *machine);
+int				what_state_color(size_t index, t_state_machine *machine);
+int				split_color(t_vector *vct, char *str, char type_color,
+								t_state_machine *machine);
 
 #endif
