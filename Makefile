@@ -65,8 +65,10 @@ OBJ_DIR = ./objs/
 vpath %.c sources/
 vpath %.c sources/utils/
 vpath %.c sources/parser/
-vpath %.c sources/recuperation/
-vpath %.c sources/utils_parser/
+vpath %.c sources/parser/map
+vpath %.c sources/parser/color
+vpath %.c sources/parser/resolution
+vpath %.c sources/parser/texture
 
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
