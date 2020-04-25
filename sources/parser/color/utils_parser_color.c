@@ -12,8 +12,8 @@
 
 #include "cub3d.h"
 
-void	is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
-					char *tab_color[NB_INDIC_COLOR])
+void		is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
+						char *tab_color[NB_INDIC_COLOR])
 {
 	while (*count < NB_INDIC_COLOR
 			&& ft_strequ(vct_getstr(split), tab_color[*count]) == FALSE)
@@ -34,14 +34,14 @@ static void	recup_digit_color(t_vector *split, t_state_machine *machine,
 		if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
 			machine->information |= ERROR_COLOR;
 		else if (flag == BT_COLOR_F)
-			machine->info.tab_color_f[i / 2] = nb;	
+			machine->info.tab_color_f[i / 2] = nb;
 		else
-			machine->info.tab_color_c[i / 2] = nb;	
+			machine->info.tab_color_c[i / 2] = nb;
 	}
 }
 
 static void	get_color(t_vector *vct, t_state_machine *machine,
-		unsigned long flag)
+						unsigned long flag)
 {
 	t_vector	*split;
 	uint8_t		i;
@@ -64,8 +64,8 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 	vct_del(&split);
 }
 
-int		init_machine_color(uint8_t count, t_state_machine *machine,
-		t_vector *split, t_vector *vct)
+int			init_machine_color(uint8_t count, t_state_machine *machine,
+								t_vector *split, t_vector *vct)
 {
 	int			ret;
 	t_vector	*cpy;
