@@ -246,5 +246,8 @@ void			is_texture(uint8_t *count, t_vector *split,
 							char *tab_texture[NB_TEXTURE]);
 void			recuperation_texture(t_state_machine *machine, uint8_t count,
 										t_vector *split);
+void			is_indic_resolution(t_vector *split, t_state_machine *machine);
+void			is_number_resolution(t_vector *split, t_state_machine *machine,
+										size_t i);
 
 #endif

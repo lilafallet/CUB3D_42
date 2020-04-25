@@ -24,26 +24,11 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 			&& machine->state == RESOLUTION)
 	{
 		if (i == 0)
-		{
-			if (ft_strequ(vct_getstr(split), "R") == FALSE)
-				machine->state = TEXTURE;
-			else
-			{
-				if (machine->information & BT_RESOLUTION)
-					machine->information |= ERROR_RESOLUTION;
-				else
-					machine->information |= BT_RESOLUTION;
-			}
-		}
+			is_indic_resolution(split, machine);
 		else if (i == 3)
 			machine->information |= ERROR_RESOLUTION;
 		else
-		{
-			if (vct_apply(split, IS_DIGIT) == FALSE)
-				machine->information |= ERROR_RESOLUTION;
-			else
-				machine->info.str_resolution[i - 1] = vct_apply(split, TO_ATOI);
-		}
+			is_number_resolution(split, machine, i);
 		vct_del(&split);
 		i++;
 	}
@@ -77,11 +62,8 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	}
 	vct_del(&split);
 	if (machine->state == TEXTURE)
-	{
 		machine->state = RESOLUTION;
-		return (SUCCESS);
-	}
-	return (FAILURE);
+	return (machine->state == RESOLUTION ? SUCCESS : FAILURE);
 }
 
 static int	parser_color(t_vector *vct, t_state_machine *machine)

@@ -12,8 +12,32 @@
 
 #include "cub3d.h"
 
+void	is_number_resolution(t_vector *split, t_state_machine *machine,
+								size_t i)
+{
+	if (vct_apply(split, IS_DIGIT) == FALSE)
+		machine->information |= ERROR_RESOLUTION;
+	else
+		machine->info.str_resolution[i - 1] = vct_apply(split, TO_ATOI);
+
+}
+
+void	is_indic_resolution(t_vector *split, t_state_machine *machine)
+{
+	if (ft_strequ(vct_getstr(split), "R") == FALSE)
+		machine->state = TEXTURE;
+	else
+	{
+		if (machine->information & BT_RESOLUTION)
+			machine->information |= ERROR_RESOLUTION;
+		else
+			machine->information |= BT_RESOLUTION;
+	}
+
+}
+
 void	recuperation_texture(t_state_machine *machine, uint8_t count,
-								t_vector *split)
+		t_vector *split)
 {
 	if (machine->info.str_texture[count] != NULL)
 		machine->information |= ERROR_TEXTURE;
