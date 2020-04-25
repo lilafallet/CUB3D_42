@@ -104,6 +104,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine, unsigned long fla
 	uint8_t		i;
 	int			nb;
 	
+	
 	i = 0;
 	vct_split(NULL, NULL, INIT);
 	while ((split = vct_split(vct, ",", EACH_SEP))
@@ -115,7 +116,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine, unsigned long fla
 				machine->information |= ERROR_COLOR;
 			else
 			{
-				if ((nb = vct_apply(split, TO_ATOI)) > 255)
+				if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
 					machine->information |= ERROR_COLOR;
 				else if (flag == BT_COLOR_F)
 					machine->info.tab_color_f[i / 2] = nb;	
