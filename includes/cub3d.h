@@ -241,5 +241,10 @@ void			is_color(uint8_t *count, t_vector *split,
 							char *tab_color[NB_INDIC_COLOR]);
 int				init_machine_color(uint8_t count, t_state_machine *machine,
 									t_vector *split, t_vector *vct);
+void			is_texture(uint8_t *count, t_vector *split,
+							t_state_machine *machine,
+							char *tab_texture[NB_TEXTURE]);
+void			recuperation_texture(t_state_machine *machine, uint8_t count,
+										t_vector *split);
 
 #endif

@@ -12,8 +12,31 @@
 
 #include "cub3d.h"
 
+void	recuperation_texture(t_state_machine *machine, uint8_t count,
+								t_vector *split)
+{
+	if (machine->info.str_texture[count] != NULL)
+		machine->information |= ERROR_TEXTURE;
+	else
+	{
+		machine->info.str_texture[count] = vct_strdup(split);
+		machine->information |= (1 << count);
+	}
+}
+
+void	is_texture(uint8_t *count, t_vector *split, t_state_machine *machine,
+		char *tab_texture[NB_TEXTURE])
+{
+	while (*count < NB_TEXTURE
+			&& ft_strequ(vct_getstr(split), tab_texture[*count]) == FALSE)
+		*count = *count + 1;
+	if (*count == NB_TEXTURE)
+		machine->state = COLOR;
+
+}
+
 void	is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
-					char *tab_color[NB_INDIC_COLOR])
+		char *tab_color[NB_INDIC_COLOR])
 {
 	while (*count < NB_INDIC_COLOR
 			&& ft_strequ(vct_getstr(split), tab_color[*count]) == FALSE)
@@ -23,13 +46,13 @@ void	is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
 }
 
 static void	get_color(t_vector *vct, t_state_machine *machine,
-						unsigned long flag)
+		unsigned long flag)
 {
 	t_vector	*split;
 	uint8_t		i;
 	int			nb;
-	
-	
+
+
 	i = 0;
 	vct_split(NULL, NULL, INIT);
 	while ((split = vct_split(vct, ",", EACH_SEP))
@@ -61,7 +84,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 }
 
 int		init_machine_color(uint8_t count, t_state_machine *machine,
-							t_vector *split, t_vector *vct)
+		t_vector *split, t_vector *vct)
 {
 	int			ret;
 	t_vector	*cpy;

@@ -67,25 +67,11 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 			&& machine->state == TEXTURE)
 	{
 		if (i == 0)
-		{
-			while (count < NB_TEXTURE
-				&& ft_strequ(vct_getstr(split), tab_texture[count]) == FALSE)
-				count++;
-			if (count == NB_TEXTURE)
-				machine->state = COLOR;
-		}
+			is_texture(&count, split, machine, tab_texture);
 		else if (i == 2)
 			machine->information |= ERROR_TEXTURE;
 		else
-		{
-			if (machine->info.str_texture[count] != NULL)
-				machine->information |= ERROR_TEXTURE;
-			else
-			{
-				machine->info.str_texture[count] = vct_strdup(split);
-				machine->information |= (1 << count);
-			}
-		}
+			recuperation_texture(machine, count, split);
 		i++;
 		vct_del(&split);
 	}
