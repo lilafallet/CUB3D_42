@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 16:08:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 18:20:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,59 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	process_cub3d(t_state_machine *machine, t_vector *line,
-							unsigned long nb_line)
+static int	debug_print_map(t_state_machine *machine, size_t i, size_t j)
 {
-	first_parser(machine, line);
-	if (machine->information & IS_ERROR)
-	{
-		ft_free(machine, line);
-		printf_errors(machine->information, nb_line + 1);
-		return (FAILURE);
-	}
-	return (SUCCESS);
+	ft_printf("%d%c", machine->info.tab_map[i][j],
+			(j + 1 == machine->info.max_index) ? '\n' : ' '); //DEBUG//
+	return (TRUE);
 }
 
-static int	ft_cub3d(t_state_machine *machine, int fd)
+static void	debug(t_state_machine *machine)
 {
-	ssize_t				ret;
-	t_vector			*line;
-	unsigned long		nb_line;
+	ft_printf("Resolution:\t%d %d\n",	machine->info.str_resolution[0],
+										machine->info.str_resolution[1]);
+	ft_printf("NO:\t\t%s\n",			machine->info.str_texture[0]);
+	ft_printf("SO:\t\t%s\n",			machine->info.str_texture[1]);
+	ft_printf("WE:\t\t%s\n",			machine->info.str_texture[2]);
+	ft_printf("EA:\t\t%s\n",			machine->info.str_texture[3]);
+	ft_printf("S:\t\t%s\n",				machine->info.str_texture[4]);
+	ft_printf("F:\t\t%d %d %d\n",		machine->info.tab_color_f[0],
+										machine->info.tab_color_f[1],
+										machine->info.tab_color_f[2]);
+	ft_printf("C:\t\t%d %d %d\n\n",		machine->info.tab_color_c[0],
+										machine->info.tab_color_c[1],
+										machine->info.tab_color_c[2]);
+	iter_map(machine, debug_print_map);
+}
 
-	nb_line = 0;
-	line = vct_new();
-	machine->info.tab_map = NULL;
-	while ((ret = vct_readline(line, fd)) > 0)
+static int	ft_cub3d(int fd)
+{
+	t_state_machine	machine;
+
+	ft_bzero(&machine, sizeof(machine));
+	if (first_parser(&machine, fd) == SUCCESS)
 	{
-		if (process_cub3d(machine, line, nb_line) == FAILURE)
-			return (FAILURE);
-		nb_line++;
+		if (verification_global_map(&machine) == ERROR)
+			printf_errors(machine.information, machine.info.nb_line);
+		else
+			debug(&machine); // DEBUG
 	}
-	ret = verification_global_map(machine);
-	if (ret == ERROR)
-		printf_errors(machine->information, nb_line);
-	ft_free(machine, line);
+	ft_free(&machine, NULL);
 	return (SUCCESS);
 }
 
 int			main(int ac, char **av)
 {
 	int				fd;
-	t_state_machine	machine;
 
 	(void)av;
-	ft_bzero(&machine, sizeof(machine));
 	if (ac != 2)
 	{
 		printf_errors(ERR_USAGE, 0);
 		return (EXIT_FAILURE);
 	}
 	fd = open(av[1], O_RDONLY);
-	ft_bzero(&machine, sizeof(machine));
-	if (ft_cub3d(&machine, fd) == FAILURE)
+	if (ft_cub3d(fd) == FAILURE)
 	{
 		close(fd);
 		return (EXIT_FAILURE);

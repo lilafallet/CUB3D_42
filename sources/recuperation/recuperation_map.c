@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 15:41:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 18:19:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int				clean_and_print(t_state_machine *machine, size_t i, size_t j)
 {
 	if (machine->info.tab_map[i][j] == STOP)
 		machine->info.tab_map[i][j] = OUT;
-	ft_printf("%d%c", machine->info.tab_map[i][j],
-			(j + 1 == machine->info.max_index) ? '\n' : ' '); //DEBUG//
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 15:55:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 17:56:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ typedef struct	s_f_info
 
 typedef struct	s_info
 {
+	size_t			nb_line;
 	size_t			index_map;
 	size_t			max_index;
 	size_t			max_line;
@@ -184,8 +185,8 @@ typedef struct	s_info
 	size_t			count_loops;
 	size_t			count_comma;
 	size_t			count_line;
+	int				str_resolution[NB_RESOLUTION];
 	char			*str_texture[NB_TEXTURE];
-	char			*str_resolution[NB_RESOLUTION];
 	char			*str_text_spr;
 	char			*str_text_no;
 	char			*str_text_so;
@@ -204,7 +205,7 @@ typedef struct	s_state_machine
 	char				*str_info_final;
 	char				*str_tmp_info_final;
 	unsigned long		information;
-	struct s_info		info;
+	t_info				info;
 	struct s_f_info		final_info;
 	enum e_state		state;
 	char				pad[4];
@@ -216,7 +217,7 @@ int				main(int ac, char **av);
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_state_machine *machine, t_vector *line);
-int				first_parser(t_state_machine *machine, t_vector *line);
+int				first_parser(t_state_machine *machine, int fd);
 void			printf_errors(unsigned long flag, unsigned long line);
 int				split_resolution(t_vector *resol, char **str_resolution,
 									t_vector *vct);
