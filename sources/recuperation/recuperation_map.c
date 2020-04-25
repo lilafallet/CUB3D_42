@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 21:09:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 15:41:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static size_t	fill_line(t_state_machine *machine, enum e_map **cpy_tab)
 	return (i);
 }
 
-int				realloc_tab(t_state_machine *machine, size_t count_line,
-						size_t old_index, size_t new_index)
+int				realloc_tab(t_state_machine *machine, size_t count_line, 
+								size_t old_index, size_t new_index)
 {
 	enum e_map	**cpy_tab;
 	size_t		i;
@@ -57,7 +57,7 @@ int				realloc_tab(t_state_machine *machine, size_t count_line,
 	if (old_index == 0 || new_index > old_index)
 		machine->info.max_index = new_index;
 	cpy_tab = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line));
-	ft_bzero(cpy_tab, count_line);
+	ft_bzero(cpy_tab, machine->info.count_line);
 	i = fill_line(machine, cpy_tab);
 	if (count_line != machine->info.max_line)
 	{
@@ -70,9 +70,8 @@ int				realloc_tab(t_state_machine *machine, size_t count_line,
 	return (SUCCESS);
 }
 
-static int		process_recuperation_map(t_state_machine *machine,
-										size_t count_line, size_t index,
-										t_vector *map)
+static int		process_recuperation_map(t_state_machine *machine, size_t index,
+											t_vector *map)
 {
 	char			c;
 	ssize_t			index_char;
@@ -84,12 +83,13 @@ static int		process_recuperation_map(t_state_machine *machine,
 	vct_addstr(vct_char, STR_MAP);
 	index_char = vct_chr(vct_char, c);
 	if (index_char < WAY_WALL_SPRITE)
-		machine->info.tab_map[count_line][index] = (enum e_map)index_char;
+		machine->info.tab_map[machine->info.count_line][index] =
+		(enum e_map)index_char;
 	else if (index_char > OUTMAP)
-		machine->info.tab_map[count_line][index] = OUT;
+		machine->info.tab_map[machine->info.count_line][index] = OUT;
 	else if (count_position == 0)
 	{
-		machine->info.tab_map[count_line][index] = POSITION;
+		machine->info.tab_map[machine->info.count_line][index] = POSITION;
 		count_position++;
 	}
 	else
@@ -103,27 +103,26 @@ int				recuperation_map(t_vector *line, t_state_machine *machine)
 {
 	int				ret;
 	t_vector		*map;
-	static size_t	count_line = 0;
 	size_t			index;
 
 	ret = TRUE;
 	index = 0;
 	map = vct_dup(line);
-	realloc_tab(machine, count_line + 1, machine->info.max_index,
+	realloc_tab(machine, machine->info.count_line + 1, machine->info.max_index,
 					vct_getlen(line) + 1);
 	while (index < vct_getlen(line) && ret != ERROR)
 	{
-		ret = process_recuperation_map(machine, count_line, index, map);
+		ret = process_recuperation_map(machine, index, map);
 		if (ret == ERROR)
 			break ;
 		index++;
 	}
 	if (ret != ERROR)
-		machine->info.tab_map[count_line][index] = STOP;
+		machine->info.tab_map[machine->info.count_line][index] = STOP;
 	if (index > machine->info.max_index)
 		machine->info.max_index = index;
-	count_line++;
-	machine->info.max_line = count_line;
+	machine->info.count_line++;
+	machine->info.max_line = machine->info.count_line;
 	vct_del(&map);
 	return (ret);
 }

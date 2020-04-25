@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/24 21:49:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 15:55:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # endif
 
 # define LEN_ZERO 1
+
+# define VOID_LINE 10
 
 # define ERROR 2
 # define NEXT 4
@@ -58,25 +60,27 @@
 # define ERROR_ARGUMENTS "Error of arguments: OUVRIR FENETRE(lire pdf)\n\n"
 # define WRONG_INFORMATIONS "Wrong informations : REGARDER QUOI FAIRE\n\n"
 
-# define BT_NO 	0x0000001
-# define BT_SO 	0x0000002
-# define BT_WE 	0x0000004
-# define BT_EA 	0x0000008
-# define BT_SPR 0x0000010
+# define BT_NO 			0x0000001
+# define BT_SO 			0x0000002
+# define BT_WE 			0x0000004
+# define BT_EA 			0x0000008
+# define BT_SPR			0x0000010
+# define BT_RESOLUTION	0x0000100
+# define BT_COLOR_F		0x0001000
+# define BT_COLOR_C		0x0002000
 
-# define BT_RESOLUTION 0x0000100
-# define BT_COLOR_F 0x0001000
-# define BT_COLOR_C 0x0002000
-# define BT_F_RED 0x0004000
-# define BT_F_GREEN 0x0008000
-# define BT_F_BLUE 0x0010000
-# define BT_C_RED 0x0020000
-# define BT_C_GREEN 0x0040000
-# define BT_C_BLUE 0x0080000
-# define BT_POSITION_N 0x0100000
-# define BT_POSITION_S 0x0200000
-# define BT_POSITION_W 0x0400000
-# define BT_POSITION_E 0x0800000
+# define ALL_INFO		0x000311f
+
+# define BT_F_RED 		0x0004000
+# define BT_F_GREEN 	0x0008000
+# define BT_F_BLUE 		0x0010000
+# define BT_C_RED 		0x0020000
+# define BT_C_GREEN 	0x0040000
+# define BT_C_BLUE 		0x0080000
+# define BT_POSITION_N 	0x0100000
+# define BT_POSITION_S 	0x0200000
+# define BT_POSITION_W 	0x0400000
+# define BT_POSITION_E 	0x0800000
 
 # define IS_ERROR			0x0FF000000
 # define NB_ERROR			8
@@ -179,6 +183,7 @@ typedef struct	s_info
 	size_t			count_num;
 	size_t			count_loops;
 	size_t			count_comma;
+	size_t			count_line;
 	char			*str_texture[NB_TEXTURE];
 	char			*str_resolution[NB_RESOLUTION];
 	char			*str_text_spr;
@@ -249,8 +254,8 @@ int				recuperation_eachelem(t_state_machine *machine,
 int				verif_line(t_vector *line, t_state_machine *machine,
 							size_t count_line);
 int				verification_global_map(t_state_machine *machine);
-int				realloc_tab(t_state_machine *machine, size_t count_line,
-								size_t old_index, size_t new_index);
+int				realloc_tab(t_state_machine *machine, size_t old_index,
+								size_t count_line, size_t new_index);
 int				iter_map(t_state_machine *machine,
 							int (*f)(t_state_machine *machine,
 							size_t y, size_t x));
