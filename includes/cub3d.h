@@ -218,8 +218,6 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 void			ft_free(t_state_machine *machine, t_vector *line);
 int				first_parser(t_state_machine *machine, int fd);
 void			printf_errors(unsigned long flag, unsigned long line);
-int				what_information_map(t_vector *vct, size_t clen_map,
-										t_state_machine *machine);
 int				is_map(t_vector *vct);
 int				recuperation_map(t_vector *line, t_state_machine *machine);
 int				recuperation_eachelem(t_state_machine *machine,
