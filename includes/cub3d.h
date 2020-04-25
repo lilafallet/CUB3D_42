@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 17:56:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/25 18:31:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,38 +213,11 @@ typedef struct	s_state_machine
 
 typedef	int	(*t_function)(t_vector *, t_state_machine *);
 
-int				main(int ac, char **av);
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_state_machine *machine, t_vector *line);
 int				first_parser(t_state_machine *machine, int fd);
 void			printf_errors(unsigned long flag, unsigned long line);
-int				split_resolution(t_vector *resol, char **str_resolution,
-									t_vector *vct);
-int				is_next_or_error_resolution(t_vector *vct);
-int				init_machine_resolution(t_state_machine *machine, int ret);
-void			what_bitwaze(t_state_machine *machine, int index);
-int				pre_process_split(t_vector *texture, t_vector *vct,
-									char *str_texture);
-int				process_texture(int ret, t_vector *vct, char **tab_texture);
-int				process_texture(int ret, t_vector *vct, char **tab_texture);
-int				init_machine_texture(int ret, t_state_machine *machine,
-										int index, t_vector *vct);
-int				is_color(t_vector *vct, char **tab_color);
-void			init_machine_color(t_state_machine *machine, int ret);
-int				is_texture(t_vector *vct, char **tab_texture,
-							t_state_machine *machine);
-int				clean_before(t_vector *vct, char **str_texture, int index,
-								t_state_machine *machine);
-int				is_resolution(t_vector *resol, t_vector *vct,
-								t_state_machine *machine);
-int				pre_split_color(t_vector *vct, char *str,
-									t_state_machine *machine);
-int				what_information_color(t_vector *vct, size_t clen,
-										t_state_machine *machine,
-										int ret_before);
-int				what_information_texture(t_vector *vct, size_t clen_text,
-											t_state_machine *machine, int ret);
 int				what_information_map(t_vector *vct, size_t clen_map,
 										t_state_machine *machine);
 int				is_map(t_vector *vct);
@@ -262,35 +235,6 @@ int				iter_map(t_state_machine *machine,
 							size_t y, size_t x));
 int				clean_and_print(t_state_machine *machine, size_t i, size_t j);
 int				verif_map(t_state_machine *machine, size_t y, size_t x);
-int				have_all_texture(t_state_machine *machine);
-int				send_to_function_texture(t_vector *vct,
-											char *tab_texture[NB_TEXTURE],
-											t_state_machine *machine,
-											t_vector *texture);
-int				send_to_function_color(t_vector *cpy_vct,
-										char *tab_color[NB_INDIC_COLOR],
-										t_state_machine *machine,
-										t_vector *vct);
 int				have_all_info(t_state_machine *machine);
-int				have_all_color(t_state_machine *machine);
-int				error_or_true(t_vector *color, size_t count_loops,
-								size_t count_num);
-int				hub_recuperation_color(t_vector *color, char type_color,
-											t_state_machine *machine);
-int				recuperation_color(char type_color, t_state_machine *machine,
-									int num, size_t *index);
-int				verif_before_color(t_vector *vct, size_t clen,
-								t_state_machine *machine);
-int				what_state_color(size_t index, t_state_machine *machine);
-int				split_color(char *str, char type_color,
-								t_state_machine *machine);
-int				what_information_resolution(t_vector *vct,
-												t_state_machine *machine);
-int				is_invalid_char(t_vector *resol);
-int				count_num(char **str_resolution, t_vector *resol);
-int				not_resolution(t_vector *vct);
-void			fill_tab_len_resolution(size_t tab_len[DIFF_LEN_RESOL],
-									t_vector *vct,
-									char *tab_other_resolution[NB_DIFF_RESOL]);
 
 #endif

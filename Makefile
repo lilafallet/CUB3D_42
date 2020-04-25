@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/24 18:00:33 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/25 18:28:55 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,17 +53,9 @@ SRCS += ft_cub3d.c
 SRCS += errors.c
 SRCS += initialisation.c
 SRCS += parser.c
-SRCS += parser_resolution.c
-SRCS += parser_texture.c
-SRCS += parser_color.c
-SRCS += utils_parser_texture.c
 SRCS += parser_map.c
 SRCS += utils_parser_map.c
-SRCS += recuperation_color.c
-SRCS += verif_information_color.c
-SRCS += search_information_color.c
 SRCS += recuperation_map.c
-SRCS += verif_information_resolution.c
 
 OBJ_DIR = ./objs/
 
@@ -72,7 +64,6 @@ vpath %.c sources/utils/
 vpath %.c sources/parser/
 vpath %.c sources/recuperation/
 vpath %.c sources/utils_parser/
-vpath %.c sources/verif_parser/
 
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
