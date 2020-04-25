@@ -13,7 +13,7 @@
 #include "cub3d.h"
 
 void	is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
-		char *tab_color[NB_INDIC_COLOR])
+					char *tab_color[NB_INDIC_COLOR])
 {
 	while (*count < NB_INDIC_COLOR
 			&& ft_strequ(vct_getstr(split), tab_color[*count]) == FALSE)
@@ -22,13 +22,29 @@ void	is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
 		machine->state = MAP;
 }
 
+static void	recup_digit_color(t_vector *split, t_state_machine *machine,
+								unsigned long flag, uint8_t i)
+{
+	int			nb;
+
+	if (vct_apply(split, IS_DIGIT) == FALSE)
+		machine->information |= ERROR_COLOR;
+	else
+	{
+		if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
+			machine->information |= ERROR_COLOR;
+		else if (flag == BT_COLOR_F)
+			machine->info.tab_color_f[i / 2] = nb;	
+		else
+			machine->info.tab_color_c[i / 2] = nb;	
+	}
+}
+
 static void	get_color(t_vector *vct, t_state_machine *machine,
 		unsigned long flag)
 {
 	t_vector	*split;
 	uint8_t		i;
-	int			nb;
-
 
 	i = 0;
 	vct_split(NULL, NULL, INIT);
@@ -36,19 +52,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 			&& (machine->information & IS_ERROR) == FALSE)
 	{
 		if (i % 2 == 0)
-		{
-			if (vct_apply(split, IS_DIGIT) == FALSE)
-				machine->information |= ERROR_COLOR;
-			else
-			{
-				if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
-					machine->information |= ERROR_COLOR;
-				else if (flag == BT_COLOR_F)
-					machine->info.tab_color_f[i / 2] = nb;	
-				else
-					machine->info.tab_color_c[i / 2] = nb;	
-			}
-		}	
+			recup_digit_color(split, machine, flag, i);
 		else
 		{
 			if (i == 5 || vct_getfirstchar(split) != ',')
