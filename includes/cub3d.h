@@ -236,5 +236,10 @@ int				iter_map(t_state_machine *machine,
 int				clean_and_print(t_state_machine *machine, size_t i, size_t j);
 int				verif_map(t_state_machine *machine, size_t y, size_t x);
 int				have_all_info(t_state_machine *machine);
+void			is_color(uint8_t *count, t_vector *split,
+							t_state_machine *machine,
+							char *tab_color[NB_INDIC_COLOR]);
+int				init_machine_color(uint8_t count, t_state_machine *machine,
+									t_vector *split, t_vector *vct);
 
 #endif

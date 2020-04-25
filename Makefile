@@ -56,6 +56,7 @@ SRCS += parser.c
 SRCS += parser_map.c
 SRCS += utils_parser_map.c
 SRCS += recuperation_map.c
+SRCS += utils_parser.c
 
 OBJ_DIR = ./objs/
 

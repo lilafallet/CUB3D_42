@@ -98,92 +98,26 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 	return (FAILURE);
 }
 
-static void	get_color(t_vector *vct, t_state_machine *machine, unsigned long flag)
-{
-	t_vector	*split;
-	uint8_t		i;
-	int			nb;
-	
-	
-	i = 0;
-	vct_split(NULL, NULL, INIT);
-	while ((split = vct_split(vct, ",", EACH_SEP))
-			&& (machine->information & IS_ERROR) == FALSE)
-	{
-		if (i % 2 == 0)
-		{
-			if (vct_apply(split, IS_DIGIT) == FALSE)
-				machine->information |= ERROR_COLOR;
-			else
-			{
-				if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
-					machine->information |= ERROR_COLOR;
-				else if (flag == BT_COLOR_F)
-					machine->info.tab_color_f[i / 2] = nb;	
-				else
-					machine->info.tab_color_c[i / 2] = nb;	
-			}
-		}	
-		else
-		{
-			if (i == 5 || vct_getfirstchar(split) != ',')
-				machine->information |= ERROR_COLOR;
-		}
-		vct_del(&split);
-		i++;
-	}
-	vct_del(&split);
-}
-
 static int	parser_color(t_vector *vct, t_state_machine *machine)
 {
 	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	uint8_t		i;
 	uint8_t		count;
 	t_vector	*split;
-	t_vector	*cpy;
 
 	i = 0;
 	count = 0;
-	while ((split = vct_split(vct, " \t", NO_SEP))
-			&& (machine->information & IS_ERROR) == FALSE
-			&& machine->state == COLOR)
+	while ((split = vct_split(vct, " \t", NO_SEP)) && (machine->information
+				& IS_ERROR) == FALSE && machine->state == COLOR)
 	{
 		if (i == 0)
-		{
-			while (count < NB_INDIC_COLOR
-				&& ft_strequ(vct_getstr(split), tab_color[count]) == FALSE)
-				count++;
-			if (count == NB_INDIC_COLOR)
-				machine->state = MAP;
-		}
+			is_color(&count, split, machine, tab_color);
 		else
-		{
-			cpy = vct_dup(split);
-			vct_del(&split);
-			if ((split = vct_split(vct, " \t", NO_SEP)) != NULL)
-				machine->information |= ERROR_COLOR;
-			else
-			{
-				if (count == 0 && (machine->information & BT_COLOR_F) == FALSE)
-					machine->information |= BT_COLOR_F;
-				else if (count == 1 && (machine->information & BT_COLOR_C) == FALSE)
-					machine->information |= BT_COLOR_C;
-				else
-					machine->information |= ERROR_COLOR;
-				if ((machine->information & IS_ERROR) == FALSE)
-				{
-					get_color(cpy, machine, count == 0 ? BT_COLOR_F : BT_COLOR_C);
-					vct_del(&cpy);
-					break ;
-				}
-			}
-			vct_del(&cpy);
-		}
-		i++;
+			if (init_machine_color(count, machine, split, vct) == FAILURE)
+				break ;
 		vct_del(&split);
+		i++;
 	}
-	vct_del(&split);
 	if (machine->state == COLOR)
 	{
 		machine->state = RESOLUTION;
@@ -196,31 +130,21 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 {
 	int				ret;
 	t_vector		*cpy_vct;
-	static size_t	count_loops_function = 0;
 
+	ret = TRUE;
 	if ((machine->information & ALL_INFO) != ALL_INFO)
-	{
-		ft_printf("Miss Informations\n");
-		machine->information |= ERROR_MAP; //miss information//
-		return (FAILURE);
-	}
+		ret = ERROR;
 	ret = TRUE;
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
-	if (count_loops_function == 0)
-		ret = what_information_map(cpy_vct, vct_getlen(vct), machine);
-	count_loops_function++;
-	ret = is_map(cpy_vct);
+	if (ret != ERROR)
+		ret = is_map(cpy_vct);
+	if (ret != ERROR)
+		ret = recuperation_map(cpy_vct, machine);
 	if (ret == ERROR)
 	{
 		machine->information |= ERROR_MAP;
 		vct_del(&cpy_vct);
-		return (FAILURE);
-	}
-	ret = recuperation_map(cpy_vct, machine);
-	if (ret == ERROR)
-	{
-		machine->information |= ERROR_MAP;
 		return (FAILURE);
 	}
 	vct_del(&cpy_vct);
