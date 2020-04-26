@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 20:41:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 21:52:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ typedef struct	s_info
 	size_t			count_loops;
 	size_t			count_comma;
 	size_t			count_line;
+	size_t			count_position;
 	int				str_resolution[NB_RESOLUTION];
 	char			*str_texture[NB_TEXTURE];
 	char			*str_text_spr;

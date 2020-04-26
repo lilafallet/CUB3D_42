@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 20:45:15 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 22:05:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ int			verification_global_map(t_state_machine *machine)
 {
 	realloc_tab(machine, machine->info.max_line, machine->info.max_index,
 					machine->info.max_index);
+	if (machine->info.count_position != 1)
+	{
+		machine->information |= ERROR_MAP_NOT_VALID;
+		return (ERROR);
+	}
 	iter_map(machine, clean_and_print);
 	if (iter_map(machine, verif_map) == FALSE)
 		return (ERROR);

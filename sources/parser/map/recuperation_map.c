@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 20:53:11 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 22:03:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 {
 	char			c;
 	ssize_t			index_char;
-	static	size_t	count_position = 0;
 	t_vector		*vct_char;
 	int				ret;
 
@@ -84,9 +83,7 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 	index_char = vct_chr(vct_char, c);
 	if (index_char == FAILURE)
 		ret = ERROR;
-	ft_printf("index_char = %d\n", index_char); //
 	vct_del(&vct_char);
-	ft_printf("%d %d\n", machine->info.count_line, index); //
 	if (ret != ERROR)
 	{
 		if (index_char < WAY_WALL_SPRITE)
@@ -94,10 +91,10 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 			(enum e_map)index_char;
 		else if (index_char > OUTMAP)
 			machine->info.tab_map[machine->info.count_line][index] = OUT;
-		else if (count_position == 0)
+		else if (machine->info.count_position == 0)
 		{
 			machine->info.tab_map[machine->info.count_line][index] = POSITION;
-			count_position++;
+			machine->info.count_position++;
 		}
 		else
 			ret = ERROR;
