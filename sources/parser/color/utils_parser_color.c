@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 12:10:00 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 14:27:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,22 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 }
 
 int			init_machine_color(uint8_t count, t_state_machine *machine,
-								t_vector *split, t_vector *vct)
+								t_vector *cpy)
 {
 	int			ret;
-	t_vector	*cpy;
 
 	ret = SUCCESS;
-	cpy = vct_dup(split);
-	vct_del(&split);
-	if ((split = vct_split(vct, " \t", NO_SEP)) != NULL)
-		machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
+	if (count == 0 && (machine->information & BT_COLOR_F) == FALSE)
+		machine->information |= BT_COLOR_F;
+	else if (count == 1 && (machine->information & BT_COLOR_C) == FALSE)
+		machine->information |= BT_COLOR_C;
 	else
+		machine->information |= ERROR_COLOR_ALREADY;
+	if ((machine->information & IS_ERROR) == FALSE)
 	{
-		if (count == 0 && (machine->information & BT_COLOR_F) == FALSE)
-			machine->information |= BT_COLOR_F;
-		else if (count == 1 && (machine->information & BT_COLOR_C) == FALSE)
-			machine->information |= BT_COLOR_C;
-		else
-			machine->information |= ERROR_COLOR_ALREADY;
-		if ((machine->information & IS_ERROR) == FALSE)
-		{
-			get_color(cpy, machine, count == 0 ? BT_COLOR_F : BT_COLOR_C);
-			vct_del(&cpy);
-			return (FAILURE);
-		}
+		get_color(cpy, machine, count == 0 ? BT_COLOR_F : BT_COLOR_C);
+		vct_del(&cpy);
+		return (FAILURE);
 	}
 	vct_del(&cpy);
 	return (ret);

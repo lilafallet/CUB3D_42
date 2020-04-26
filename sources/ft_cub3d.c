@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:20:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 12:17:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	debug_print_map(t_state_machine *machine, size_t i, size_t j)
 
 static void	debug(t_state_machine *machine)
 {
-	ft_printf("Resolution:\t%d %d\n",	machine->info.str_resolution[0],
+	ft_printf("R:\t\t%d %d\n",			machine->info.str_resolution[0],
 										machine->info.str_resolution[1]);
 	ft_printf("NO:\t\t%s\n",			machine->info.str_texture[0]);
 	ft_printf("SO:\t\t%s\n",			machine->info.str_texture[1]);

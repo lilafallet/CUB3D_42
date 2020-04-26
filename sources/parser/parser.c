@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 12:13:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 14:27:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	uint8_t		i;
 	uint8_t		count;
 	t_vector	*split;
+	t_vector	*cpy;
 
 	i = 0;
 	count = 0;
@@ -82,7 +83,11 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 			is_color(&count, split, machine, tab_color);
 		else
 		{
-			if (init_machine_color(count, machine, split, vct) == FAILURE)
+			cpy = vct_dup(split);
+			vct_del(&split);
+			if ((split = vct_split(vct, " \t", NO_SEP)) != NULL)
+				machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
+			if (init_machine_color(count, machine, cpy) == FAILURE)
 				break ;
 		}
 		vct_del(&split);
@@ -90,6 +95,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	}
 	if (machine->state == COLOR)
 		machine->state = RESOLUTION;
+	vct_del(&split);
 	return (machine->state == RESOLUTION ? SUCCESS : FAILURE);
 }
 
@@ -110,7 +116,13 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 		ret = recuperation_map(cpy_vct, machine);
 	if (ret == ERROR)
 	{
-		machine->information |= ERROR_MAP_NOT_VALID;
+		if (machine->info.tab_map == NULL)
+		{
+			printf_errors(ERR_GLOBAL, 0);
+			machine->information |= IS_ERROR;
+		}
+		else
+			machine->information |= ERROR_MAP_NOT_VALID;
 		vct_del(&cpy_vct);
 		return (FAILURE);
 	}
