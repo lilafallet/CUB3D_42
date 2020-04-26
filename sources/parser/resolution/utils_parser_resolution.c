@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:10:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 10:36:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	is_number_resolution(t_vector *split, t_state_machine *machine,
 		machine->information |= ERROR_RESOLUTION;
 	else
 		machine->info.str_resolution[i - 1] = vct_apply(split, TO_ATOI);
-
 }
 
 void	is_indic_resolution(t_vector *split, t_state_machine *machine)
@@ -33,5 +32,4 @@ void	is_indic_resolution(t_vector *split, t_state_machine *machine)
 		else
 			machine->information |= BT_RESOLUTION;
 	}
-
 }

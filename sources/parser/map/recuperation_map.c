@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:19:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 10:35:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static size_t	fill_line(t_state_machine *machine, enum e_map **cpy_tab)
 	return (i);
 }
 
-int				realloc_tab(t_state_machine *machine, size_t count_line, 
+int				realloc_tab(t_state_machine *machine, size_t count_line,
 								size_t old_index, size_t new_index)
 {
 	enum e_map	**cpy_tab;

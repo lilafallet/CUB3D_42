@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:10:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 10:39:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,16 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 		if (i == 0)
 			is_color(&count, split, machine, tab_color);
 		else
+		{
 			if (init_machine_color(count, machine, split, vct) == FAILURE)
 				break ;
+		}
 		vct_del(&split);
 		i++;
 	}
 	if (machine->state == COLOR)
-	{
 		machine->state = RESOLUTION;
-		return (SUCCESS);
-	}
-	return (FAILURE);
+	return (machine->state == RESOLUTION ? SUCCESS : FAILURE);
 }
 
 static int	parser_map(t_vector *vct, t_state_machine *machine)
