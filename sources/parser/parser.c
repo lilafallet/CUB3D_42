@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 11:08:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 12:13:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 		ret = recuperation_map(cpy_vct, machine);
 	if (ret == ERROR)
 	{
-		machine->information |= ERROR_MAP;
+		machine->information |= ERROR_MAP_NOT_VALID;
 		vct_del(&cpy_vct);
 		return (FAILURE);
 	}

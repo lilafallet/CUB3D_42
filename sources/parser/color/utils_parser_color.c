@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 11:51:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 12:10:00 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	recup_digit_color(t_vector *split, t_state_machine *machine,
 	int			nb;
 
 	if (vct_apply(split, IS_DIGIT) == FALSE)
-		machine->information |= ERROR_COLOR;
+		machine->information |= ERROR_COLOR_NOT_NUMBER;
 	else
 	{
 		if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
