@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 17:23:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 18:52:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@
 # define ERR1				"RESOLUTION : too much information\n"
 # define ERR2				"TEXTURE = too much information\n"
 # define ERR3				"COLOR = wrong type of number\n"
-# define ERR4				"COLOR = too much color\n"
+# define ERR4				"COLOR = number of color is invalid\n"
 # define ERR5				"COLOR = too much information\n"
 # define ERR6				"COLOR = already have color\n"
 # define ERR7				"MAP = invalid map\n"

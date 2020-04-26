@@ -2,8 +2,8 @@
 WE ./path_to_the_west_texture
 S ./path_to_the_sprite_texture
 EA ./path_to_the_east_texture
-C 225,100,
-F 220,100,0
+C 2147483647,100,1
+F 20,100,0
 NO ./path_to_the_north_texture
 R 21 1080
 
@@ -11,4 +11,4 @@ R 21 1080
 12001
 10N01
 10001
-11111
+1111
