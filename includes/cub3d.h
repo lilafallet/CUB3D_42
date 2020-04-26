@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 20:03:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 20:41:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,8 @@ enum			e_map
 	SPRITE,
 	POSITION,
 	OUT,
-	STOP
+	STOP,
+	WRONG_INFO_MAP
 };
 
 typedef struct	s_f_info

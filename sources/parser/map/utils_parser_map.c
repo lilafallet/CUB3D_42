@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 11:53:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 20:45:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 static int	is_valid(enum e_map map_case)
 {
-	return (map_case == OUT || map_case == WALL);
+	return ((map_case == OUT || map_case == WALL)
+			&& map_case != WRONG_INFO_MAP);
 }
 
 static int	is_bad_neighborhood(t_state_machine *machine, size_t x, size_t y)

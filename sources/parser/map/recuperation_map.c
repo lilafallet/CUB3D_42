@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:42:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 20:53:11 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,36 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 	ssize_t			index_char;
 	static	size_t	count_position = 0;
 	t_vector		*vct_char;
+	int				ret;
 
+	ret = TRUE;
 	c = vct_getfirstchar(map);
 	vct_char = vct_new();
 	vct_addstr(vct_char, STR_MAP);
 	index_char = vct_chr(vct_char, c);
+	if (index_char == FAILURE)
+		ret = ERROR;
+	ft_printf("index_char = %d\n", index_char); //
 	vct_del(&vct_char);
-	if (index_char < WAY_WALL_SPRITE)
-		machine->info.tab_map[machine->info.count_line][index] =
-		(enum e_map)index_char;
-	else if (index_char > OUTMAP)
-		machine->info.tab_map[machine->info.count_line][index] = OUT;
-	else if (count_position == 0)
+	ft_printf("%d %d\n", machine->info.count_line, index); //
+	if (ret != ERROR)
 	{
-		machine->info.tab_map[machine->info.count_line][index] = POSITION;
-		count_position++;
+		if (index_char < WAY_WALL_SPRITE)
+			machine->info.tab_map[machine->info.count_line][index] =
+			(enum e_map)index_char;
+		else if (index_char > OUTMAP)
+			machine->info.tab_map[machine->info.count_line][index] = OUT;
+		else if (count_position == 0)
+		{
+			machine->info.tab_map[machine->info.count_line][index] = POSITION;
+			count_position++;
+		}
+		else
+			ret = ERROR;
 	}
-	else
-		return (ERROR);
 	vct_pop(map);
 	vct_del(&vct_char);
-	return (TRUE);
+	return (ret);
 }
 
 int				recuperation_map(t_vector *line, t_state_machine *machine)
