@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:27:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:04:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,18 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 		ret = recuperation_map(cpy_vct, machine);
 	if (ret == ERROR)
 	{
+		ft_printf("TU RENTRES ICI COCINOU ?\n"); //
 		if (machine->info.tab_map == NULL)
 		{
+			ft_printf("ET LA ?\n"); //
 			printf_errors(ERR_GLOBAL, 0);
 			machine->information |= IS_ERROR;
 		}
 		else
+		{
+			ft_printf("ET ICI ?\n"); //
 			machine->information |= ERROR_MAP_NOT_VALID;
+		}
 		vct_del(&cpy_vct);
 		return (FAILURE);
 	}

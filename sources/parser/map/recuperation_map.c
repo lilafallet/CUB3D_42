@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 10:35:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:06:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 		count_position++;
 	}
 	else
+	{
+		vct_del(&vct_char);
 		return (ERROR);
+	}
 	vct_pop(map);
 	vct_del(&vct_char);
 	return (TRUE);
