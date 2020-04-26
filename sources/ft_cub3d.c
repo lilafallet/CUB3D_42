@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:57:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 15:59:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int			main(int ac, char **av)
 		printf_errors(ERR_USAGE, 0);
 		return (EXIT_FAILURE);
 	}
+	if (is_good_file(av[1]) == FAILURE)
+		return (EXIT_FAILURE);
 	fd = open(av[1], O_RDONLY);
 	if (ac == 3)
 	{

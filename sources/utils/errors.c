@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:57:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 15:58:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,25 @@
 #include <unistd.h>
 #include <stdio.h> /*DEBUG*/
 
+int		is_good_file(char *str)
+{
+	size_t	len;
+	int		ret;
+
+	ret = SUCCESS;
+	len = ft_strlen(str);
+	if (len <= 4)
+		ret = FAILURE;
+	if (ret != FAILURE)
+	{
+		if (ft_strequ(str + len - 4, ".cub") == FALSE)
+			ret = FAILURE;
+	}
+	if (ret == FAILURE)
+		printf_errors(ERR_FORMAT, 0);
+	return (ret);
+}
+
 int		what_second_argument(char *argument)
 {
 	if (ft_strequ(argument, "--save") == TRUE)
@@ -22,7 +41,7 @@ int		what_second_argument(char *argument)
 		printf_errors(ERR_SAVE, 0);
 		return (FAILURE);
 	}
-	return (TRUE);
+	return (SUCCESS);
 }
 
 void	printf_errors(unsigned long flag, unsigned long line)
@@ -44,6 +63,12 @@ void	printf_errors(unsigned long flag, unsigned long line)
 	if (flag == ERR_SAVE)
 	{
 		ft_dprintf(STDERR_FILENO, "SAVE: %s", ERROR_ARGUMENT_SAVE);
+		loops_function++;
+		return ;
+	}
+	if (flag == ERR_FORMAT)
+	{
+		ft_dprintf(STDERR_FILENO, "ARGUMENTS: %s", ERROR_ARGUMENT_SAVE);
 		loops_function++;
 		return ;
 	}
