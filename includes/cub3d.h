@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:02:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 14:58:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@
 # define COMMA ','
 # define NB_COMMA 2
 
-# define ERROR_ARGUMENTS "Error of arguments: OUVRIR FENETRE(lire pdf)\n\n"
-# define WRONG_INFORMATIONS "Wrong informations : REGARDER QUOI FAIRE\n\n"
 
 # define BT_NO 			0x0000001
 # define BT_SO 			0x0000002
@@ -86,6 +84,7 @@
 # define NB_ERROR			11
 # define ERR_USAGE			0
 # define ERR_GLOBAL			1
+# define ERR_SAVE			2
 # define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x001000000
 # define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x002000000
 # define ERROR_COLOR_WRONG_TYPE_NUMBER					0x004000000
@@ -109,6 +108,9 @@
 # define ERR9				"RESOLUTION = wrong type of indicator\n"
 # define ERR10				"TEXTURE = already have texture\n"
 # define ERR11				"COLOR = the argument is not a number\n"
+# define ERROR_ARGUMENTS "programme affiche l'image dans une fenetre\n"
+# define WRONG_INFORMATIONS "Wrong informations : REGARDER QUOI FAIRE\n"
+# define ERROR_ARGUMENT_SAVE "sauver la premiere image rendue au format bmp\n"
 
 # define STRING_CHECK_R		"SFCNSEW"
 # define STRING_SPACE_TAB " \t"
@@ -258,5 +260,6 @@ void			recuperation_texture(t_state_machine *machine, uint8_t count,
 void			is_indic_resolution(t_vector *split, t_state_machine *machine);
 void			is_number_resolution(t_vector *split, t_state_machine *machine,
 										size_t i);
+int				what_second_argument(char *argument);
 
 #endif

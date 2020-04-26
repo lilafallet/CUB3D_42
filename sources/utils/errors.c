@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:29:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 14:57:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h> /*DEBUG*/
+
+int		what_second_argument(char *argument)
+{
+	if (ft_strequ(argument, "--save") == TRUE)
+	{
+		printf_errors(ERR_SAVE, 0);
+		return (FAILURE);
+	}
+	return (TRUE);
+}
 
 void	printf_errors(unsigned long flag, unsigned long line)
 {
@@ -27,7 +37,13 @@ void	printf_errors(unsigned long flag, unsigned long line)
 		return ;
 	if (flag == ERR_USAGE)
 	{
-		ft_dprintf(STDERR_FILENO, "Usage: %s", ERROR_ARGUMENTS);
+		ft_dprintf(STDERR_FILENO, "ARGUMENTS: %s", ERROR_ARGUMENTS);
+		loops_function++;
+		return ;
+	}
+	if (flag == ERR_SAVE)
+	{
+		ft_dprintf(STDERR_FILENO, "SAVE: %s", ERROR_ARGUMENT_SAVE);
 		loops_function++;
 		return ;
 	}

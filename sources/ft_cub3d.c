@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 12:17:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 14:57:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,17 @@ int			main(int ac, char **av)
 	int				fd;
 
 	(void)av;
-	if (ac != 2)
+	if (ac < 2 || ac > 3)
 	{
 		printf_errors(ERR_USAGE, 0);
 		return (EXIT_FAILURE);
 	}
 	fd = open(av[1], O_RDONLY);
+	if (ac == 3)
+	{
+		if (what_second_argument(av[2]) == FAILURE)
+			return (EXIT_FAILURE);
+	}
 	if (ft_cub3d(fd) == FAILURE)
 	{
 		close(fd);
