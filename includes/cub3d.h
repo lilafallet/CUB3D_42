@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 18:52:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 20:03:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@
 # define COLOR_F 1
 
 # include "libft.h"
+# include <limits.h>
 
 enum			e_state
 {
