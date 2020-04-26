@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 15:59:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:31:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			main(int ac, char **av)
 	(void)av;
 	if (ac < 2 || ac > 3)
 	{
-		printf_errors(ERR_USAGE, 0);
+		printf_errors(ERR_ARG, 0);
 		return (EXIT_FAILURE);
 	}
 	if (is_good_file(av[1]) == FAILURE)

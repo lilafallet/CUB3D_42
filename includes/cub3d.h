@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 15:58:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:59:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@
 # define COMMA ','
 # define NB_COMMA 2
 
-
 # define BT_NO 			0x0000001
 # define BT_SO 			0x0000002
 # define BT_WE 			0x0000004
@@ -82,7 +81,7 @@
 
 # define IS_ERROR										0x7FF000000
 # define NB_ERROR			11
-# define ERR_USAGE			0
+# define ERR_ARG			0
 # define ERR_GLOBAL			1
 # define ERR_SAVE			2
 # define ERR_FORMAT			3
@@ -109,10 +108,10 @@
 # define ERR9				"RESOLUTION = wrong type of indicator\n"
 # define ERR10				"TEXTURE = already have texture\n"
 # define ERR11				"COLOR = the argument is not a number\n"
-# define ERROR_ARGUMENTS "programme affiche l'image dans une fenetre\n"
-# define WRONG_INFORMATIONS "Wrong informations : REGARDER QUOI FAIRE\n"
-# define ERROR_ARGUMENT_SAVE "sauver la premiere image rendue au format bmp\n"
-# define ERROR_ARGUMENT_FORMAT "wrong format (expecting .cub)\n"
+# define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
+# define ERROR_STR_GLOBAL "there's an invalid char somewhere\n"
+# define ERROR_ARGUMENT_SAVE "SAVE :sauver premiere image rendue format bmp\n"
+# define ERROR_ARGUMENT_FORMAT "ARGUMENTS : wrong format (expecting .cub)\n"
 
 # define STRING_CHECK_R		"SFCNSEW"
 # define STRING_SPACE_TAB " \t"
@@ -264,5 +263,7 @@ void			is_number_resolution(t_vector *split, t_state_machine *machine,
 										size_t i);
 int				what_second_argument(char *argument);
 int				is_good_file(char *str);
+int				true_or_false(t_vector *split, t_vector *vct,
+							t_state_machine *machine, uint8_t count);
 
 #endif

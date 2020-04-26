@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:04:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:59:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 	uint8_t		i;
 	uint8_t		count;
 	t_vector	*split;
-	t_vector	*cpy;
 
 	i = 0;
 	count = 0;
@@ -83,11 +82,7 @@ static int	parser_color(t_vector *vct, t_state_machine *machine)
 			is_color(&count, split, machine, tab_color);
 		else
 		{
-			cpy = vct_dup(split);
-			vct_del(&split);
-			if ((split = vct_split(vct, " \t", NO_SEP)) != NULL)
-				machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
-			if (init_machine_color(count, machine, cpy) == FAILURE)
+			if (true_or_false(split, vct, machine, count) == FAILURE)
 				break ;
 		}
 		vct_del(&split);
@@ -107,7 +102,6 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 	ret = TRUE;
 	if ((machine->information & ALL_INFO) != ALL_INFO)
 		ret = ERROR;
-	ret = TRUE;
 	cpy_vct = vct_new();
 	vct_cpy(cpy_vct, vct);
 	if (ret != ERROR)
@@ -116,18 +110,10 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 		ret = recuperation_map(cpy_vct, machine);
 	if (ret == ERROR)
 	{
-		ft_printf("TU RENTRES ICI COCINOU ?\n"); //
 		if (machine->info.tab_map == NULL)
-		{
-			ft_printf("ET LA ?\n"); //
 			printf_errors(ERR_GLOBAL, 0);
-			machine->information |= IS_ERROR;
-		}
-		else
-		{
-			ft_printf("ET ICI ?\n"); //
-			machine->information |= ERROR_MAP_NOT_VALID;
-		}
+		machine->information |= (machine->info.tab_map == NULL ? IS_ERROR :
+									ERROR_MAP_NOT_VALID);
 		vct_del(&cpy_vct);
 		return (FAILURE);
 	}

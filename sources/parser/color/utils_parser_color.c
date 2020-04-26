@@ -6,11 +6,27 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 14:27:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:54:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int			true_or_false(t_vector *split, t_vector *vct,
+							t_state_machine *machine, uint8_t count)
+{
+	t_vector	*cpy;
+	int			ret;
+	t_vector	*new_split;
+
+	ret = SUCCESS;
+	cpy = vct_dup(split);
+	if ((new_split = vct_split(vct, " \t", NO_SEP)) != NULL)
+			machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
+	if (init_machine_color(count, machine, cpy) == FAILURE)
+			ret = FAILURE;
+	return (ret);
+}
 
 void		is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
 						char *tab_color[NB_INDIC_COLOR])

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:06:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 16:42:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 	vct_char = vct_new();
 	vct_addstr(vct_char, STR_MAP);
 	index_char = vct_chr(vct_char, c);
+	vct_del(&vct_char);
 	if (index_char < WAY_WALL_SPRITE)
 		machine->info.tab_map[machine->info.count_line][index] =
 		(enum e_map)index_char;
@@ -91,10 +92,7 @@ static int		process_recuperation_map(t_state_machine *machine, size_t index,
 		count_position++;
 	}
 	else
-	{
-		vct_del(&vct_char);
 		return (ERROR);
-	}
 	vct_pop(map);
 	vct_del(&vct_char);
 	return (TRUE);
