@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:10:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 11:51:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	recup_digit_color(t_vector *split, t_state_machine *machine,
 	else
 	{
 		if ((nb = vct_apply(split, TO_ATOI)) > 255 && split->len > 3)
-			machine->information |= ERROR_COLOR;
+			machine->information |= ERROR_COLOR_WRONG_TYPE_NUMBER;
 		else if (flag == BT_COLOR_F)
 			machine->info.tab_color_f[i / 2] = nb;
 		else
@@ -56,7 +56,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 		else
 		{
 			if (i == 5 || vct_getfirstchar(split) != ',')
-				machine->information |= ERROR_COLOR;
+				machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
 		}
 		vct_del(&split);
 		i++;
@@ -74,7 +74,7 @@ int			init_machine_color(uint8_t count, t_state_machine *machine,
 	cpy = vct_dup(split);
 	vct_del(&split);
 	if ((split = vct_split(vct, " \t", NO_SEP)) != NULL)
-		machine->information |= ERROR_COLOR;
+		machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
 	else
 	{
 		if (count == 0 && (machine->information & BT_COLOR_F) == FALSE)
@@ -82,7 +82,7 @@ int			init_machine_color(uint8_t count, t_state_machine *machine,
 		else if (count == 1 && (machine->information & BT_COLOR_C) == FALSE)
 			machine->information |= BT_COLOR_C;
 		else
-			machine->information |= ERROR_COLOR;
+			machine->information |= ERROR_COLOR_ALREADY;
 		if ((machine->information & IS_ERROR) == FALSE)
 		{
 			get_color(cpy, machine, count == 0 ? BT_COLOR_F : BT_COLOR_C);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 18:10:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 12:01:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	recuperation_texture(t_state_machine *machine, uint8_t count,
 		t_vector *split)
 {
 	if (machine->info.str_texture[count] != NULL)
-		machine->information |= ERROR_TEXTURE;
+		machine->information |= ERROR_TEXTURE_ALREADY;
 	else
 	{
 		machine->info.str_texture[count] = vct_strdup(split);

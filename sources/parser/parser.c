@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 10:39:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 11:08:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	parser_resolution(t_vector *vct, t_state_machine *machine)
 		if (i == 0)
 			is_indic_resolution(split, machine);
 		else if (i == 3)
-			machine->information |= ERROR_RESOLUTION;
+			machine->information |= ERROR_RESOLUTION_NUMBER_ARGUMENTS;
 		else
 			is_number_resolution(split, machine, i);
 		vct_del(&split);
@@ -54,7 +54,7 @@ static int	parser_texture(t_vector *vct, t_state_machine *machine)
 		if (i == 0)
 			is_texture(&count, split, machine, tab_texture);
 		else if (i == 2)
-			machine->information |= ERROR_TEXTURE;
+			machine->information |= ERROR_TEXTURE_NUMBER_ARGUMENTS;
 		else
 			recuperation_texture(machine, count, split);
 		i++;

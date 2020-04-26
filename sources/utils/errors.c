@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/22 14:12:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 12:05:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 void	printf_errors(unsigned long flag, unsigned long line)
 {
-	const char		*error[NB_ERROR] = {ERR1, ERR2, ERR3, ERR4};
+	const char		*error[NB_ERROR] = {ERR1, ERR2, ERR3, ERR4, ERR5, ERR6,
+										ERR7, ERR8, ERR9, ERR10};
 	unsigned long	index;
 	size_t			i;
 
@@ -31,7 +32,10 @@ void	printf_errors(unsigned long flag, unsigned long line)
 	while (i < NB_ERROR)
 	{
 		if (index & (1 << i))
-			ft_dprintf(STDERR_FILENO, "Error [line %ld]: %s\n", line, error[i]);
+		{
+			ft_dprintf(STDERR_FILENO, "Error\n");
+			ft_dprintf(STDERR_FILENO, "[line %ld]: %s\n", line, error[i]);
+		}
 		i++;
 	}
 }

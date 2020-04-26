@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/25 09:44:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 11:53:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			verif_map(t_state_machine *machine, size_t y, size_t x)
 	if ((machine->info.tab_map[y][x] == OUT)
 		&& is_bad_neighborhood(machine, x, y) == TRUE)
 	{
-		machine->information |= ERROR_MAP;
+		machine->information |= ERROR_MAP_NOT_VALID;
 		return (FALSE);
 	}
 	return (TRUE);
