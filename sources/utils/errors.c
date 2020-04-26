@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:34:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 17:26:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ int		what_second_argument(char *argument)
 	return (SUCCESS);
 }
 
-static void	not_machine(unsigned long flag)
+static void	not_machine(unsigned long flag, unsigned long line)
 {
 	ft_dprintf(STDERR_FILENO, "Error\n");
 	if (flag == ERR_ARG)
-		ft_dprintf(STDERR_FILENO,"%s", ERROR_ARGUMENTS);
+		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENTS);
 	else if (flag == ERR_GLOBAL)
-		ft_dprintf(STDERR_FILENO,"%s", ERROR_STR_GLOBAL);
+		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_STR_GLOBAL);
 	else if (flag == ERR_SAVE)
-		ft_dprintf(STDERR_FILENO,"%s", ERROR_ARGUMENT_SAVE);
+		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENT_SAVE);
 	else if (flag == ERR_FORMAT)
-		ft_dprintf(STDERR_FILENO,"%s", ERROR_ARGUMENT_FORMAT);
+		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENT_FORMAT);
 }
 
 void	printf_errors(unsigned long flag, unsigned long line)
 {
 	const char		*error[NB_ERROR] = {ERR1, ERR2, ERR3, ERR4, ERR5, ERR6,
-										ERR7, ERR8, ERR9, ERR10, ERR11};
+										ERR7, ERR8, ERR9, ERR10, ERR11, ERR12};
 	unsigned long	index;
 	size_t			i;
 	static size_t	loops_function = 0;
@@ -70,7 +70,7 @@ void	printf_errors(unsigned long flag, unsigned long line)
 		return ;
 	if (flag == ERR_ARG || flag == ERR_SAVE || flag == ERR_FORMAT
 		|| flag == ERR_GLOBAL)
-		not_machine(flag);
+		not_machine(flag, line);
 	index = flag >> 24;
 	while (i < NB_ERROR)
 	{

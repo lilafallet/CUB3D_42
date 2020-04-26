@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:59:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 17:23:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@
 # define BT_POSITION_W 	0x0400000
 # define BT_POSITION_E 	0x0800000
 
-# define IS_ERROR										0x7FF000000
-# define NB_ERROR			11
+# define IS_ERROR										0xFFF000000
+# define NB_ERROR			12
 # define ERR_ARG			0
 # define ERR_GLOBAL			1
 # define ERR_SAVE			2
@@ -96,6 +96,7 @@
 # define ERROR_RESOLUTION_WRONG_TYPE_INDICATOR			0x100000000
 # define ERROR_TEXTURE_ALREADY							0x200000000
 # define ERROR_COLOR_NOT_NUMBER							0x400000000
+# define ERROR_TEXTURE_FORMAT							0x800000000
 
 # define ERR1				"RESOLUTION : too much information\n"
 # define ERR2				"TEXTURE = too much information\n"
@@ -108,8 +109,9 @@
 # define ERR9				"RESOLUTION = wrong type of indicator\n"
 # define ERR10				"TEXTURE = already have texture\n"
 # define ERR11				"COLOR = the argument is not a number\n"
+# define ERR12				"TEXTURE = no path to the texture\n"
 # define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
-# define ERROR_STR_GLOBAL "there's an invalid char somewhere\n"
+# define ERROR_STR_GLOBAL "one line is invalid\n"
 # define ERROR_ARGUMENT_SAVE "SAVE :sauver premiere image rendue format bmp\n"
 # define ERROR_ARGUMENT_FORMAT "ARGUMENTS : wrong format (expecting .cub)\n"
 

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 16:59:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/26 17:27:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static int	parser_map(t_vector *vct, t_state_machine *machine)
 	if (ret == ERROR)
 	{
 		if (machine->info.tab_map == NULL)
-			printf_errors(ERR_GLOBAL, 0);
+			printf_errors(ERR_GLOBAL, machine->info.nb_line);
 		machine->information |= (machine->info.tab_map == NULL ? IS_ERROR :
 									ERROR_MAP_NOT_VALID);
 		vct_del(&cpy_vct);
