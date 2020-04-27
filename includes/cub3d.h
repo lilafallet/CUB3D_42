@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 21:52:07 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/27 11:43:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,5 +270,6 @@ int				what_second_argument(char *argument);
 int				is_good_file(char *str);
 int				true_or_false(t_vector *split, t_vector *vct,
 							t_state_machine *machine, uint8_t count);
+size_t			fill_line(t_state_machine *machine, enum e_map **cpy_tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 19:40:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/27 11:46:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,13 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 			count_num++;
 			recup_digit_color(split, machine, flag, i);
 		}
-		else
-		{
-			if (i == 5 || vct_getfirstchar(split) != ',')
-				machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
-		}
+		if (i == 5 || vct_getfirstchar(split) != ',')
+			machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
 		vct_del(&split);
 		i++;
 	}
 	if (count_num != 3 && (machine->information & IS_ERROR) == FALSE)
-			machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
+		machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
 	vct_del(&split);
 }
 
@@ -93,9 +90,9 @@ int			true_or_false(t_vector *split, t_vector *vct,
 	ret = SUCCESS;
 	cpy = vct_dup(split);
 	if ((new_split = vct_split(vct, " \t", NO_SEP)) != NULL)
-			machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
+		machine->information |= ERROR_COLOR_NUMBER_ARGUMENTS;
 	if (init_machine_color(count, machine, cpy) == FAILURE)
-			ret = FAILURE;
+		ret = FAILURE;
 	vct_del(&new_split);
 	return (ret);
 }

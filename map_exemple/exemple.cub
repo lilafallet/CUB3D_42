@@ -1,4 +1,4 @@
-		SO path_to_the_south_texture./
+SO path_to_the_south_texture./
 WE ./path_to_the_west_texture
 S ./path_to_the_sprite_texture
 EA ./path_to_the_east_texture
@@ -8,7 +8,7 @@ NO ./path_to_the_north_texture
 R 214                                  1080
 
 1111
-1001
+10N1
 1001
 1001
 1111

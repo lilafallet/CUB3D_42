@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/26 17:26:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/27 11:47:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdio.h> /*DEBUG*/
 
-int		is_good_file(char *str)
+int			is_good_file(char *str)
 {
 	size_t	len;
 	int		ret;
@@ -34,7 +34,7 @@ int		is_good_file(char *str)
 	return (ret);
 }
 
-int		what_second_argument(char *argument)
+int			what_second_argument(char *argument)
 {
 	if (ft_strequ(argument, "--save") == TRUE)
 	{
@@ -57,7 +57,7 @@ static void	not_machine(unsigned long flag, unsigned long line)
 		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENT_FORMAT);
 }
 
-void	printf_errors(unsigned long flag, unsigned long line)
+void		printf_errors(unsigned long flag, unsigned long line)
 {
 	const char		*error[NB_ERROR] = {ERR1, ERR2, ERR3, ERR4, ERR5, ERR6,
 										ERR7, ERR8, ERR9, ERR10, ERR11, ERR12};
