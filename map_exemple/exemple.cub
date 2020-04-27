@@ -2,7 +2,7 @@ SO path_to_the_south_texture./
 WE ./path_to_the_west_texture
 S ./path_to_the_sprite_texture
 EA ./path_to_the_east_texture
-C 2,100,1
+C 2,150,65,
 F 20,100,0
 NO ./path_to_the_north_texture
 R 214                                  1080

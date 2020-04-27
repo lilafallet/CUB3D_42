@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/27 11:46:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/27 12:00:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	get_color(t_vector *vct, t_state_machine *machine,
 			count_num++;
 			recup_digit_color(split, machine, flag, i);
 		}
-		if (i == 5 || vct_getfirstchar(split) != ',')
-			machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
+		else if (i == 5 || vct_getfirstchar(split) != ',')
+			machine->information |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;\
 		vct_del(&split);
 		i++;
 	}
