@@ -81,7 +81,7 @@ $(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER) Makefile
 
 $(NAME): $(MLX) $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) \
-			-I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -o $@
+			-I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -lX11 -lm -lbsd -lXext -o $@
 
 	$(MAKE) clean -C $(LIBDIR)
 $(OBJ_DIR):

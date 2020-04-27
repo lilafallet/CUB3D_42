@@ -166,6 +166,8 @@
 # define COLOR_F 1
 
 # include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
 # include <limits.h>
 
 enum			e_state

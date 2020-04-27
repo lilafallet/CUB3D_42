@@ -51,17 +51,16 @@ static int	ft_cub3d(int fd, t_state_machine *machine)
 		else
 			debug(machine); // DEBUG
 	}
-	ft_free(machine, NULL);
 	return (SUCCESS);
 }
 
 int			main(int ac, char **av)
 {
 	int				fd;
-	t_state_machine	*machine;
+	t_state_machine		machine;
 
-	ft_bzero(&machine, sizeof(machine));
 	(void)av;
+	ft_bzero(&machine, sizeof(machine));
 	if (ac < 2 || ac > 3)
 	{
 		printf_errors(ERR_ARG, 0);
@@ -75,12 +74,14 @@ int			main(int ac, char **av)
 		if (what_second_argument(av[2]) == FAILURE)
 			return (EXIT_FAILURE);
 	}
-	if (ft_cub3d(fd, machine) == FAILURE)
+	if (ft_cub3d(fd, &machine) == FAILURE)
 	{
 		close(fd);
+		ft_free(&machine, NULL);
 		return (EXIT_FAILURE);
 	}
-	test_minilib(machine);
+	test_minilib(&machine);
+	ft_free(&machine, NULL);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
