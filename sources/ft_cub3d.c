@@ -81,6 +81,7 @@ int			main(int ac, char **av)
 		close(fd);
 		return (EXIT_FAILURE);
 	}
+	ft_printf("c est ici que tu rentres ici ?\n"); //
 	close(fd);
 	return (EXIT_SUCCESS);
 }

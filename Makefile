@@ -69,6 +69,8 @@ vpath %.c sources/parser/color
 vpath %.c sources/parser/resolution
 vpath %.c sources/parser/texture
 
+MLX = minilibx/libmlx_Linux.a
+
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
 all : $(OBJ_DIR) $(NAME)
@@ -76,19 +78,25 @@ all : $(OBJ_DIR) $(NAME)
 $(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -c $<  -I $(INCLUDES) -I $(INCLUDES_LIB) -I ./minilibx -o $@
 
-$(NAME): $(LIB) $(OBJS)
-	#$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) -I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -o $@
+$(NAME): $(MLX) $(LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) \
+			-I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -o $@
 
+	$(MAKE) clean -C $(LIBDIR)
 $(OBJ_DIR):
 	mkdir $@
 
 $(LIB) : FORCE
 	$(MAKE) -C $(LIBDIR)
 
+$(MLX) : FORCE
+	$(MAKE) -C minilibx
+
 FORCE :
 
 clean :
 	$(MAKE) clean -C $(LIBDIR)
+	$(MAKE) clean -C minilibx
 	$(RM) -R $(OBJ_DIR)
 
 fclean : clean
