@@ -9,7 +9,6 @@
 #    Updated: 2020/04/25 18:28:55 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME = cub3d
 LIBDIR = ./libft
 LIB = $(LIBDIR)libft.a
@@ -42,7 +41,7 @@ else
 	CFLAGS += -Werror
 endif
 
-CC = clang
+CC = gcc
 
 INCLUDES = ./includes/
 INCLUDES_LIB = ./libft/includes/
@@ -75,10 +74,10 @@ OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 all : $(OBJ_DIR) $(NAME)
 
 $(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER) Makefile
-	$(CC) $(CFLAGS) -c $<  -I $(INCLUDES) -I $(INCLUDES_LIB) -o $@
+	$(CC) $(CFLAGS) -c $<  -I $(INCLUDES) -I $(INCLUDES_LIB) -I ./minilibx -o $@
 
 $(NAME): $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) -L./libft -lft -o $@
+	#$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) -I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -o $@
 
 $(OBJ_DIR):
 	mkdir $@
