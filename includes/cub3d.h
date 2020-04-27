@@ -271,5 +271,6 @@ int				is_good_file(char *str);
 int				true_or_false(t_vector *split, t_vector *vct,
 							t_state_machine *machine, uint8_t count);
 size_t			fill_line(t_state_machine *machine, enum e_map **cpy_tab);
+void			test_minilib(t_state_machine *machine);
 
 #endif

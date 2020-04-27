@@ -42,26 +42,25 @@ static void	debug(t_state_machine *machine)
 	iter_map(machine, debug_print_map);
 }
 
-static int	ft_cub3d(int fd)
+static int	ft_cub3d(int fd, t_state_machine *machine)
 {
-	t_state_machine	machine;
-
-	ft_bzero(&machine, sizeof(machine));
-	if (first_parser(&machine, fd) == SUCCESS)
+	if (first_parser(machine, fd) == SUCCESS)
 	{
-		if (verification_global_map(&machine) == ERROR)
-			printf_errors(machine.information, machine.info.nb_line);
+		if (verification_global_map(machine) == ERROR)
+			printf_errors(machine->information, machine->info.nb_line);
 		else
-			debug(&machine); // DEBUG
+			debug(machine); // DEBUG
 	}
-	ft_free(&machine, NULL);
+	ft_free(machine, NULL);
 	return (SUCCESS);
 }
 
 int			main(int ac, char **av)
 {
 	int				fd;
+	t_state_machine	*machine;
 
+	ft_bzero(&machine, sizeof(machine));
 	(void)av;
 	if (ac < 2 || ac > 3)
 	{
@@ -76,12 +75,12 @@ int			main(int ac, char **av)
 		if (what_second_argument(av[2]) == FAILURE)
 			return (EXIT_FAILURE);
 	}
-	if (ft_cub3d(fd) == FAILURE)
+	if (ft_cub3d(fd, machine) == FAILURE)
 	{
 		close(fd);
 		return (EXIT_FAILURE);
 	}
-	ft_printf("c est ici que tu rentres ici ?\n"); //
+	test_minilib(machine);
 	close(fd);
 	return (EXIT_SUCCESS);
 }

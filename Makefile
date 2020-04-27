@@ -58,6 +58,7 @@ SRCS += recuperation_map.c
 SRCS += utils_parser_color.c
 SRCS += utils_parser_resolution.c
 SRCS += utils_parser_texture.c
+SRCS += test_minilib.c
 
 OBJ_DIR = ./objs/
 
