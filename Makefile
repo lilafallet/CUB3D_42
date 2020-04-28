@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/25 18:28:55 by lfallet          ###   ########.fr        #
+#    Updated: 2020/04/28 15:16:11 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -80,8 +80,7 @@ $(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -c $<  -I $(INCLUDES) -I $(INCLUDES_LIB) -I ./minilibx -o $@
 
 $(NAME): $(MLX) $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) \
-			-I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -lX11 -lm -lbsd -lXext -o $@
+	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) -I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -lX11 -lm -lbsd -lXext -o $@
 
 	$(MAKE) clean -C $(LIBDIR)
 $(OBJ_DIR):

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 14:39:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/28 14:39:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/28 15:29:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int		deal_key(int key, void *param)
 {
-	ft_putchar('X');
+	ft_putchar_fd('X', 1);
+	(void)key;
+	(void)param;
 	return (SUCCESS);
 }
 void	test_minilib(t_state_machine *machine)
