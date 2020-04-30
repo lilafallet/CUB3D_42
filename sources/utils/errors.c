@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/27 11:47:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/30 22:52:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			what_second_argument(char *argument)
 	return (SUCCESS);
 }
 
-static void	not_machine(unsigned long flag, unsigned long line)
+static void	not_map(unsigned long flag, unsigned long line)
 {
 	ft_dprintf(STDERR_FILENO, "Error\n");
 	if (flag == ERR_ARG)
@@ -70,7 +70,7 @@ void		printf_errors(unsigned long flag, unsigned long line)
 		return ;
 	if (flag == ERR_ARG || flag == ERR_SAVE || flag == ERR_FORMAT
 		|| flag == ERR_GLOBAL)
-		not_machine(flag, line);
+		not_map(flag, line);
 	index = flag >> 24;
 	while (i < NB_ERROR)
 	{

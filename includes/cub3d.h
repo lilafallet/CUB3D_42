@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/30 22:28:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/30 22:59:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ typedef struct	s_state_machine
 	char				pad[4];
 }				t_state_machine;
 
-typedef struct	s_indic
+typedef struct	s_inf
 {
 	int		color_total;
 	void	*mlx_ptr;
@@ -246,12 +246,12 @@ typedef struct	s_indic
 	int		color3;
 	unsigned long	img_color;
 	void	*win_ptr;
-}				t_indic;
+}				t_inf;
 
-typedef struct	s_graphic
+typedef struct	s_graph
 {
-	struct s_indic		indic;
-}				t_graphic;
+	struct s_inf	inf;
+}				t_graph;
 
 typedef	int	(*t_function)(t_vector *, t_state_machine *);
 
