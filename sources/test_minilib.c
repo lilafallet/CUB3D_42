@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 14:39:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/30 19:54:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/30 20:52:42 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ int		deal_key(int key, void *param)
 	return (SUCCESS);
 }
 
-void    my_pixel_put_to_image(unsigned long img_color, char *data, int sizeline,
-								int bpp, int x, int y)
-{
-	unsigned char color1;
-	unsigned char color2;
-	unsigned char color3;
-	color1 = (img_color & color_total) >> 24;
-	color2 = (img_color & color_total) >> 16;
-	color3 = (img_color & color_total) >> 8;
-	data[y * sizeline + x * bpp / 8 ] = color1;
-	data[y * sizeline + x * bpp / 8 + 1] = color2;
-	data[y * sizeline + x * bpp / 8 + 2] = color3;
-}
 void	test_minilib(t_state_machine *machine)
 {
 	void  *mlx_ptr;
@@ -47,21 +34,35 @@ void	test_minilib(t_state_machine *machine)
 	int   x;
 	int   y;
 	int		color_total;
+	int color1;
+	int color2;
+	int	color3;
 
 	x = 0;
 	y = 0;
-	color_total = machine->info.tab_color_f[0]
-					+ (machine->info.tab_color_f[1] << 8)
-					+ (machine->info.tab_color_f[2] << 16);
-	ft_printf("%x\n", color_total); //
+	color_total = machine->info.tab_color_f[R]
+					+ (machine->info.tab_color_f[G] << 8)
+					+ (machine->info.tab_color_f[B] << 16);
+	ft_printf("%x\n", color_total);
+	ft_printf("COLOR R = %d\n", machine->info.tab_color_f[R]); //
+	ft_printf("COLOR G = %d\n", machine->info.tab_color_f[G]); //
+	ft_printf("COLOR B = %d\n", machine->info.tab_color_f[B]); //
 	mlx_ptr = mlx_init();
 	img_ptr = mlx_new_image(mlx_ptr, machine->info.str_resolution[AXE_X],
 								machine->info.str_resolution[AXE_Y]);
 	data = mlx_get_data_addr(img_ptr, &bpp, &sizeline, &endian);
 	img_color = mlx_get_color_value(mlx_ptr, color_total);
+	color1 = machine->info.tab_color_f[B];
+	color2 = machine->info.tab_color_f[G];
+	color3 = machine->info.tab_color_f[R];
+	ft_printf("color1 = %d\n", color1); //
+	ft_printf("color2 = %d\n", color2); //
+	ft_printf("color3 = %d\n", color3); //
 	while (x < machine->info.str_resolution[AXE_X])
 	{
-		my_pixel_put_to_image(img_color, data, sizeline, bpp, x, y);
+		data[y * sizeline + x * bpp / 8 ] = color1;
+		data[y * sizeline + x * bpp / 8 + 1] = color2;
+		data[y * sizeline + x * bpp / 8 + 2] = color3;
 		x++;
 		if (x == machine->info.str_resolution[AXE_X] &&
 				y < machine->info.str_resolution[AXE_Y])

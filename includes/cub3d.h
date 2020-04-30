@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/27 11:43:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/04/30 20:33:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,9 @@
 # define IND_WE_RESOL 2
 # define IND_F_RESOL 3
 # define IND_C_RESOL 4
+# define R 0
+# define G 1
+# define B 2
 
 # define COLOR_C 0
 # define COLOR_F 1
