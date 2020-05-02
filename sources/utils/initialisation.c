@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:00:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/02 19:21:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	ft_free(t_map *map, t_vector *line)
 {
 	size_t	i;
 
-	ft_printf("TU RENTRES LA QUAND BATARD\n"); //
 	i = 0;
 	vct_del(&line);
 	line = NULL;

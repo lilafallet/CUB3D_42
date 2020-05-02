@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:02:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/02 19:19:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,21 @@ static void	debug(t_map *map)
 static int	ft_cub3d(int fd, t_map *map)
 {
 	t_state_machine	machine;
+	int				ret;
 
 	ft_bzero(&machine, sizeof(machine));
-	if (first_parser(map, fd, &machine) == SUCCESS)
+	ret = first_parser(map, fd, &machine);
+	if (ret == SUCCESS)
 	{
 		if (verification_global_map(map) == ERROR)
+		{
 			printf_errors(machine.info, map->utils.nb_line);
+			return (FAILURE);
+		}
 		else
 			debug(map); // DEBUG
 	}
-	return (SUCCESS);
+	return (ret);
 }
 
 int			main(int ac, char **av)
