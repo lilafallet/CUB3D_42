@@ -6,41 +6,41 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/30 23:11:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/02 17:55:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				clean_and_print(t_state_machine *map, size_t i, size_t j)
+int				clean_and_print(t_map *map, size_t i, size_t j,
+									t_state_machine *machine)
 {
-	if (map->info.tab_map[i][j] == STOP)
-		map->info.tab_map[i][j] = OUT;
+	if (map->recup.tab_map[i][j] == STOP)
+		map->recup.tab_map[i][j] = OUT;
 	return (TRUE);
 }
 
-static int		fill_tab(ssize_t index_char, t_state_machine *map,
-		size_t index)
+static int		fill_tab(ssize_t index_char, t_map *map, size_t index)
 {
 	int	ret;
 
 	ret = TRUE;
 	if (index_char < WAY_WALL_SPRITE)
-		map->info.tab_map[map->info.count_line][index] =
+		map->recup.tab_map[map->utils.count_line][index] =
 			(enum e_map)index_char;
 	else if (index_char > OUTMAP)
-		map->info.tab_map[map->info.count_line][index] = OUT;
-	else if (map->info.count_position == 0)
+		map->recup.tab_map[map->utils.count_line][index] = OUT;
+	else if (map->utils.count_position == 0)
 	{
-		map->info.tab_map[map->info.count_line][index] = POSITION;
-		map->info.count_position++;
+		map->recup.tab_map[map->utils.count_line][index] = POSITION;
+		map->utils.count_position++;
 	}
 	else
 		ret = ERROR;
 	return (ret);
 }
 
-static int		process_recuperation_map(t_state_machine *map, size_t index,
+static int		process_recuperation_map(t_map *map, size_t index,
 		t_vector *map_inf)
 {
 	char			c;
@@ -63,7 +63,7 @@ static int		process_recuperation_map(t_state_machine *map, size_t index,
 	return (ret);
 }
 
-int				recuperation_map(t_vector *line, t_state_machine *map)
+int				recuperation_map(t_vector *line, t_map *map)
 {
 	int				ret;
 	t_vector		*map_inf;
@@ -72,7 +72,7 @@ int				recuperation_map(t_vector *line, t_state_machine *map)
 	ret = TRUE;
 	index = 0;
 	map_inf = vct_dup(line);
-	realloc_tab(map, map->info.count_line + 1, map->info.max_index,
+	realloc_tab(map, map->utils.count_line + 1, map->utils.max_index,
 			vct_getlen(line) + 1);
 	while (index < vct_getlen(line) && ret != ERROR)
 	{
@@ -82,11 +82,11 @@ int				recuperation_map(t_vector *line, t_state_machine *map)
 		index++;
 	}
 	if (ret != ERROR)
-		map->info.tab_map[map->info.count_line][index] = STOP;
-	if (index > map->info.max_index)
-		map->info.max_index = index;
-	map->info.count_line++;
-	map->info.max_line = map->info.count_line;
+		map->recup.tab_map[map->utils.count_line][index] = STOP;
+	if (index > map->utils.max_index)
+		map->utils.max_index = index;
+	map->utils.count_line++;
+	map->utils.max_line = map->utils.count_line;
 	vct_del(&map_inf);
 	return (ret);
 }

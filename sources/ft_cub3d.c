@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/30 22:54:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/02 19:02:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,45 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	debug_print_map(t_state_machine *map, size_t i, size_t j)
+static int	debug_print_map(t_map *map, size_t i, size_t j,
+				t_state_machine *machine)
 {
-	ft_printf("%d%c", map->info.tab_map[i][j],
-			(j + 1 == map->info.max_index) ? '\n' : ' '); //DEBUG//
+	(void)machine;
+	ft_printf("%d%c", map->recup.tab_map[i][j],
+			(j + 1 == map->utils.max_index) ? '\n' : ' '); //DEBUG//
 	return (TRUE);
 }
 
-static void	debug(t_state_machine *map)
+static void	debug(t_map *map)
 {
-	ft_printf("R:\t\t%d %d\n",			map->info.str_resolution[0],
-										map->info.str_resolution[1]);
-	ft_printf("NO:\t\t%s\n",			map->info.str_texture[0]);
-	ft_printf("SO:\t\t%s\n",			map->info.str_texture[1]);
-	ft_printf("WE:\t\t%s\n",			map->info.str_texture[2]);
-	ft_printf("EA:\t\t%s\n",			map->info.str_texture[3]);
-	ft_printf("S:\t\t%s\n",				map->info.str_texture[4]);
-	ft_printf("F:\t\t%d %d %d\n",		map->info.tab_color_f[0],
-										map->info.tab_color_f[1],
-										map->info.tab_color_f[2]);
-	ft_printf("C:\t\t%d %d %d\n\n",		map->info.tab_color_c[0],
-										map->info.tab_color_c[1],
-										map->info.tab_color_c[2]);
-	iter_map(map, debug_print_map);
+	t_state_machine	*machine;
+
+	machine = get_state_machine(NULL);
+	ft_printf("R:\t\t%d %d\n",			map->recup.str_resolution[0],
+										map->recup.str_resolution[1]);
+	ft_printf("NO:\t\t%s\n",			map->recup.str_texture[0]);
+	ft_printf("SO:\t\t%s\n",			map->recup.str_texture[1]);
+	ft_printf("WE:\t\t%s\n",			map->recup.str_texture[2]);
+	ft_printf("EA:\t\t%s\n",			map->recup.str_texture[3]);
+	ft_printf("S:\t\t%s\n",				map->recup.str_texture[4]);
+	ft_printf("F:\t\t%d %d %d\n",		map->recup.tab_color_f[0],
+										map->recup.tab_color_f[1],
+										map->recup.tab_color_f[2]);
+	ft_printf("C:\t\t%d %d %d\n\n",		map->recup.tab_color_c[0],
+										map->recup.tab_color_c[1],
+										map->recup.tab_color_c[2]);
+	iter_map(map, debug_print_map, machine);
 }
 
-static int	ft_cub3d(int fd, t_state_machine *map)
+static int	ft_cub3d(int fd, t_map *map)
 {
-	if (first_parser(map, fd) == SUCCESS)
+	t_state_machine	machine;
+
+	ft_bzero(&machine, sizeof(machine));
+	if (first_parser(map, fd, &machine) == SUCCESS)
 	{
 		if (verification_global_map(map) == ERROR)
-			printf_errors(map->information, map->info.nb_line);
+			printf_errors(machine.info, map->utils.nb_line);
 		else
 			debug(map); // DEBUG
 	}
@@ -56,8 +64,8 @@ static int	ft_cub3d(int fd, t_state_machine *map)
 
 int			main(int ac, char **av)
 {
-	int				fd;
-	t_state_machine		map;
+	int		fd;
+	t_map	map;
 
 	(void)av;
 	ft_bzero(&map, sizeof(map));

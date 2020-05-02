@@ -6,58 +6,58 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/04/30 22:55:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/02 17:38:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t			fill_line(t_state_machine *map, enum e_map **cpy_tab)
+size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
-	while (i < map->info.max_line)
+	while (i < map->utils.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
-				(map->info.max_index));
-		ft_memset(cpy_tab[i], STOP, map->info.max_index);
+				(map->utils.max_index));
+		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 		j = 0;
-		while (j < map->info.max_index
-				&& map->info.tab_map[i][j] != STOP)
+		while (j < map->utils.max_index
+				&& map->recup.tab_map[i][j] != STOP)
 		{
-			cpy_tab[i][j] = map->info.tab_map[i][j];
+			cpy_tab[i][j] = map->recup.tab_map[i][j];
 			j++;
 		}
-		while (j < map->info.max_index)
+		while (j < map->utils.max_index)
 			cpy_tab[i][j++] = STOP;
-		free(map->info.tab_map[i]);
+		free(map->recup.tab_map[i]);
 		i++;
 	}
 	return (i);
 }
 
-int				realloc_tab(t_state_machine *map, size_t count_line,
+int				realloc_tab(t_map *map, size_t count_line,
 		size_t old_index, size_t new_index)
 {
 	enum e_map	**cpy_tab;
 	size_t		i;
 
 	if (old_index == 0 || new_index > old_index)
-		map->info.max_index = new_index;
+		map->utils.max_index = new_index;
 	cpy_tab = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line));
-	ft_bzero(cpy_tab, map->info.count_line);
+	ft_bzero(cpy_tab, map->utils.count_line);
 	i = fill_line(map, cpy_tab);
-	if (count_line != map->info.max_line)
+	if (count_line != map->utils.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
-				map->info.max_index);
-		ft_memset(cpy_tab[i], STOP, map->info.max_index);
+				map->utils.max_index);
+		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 	}
-	free(map->info.tab_map);
-	map->info.tab_map = cpy_tab;
+	free(map->recup.tab_map);
+	map->recup.tab_map = cpy_tab;
 	return (SUCCESS);
 }
 
