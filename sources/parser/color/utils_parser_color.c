@@ -6,16 +6,16 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 17:48:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:07:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	recup_digit_color(t_vector *split, t_state_machine *machine,
-								unsigned long flag, uint8_t i, t_map *map)
+static void	recup_digit_color(t_vector *split, unsigned long flag,
+								uint8_t i, t_map *map, t_state_machine *machine)
 {
-	int			nb;
+	int				nb;
 
 	if (vct_apply(split, IS_DIGIT) == FALSE)
 		machine->info |= ERROR_COLOR_NOT_NUMBER;
@@ -46,7 +46,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine, t_map *map,
 		if (i % 2 == 0)
 		{
 			count_num++;
-			recup_digit_color(split, machine, flag, i, map);
+			recup_digit_color(split, flag, i, map, machine);
 		}
 		else if (i == 5 || vct_getfirstchar(split) != ',')
 			machine->info |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
@@ -80,8 +80,8 @@ int			init_machine_color(uint8_t count, t_state_machine *machine,
 	return (ret);
 }
 
-int			true_or_false(t_vector *split, t_vector *vct,
-							t_state_machine *machine, uint8_t count, t_map *map)
+int			true_or_false(t_vector *split, t_vector *vct, uint8_t count,
+							t_map *map, t_state_machine *machine)
 {
 	t_vector	*cpy;
 	int			ret;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:21:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 12:51:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_state_machine	*get_state_machine(t_state_machine *machine)
 	return (gen_state_machine);
 }
 
-t_map	*get_map(t_map *map)
+t_map			*get_map(t_map *map)
 {
 	static t_map	*gen_map = NULL;
 
@@ -31,16 +31,7 @@ t_map	*get_map(t_map *map)
 	return (gen_map);
 }
 
-t_graph	*get_graph(t_graph *graph)
-{
-	static t_graph	*gen_graph = NULL;
-
-	if (gen_graph == NULL)
-		gen_graph = graph;
-	return (gen_graph);
-}
-
-void	ft_free(t_map *map, t_vector *line)
+void			ft_free(t_map *map, t_vector *line)
 {
 	size_t	i;
 

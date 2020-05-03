@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:19:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:10:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ static int	debug_print_map(t_map *map, size_t i, size_t j,
 	return (TRUE);
 }
 
-static void	debug(t_map *map)
+static void	debug(t_map *map, t_state_machine *machine)
 {
-	t_state_machine	*machine;
-
-	machine = get_state_machine(NULL);
 	ft_printf("R:\t\t%d %d\n",			map->recup.str_resolution[0],
 										map->recup.str_resolution[1]);
 	ft_printf("NO:\t\t%s\n",			map->recup.str_texture[0]);
@@ -56,37 +53,45 @@ static int	ft_cub3d(int fd, t_map *map)
 	ret = first_parser(map, fd, &machine);
 	if (ret == SUCCESS)
 	{
-		if (verification_global_map(map) == ERROR)
+		if (verification_global_map(map, &machine) == ERROR)
 		{
 			printf_errors(machine.info, map->utils.nb_line);
 			return (FAILURE);
 		}
 		else
-			debug(map); // DEBUG
+			debug(map, &machine); // DEBUG
 	}
 	return (ret);
+}
+
+static int	parser_argument(int ac, char **av)
+{
+	if (ac < 2 || ac > 3)
+	{
+		printf_errors(ERR_ARG, 0);
+		return (FAILURE);
+	}
+	if (is_good_file(av[1]) == FAILURE)
+		return (FAILURE);
+	if (ac == 3)
+	{
+		if (what_second_argument(av[2]) == FAILURE)
+			return (FAILURE);
+	}
+	return (SUCCESS);
 }
 
 int			main(int ac, char **av)
 {
 	int		fd;
 	t_map	map;
+	int		ret;
 
 	(void)av;
 	ft_bzero(&map, sizeof(map));
-	if (ac < 2 || ac > 3)
-	{
-		printf_errors(ERR_ARG, 0);
-		return (EXIT_FAILURE);
-	}
-	if (is_good_file(av[1]) == FAILURE)
-		return (EXIT_FAILURE);
-	fd = open(av[1], O_RDONLY);
-	if (ac == 3)
-	{
-		if (what_second_argument(av[2]) == FAILURE)
-			return (EXIT_FAILURE);
-	}
+	ret = parser_argument(ac, av);
+	if (ret == SUCCESS)
+		fd = open(av[1], O_RDONLY);
 	if (ft_cub3d(fd, &map) == FAILURE)
 	{
 		close(fd);

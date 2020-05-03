@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:01:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:05:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ typedef struct	s_recup
 	char			pad[7];
 }				t_recup;
 
-typedef struct s_utils
+typedef struct	s_utils
 {
 	size_t			nb_line;
 	size_t			index_map;
@@ -232,11 +232,11 @@ typedef struct s_utils
 typedef struct	s_state_machine
 {
 	enum e_state		state;
-	unsigned long 	info;
+	unsigned long		info;
 	char				pad[4];
 }				t_state_machine;
 
-typedef struct s_map
+typedef struct	s_map
 {
 	t_recup			recup;
 	t_utils			utils;
@@ -248,10 +248,10 @@ typedef struct	s_recupg
 	void			*img_ptr;
 	char			*data;
 	unsigned long	img_color;
-	void	*win_ptr;
+	void			*win_ptr;
 }				t_recupg;
 
-typedef struct s_utilsg
+typedef struct	s_utilsg
 {
 	int				color_total;
 	int				color1;
@@ -279,7 +279,7 @@ int				recuperation_eachelem(t_state_machine *machine,
 										int flag);
 int				verif_line(t_vector *line, t_state_machine *machine,
 							size_t count_line);
-int				verification_global_map(t_map *map);
+int				verification_global_map(t_map *map, t_state_machine *machine);
 int				realloc_tab(t_map *map, size_t old_index,
 								size_t count_line, size_t new_index);
 int				iter_map(t_map *map, int (*f)(t_map *map, size_t y, size_t x,
@@ -305,14 +305,11 @@ void			is_number_resolution(t_vector *split, t_state_machine *machine,
 										size_t i, t_map *map);
 int				what_second_argument(char *argument);
 int				is_good_file(char *str);
-int				true_or_false(t_vector *split, t_vector *vct,
-							t_state_machine *machine, uint8_t count,
-							t_map *map);
+int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
+								t_map *map, t_state_machine *machine);
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
 void			test_minilib(t_map *map);
 t_state_machine	*get_state_machine(t_state_machine *machine);
 t_map			*get_map(t_map *map);
-t_graph			*get_graph(t_graph *graph);
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 14:39:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 19:01:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 12:52:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	test_minilib(t_map *map)
 	int   endian;
 	int	size_line;
 	t_graph	graph;
-	//t_map	*map;
 
-	//map = get_map(NULL);
 	ft_bzero(&graph, sizeof(graph));
 	init(&graph, map);
 	graph.recup.data = mlx_get_data_addr(graph.recup.img_ptr, &bpp, &size_line,

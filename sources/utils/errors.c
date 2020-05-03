@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 18:38:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 11:32:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	not_map(unsigned long flag, unsigned long line)
 	else if (flag == ERR_SAVE)
 		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENT_SAVE);
 	else if (flag == ERR_FORMAT)
-		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line, ERROR_ARGUMENT_FORMAT);
+		ft_dprintf(STDERR_FILENO,"[line %ld] : %s", line,
+					ERROR_ARGUMENT_FORMAT);
 }
 
 void		printf_errors(unsigned long flag, unsigned long line)
