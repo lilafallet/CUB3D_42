@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:16:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:26:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,7 @@ void			is_color(uint8_t *count, t_vector *split,
 							t_state_machine *machine,
 							char *tab_color[NB_INDIC_COLOR]);
 int				init_machine_color(uint8_t count, t_state_machine *machine,
-									t_vector *cp, t_map *map);
+									t_vector *cp);
 void			is_texture(uint8_t *count, t_vector *split,
 							t_state_machine *machine,
 							char *tab_texture[NB_TEXTURE]);

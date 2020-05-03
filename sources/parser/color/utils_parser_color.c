@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:20:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:29:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	recup_digit_color(t_vector *split, unsigned long flag,
 	}
 }
 
-static void	get_color(t_vector *vct, t_state_machine *machine, t_map *map,
+static void	get_color(t_vector *vct, t_state_machine *machine,
 						unsigned long flag)
 {
 	t_vector	*split;
@@ -61,7 +61,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine, t_map *map,
 }
 
 int			init_machine_color(uint8_t count, t_state_machine *machine,
-								t_vector *cpy, t_map *map)
+								t_vector *cpy)
 {
 	int			ret;
 
@@ -74,7 +74,7 @@ int			init_machine_color(uint8_t count, t_state_machine *machine,
 		machine->info |= ERROR_COLOR_ALREADY;
 	if ((machine->info & IS_ERROR) == FALSE)
 	{
-		get_color(cpy, machine, map, count == 0 ? BT_COLOR_F : BT_COLOR_C);
+		get_color(cpy, machine, count == 0 ? BT_COLOR_F : BT_COLOR_C);
 		vct_del(&cpy);
 		return (FAILURE);
 	}
@@ -88,14 +88,12 @@ int			true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 	t_vector	*cpy;
 	int			ret;
 	t_vector	*new_split;
-	t_map		*map;
 
-	map = get_map(NULL);	
 	ret = SUCCESS;
 	cpy = vct_dup(split);
 	if ((new_split = vct_split(vct, " \t", NO_SEP)) != NULL)
 		machine->info |= ERROR_COLOR_NUMBER_ARGUMENTS;
-	if (init_machine_color(count, machine, cpy, map) == FAILURE)
+	if (init_machine_color(count, machine, cpy) == FAILURE)
 		ret = FAILURE;
 	vct_del(&new_split);
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 18:41:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:33:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,3 @@ void	is_texture(uint8_t *count, t_vector *split, t_state_machine *machine,
 	if (*count == NB_TEXTURE)
 		machine->state = COLOR;
 }
-
-/*t_info	*get_info(t_info *info)
-{
-	static t_info	*gen_info = NULL;
-
-	if (gen_info == NULL)
-		gen_info = info;
-	return (gen_info);
-}
-
-int		main(void)
-{
-	t_info	info;
-
-	INIT
-	get_info(info);
-}
-t_info	*info;
-
-info = get_info(NULL);*/
