@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:10:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:17:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int			main(int ac, char **av)
 	int		ret;
 
 	(void)av;
+	get_map(&map);
 	ft_bzero(&map, sizeof(map));
 	ret = parser_argument(ac, av);
 	if (ret == SUCCESS)

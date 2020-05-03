@@ -6,17 +6,19 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:07:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:20:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	recup_digit_color(t_vector *split, unsigned long flag,
-								uint8_t i, t_map *map, t_state_machine *machine)
+								uint8_t i, t_state_machine *machine)
 {
 	int				nb;
+	t_map			*map;
 
+	map = get_map(NULL);
 	if (vct_apply(split, IS_DIGIT) == FALSE)
 		machine->info |= ERROR_COLOR_NOT_NUMBER;
 	else
@@ -46,7 +48,7 @@ static void	get_color(t_vector *vct, t_state_machine *machine, t_map *map,
 		if (i % 2 == 0)
 		{
 			count_num++;
-			recup_digit_color(split, flag, i, map, machine);
+			recup_digit_color(split, flag, i, machine);
 		}
 		else if (i == 5 || vct_getfirstchar(split) != ',')
 			machine->info |= ERROR_COLOR_NUMBER_COLOR_ARGUMENTS;
@@ -81,12 +83,14 @@ int			init_machine_color(uint8_t count, t_state_machine *machine,
 }
 
 int			true_or_false(t_vector *split, t_vector *vct, uint8_t count,
-							t_map *map, t_state_machine *machine)
+							t_state_machine *machine)
 {
 	t_vector	*cpy;
 	int			ret;
 	t_vector	*new_split;
+	t_map		*map;
 
+	map = get_map(NULL);	
 	ret = SUCCESS;
 	cpy = vct_dup(split);
 	if ((new_split = vct_split(vct, " \t", NO_SEP)) != NULL)

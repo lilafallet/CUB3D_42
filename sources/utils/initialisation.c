@@ -6,21 +6,12 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 12:51:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:18:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h> /*DEBUG*/
-
-t_state_machine	*get_state_machine(t_state_machine *machine)
-{
-	static t_state_machine	*gen_state_machine = NULL;
-
-	if (gen_state_machine == NULL)
-		gen_state_machine = machine;
-	return (gen_state_machine);
-}
 
 t_map			*get_map(t_map *map)
 {
