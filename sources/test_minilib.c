@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 14:39:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 12:52:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:44:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	fill_color(t_map *map, int size_line, int bpp,
 	y = 0;
 	while (x < map->recup.str_resolution[AXE_X])
 	{
-		graph->recup.data[y * size_line + x * bpp / 8 ] = graph->utils.color1;
+		graph->recup.data[y * size_line + x * bpp / 8] = graph->utils.color1;
 		graph->recup.data[y * size_line + x * bpp / 8 + 1] =
 															graph->utils.color2;
 		graph->recup.data[y * size_line + x * bpp / 8 + 2] =
@@ -59,14 +59,13 @@ static	void init(t_graph *graph, t_map *map)
 	graph->utils.color1 = map->recup.tab_color_f[B];
 	graph->utils.color2 = map->recup.tab_color_f[G];
 	graph->utils.color3 = map->recup.tab_color_f[R];
-
 }
 
 void	test_minilib(t_map *map)
 {
-	int   bpp;
-	int   endian;
-	int	size_line;
+	int		bpp;
+	int		endian;
+	int		size_line;
 	t_graph	graph;
 
 	ft_bzero(&graph, sizeof(graph));

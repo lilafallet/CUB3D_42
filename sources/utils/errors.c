@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 11:32:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/03 13:41:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		printf_errors(unsigned long flag, unsigned long line)
 	unsigned long	index;
 	size_t			i;
 	static size_t	loops_function = 0;
-	
+
 	i = 0;
 	if (loops_function != 0)
 		return ;
