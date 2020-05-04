@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/04 12:12:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 16:45:42 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,10 +253,18 @@ typedef struct	s_recupg
 
 typedef struct	s_utilsg
 {
-	int				color_total;
-	int				color1;
-	int				color2;
-	int				color3;
+	int				color_total_f;
+	int				r_f;
+	int				g_f;
+	int				b_f;
+	int				color_total_c;
+	int				color1_c;
+	int				color2_c;
+	int				color3_c;
+	int				img_x;
+	int				img_y;
+	int				pos_x;
+	int				pos_y;
 }				t_utilsg;
 
 typedef struct	s_graph
