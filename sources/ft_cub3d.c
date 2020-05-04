@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/04 12:14:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 17:03:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ int			main(int ac, char **av)
 		ft_free(&map, NULL);
 		return (EXIT_FAILURE);
 	}
-	//test_minilib_color_window(&map);
-	test_minilib_image_one_place(&map);
+	test_minilib_losange(&map);
 	ft_free(&map, NULL);
 	close(fd);
 	return (EXIT_SUCCESS);
