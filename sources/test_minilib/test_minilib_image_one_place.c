@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 12:09:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/04 16:59:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 22:14:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	fill_color(int size_line, int bits, t_graph *graph)
 static	void init(t_graph *graph, t_map *map)
 {
 	graph->recup.mlx_ptr = mlx_init();
-	graph->utils.pos_x = 0; /*deplacement de gauche a droite*/
-	graph->utils.pos_y = 0; /*deplacement de haut en bas*/
-	graph->utils.img_x = 750; /*gauche->droite*/
+	graph->utils.pos_x = 60; /*deplacement de gauche a droite*/
+	graph->utils.pos_y = 100; /*deplacement de haut en bas*/
+	graph->utils.img_x = 1000; /*gauche->droite*/
 	graph->utils.img_y = 900; /*haut->bas*/
 	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
 											map->recup.str_resolution[AXE_X],

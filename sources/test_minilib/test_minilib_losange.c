@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:05:51 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/04 22:00:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 22:34:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static	void init(t_graph *graph, t_map *map)
 	graph->recup.mlx_ptr = mlx_init();
 	graph->utils.pos_x = 0; /*deplacement de gauche a droite*/
 	graph->utils.pos_y = 0; /*deplacement de haut en bas*/
-	graph->utils.img_x = 750; /*gauche->droite*/
-	graph->utils.img_y = 900; /*haut->bas*/
+	graph->utils.img_x = 1020; /*gauche->droite*/
+	graph->utils.img_y = 1080; /*haut->bas*/
 	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
 											map->recup.str_resolution[AXE_X],
 											map->recup.str_resolution[AXE_Y]);
@@ -41,9 +41,9 @@ static	void init(t_graph *graph, t_map *map)
 void	test_minilib_losange(t_map *map)
 {
 	int	x1 = 0;
-	int	x2 = 8;
-	int	y1 = 8;
-	int	y2 = 3;
+	int	x2 = map->recup.str_resolution[AXE_X];
+	int	y1 = map->recup.str_resolution[AXE_Y];
+	int	y2 = 0;
 	int	ex = abs(x2 - x1);
 	int	ey = abs(y2 - y1);
 	int	dx = 2 * ex;
@@ -66,7 +66,6 @@ void	test_minilib_losange(t_map *map)
 		Xincr = -1;
 	if (y1 > y2)
 		Yincr = -1;
-
 	if (Dx > Dy)
 	{
 		while (i <= Dx)
@@ -84,7 +83,7 @@ void	test_minilib_losange(t_map *map)
 	}
 	if (Dx < Dy)
 	{
-		while (i < Dy)
+		while (i <= Dy)
 		{
 			fill_pixels(&graph, size_line, bits, x1, y1);
 			i++;
