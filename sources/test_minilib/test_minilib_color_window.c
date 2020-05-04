@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_minilib.c                                     :+:      :+:    :+:   */
+/*   test_minilib_color_window.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/28 14:39:03 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:44:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 12:04:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*static int		deal_key(int key, void *param)
-{
-	ft_putchar_fd('X', 1);
-	(void)key;
-	(void)param;
-	return (SUCCESS);
-}*/
 
 static void	fill_color(t_map *map, int size_line, int bpp,
 						t_graph *graph)
@@ -61,7 +53,7 @@ static	void init(t_graph *graph, t_map *map)
 	graph->utils.color3 = map->recup.tab_color_f[R];
 }
 
-void	test_minilib(t_map *map)
+void	test_minilib_color_window(t_map *map)
 {
 	int		bpp;
 	int		endian;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:26:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/04 12:12:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,8 +308,9 @@ int				is_good_file(char *str);
 int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 								t_state_machine *machine);
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
-void			test_minilib(t_map *map);
+//void			test_minilib_color_window(t_map *map);
 t_state_machine	*get_state_machine(t_state_machine *machine);
 t_map			*get_map(t_map *map);
+void			test_minilib_image_one_place(t_map *map);
 
 #endif

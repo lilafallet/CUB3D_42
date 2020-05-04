@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/04/28 15:16:11 by lfallet          ###   ########.fr        #
+#    Updated: 2020/05/04 12:17:42 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -58,13 +58,15 @@ SRCS += recuperation_map.c
 SRCS += utils_parser_color.c
 SRCS += utils_parser_resolution.c
 SRCS += utils_parser_texture.c
-SRCS += test_minilib.c
+SRCS += test_minilib_color_window.c
+SRCS += test_minilib_image_one_place.c
 
 OBJ_DIR = ./objs/
 
 vpath %.c sources/
 vpath %.c sources/utils/
 vpath %.c sources/parser/
+vpath %.c sources/test_minilib/
 vpath %.c sources/parser/map
 vpath %.c sources/parser/color
 vpath %.c sources/parser/resolution
