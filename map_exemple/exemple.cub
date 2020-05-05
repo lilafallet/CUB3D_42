@@ -3,9 +3,9 @@ WE ./path_to_the_west_texture
 S ./path_to_the_sprite_texture
 EA ./path_to_the_east_texture
 C 2,150,65
-F 201,66,91
+F 0,255,0
 NO ./path_to_the_north_texture
-R 10 20
+R 1800 1000
 
 1111
 10N1
