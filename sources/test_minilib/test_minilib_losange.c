@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:05:51 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/05 18:04:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/05 21:59:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 static void	fill_pixels(t_graph *graph, int size_line, int bits, int x, int y)
 {
+	ft_printf("x	=	%d\n", x); //
+	ft_printf("y	=	%d\n\n", y); //
 	graph->recup.data[y * size_line + x * bits / 8] =
 													graph->utils.r_f;
 	graph->recup.data[y * size_line + x * bits / 8 + 1] =
@@ -26,6 +28,16 @@ static void	fill_pixels(t_graph *graph, int size_line, int bits, int x, int y)
 static	void init(t_graph *graph, t_map *map)
 {
 	graph->recup.mlx_ptr = mlx_init();
+	graph->recup.x1 = 0;
+	graph->recup.x2 = map->recup.str_resolution[AXE_X] - 1;
+	graph->recup.y1 = map->recup.str_resolution[AXE_Y] - 1;
+	graph->recup.y2 = 0;
+	graph->recup.ex = abs(graph->recup.x2 - graph->recup.x1); //faire fonction abs
+	graph->recup.ey = abs(graph->recup.y2 - graph->recup.y1); //faire fonction abs
+	graph->recup.dx = 2 * graph->recup.ex;
+	graph->recup.dy = 2 * graph->recup.ey;
+	graph->recup.Dx = graph->recup.ex;
+	graph->recup.Dy = graph->recup.ey;
 	graph->utils.pos_x = 0; //deplacement de gauche a droite
 	graph->utils.pos_y = 0; //deplacement de haut en bas
 	graph->utils.img_x = 1900; //gauchgraph->recup.droite
@@ -38,62 +50,61 @@ static	void init(t_graph *graph, t_map *map)
 	graph->utils.b_f = map->recup.tab_color_f[R];
 }
 
+void	first_case(t_graph *graph, int size_line, int bits, int Xincr, int Yincr)
+{
+	int	i;
+
+	i = 0;
+	while (i <= graph->recup.Dx)
+	{
+		fill_pixels(graph, size_line, bits, graph->recup.x1, graph->recup.y1);
+		graph->recup.x1 += Xincr;
+		graph->recup.ex -= graph->recup.dy;
+		if (graph->recup.ex < 0)
+		{
+			graph->recup.y1 += Yincr;
+			graph->recup.ex += graph->recup.dx;
+		}
+		i++;	
+	}
+}
+
 void	test_minilib_losange(t_map *map)
 {
-	int	x1 = 0;
-	int	x2 = map->recup.str_resolution[AXE_X];
-	int	y1 = map->recup.str_resolution[AXE_Y] - 1;
-	int	y2 = 0;
-	int	ex = abs(x2 - x1);
-	int	ey = abs(y2 - y1);
-	int	dx = 2 * ex;
-	int	dy = 2 * ey;
-	int	Dx = ex;
-	int	Dy = ey;
-	int	i = 0;
-	int Xincr = 1;
-	int	Yincr = 1;
+	int	i;
+	int Xincr;
+	int	Yincr;
 	int	bits;
 	int	endian;
 	int	size_line;
 	t_graph	graph;
 
+	i = 0;
+	Xincr = 1;
+	Yincr = 1;
 	ft_bzero(&graph, sizeof(graph));
 	init(&graph, map);
 	graph.recup.data = mlx_get_data_addr(graph.recup.img_ptr, &bits,
 											&size_line, &endian);
-	if (x1 >= x2)
+	if (graph.recup.x1 >= graph.recup.x2)
 		Xincr = -1;
-	if (y1 >= y2)
+	if (graph.recup.y1 >= graph.recup.y2)
 		Yincr = -1;
-	if (Dx > Dy)
+	if (graph.recup.Dx > graph.recup.Dy)
+		first_case(&graph, size_line, bits, Xincr, Yincr);
+	if (graph.recup.Dx < graph.recup.Dy)
 	{
-		while (i <= Dx)
+		while (i <= graph.recup.Dy)
 		{
-			fill_pixels(&graph, size_line, bits, x1, y1);
-			i++;
-			x1 += Xincr;
-			ex -= dy;
-			if (ex < 0)
+			fill_pixels(&graph, size_line, bits, graph.recup.x1, graph.recup.y1);
+			graph.recup.y1 += Yincr;
+			graph.recup.ey -= graph.recup.dx;
+			if (graph.recup.ey < 0)
 			{
-				y1 += Yincr;
-				ex += dx;
-			}	
-		}
-	}
-	if (Dx < Dy)
-	{
-		while (i <= Dy)
-		{
-			fill_pixels(&graph, size_line, bits, x1, y1);
-			i++;
-			y1 += Yincr;
-			ey -= dx;
-			if (ey < 0)
-			{
-				x1 += Xincr;
-				ey += dy;
+				graph.recup.x1 += Xincr;
+				graph.recup.ey += graph.recup.dy;
 			}
+			i++;
 		}
 	}
 	graph.recup.win_ptr = mlx_new_window(graph.recup.mlx_ptr,
@@ -103,7 +114,5 @@ void	test_minilib_losange(t_map *map)
 	mlx_put_image_to_window(graph.recup.mlx_ptr, graph.recup.win_ptr,
 								graph.recup.img_ptr, graph.utils.pos_x,
 								graph.utils.pos_y); //position de l'image
-	while (42)
-	{
-	}
+	mlx_loop(graph.recup.mlx_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/05 16:35:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/05 21:37:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@
 # define ERR3				"COLOR = wrong type of number\n"
 # define ERR4				"COLOR = number of color is invalid\n"
 # define ERR5				"COLOR = too much information\n"
-# define ERR6				"COLOR = already have color\n"
+# define ERR6				"COLOR = alreagraph->recup.dy have color\n"
 # define ERR7				"MAP = invalid map\n"
 # define ERR8				"RESOLUTION = wrong type of number\n"
 # define ERR9				"RESOLUTION = wrong type of indicator\n"
-# define ERR10				"TEXTURE = already have texture\n"
+# define ERR10				"TEXTURE = alreagraph->recup.dy have texture\n"
 # define ERR11				"COLOR = the argument is not a number\n"
 # define ERR12				"TEXTURE = no path to the texture\n"
 # define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
@@ -249,14 +249,17 @@ typedef struct	s_recupg
 	char			*data;
 	unsigned long	img_color;
 	void			*win_ptr;
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				ex;
+	int				ey;
 	int				dx;
 	int				dy;
-	int				step_x;
-	int				step_y;
-	int				x1;
-	int				x0;
-	int				y1;
-	int				y0;
+	int				Dx;
+	int				Dy;
+	int				size_line;
 }				t_recupg;
 
 typedef struct	s_utilsg
