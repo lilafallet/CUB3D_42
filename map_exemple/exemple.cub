@@ -5,7 +5,7 @@ EA ./path_to_the_east_texture
 C 2,150,65
 F 0,255,0
 NO ./path_to_the_north_texture
-R 1800 1000
+R 200 200
 
 1111
 10N1

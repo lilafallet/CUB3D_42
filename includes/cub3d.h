@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/05 21:37:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/06 17:34:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,17 +249,9 @@ typedef struct	s_recupg
 	char			*data;
 	unsigned long	img_color;
 	void			*win_ptr;
-	int				x1;
-	int				x2;
-	int				y1;
-	int				y2;
-	int				ex;
-	int				ey;
-	int				dx;
-	int				dy;
-	int				Dx;
-	int				Dy;
 	int				size_line;
+	int				bits;
+	int				endian;
 }				t_recupg;
 
 typedef struct	s_utilsg
@@ -276,6 +268,16 @@ typedef struct	s_utilsg
 	int				img_y;
 	int				pos_x;
 	int				pos_y;
+	int				xstart;
+	int				xend;
+	int				ystart;
+	int				yend;
+	int				adjust_x;
+	int				adjust_y;
+	int				size_x;
+	int				size_y;
+	int				degx;
+	int				degy;
 }				t_utilsg;
 
 typedef struct	s_graph
