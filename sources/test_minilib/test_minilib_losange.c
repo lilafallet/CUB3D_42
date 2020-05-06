@@ -6,23 +6,38 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:05:51 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/06 17:43:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/06 19:39:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdlib.h> //
 
-static void	fill_pixels(t_graph *graph, int size_line, int bits, int x, int y)
+t_graph	*graph_holder(t_graph *graph)
 {
-	ft_printf("x = %d\n", x); //
-	ft_printf("y = %d\n\n", y); //
-	graph->recup.data[y * size_line + x * bits / 8] =
-													graph->utils.r_f;
-	graph->recup.data[y * size_line + x * bits / 8 + 1] =
-													graph->utils.g_f;
-	graph->recup.data[y * size_line + x * bits / 8 + 2] =
-													graph->utils.b_f;
+	static t_graph	*graph_keep;
+
+	if (graph_keep == NULL && graph != NULL)
+		graph_keep = graph;
+	return (graph_keep);
+}
+
+int			get_pos(t_coord *p)
+{
+	t_graph	*graph;
+
+	graph = graph_holder(ACCESS);
+	return (p->y * graph->recup.size_line + p->x * graph->recup.bits / 8);
+}
+
+static void	fill_pixels(t_coord point)
+{
+	t_graph	*graph;
+
+	graph = graph_holder(ACCESS);
+	graph->recup.data[get_pos(&point)] = graph->utils.r_f;
+	graph->recup.data[get_pos(&point) + 1] = graph->utils.g_f;
+	graph->recup.data[get_pos(&point) + 2] = graph->utils.b_f;
 }
 
 static void	init_graph(t_graph *graph, t_map *map)
@@ -31,6 +46,7 @@ static void	init_graph(t_graph *graph, t_map *map)
 	int	endian;
 	int	size_line;
 	
+	graph->recup.mlx_ptr = mlx_init();
 	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
 											map->recup.str_resolution[AXE_X],
 											map->recup.str_resolution[AXE_Y]);
@@ -42,64 +58,6 @@ static void	init_graph(t_graph *graph, t_map *map)
 	graph->recup.bits = bits;
 	graph->recup.size_line = size_line;
 	graph->recup.endian = endian;
-
-}
-
-static void init_utils(t_graph *graph, t_map *map)
-{
-	graph->recup.mlx_ptr = mlx_init();
-	graph->utils.xstart = map->recup.str_resolution[AXE_X] - 1;
-	graph->utils.xend = 0;
-	graph->utils.ystart = 0;
-	graph->utils.yend = map->recup.str_resolution[AXE_Y] - 1;
-	graph->utils.adjust_x = ft_abs(graph->utils.xend - graph->utils.xstart);
-	graph->utils.adjust_y = ft_abs(graph->utils.yend - graph->utils.ystart);
-	graph->utils.degx = 2 * graph->utils.adjust_x;
-	graph->utils.degy = 2 * graph->utils.adjust_y;
-	graph->utils.size_x = graph->utils.adjust_x;
-	graph->utils.size_y = graph->utils.adjust_y;
-}
-
-void	down(t_graph *graph, int xincr, int yincr)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("FIRST CASE\n"); //
-	while (i <= graph->utils.size_x) /*tant que plus petit longueur x*/
-	{
-		fill_pixels(graph, graph->recup.size_line, graph->recup.bits,
-						graph->utils.xstart, graph->utils.ystart);
-		graph->utils.xstart += xincr;
-		graph->utils.adjust_x -= graph->utils.degy;
-		if (graph->utils.adjust_x < 0) /*si pixels dessous*/
-		{
-			graph->utils.ystart += yincr;
-			graph->utils.adjust_x += graph->utils.degx;
-		}
-		i++;	
-	}
-}
-
-void	up(t_graph *graph, int xincr, int yincr)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("SECOND CASE\n"); //
-	while (i <= graph->utils.size_y)
-	{
-		fill_pixels(graph, graph->recup.size_line, graph->recup.bits,
-						graph->utils.xstart, graph->utils.ystart);
-		graph->utils.ystart += yincr;
-		graph->utils.adjust_y -= graph->utils.degx;
-		if (graph->utils.adjust_y < 0) /*si pixel dessus*/
-		{
-			graph->utils.xstart += xincr;
-			graph->utils.adjust_y += graph->utils.degy;
-		}
-		i++;
-	}
 }
 
 void	process_window(t_graph *graph, t_map *map)
@@ -115,24 +73,106 @@ void	process_window(t_graph *graph, t_map *map)
 
 }
 
+t_coord		get_coord(int x, int y)
+{
+	t_coord point;
+
+	point.x = x;
+	point.y = y;
+	return (point);
+}
+
+t_set_coord	get_coord_set(t_coord start, t_coord end)
+{
+	t_set_coord	set;
+
+	set.start = start;
+	set.end = end;
+	return (set);
+}
+
+
+void	down(t_coord err_adjust, t_coord deg, t_coord incr, t_set_coord set)
+{
+	int		size;
+	int		i;
+	
+	i = 0;
+	size = err_adjust.x;
+	while (i <= size) /*tant que plus petit longueur x*/
+	{
+		fill_pixels(set.start);
+		set.start.x += incr.x;
+		err_adjust.x -= deg.y;
+		if (err_adjust.x < 0) /*si pixels dessous*/
+		{
+			set.start.y += incr.y;
+			err_adjust.x += deg.x;
+		}
+		i++;	
+	}
+}
+
+void	up(t_coord err_adjust, t_coord deg, t_coord incr, t_set_coord set)
+{
+	int		size;
+	int		i;
+
+	i = 0;
+	size = err_adjust.y;
+	while (i <= size)
+	{
+		fill_pixels(set.start);
+		set.start.y += incr.y;
+		err_adjust.y -= deg.x;
+		if (err_adjust.y < 0) /*si pixel dessus*/
+		{
+			set.start.x += incr.x;
+			err_adjust.y += deg.y;
+		}
+		i++;
+	}
+}
+
+void	trace(t_coord start, t_coord end)
+{
+	t_coord		err_adjust;
+	t_coord		deg;
+	t_coord		incr;
+	t_set_coord	set;
+
+	set = get_coord_set(start, end);
+	err_adjust = get_coord(ft_abs(set.end.x - set.start.x),
+							ft_abs(set.end.y - set.start.y));
+	deg = get_coord(2 * err_adjust.x, 2 * err_adjust.y);
+	incr = get_coord((set.start.x >= set.end.x) ? -1 : 1,
+					(set.start.y >= set.end.y) ? -1 : 1);
+	if (err_adjust.x > err_adjust.y)
+		down(err_adjust, deg, incr, set);
+	else
+		up(err_adjust, deg, incr, set);
+}
+
 void	test_minilib_losange(t_map *map)
 {
-	int xincr;
-	int	yincr;
 	t_graph	graph;
 
-	xincr = 1;
-	yincr = 1;
 	ft_bzero(&graph, sizeof(graph));
-	init_utils(&graph, map);
+	graph_holder(&graph);
 	init_graph(&graph, map);
-	if (graph.utils.xstart >= graph.utils.xend) /*dans le cas ou la courbe descend*/
-		xincr = -1;
-	if (graph.utils.ystart >= graph.utils.yend) /*dans le cas ou la courbe descend*/
-		yincr = -1;
-	if (graph.utils.size_x > graph.utils.size_y)
-		down(&graph, xincr, yincr);
-	else
-		up(&graph, xincr, yincr);
+
+	t_coord a;
+	t_coord	b;
+	
+	a = get_coord(800, 0);
+	b = get_coord(0, 800);
+
+	while (a.x != a.y && b.x != b.y)
+	{
+		trace(a, b);
+		a.x += (a.x < a.y) ? 1 : -1;
+		b.x += (b.x < b.y) ? 1 : -1;
+	}
+
 	process_window(&graph, map);
 }

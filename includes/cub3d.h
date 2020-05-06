@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/06 17:34:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/06 19:19:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,20 @@ typedef struct	s_graph
 	t_utilsg	utils;
 }				t_graph;
 
+typedef struct	s_coord
+{
+	int			x;
+	int			y;
+}				t_coord;
+
+typedef struct	s_set_coord
+{
+	t_coord		start;
+	t_coord		end;
+}				t_set_coord;
+
+# define	ACCESS	NULL
+
 typedef	int	(*t_function)(t_vector *, t_map *, t_state_machine *);
 
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
@@ -330,6 +344,7 @@ int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 								t_state_machine *machine);
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
 //void			test_minilib_color_window(t_map *map);
+void			test_minilib_losange(t_map *map);
 t_state_machine	*get_state_machine(t_state_machine *machine);
 t_map			*get_map(t_map *map);
 

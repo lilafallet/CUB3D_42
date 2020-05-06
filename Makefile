@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/05/04 22:09:13 by lfallet          ###   ########.fr        #
+#    Updated: 2020/05/06 18:04:45 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -76,15 +76,15 @@ MLX = minilibx/libmlx_Linux.a
 
 OBJS = $(patsubst %.c, $(OBJ_DIR)%.o, $(SRCS))
 
-all : $(OBJ_DIR) $(NAME)
+all : $(MLX) $(LIB)
+	$(MAKE) $(NAME)
 
-$(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER) Makefile
+$(OBJS): $(OBJ_DIR)%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $<  -I $(INCLUDES) -I $(INCLUDES_LIB) -I ./minilibx -o $@
 
-$(NAME): $(MLX) $(LIB) $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -I$(INCLUDES) -I$(INCLUDES_LIB) -I./minilibx -L./libft -lft -L./minilibx -lmlx_Linux -lX11 -lm -lbsd -lXext -o $@
 
-	$(MAKE) clean -C $(LIBDIR)
 $(OBJ_DIR):
 	mkdir $@
 
@@ -92,13 +92,13 @@ $(LIB) : FORCE
 	$(MAKE) -C $(LIBDIR)
 
 $(MLX) : FORCE
-	$(MAKE) -C minilibx
+	$(MAKE) -C minilibx 2>/dev/null
 
 FORCE :
 
 clean :
 	$(MAKE) clean -C $(LIBDIR)
-	$(MAKE) clean -C minilibx
+	$(MAKE) clean -C minilibx 2>/dev/null
 	$(RM) -R $(OBJ_DIR)
 
 fclean : clean
