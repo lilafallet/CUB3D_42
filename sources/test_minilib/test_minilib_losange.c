@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:05:51 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/06 19:39:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/07 08:17:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,9 @@ void	trace(t_coord start, t_coord end)
 		up(err_adjust, deg, incr, set);
 }
 
-void	test_minilib_losange(t_map *map)
+//MAIN//
+
+/*void	test_minilib_losange(t_map *map)
 {
 	t_graph	graph;
 
@@ -175,4 +177,4 @@ void	test_minilib_losange(t_map *map)
 	}
 
 	process_window(&graph, map);
-}
+}*/
