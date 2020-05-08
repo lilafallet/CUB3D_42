@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/05/07 08:18:13 by lfallet          ###   ########.fr        #
+#    Updated: 2020/05/08 15:58:12 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -58,17 +58,19 @@ SRCS += recuperation_map.c
 SRCS += utils_parser_color.c
 SRCS += utils_parser_resolution.c
 SRCS += utils_parser_texture.c
+SRCS += init_graph.c
+SRCS += utils_graph.c
 
 OBJ_DIR = ./objs/
 
 vpath %.c sources/
-vpath %.c sources/utils/
 vpath %.c sources/parser/
-vpath %.c sources/test_minilib/
+vpath %.c sources/parser/utils_parser
 vpath %.c sources/parser/map
 vpath %.c sources/parser/color
 vpath %.c sources/parser/resolution
 vpath %.c sources/parser/texture
+vpath %.c sources/graphical
 
 MLX = minilibx/libmlx_Linux.a
 

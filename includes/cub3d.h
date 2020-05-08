@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/07 08:17:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 16:02:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,6 +344,10 @@ int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 								t_state_machine *machine);
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
 t_state_machine	*get_state_machine(t_state_machine *machine);
+void			start_graph(t_map *map);
 t_map			*get_map(t_map *map);
+t_graph			*graph_holder(t_graph *graph);
+void			init_graph(t_graph *graph, t_map *map);
+void			process_window(t_graph *graph, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/07 08:18:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 16:03:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			main(int ac, char **av)
 		ft_free(&map, NULL);
 		return (EXIT_FAILURE);
 	}
+	start_graph(&map);
 	ft_free(&map, NULL);
 	close(fd);
 	return (EXIT_SUCCESS);
