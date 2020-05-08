@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/08 18:39:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 00:18:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ typedef struct	s_f_info
 
 typedef struct	s_recup
 {
-	int				str_resolution[NB_RESOLUTION];
+	int				resolution[NB_RESOLUTION];
 	int				posx;
 	int				posy;
 	char			dirpos;
@@ -297,10 +297,29 @@ typedef struct	s_set_coord
 
 typedef struct	s_rting
 {
-	int			posx;
-	int			posy;
-	int			dirx; //ssize_t//
-	int			diry;
+	double	posx;
+	double	posy;
+	double	dirx; //ssize_t//
+	double	diry;
+	double	planex;
+	double	planey;
+	double	time;
+	double	oldtime;
+	double	camx;
+	double	camy;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidex;
+	double	sidey;
+	double	distx;
+	double	disty;
+	double	perspwall;
+	int		incrx;
+	int		incry;
+	int		hit;
+	int		what_side;
 }				t_rting;
 
 # define	ACCESS	NULL
@@ -354,6 +373,7 @@ t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
-void			init_retracing(t_map *map);
+void			init_raycasting(t_map *map, t_rting *rting);
+void			process_raycasting(t_map *map, t_rting *rting);
 
 #endif

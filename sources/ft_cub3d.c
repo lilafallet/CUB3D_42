@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/08 16:03:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 22:34:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	debug_print_map(t_map *map, size_t i, size_t j,
 
 static void	debug(t_map *map, t_state_machine *machine)
 {
-	ft_printf("R:\t\t%d %d\n",			map->recup.str_resolution[0],
-										map->recup.str_resolution[1]);
+	ft_printf("R:\t\t%d %d\n",			map->recup.resolution[0],
+										map->recup.resolution[1]);
 	ft_printf("NO:\t\t%s\n",			map->recup.str_texture[0]);
 	ft_printf("SO:\t\t%s\n",			map->recup.str_texture[1]);
 	ft_printf("WE:\t\t%s\n",			map->recup.str_texture[2]);

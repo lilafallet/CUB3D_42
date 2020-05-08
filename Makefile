@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/05/08 15:58:12 by lfallet          ###   ########.fr        #
+#    Updated: 2020/05/08 22:37:13 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -58,8 +58,9 @@ SRCS += recuperation_map.c
 SRCS += utils_parser_color.c
 SRCS += utils_parser_resolution.c
 SRCS += utils_parser_texture.c
-SRCS += init_graph.c
+SRCS += start_graph.c
 SRCS += utils_graph.c
+SRCS += raycasting.c
 
 OBJ_DIR = ./objs/
 
