@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/02 17:55:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 18:22:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int				clean_and_print(t_map *map, size_t i, size_t j,
 	return (TRUE);
 }
 
-static int		fill_tab(ssize_t index_char, t_map *map, size_t index)
+static int		fill_tab(ssize_t index_char, t_map *map, size_t index, 
+							t_vector *map_inf)
 {
 	int	ret;
 
@@ -32,7 +33,12 @@ static int		fill_tab(ssize_t index_char, t_map *map, size_t index)
 		map->recup.tab_map[map->utils.count_line][index] = OUT;
 	else if (map->utils.count_position == 0)
 	{
+		ft_printf("map->inf = %s\n", vct_getstr(map_inf)); //
+		map->recup.dirpos = vct_getfirstchar(map_inf);
+		ft_printf("map->recup.dirpos = %c\n", map->recup.dirpos); //
 		map->recup.tab_map[map->utils.count_line][index] = POSITION;
+		map->recup.posx = index;
+		map->recup.posy = map->utils.count_line;
 		map->utils.count_position++;
 	}
 	else
@@ -57,7 +63,7 @@ static int		process_recuperation_map(t_map *map, size_t index,
 		ret = ERROR;
 	vct_del(&vct_char);
 	if (ret != ERROR)
-		ret = fill_tab(index_char, map, index);
+		ret = fill_tab(index_char, map, index, map_inf);
 	vct_pop(map_inf);
 	vct_del(&vct_char);
 	return (ret);

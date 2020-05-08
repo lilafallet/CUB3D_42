@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/08 16:02:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 18:39:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@
 # define FIRST_TEXTURE "NSWE"
 # define STR_RESOLUTION "R"
 # define CHAR_WALL '1'
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
 
 # define SPACE ' '
 # define TAB '\t'
@@ -201,6 +205,9 @@ typedef struct	s_f_info
 typedef struct	s_recup
 {
 	int				str_resolution[NB_RESOLUTION];
+	int				posx;
+	int				posy;
+	char			dirpos;
 	char			*str_texture[NB_TEXTURE];
 	char			*str_text_spr;
 	char			*str_text_no;
@@ -210,8 +217,6 @@ typedef struct	s_recup
 	int				tab_color_f[NB_COLOR];
 	int				tab_color_c[NB_COLOR];
 	enum e_map		**tab_map;
-	char			*str_map[BUFFER_SIZE];
-	char			str_position[NB_POSITION_MAP];
 	char			pad[7];
 }				t_recup;
 
@@ -268,16 +273,8 @@ typedef struct	s_utilsg
 	int				img_y;
 	int				pos_x;
 	int				pos_y;
-	int				xstart;
-	int				xend;
-	int				ystart;
-	int				yend;
-	int				adjust_x;
-	int				adjust_y;
 	int				size_x;
 	int				size_y;
-	int				degx;
-	int				degy;
 }				t_utilsg;
 
 typedef struct	s_graph
@@ -297,6 +294,14 @@ typedef struct	s_set_coord
 	t_coord		start;
 	t_coord		end;
 }				t_set_coord;
+
+typedef struct	s_rting
+{
+	int			posx;
+	int			posy;
+	int			dirx; //ssize_t//
+	int			diry;
+}				t_rting;
 
 # define	ACCESS	NULL
 
@@ -349,5 +354,6 @@ t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
+void			init_retracing(t_map *map);
 
 #endif

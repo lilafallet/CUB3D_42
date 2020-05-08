@@ -6,11 +6,36 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/08 16:00:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 18:42:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
+static void		get_direction_position(t_map *map, t_rting *rting)
+{
+	if (map->recup.dirpos == NORTH)
+		rting->diry = -1;
+	if (map->recup.dirpos == SOUTH)
+		rting->diry = 1;
+	if (map->recup.dirpos == WEST)
+		rting->dirx = -1;
+	if (map->recup.dirpos == EAST)
+		rting->dirx = 1;
+	ft_printf("rting->diry = %d\n", rting->diry); //
+	ft_printf("rting->dirx = %d\n", rting->dirx); //
+}
+
+void	init_retracing(t_map *map)
+{
+	t_rting rting;
+
+	ft_bzero(&rting, sizeof(rting));
+	rting.posx = map->recup.posx;
+	rting.posy = map->recup.posy;
+	get_direction_position(map, &rting);
+}
 
 void	process_window(t_graph *graph, t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:18:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/08 18:13:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void			ft_free(t_map *map, t_vector *line)
 	vct_del(&line);
 	line = NULL;
 	ft_free_tab(NB_TEXTURE, map->recup.str_texture);
-	ft_free_tab(BUFFER_SIZE, map->recup.str_map);
 	while (i < map->utils.max_line)
 		free(map->recup.tab_map[i++]);
 	free(map->recup.tab_map);
