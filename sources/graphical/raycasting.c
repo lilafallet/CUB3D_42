@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 22:30:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 18:41:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:17:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,30 @@ void	init_color(t_map *map, t_rting *rting)
 	rting->color_west = 0X006400;
 	rting->color_east = 0x0000FF;
 	
-	if (rting->what_side == 0 && rting->raydrix > 0)
+	if (rting->what_side == 0 && rting->raydirx > 0)
 		rting->color_wall = rting->color_north;	
-	else if (rting->what_side == 0 && rting->raydrix < 0)
+	else if (rting->what_side == 0 && rting->raydirx < 0)
 		rting->color_wall = rting->color_north;	
-	else if (rting->what_side == 1 && rting->raydriy < 0)
+	else if (rting->what_side == 1 && rting->raydiry < 0)
 		rting->color_wall = rting->color_west;	
 	else
 		rting->color_wall = rting->color_east;	
 }
 
-void	trace_line(t_rting *rting, t_map *map)
+void	trace_line(int x, t_rting *rting, t_map *map, t_graph *graph)
 {
+	int	y;
 
+	if (rting->endline < 0)
+		rting->endline = map->recup.resolution[AXE_Y] - 1;
+	y = rting->endline;
+	while (y < map->recup.resolution[AXE_Y])
+	{
+		graph->recup.data[x + y * (graph->recup.size_line / 4)] = 0xFF0000;
+		graph->recup.data[x + (map->recup.resolution[AXE_Y] - y - 1)
+						* (graph->recup.size_line / 4)] = 0x00FF00;
+		y++;
+	} 
 }
 
 void	process_raycasting(t_map *map, t_rting *rting, t_graph *graph)
@@ -121,7 +132,7 @@ void	process_raycasting(t_map *map, t_rting *rting, t_graph *graph)
 		dist_cam_wall(rting);
 		init_color(map, rting);
 		calcul_size_wall(rting, map);
-		trace_line(rting, map);	
+		trace_line(x, rting, map, graph);	
 		x++;
 	}
 }
