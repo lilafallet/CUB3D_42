@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 18:31:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:41:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ typedef struct	s_recupg
 {
 	void			*mlx_ptr;
 	void			*img_ptr;
-	char			*data;
+	int				*data;
 	unsigned long	img_color;
 	void			*win_ptr;
 	int				size_line;

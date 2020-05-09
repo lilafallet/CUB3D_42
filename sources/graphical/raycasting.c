@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 22:30:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:17:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:47:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,16 @@ void	init_color(t_map *map, t_rting *rting)
 void	trace_line(int x, t_rting *rting, t_map *map, t_graph *graph)
 {
 	int	y;
-
+	
+	ft_printf("coucou\n"); //
 	if (rting->endline < 0)
 		rting->endline = map->recup.resolution[AXE_Y] - 1;
 	y = rting->endline;
 	while (y < map->recup.resolution[AXE_Y])
 	{
-		graph->recup.data[x + y * (graph->recup.size_line / 4)] = 0xFF0000;
+		graph->recup.data[x + y * (graph->recup.size_line / 4)] = 0x383838; //sol
 		graph->recup.data[x + (map->recup.resolution[AXE_Y] - y - 1)
-						* (graph->recup.size_line / 4)] = 0x00FF00;
+						* (graph->recup.size_line / 4)] = 0x8B0000; //wall
 		y++;
 	} 
 }

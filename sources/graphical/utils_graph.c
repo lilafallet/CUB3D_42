@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:14:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:39:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ void	init_raycasting(t_map *map, t_rting *rting)
 void	process_window(t_graph *graph, t_map *map)
 {
 	mlx_put_image_to_window(graph->recup.mlx_ptr, graph->recup.win_ptr,
-								graph->recup.img_ptr, graph->utils.pos_x,
-								graph->utils.pos_y);
+								graph->recup.img_ptr, 0, 0);
 	mlx_destroy_image(graph->recup.mlx_ptr, graph->recup.img_ptr);
-	mlx_loop(graph->recup.mlx_ptr);
-
+	ft_printf("mais la tu rentres\n"); //
 }
 
 void	init_graph(t_graph *graph, t_map *map)
