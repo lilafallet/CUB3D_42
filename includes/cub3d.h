@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 00:18:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 18:31:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ typedef struct	s_rting
 {
 	double	posx;
 	double	posy;
-	double	dirx; //ssize_t//
+	double	dirx;
 	double	diry;
 	double	planex;
 	double	planey;
@@ -320,6 +320,14 @@ typedef struct	s_rting
 	int		incry;
 	int		hit;
 	int		what_side;
+	int		size_heightline;
+	int		startline;
+	int		endline;
+	int		color_north;
+	int		color_south;
+	int		color_west;
+	int		color_east;
+	int		color_wall;
 }				t_rting;
 
 # define	ACCESS	NULL
@@ -374,6 +382,6 @@ t_graph			*graph_holder(t_graph *graph);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
 void			init_raycasting(t_map *map, t_rting *rting);
-void			process_raycasting(t_map *map, t_rting *rting);
+void			process_raycasting(t_map *map, t_rting *rting, t_graph *graph);
 
 #endif

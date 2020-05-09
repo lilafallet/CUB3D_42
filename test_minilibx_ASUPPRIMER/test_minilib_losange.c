@@ -6,21 +6,21 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 17:05:51 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/07 08:17:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 17:09:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdlib.h> //
 
-t_graph	*graph_holder(t_graph *graph)
+/*t_graph	*graph_holder(t_graph *graph)
 {
 	static t_graph	*graph_keep;
 
 	if (graph_keep == NULL && graph != NULL)
 		graph_keep = graph;
 	return (graph_keep);
-}
+}*/
 
 int			get_pos(t_coord *p)
 {
@@ -40,7 +40,7 @@ static void	fill_pixels(t_coord point)
 	graph->recup.data[get_pos(&point) + 2] = graph->utils.b_f;
 }
 
-static void	init_graph(t_graph *graph, t_map *map)
+/*static void	init_graph(t_graph *graph, t_map *map)
 {
 	int	bits;
 	int	endian;
@@ -58,20 +58,20 @@ static void	init_graph(t_graph *graph, t_map *map)
 	graph->recup.bits = bits;
 	graph->recup.size_line = size_line;
 	graph->recup.endian = endian;
-}
+}*/
 
-void	process_window(t_graph *graph, t_map *map)
+/*void	process_window(t_graph *graph, t_map *map)
 {
 	graph->recup.win_ptr = mlx_new_window(graph->recup.mlx_ptr,
-								map->recup.str_resolution[AXE_X],
-								map->recup.str_resolution[AXE_Y],
+								map->recup.resolution[AXE_X],
+								map->recup.resolution[AXE_Y],
 								"NOM A CHANGER");
 	mlx_put_image_to_window(graph->recup.mlx_ptr, graph->recup.win_ptr,
 								graph->recup.img_ptr, graph->utils.pos_x,
 								graph->utils.pos_y);
 	mlx_loop(graph->recup.mlx_ptr);
 
-}
+}*/
 
 t_coord		get_coord(int x, int y)
 {
