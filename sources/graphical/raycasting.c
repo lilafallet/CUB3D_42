@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 22:30:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:47:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 21:05:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,13 @@ void	ray_position_direction(t_map *map, t_rting *rting, int x)
 {
 	rting->camx = (2 * x) / map->recup.resolution[AXE_X] - 1;
 	rting->raydirx = rting->dirx + (rting->planex * rting->camx);
-	rting->raydiry = rting->diry + (rting->planey * rting->camy);
+	rting->raydiry = rting->diry + (rting->planey * rting->camx);
 }
 
 void	len_ray(t_rting *rting)
 {
-	rting->distx = rting->diry == 0 ? 0
-					: ((rting->raydirx == 0) ? 1
-					: ft_abs(1 / rting->raydirx));
-	rting->disty = rting->dirx == 0 ? 0
-					: ((rting->raydiry == 0) ? 1
-					: ft_abs(1 / rting->raydiry));
+	rting->distx = fabs(1.0 / rting->raydirx);
+	rting->disty = fabs(1.0 / rting->raydiry);
 }
 
 void	next_step(t_rting *rting)
@@ -48,7 +44,7 @@ void	straight_square(t_rting *rting, t_map *map)
 		if (rting->sidex < rting->sidey)
 		{
 			rting->sidex += rting->distx;
-			rting->mapy += rting->incrx;
+			rting->mapx += rting->incrx;
 			rting->what_side = 0;
 		}
 		else
@@ -57,7 +53,7 @@ void	straight_square(t_rting *rting, t_map *map)
 			rting->mapy += rting->incry;
 			rting->what_side = 1;
 		}
-		if (map->recup.tab_map[rting->mapx][rting->mapy] > 0)
+		if (map->recup.tab_map[rting->mapx][rting->mapy] == '1')
 			rting->hit = 1;
 	}
 }
@@ -123,7 +119,7 @@ void	process_raycasting(t_map *map, t_rting *rting, t_graph *graph)
 	x = 0;
 	while (x < map->recup.resolution[AXE_X])
 	{
-		printf("TU RENTRES LA ??\n"); //
+		printf("TU RENTRES LA %d??\n", x); //
 		ray_position_direction(map, rting, x);
 		rting->mapx = rting->posx;
 		rting->mapy = rting->posy;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:41:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:57:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include <limits.h>
+# include <math.h>
 
 enum			e_state
 {
