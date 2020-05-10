@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/10 02:36:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/10 20:26:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,10 @@
 # define COLOR_C 0
 # define COLOR_F 1
 
-# define PI 3.1415926535
+# define PI 3.1415926535 //A CHANGER CAR PAS LE DROIT AU MACRO
+# define PI2 PI/2 //A CHANGER CAR PAS LE DROIT AU MACRO
+# define PI3 3*P2
+# define DR 0.0174533 //pouvoir faire plusieurs rayons
 
 # include "libft.h"
 # include "mlx.h"
@@ -302,12 +305,19 @@ typedef struct	s_rting
 {
 	double	px; //player position
 	double	py; //player position
-	double	mapx; //sizeofmap
-	double	mapy; //sizeofmap
+	int		mapx; //sizeofmap
+	int		mapy; //sizeofmap
 	double	mapsize;
 	double	deltapx;
 	double	deltapy;
 	double	pangle;
+	int		mp;
+	double	rayx;
+	double	rayy;
+	double	xo; //xoffeset
+	double	yo; //yoffset
+	int		mx; //largeray
+	int		my; //hauteurray
 }				t_rting;
 
 # define	ACCESS	NULL
