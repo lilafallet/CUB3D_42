@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/10 02:19:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/10 23:07:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,10 @@ void	init_graph(t_graph *graph, t_map *map)
 	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
 											map->recup.resolution[AXE_X],
 											map->recup.resolution[AXE_Y]);
-	//graph->utils.r_f = map->recup.tab_color_f[B];
-	//graph->utils.g_f = map->recup.tab_color_f[G];
-	//graph->utils.b_f = map->recup.tab_color_f[R];
-	graph->recup.data = mlx_get_data_addr(graph->recup.img_ptr, &bits,
-											&size_line, &endian);
-	graph->recup.bits = bits;
-	graph->recup.size_line = size_line;
+	graph->recup.data = mlx_get_data_addr(graph->recup.img_ptr,
+											&graph->recup.bits,
+											&graph->recup.size_line,
+											&graph->recup.endian);
 	graph->recup.endian = endian;
 }
 
