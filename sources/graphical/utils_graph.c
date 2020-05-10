@@ -6,56 +6,43 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:39:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/10 02:19:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void		get_direction_position(t_map *map, t_rting *rting)
+/*static void		get_direction_position(t_map *map, t_rting *rting)
 {
 	if (map->recup.dirpos == NORTH)
 	{
 		ft_printf("NORTH\n"); //
 		rting->diry = -1;
 	}
-	if (map->recup.dirpos == SOUTH)
+	else if (map->recup.dirpos == SOUTH)
 	{
 		ft_printf("SOUTH\n"); //
 		rting->diry = 1;
 	}
-	if (map->recup.dirpos == WEST)
+	else if (map->recup.dirpos == WEST)
 	{
 		ft_printf("WEST\n"); //
 		rting->dirx = -1;
 	}
-	if (map->recup.dirpos == EAST)
+	else if (map->recup.dirpos == EAST)
 	{
 		ft_printf("EAST\n"); //
 		rting->dirx = 1;
 	}
-	ft_printf("rting->diry = %d\n", rting->diry); //
-	ft_printf("rting->dirx = %d\n", rting->dirx); //
-}
-
-void	init_raycasting(t_map *map, t_rting *rting)
-{
-	rting->posx = (double)map->recup.posx;
-	rting->posy = (double)map->recup.posy;
-	ft_printf("\nmap->recup.posx = %d\n", map->recup.posx); //
-	ft_printf("map->recup.posy = %d\n", map->recup.posy); //
-	printf("\nrting->posx = %lf\n", rting->posx); //
-	printf("rting->posy = %lf\n", rting->posy); //
-	get_direction_position(map, rting);
-	rting->planey = 0.66; 
-}
+	printf("rting->diry = %lf\n", rting->diry); //
+	printf("rting->dirx = %lf\n", rting->dirx); //
+}*/
 
 void	process_window(t_graph *graph, t_map *map)
 {
 	mlx_put_image_to_window(graph->recup.mlx_ptr, graph->recup.win_ptr,
 								graph->recup.img_ptr, 0, 0);
 	mlx_destroy_image(graph->recup.mlx_ptr, graph->recup.img_ptr);
-	ft_printf("mais la tu rentres\n"); //
 }
 
 void	init_graph(t_graph *graph, t_map *map)

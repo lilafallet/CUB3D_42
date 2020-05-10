@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/09 20:57:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/10 02:36:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,8 @@
 # define COLOR_C 0
 # define COLOR_F 1
 
+# define PI 3.1415926535
+
 # include "libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
@@ -298,37 +300,14 @@ typedef struct	s_set_coord
 
 typedef struct	s_rting
 {
-	double	posx;
-	double	posy;
-	double	dirx;
-	double	diry;
-	double	planex;
-	double	planey;
-	double	time;
-	double	oldtime;
-	double	camx;
-	double	camy;
-	double	raydirx;
-	double	raydiry;
-	int		mapx;
-	int		mapy;
-	double	sidex;
-	double	sidey;
-	double	distx;
-	double	disty;
-	double	perspwall;
-	int		incrx;
-	int		incry;
-	int		hit;
-	int		what_side;
-	int		size_heightline;
-	int		startline;
-	int		endline;
-	int		color_north;
-	int		color_south;
-	int		color_west;
-	int		color_east;
-	int		color_wall;
+	double	px; //player position
+	double	py; //player position
+	double	mapx; //sizeofmap
+	double	mapy; //sizeofmap
+	double	mapsize;
+	double	deltapx;
+	double	deltapy;
+	double	pangle;
 }				t_rting;
 
 # define	ACCESS	NULL
@@ -382,7 +361,5 @@ t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
-void			init_raycasting(t_map *map, t_rting *rting);
-void			process_raycasting(t_map *map, t_rting *rting, t_graph *graph);
 
 #endif
