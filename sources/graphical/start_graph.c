@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/11 16:49:00 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/11 19:02:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,24 @@ void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 	} 
 }
 
+void	init_distperpwall(t_map *map, t_graph *graph, t_rting *rting)
+{
+	if (rting->side == 0)
+	{
+		rting->perpWallDist = (rting->mapX - rting->posX + (1 - rting->stepX) / 2) / rting->raydirX;
+		/*si un cote X est atteind, perpWallDist = nombre de carres que le rayon a traverse dans la
+		direction de X*/
+		printf("perpWallDist SIDE == 0 = %lf\n", rting->perpWallDist); //
+	}
+	else
+	{
+		rting->perpWallDist = (rting->mapY + rting->posY + (1 - rting->stepY) / 2) / rting->raydirY;
+		/*si un cote Y est atteind, perpWallDist = nombre de carres que le rayon a traverse dans la
+		direction de Y*/
+		printf("perpWallDist SIDE != 0 = %lf\n", rting->perpWallDist); //
+	}
+}
+
 void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 {
 	int	x;
@@ -124,6 +142,7 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 		init_raycasting(map, graph, rting, x);
 		init_step_distray(map, graph, rting);
 		check_wall(map, graph, rting);
+		init_distperpwall(map, graph, rting);
 	}
 }
 
