@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/10 22:52:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/11 15:52:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,32 @@ typedef struct	s_set_coord
 
 typedef struct	s_rting
 {
+	double	posX; //position du joueur en X
+	double	posY; //position du joueur en Y
+	double	dirX; //direction du joueur vers X
+	double	dirY; //direction du joueur vers Y
+	double	planeX; //plan de la camera en x
+	double	planeY; //plan de la camera en y
+	double	time; //l'heure actuelle de l'image;
+	double	oldtime; //l'heure de l'image precedente
+	double	cameraX; //coordonnees de la camera sur x
+	double	raydirX; //direction du rayon sur X
+	double	raydirY; //direction du rayon sur Y
+	int		mapX; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
+					dans le carre*/
+	int		mapY; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
+					dans le carre*/
+	double	sideDistX; /*distance que le rayon doit parcourir de sa position de depart au premier
+						cote de x*/
+	double	sideDistY; /*distance que le rayon doit parcourir de sa position de depart au premier
+						cote de y*/
+	double	deltaDistX; //distance que le rayon doit parcourir du cote x au suivant
+	double	deltaDistY; //distance que le rayon doit parcourir du cote y au suivant
+	double	perpWallDist; //calculer la taille du rayon
+	int		stepX; //stocker si le deplacement de x est de -1 (gauche) ou +1 (droite)
+	int		stepY; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas)
+	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
+	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
 }				t_rting;
 
 # define	ACCESS	NULL
