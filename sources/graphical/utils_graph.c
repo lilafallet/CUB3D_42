@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 21:14:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 00:52:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,37 @@
 void		get_direction_position(t_map *map, t_rting *rting)
 {
 	if (map->recup.dirpos == NORTH)
+	{
+		printf("NORTH\n"); //
 		rting->dirY = -1;
+	}
 	else if (map->recup.dirpos == SOUTH)
+	{
+		printf("SOUTH\n"); //
 		rting->dirY = 1;
+	}
 	else if (map->recup.dirpos == WEST)
+	{
+		printf("WEST\n"); //
 		rting->dirX = -1;
+	}
 	else if (map->recup.dirpos == EAST)
+	{
+		printf("EAST\n"); //
 		rting->dirX = 1;
+	}
 }
 
 void	get_plane(t_rting *rting, t_map *map)
 {
-	rting->planeX = -0.66 * rting->dirY;
-	rting->planeY = 0.66 * rting->dirX;
+	if (map->recup.dirpos == NORTH)
+		rting->planeX = 0.66;
+	else if (map->recup.dirpos == SOUTH)
+		rting->planeX = -0.66;
+	else if (map->recup.dirpos == WEST)
+		rting->planeY = -0.66;
+	else if (map->recup.dirpos == EAST)
+		rting->planeY = 0.66;
 }
 void	process_window(t_graph *graph, t_map *map)
 {
@@ -54,3 +72,4 @@ t_graph	*graph_holder(t_graph *graph)
 		graph_keep = graph;
 	return (graph_keep);
 }
+

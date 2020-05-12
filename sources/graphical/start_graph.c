@@ -6,11 +6,16 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 21:16:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 00:54:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	get_rgb(int r, int g, int b)
+{
+	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+}
 
 void	init_raycasting(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
@@ -75,7 +80,7 @@ void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 			rting->mapY += rting->stepY;
 			rting->side = 1;
 		}
-		if (map->recup.tab_map[rting->mapX][rting->mapY] == 1)
+		if (map->recup.tab_map[rting->mapY][rting->mapX] == 1)
 			rting->hit = 1;
 	} 
 }
@@ -145,12 +150,15 @@ void	draw_wall(t_map *map, t_graph *graph, t_rting *rting, int x)
 void	draw_floor(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
 	int	y;
+	int	floor_color;
 
 	y = map->recup.resolution[AXE_Y] - 1;
+	floor_color = get_rgb(map->recup.tab_color_f[R], map->recup.tab_color_f[G],
+							map->recup.tab_color_f[B]); 
 	ft_printf("DRAW FLOOR\n"); //
 	while (y >= rting->drawEnd)
 	{
-		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = 0x663300; //MARRON
+		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = floor_color; //MARRON
 		y--;
 	}
 }
@@ -158,12 +166,15 @@ void	draw_floor(t_map *map, t_graph *graph, t_rting *rting, int x)
 void	draw_sky(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
 	int	y;
+	int	sky_color;
 	
 	y = 0;
 	ft_printf("DRAW SKY\n"); //
+	sky_color = get_rgb(map->recup.tab_color_c[R], map->recup.tab_color_c[G],
+							map->recup.tab_color_c[B]); 
 	while (y < rting->drawStart)
 	{
-		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = 0x33CCCC; //BLEU CIEL
+		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = sky_color; //BLEU CIEL
 		y++;
 	}
 }
@@ -191,8 +202,10 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 
 void	init_map(t_map *map, t_rting *rting)
 {
-	rting->posX = (double)map->recup.posx;
-	rting->posY = (double)map->recup.posy;
+	rting->posX = (double)map->recup.posx + (double)0.5;
+	rting->posY = (double)map->recup.posy + (double)0.5;
+	printf("posX = %lf\n", rting->posX); //
+	printf("posY = %lf\n", rting->posY); //
 	get_direction_position(map, rting);
 	get_plane(rting, map);
 }

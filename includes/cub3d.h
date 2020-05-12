@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 20:44:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 23:27:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,6 +340,7 @@ typedef struct	s_rting
 	int		color_east;
 	int		color_wall;
 	double	wall_pos;
+	int		color_f;
 }				t_rting;
 
 # define	ACCESS	NULL
