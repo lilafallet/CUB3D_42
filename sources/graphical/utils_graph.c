@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:57:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/10 23:07:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 16:20:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,13 @@ void	init_graph(t_graph *graph, t_map *map)
 	int	size_line;
 	
 	graph->recup.mlx_ptr = mlx_init();
-	graph->recup.win_ptr = mlx_new_window(graph->recup.mlx_ptr,
-								map->recup.resolution[AXE_X],
-								map->recup.resolution[AXE_Y],
-								"Cub3d");
-	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
-											map->recup.resolution[AXE_X],
-											map->recup.resolution[AXE_Y]);
-	graph->recup.data = mlx_get_data_addr(graph->recup.img_ptr,
+	graph->recup.win_ptr = mlx_new_window(graph->recup.mlx_ptr, 640, 480, "Cub3d");
+	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr, 640, 480);
+	graph->recup.data = (int *)mlx_get_data_addr(graph->recup.img_ptr,
 											&graph->recup.bits,
 											&graph->recup.size_line,
 											&graph->recup.endian);
-	graph->recup.endian = endian;
+	ft_printf("SIZE_LINE = %d\n", graph->recup.size_line); //
 }
 
 t_graph	*graph_holder(t_graph *graph)

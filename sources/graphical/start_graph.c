@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/11 19:02:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 16:31:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	init_raycasting(t_map *map, t_graph *graph, t_rting *rting, int x)
 	printf("deltaDistX = %lf\n", rting->deltaDistX); //
 	rting->deltaDistY = fabs(1 / rting->raydirY);
 	printf("deltaDistY = %lf\n", rting->deltaDistY); //
-
 }
 
 void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
@@ -116,17 +115,104 @@ void	init_distperpwall(t_map *map, t_graph *graph, t_rting *rting)
 {
 	if (rting->side == 0)
 	{
-		rting->perpWallDist = (rting->mapX - rting->posX + (1 - rting->stepX) / 2) / rting->raydirX;
+		rting->perpWallDist = (double)(rting->mapX - rting->posX
+								+ (1 - rting->stepX) / 2) / rting->raydirX;
 		/*si un cote X est atteind, perpWallDist = nombre de carres que le rayon a traverse dans la
 		direction de X*/
 		printf("perpWallDist SIDE == 0 = %lf\n", rting->perpWallDist); //
 	}
 	else
 	{
-		rting->perpWallDist = (rting->mapY + rting->posY + (1 - rting->stepY) / 2) / rting->raydirY;
+		rting->perpWallDist = (double)(rting->mapY + rting->posY
+								+ (1 - rting->stepY) / 2) / rting->raydirY;
 		/*si un cote Y est atteind, perpWallDist = nombre de carres que le rayon a traverse dans la
 		direction de Y*/
 		printf("perpWallDist SIDE != 0 = %lf\n", rting->perpWallDist); //
+	}
+}
+
+void	calcul_draw(t_map *map, t_graph *graph, t_rting *rting)
+{
+	rting->lineHeight = (int)(480 / rting->perpWallDist);
+	ft_printf("lineHeight = %d\n", rting->lineHeight); //
+	rting->drawStart = -rting->lineHeight / 2 + 480 / 2;
+	ft_printf("drawStart = %d\n", rting->drawStart); //
+	if (rting->drawStart < 0)
+	{
+		rting->drawStart = 0;
+		ft_printf("drawStart SUP 0 = %d\n", rting->drawStart); //
+	}
+	rting->drawEnd = rting->lineHeight / 2 + 480 / 2;
+	ft_printf("drawEnd = %d\n", rting->drawEnd); //
+	if (rting->drawEnd >= 480)
+	{
+		rting->drawEnd = 480 - 1;
+		ft_printf("drawEnd SUPERIEUR HAUTEUR= %d\n", rting->drawEnd); //
+	}
+}
+
+void	color_wall(t_map *map, t_graph *graph, t_rting *rting)
+{
+	rting->color_south = 0x0066CC; //BLUE
+	rting->color_north = 0x990000; //RED
+	rting->color_east = 0xFFD700; //YELLOW
+	rting->color_west = 0x009900; //GREEN
+
+	if (rting->side == 0 && rting->raydirX > 0)
+	{
+		rting->color_wall = rting->color_north;	
+		ft_printf("COLOR NORTH = RED\n");
+	}
+	if (rting->side == 0 && rting->raydirX < 0)
+	{
+		rting->color_wall = rting->color_south;	
+		ft_printf("COLOR SOUTH = BLUE\n");
+	}
+	if (rting->side == 1 && rting->raydirY > 0)
+	{
+		rting->color_wall = rting->color_east;	
+		ft_printf("COLOR EAST = YELLOW\n");
+	}
+	else
+	{
+		rting->color_wall = rting->color_west;	
+		ft_printf("COLOR WEST = GREEN\n");
+	}
+}
+
+void	draw_wall(t_map *map, t_graph *graph, t_rting *rting, int x)
+{
+	int	y;
+
+	y = rting->drawStart;
+	while (y < rting->drawEnd)
+	{	
+		graph->recup.data[y * 640 + x] = rting->color_wall;
+		y++;	
+	}
+}
+
+void	draw_floor(t_map *map, t_graph *graph, t_rting *rting, int x)
+{
+	int	y;
+
+	y = 480 - 1;
+	while (y >= rting->drawEnd)
+	{
+		graph->recup.data[y * 640 + x] = 0x663300; //MARRON
+		y--;
+	}
+}
+
+void	draw_sky(t_map *map, t_graph *graph, t_rting *rting, int x)
+{
+	int	y;
+	
+	y = 0;
+	while (y < rting->drawStart)
+	{
+		graph->recup.data[y * 640 + x] = 0x33CCCC; //BLEU CIEL
+		y++;
 	}
 }
 
@@ -143,6 +229,12 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 		init_step_distray(map, graph, rting);
 		check_wall(map, graph, rting);
 		init_distperpwall(map, graph, rting);
+		calcul_draw(map, graph, rting);
+		color_wall(map, graph, rting);
+		draw_wall(map, graph, rting, x);
+		draw_floor(map, graph, rting, x);
+		draw_sky(map, graph, rting, x);
+		x++;
 	}
 }
 
@@ -166,8 +258,10 @@ void	start_graph(t_map *map)
 	ft_bzero(&rting, sizeof(rting));
 	ft_bzero(&graph, sizeof(graph));
 	init_map(map, &rting);
-	graph.recup.mlx_ptr = mlx_init(); //init mlx
-	graph.recup.win_ptr = mlx_new_window(graph.recup.mlx_ptr, 640, 480, "Cub3d"); //cree fenetre
+	init_graph(&graph, map);
 	start_raycasting(map, &graph, &rting);
+	graph.recup.win_ptr = mlx_new_window(graph.recup.mlx_ptr, 640, 480, "Cub3d");
+	mlx_put_image_to_window(graph.recup.mlx_ptr, graph.recup.win_ptr, graph.recup.img_ptr, 0, 0);
 	mlx_loop(graph.recup.mlx_ptr);
 }
+

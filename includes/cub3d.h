@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/11 15:52:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 16:10:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ typedef struct	s_recupg
 	void			*mlx_ptr;
 	void			*img_ptr;
 	int				*data;
+	int				*img_data;
 	unsigned long	img_color;
 	void			*win_ptr;
 	int				size_line;
@@ -329,6 +330,15 @@ typedef struct	s_rting
 	int		stepY; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas)
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
+	int		lineHeight; //hauteur du mur
+	int		drawStart; //calcul du pixel le plus bas
+	int		drawEnd; //calcul du pixel le plus haut
+	int		color_north;
+	int		color_south;
+	int		color_west;
+	int		color_east;
+	int		color_wall;
+	double	wall_pos;
 }				t_rting;
 
 # define	ACCESS	NULL
