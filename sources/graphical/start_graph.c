@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 19:46:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 21:16:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 void	init_raycasting(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
+	ft_printf("INIT RAYCASTING\n"); //
 	rting->cameraX = 2 * x / (double)map->recup.resolution[AXE_X] - 1; //si 1 = droite / 0 = centre / -1 = gauche
 	rting->raydirX = rting->dirX + rting->planeX * rting->cameraX;
 	rting->raydirY = rting->dirY + rting->planeY * rting->cameraX;
 	rting->mapX = (int)rting->posX;
 	rting->mapY = (int)rting->posY;
-	rting->deltaDistX = fabs(1 / rting->raydirX); //verif 0
-	rting->deltaDistY = fabs(1 / rting->raydirY); //verif 0
+	rting->deltaDistX = fabs(1 / rting->raydirX);
+	rting->deltaDistY = fabs(1 / rting->raydirY);
 }
 
 void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
 {
+	ft_printf("INIT STEP DISTRAY\n"); //
 	if (rting->raydirX < 0)
 	{	
 		rting->stepX = -1; //on se decale a gauche
@@ -58,6 +60,7 @@ void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
 void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 {
 	rting->hit = 0;
+	ft_printf("CHECK WALL\n"); //
 	while (rting->hit == 0)
 	{
 		if (rting->sideDistX < rting->sideDistY)
@@ -79,6 +82,7 @@ void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 
 void	init_distperpwall(t_map *map, t_graph *graph, t_rting *rting)
 {
+	ft_printf("INIT DISTPERWALL\n"); //
 	if (rting->side == 0)
 	{
 		rting->perpWallDist = (rting->mapX - rting->posX
@@ -97,6 +101,7 @@ void	init_distperpwall(t_map *map, t_graph *graph, t_rting *rting)
 
 void	calcul_draw(t_map *map, t_graph *graph, t_rting *rting)
 {
+	ft_printf("CALCUL DRAW\n"); //
 	rting->lineHeight = (int)(map->recup.resolution[AXE_Y] / rting->perpWallDist);
 	rting->drawStart = -rting->lineHeight / 2 + map->recup.resolution[AXE_Y] / 2;
 	if (rting->drawStart < 0)
@@ -112,27 +117,16 @@ void	color_wall(t_map *map, t_graph *graph, t_rting *rting)
 	rting->color_north = 0x990000; //RED
 	rting->color_east = 0xFFD700; //YELLOW
 	rting->color_west = 0x009900; //GREEN
-
+	
+	ft_printf("COLOR WALL\n"); //
 	if (rting->side == 0 && rting->raydirX > 0)
-	{
 		rting->color_wall = rting->color_north;	
-		ft_printf("COLOR NORTH = RED\n");
-	}
 	else if (rting->side == 0 && rting->raydirX < 0)
-	{
 		rting->color_wall = rting->color_south;	
-		ft_printf("COLOR SOUTH = BLUE\n");
-	}
 	else if (rting->side == 1 && rting->raydirY > 0)
-	{
 		rting->color_wall = rting->color_east;	
-		ft_printf("COLOR EAST = YELLOW\n");
-	}
 	else
-	{
 		rting->color_wall = rting->color_west;	
-		ft_printf("COLOR WEST = GREEN\n");
-	}
 }
 
 void	draw_wall(t_map *map, t_graph *graph, t_rting *rting, int x)
@@ -140,6 +134,7 @@ void	draw_wall(t_map *map, t_graph *graph, t_rting *rting, int x)
 	int	y;
 
 	y = rting->drawStart;
+	ft_printf("DRAW WALL\n"); //
 	while (y < rting->drawEnd)
 	{	
 		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = rting->color_wall;
@@ -152,6 +147,7 @@ void	draw_floor(t_map *map, t_graph *graph, t_rting *rting, int x)
 	int	y;
 
 	y = map->recup.resolution[AXE_Y] - 1;
+	ft_printf("DRAW FLOOR\n"); //
 	while (y >= rting->drawEnd)
 	{
 		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = 0x663300; //MARRON
@@ -164,6 +160,7 @@ void	draw_sky(t_map *map, t_graph *graph, t_rting *rting, int x)
 	int	y;
 	
 	y = 0;
+	ft_printf("DRAW SKY\n"); //
 	while (y < rting->drawStart)
 	{
 		graph->recup.data[y * map->recup.resolution[AXE_X] + x] = 0x33CCCC; //BLEU CIEL
@@ -176,7 +173,8 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 	int	x;
 
 	x = 0;
-	while (x <= map->recup.resolution[AXE_X] - 1)
+	ft_printf("START RAYCASTING\n"); //
+	while (x < map->recup.resolution[AXE_X])
 	{
 		init_raycasting(map, graph, rting, x);
 		init_step_distray(map, graph, rting);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 19:38:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 20:44:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,5 +395,6 @@ void			start_graph(t_map *map);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
 void			get_direction_position(t_map *map, t_rting *rting);
+void			get_plane(t_rting *rting, t_map *map);
 
 #endif
