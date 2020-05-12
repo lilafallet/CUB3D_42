@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 16:10:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/12 19:38:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@
 # define PI2 PI/2 //A CHANGER CAR PAS LE DROIT AU MACRO
 # define PI3 3*PI2
 # define DR 0.0174533 //pouvoir faire plusieurs rayons
+# define FOV 66
 
 # include "libft.h"
 # include "mlx.h"
@@ -393,5 +394,6 @@ t_graph			*graph_holder(t_graph *graph);
 void			start_graph(t_map *map);
 void			init_graph(t_graph *graph, t_map *map);
 void			process_window(t_graph *graph, t_map *map);
+void			get_direction_position(t_map *map, t_rting *rting);
 
 #endif
