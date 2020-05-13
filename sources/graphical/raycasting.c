@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 11:17:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 16:15:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,48 @@
 
 static void	init_raycasting(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
-	ft_printf("INIT RAYCASTING\n"); //
-	rting->cameraX = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+	rting->camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
 	//si 1 = droite / 0 = centre / -1 = gauche
-	rting->raydirX = rting->dirX + rting->planeX * rting->cameraX;
-	rting->raydirY = rting->dirY + rting->planeY * rting->cameraX;
-	rting->mapX = (int)rting->posX;
-	rting->mapY = (int)rting->posY;
-	rting->deltaDistX = fabs(1 / rting->raydirX);
-	rting->deltaDistY = fabs(1 / rting->raydirY);
+	rting->raydirx = rting->dirx + rting->planecamx * rting->camerax;
+	rting->raydiry = rting->diry + rting->planecamy * rting->camerax;
+	rting->mapx = (int)rting->posx;
+	rting->mapy = (int)rting->posy;
+	rting->deltadistx = fabs(1 / rting->raydirx);
+	rting->deltadisty = fabs(1 / rting->raydiry);
 }
 
 static void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
 {
-	ft_printf("INIT STEP DISTRAY\n"); //
-	if (rting->raydirX < 0)
+	if (rting->raydirx < 0)
 	{	
-		rting->stepX = -1; //on se decale a gauche
-		rting->sideDistX = (rting->posX - rting->mapX) * rting->deltaDistX;
+		rting->stepx = -1; //on se decale a gauche
+		rting->distx = (rting->posx - rting->mapx) * rting->deltadistx;
 		/*si la direction du rayon est negative (gauche),
-		sideDistX (distance du rayon entre sa position et le cote x du carre)
+		distx (distance du rayon entre sa position et le cote x du carre)
 		sera le premier cote a gauche*/
 	}
 	else
 	{
-		rting->stepX = 1; //on se decale a droite
-		rting->sideDistX = (rting->mapX + 1.0 - rting->posX) * rting->deltaDistX;
+		rting->stepx = 1; //on se decale a droite
+		rting->distx = (rting->mapx + 1.0 - rting->posx) * rting->deltadistx;
 		/*si la direction du rayon est positive (droite),
-		sideDistX (distance du rayon entre sa position et le cote x du carre)
+		distx (distance du rayon entre sa position et le cote x du carre)
 		sera le premier cote a droite*/
 	}
-	if (rting->raydirY < 0)
+	if (rting->raydiry < 0)
 	{
-		rting->stepY = -1; //on se decale en haut
-		rting->sideDistY = (rting->posY - rting->mapY) * rting->deltaDistY;
+		rting->stepy = -1; //on se decale en haut
+		rting->disty = (rting->posy - rting->mapy) * rting->deltadisty;
 		/*si la direction du rayon est negative (monte),
-		sideDistY (distance du rayon entre sa position et le cote y du carre)
+		disty (distance du rayon entre sa position et le cote y du carre)
 		sera le premier cote en haut*/
 	}
 	else
 	{
-		rting->stepY = 1; //on se decale en bas
-		rting->sideDistY = (rting->mapY + 1.0 - rting->posY) * rting->deltaDistY;
+		rting->stepy = 1; //on se decale en bas
+		rting->disty = (rting->mapy + 1.0 - rting->posy) * rting->deltadisty;
 		/*si la direction du rayon est positive (descend),
-		sideDistY (distance du rayon entre sa position et le cote y du carre)
+		disty (distance du rayon entre sa position et le cote y du carre)
 		sera le premier cote en bas*/
 	}
 }
@@ -65,52 +63,50 @@ static void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
 static void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 {
 	rting->hit = 0;
-	ft_printf("CHECK WALL\n"); //
 	while (rting->hit == 0)
 	{
-		if (rting->sideDistX < rting->sideDistY)
+		if (rting->distx < rting->disty)
 		{
-			rting->sideDistX += rting->deltaDistX;
-			rting->mapX += rting->stepX;
+			rting->distx += rting->deltadistx;
+			rting->mapx += rting->stepx;
 			rting->side = 0;
 		}
 		else
 		{
-			rting->sideDistY += rting->deltaDistY;
-			rting->mapY += rting->stepY;
+			rting->disty += rting->deltadisty;
+			rting->mapy += rting->stepy;
 			rting->side = 1;
 		}
-		if (map->recup.tab_map[rting->mapY][rting->mapX] == 1)
+		if (map->recup.tab_map[rting->mapy][rting->mapx] == 1)
 			rting->hit = 1;
 	} 
 }
 
 static void	calcul_draw(t_map *map, t_graph *graph, t_rting *rting)
 {
-	ft_printf("CALCUL DRAW\n"); //
 	if (rting->side == 0)
 	{
-		rting->perpWallDist = (rting->mapX - rting->posX
-								+ (1 - rting->stepX) / 2) / rting->raydirX;
-		/*si un cote X est atteind, perpWallDist = nombre de carres que
+		rting->perpwalldist = (rting->mapx - rting->posx
+								+ (1 - rting->stepx) / 2) / rting->raydirx;
+		/*si un cote X est atteind, perpwalldist = nombre de carres que
 		le rayon a traverse dans la direction de X*/
 	}
 	else
 	{
-		rting->perpWallDist = (rting->mapY - rting->posY
-								+ (1 - rting->stepY) / 2) / rting->raydirY;
-		/*si un cote Y est atteind, perpWallDist = nombre de carres que
+		rting->perpwalldist = (rting->mapy - rting->posy
+								+ (1 - rting->stepy) / 2) / rting->raydiry;
+		/*si un cote Y est atteind, perpwalldist = nombre de carres que
 		le rayon a traverse dans la direction de Y*/
 	}
-	rting->lineHeight = (int)(map->recup.resolution[AXE_Y]
-							/ rting->perpWallDist);
-	rting->drawStart = -rting->lineHeight / 2 + map->recup.resolution[AXE_Y]
+	rting->height_line = (int)(map->recup.resolution[AXE_Y]
+							/ rting->perpwalldist);
+	rting->start_draw = -rting->height_line / 2 + map->recup.resolution[AXE_Y]
 							/ 2;
-	if (rting->drawStart < 0)
-		rting->drawStart = 0;
-	rting->drawEnd = rting->lineHeight / 2 + map->recup.resolution[AXE_Y] / 2;
-	if (rting->drawEnd >= map->recup.resolution[AXE_Y])
-		rting->drawEnd = map->recup.resolution[AXE_Y] - 1;
+	if (rting->start_draw < 0)
+		rting->start_draw = 0;
+	rting->end_draw = rting->height_line / 2 + map->recup.resolution[AXE_Y] / 2;
+	if (rting->end_draw >= map->recup.resolution[AXE_Y])
+		rting->end_draw = map->recup.resolution[AXE_Y] - 1;
 }
 
 void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
@@ -118,7 +114,6 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 	int	x;
 
 	x = 0;
-	ft_printf("\nSTART RAYCASTING\n"); //
 	while (x < map->recup.resolution[AXE_X])
 	{
 		init_raycasting(map, graph, rting, x);

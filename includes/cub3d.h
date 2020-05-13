@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 11:05:15 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 16:11:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,35 +305,35 @@ typedef struct	s_set_coord
 
 typedef struct	s_rting
 {
-	double	posX; //position du joueur en X
-	double	posY; //position du joueur en Y
-	double	dirX; //direction du joueur vers X
-	double	dirY; //direction du joueur vers Y
-	double	planeX; //plan de la camera en x
-	double	planeY; //plan de la camera en y
+	double	posx; //position du joueur en X
+	double	posy; //position du joueur en Y
+	double	dirx; //direction du joueur vers X dirX
+	double	diry; //direction du joueur vers Y dirY
+	double	planecamx; //plan de la camera en x  planeX
+	double	planecamy; //plan de la camera en y planeY
 	double	time; //l'heure actuelle de l'image;
 	double	oldtime; //l'heure de l'image precedente
-	double	cameraX; //coordonnees de la camera sur x
-	double	raydirX; //direction du rayon sur X
-	double	raydirY; //direction du rayon sur Y
-	int		mapX; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
-					dans le carre*/
-	int		mapY; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
-					dans le carre*/
-	double	sideDistX; /*distance que le rayon doit parcourir de sa position de depart au premier
-						cote de x*/
-	double	sideDistY; /*distance que le rayon doit parcourir de sa position de depart au premier
-						cote de y*/
-	double	deltaDistX; //distance que le rayon doit parcourir du cote x au suivant
-	double	deltaDistY; //distance que le rayon doit parcourir du cote y au suivant
-	double	perpWallDist; //calculer la taille du rayon
-	int		stepX; //stocker si le deplacement de x est de -1 (gauche) ou +1 (droite)
-	int		stepY; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas)
+	double	camerax; //coordonnees de la camera sur x cameraX
+	double	raydirx; //direction du rayon sur X raydirX
+	double	raydiry; //direction du rayon sur Y raydirY
+	int		mapx; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
+					dans le carre mapx*/
+	int		mapy; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
+					dans le carre mapY*/
+	double	distx; /*distance que le rayon doit parcourir de sa position de depart au premier
+						cote de x sideDistX*/
+	double	disty; /*distance que le rayon doit parcourir de sa position de depart au premier
+						cote de y sideDistY*/
+	double	deltadistx; //distance que le rayon doit parcourir du cote x au suivant deltaDistX
+	double	deltadisty; //distance que le rayon doit parcourir du cote y au suivant deltaDistY
+	double	perpwalldist; //calculer la taille du rayon perpwalldist
+	int		stepx; //stocker si le deplacement de x est de -1 (gauche) ou +1 (droite) stepX
+	int		stepy; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas) stepY
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
-	int		lineHeight; //hauteur du mur
-	int		drawStart; //calcul du pixel le plus bas
-	int		drawEnd; //calcul du pixel le plus haut
+	int		height_line; //hauteur du mur lineHeight
+	int		start_draw; //calcul du pixel le plus bas drawStart
+	int		end_draw; //calcul du pixel le plus haut drawEnd
 	int		color_north;
 	int		color_south;
 	int		color_west;
@@ -341,6 +341,8 @@ typedef struct	s_rting
 	int		color_wall;
 	double	wall_pos;
 	int		color_f;
+	void	*texture;
+	int		*img_data;
 }				t_rting;
 
 # define	ACCESS	NULL
