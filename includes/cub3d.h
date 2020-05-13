@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/12 23:27:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 11:05:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,8 +394,15 @@ t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
 void			start_graph(t_map *map);
 void			init_graph(t_graph *graph, t_map *map);
-void			process_window(t_graph *graph, t_map *map);
 void			get_direction_position(t_map *map, t_rting *rting);
 void			get_plane(t_rting *rting, t_map *map);
-
+void			process_window(t_graph *graph);
+void			start_raycasting(t_map *map, t_graph *graph, t_rting *rting);
+void			hub_draw(t_map *map, t_graph *graph, t_rting *rting, int x);
+int				get_rgb(int r, int g, int b);
+void			get_direction_position(t_map *map, t_rting *rting);
+void			get_plane(t_rting *rting, t_map *map);
+t_graph			*graph_holder(t_graph *graph);
+void			init_map(t_map *map, t_rting *rting);
+		
 #endif
