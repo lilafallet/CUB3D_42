@@ -1,10 +1,10 @@
-SO drgjksjkpath_to_the_south_texture./
-WE ./path_to_the_west_texture
+SO ./textures/south.jpeg
+WE ./textures/west.jpeg
 S ./path_to_the_sprite_texture
-EA ./path_to_the_east_texture
+EA ./textures/east.jpeg
 C 0,204,255
 F 255,51,204
-NO ./path_to_the_north_texture
+NO ./textures/north.jpeg
 R 1400 1080
 
 111111111111111111111111
