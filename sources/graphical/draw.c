@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 16:18:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 16:49:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	draw_sky(t_map *map, t_graph *graph, t_rting *rting, int x)
 	}
 }
 
-static void	color_wall(t_map *map, t_graph *graph, t_rting *rting)
+void	shadow_wall(t_map *map, t_graph *graph, t_rting *rting)
 {
 	rting->color_south = 0x0066CC; //BLUE
 	rting->color_north = 0x990000; //RED
@@ -63,18 +63,17 @@ static void	color_wall(t_map *map, t_graph *graph, t_rting *rting)
 	rting->color_west = 0x009900; //GREEN
 	
 	if (rting->side == 0 && rting->raydirx > 0)
-		rting->color_wall = rting->color_north;
+		rting->color_wall = rting->color_north; //ombre
 	else if (rting->side == 0 && rting->raydirx < 0)
-		rting->color_wall = rting->color_south;	
+		rting->color_wall = rting->color_south;	//ombre
 	else if (rting->side == 1 && rting->raydiry > 0)
-		rting->color_wall = rting->color_east;	
+		rting->color_wall = rting->color_east;	//ombre
 	else
-		rting->color_wall = rting->color_west;	
+		rting->color_wall = rting->color_west;	//ombre
 }
 
 void	hub_draw(t_map *map, t_graph *graph, t_rting *rting, int x)
 {
-	color_wall(map, graph, rting);
 	draw_wall(map, graph, rting, x);
 	draw_floor(map, graph, rting, x);
 	draw_sky(map, graph, rting, x);

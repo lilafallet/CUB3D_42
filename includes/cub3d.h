@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 16:11:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 18:14:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@
 # define PI3 3*PI2
 # define DR 0.0174533 //pouvoir faire plusieurs rayons
 # define FOV 66
+# define WIDTH 0
+# define HEIGHT 1
 
 # include "libft.h"
 # include "mlx.h"
@@ -342,7 +344,9 @@ typedef struct	s_rting
 	double	wall_pos;
 	int		color_f;
 	void	*texture;
-	int		*img_data;
+	void	*text_data[NB_TEXTURE];
+	void	*text_img[NB_TEXTURE];
+	int		text_size[NB_TEXTURE][2];
 }				t_rting;
 
 # define	ACCESS	NULL
@@ -405,6 +409,8 @@ int				get_rgb(int r, int g, int b);
 void			get_direction_position(t_map *map, t_rting *rting);
 void			get_plane(t_rting *rting, t_map *map);
 t_graph			*graph_holder(t_graph *graph);
-void			init_map(t_map *map, t_rting *rting);
+void			init_map(t_map *map, t_rting *rting, t_graph *graph);
+void			shadow_wall(t_map *map, t_graph *graph, t_rting *rting);
+void			get_textures(t_map *map, t_graph *graph, t_rting *rting);
 		
 #endif

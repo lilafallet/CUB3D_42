@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 16:15:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 16:46:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,32 @@ static void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
 		rting->stepx = -1; //on se decale a gauche
 		rting->distx = (rting->posx - rting->mapx) * rting->deltadistx;
 		/*si la direction du rayon est negative (gauche),
-		distx (distance du rayon entre sa position et le cote x du carre)
-		sera le premier cote a gauche*/
+		  distx (distance du rayon entre sa position et le cote x du carre)
+		  sera le premier cote a gauche*/
 	}
 	else
 	{
 		rting->stepx = 1; //on se decale a droite
 		rting->distx = (rting->mapx + 1.0 - rting->posx) * rting->deltadistx;
 		/*si la direction du rayon est positive (droite),
-		distx (distance du rayon entre sa position et le cote x du carre)
-		sera le premier cote a droite*/
+		  distx (distance du rayon entre sa position et le cote x du carre)
+		  sera le premier cote a droite*/
 	}
 	if (rting->raydiry < 0)
 	{
 		rting->stepy = -1; //on se decale en haut
 		rting->disty = (rting->posy - rting->mapy) * rting->deltadisty;
 		/*si la direction du rayon est negative (monte),
-		disty (distance du rayon entre sa position et le cote y du carre)
-		sera le premier cote en haut*/
+		  disty (distance du rayon entre sa position et le cote y du carre)
+		  sera le premier cote en haut*/
 	}
 	else
 	{
 		rting->stepy = 1; //on se decale en bas
 		rting->disty = (rting->mapy + 1.0 - rting->posy) * rting->deltadisty;
 		/*si la direction du rayon est positive (descend),
-		disty (distance du rayon entre sa position et le cote y du carre)
-		sera le premier cote en bas*/
+		  disty (distance du rayon entre sa position et le cote y du carre)
+		  sera le premier cote en bas*/
 	}
 }
 
@@ -84,24 +84,10 @@ static void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
 
 static void	calcul_draw(t_map *map, t_graph *graph, t_rting *rting)
 {
-	if (rting->side == 0)
-	{
-		rting->perpwalldist = (rting->mapx - rting->posx
-								+ (1 - rting->stepx) / 2) / rting->raydirx;
-		/*si un cote X est atteind, perpwalldist = nombre de carres que
-		le rayon a traverse dans la direction de X*/
-	}
-	else
-	{
-		rting->perpwalldist = (rting->mapy - rting->posy
-								+ (1 - rting->stepy) / 2) / rting->raydiry;
-		/*si un cote Y est atteind, perpwalldist = nombre de carres que
-		le rayon a traverse dans la direction de Y*/
-	}
 	rting->height_line = (int)(map->recup.resolution[AXE_Y]
-							/ rting->perpwalldist);
+			/ rting->perpwalldist);
 	rting->start_draw = -rting->height_line / 2 + map->recup.resolution[AXE_Y]
-							/ 2;
+		/ 2;
 	if (rting->start_draw < 0)
 		rting->start_draw = 0;
 	rting->end_draw = rting->height_line / 2 + map->recup.resolution[AXE_Y] / 2;
@@ -119,6 +105,21 @@ void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
 		init_raycasting(map, graph, rting, x);
 		init_step_distray(map, graph, rting);
 		check_wall(map, graph, rting);
+		if (rting->side == 0)
+		{
+			rting->perpwalldist = (rting->mapx - rting->posx
+					+ (1 - rting->stepx) / 2) / rting->raydirx;
+			/*si un cote X est atteind, perpwalldist = nombre de carres que
+			  le rayon a traverse dans la direction de X*/
+		}
+		else
+		{
+			rting->perpwalldist = (rting->mapy - rting->posy
+					+ (1 - rting->stepy) / 2) / rting->raydiry;
+			/*si un cote Y est atteind, perpwalldist = nombre de carres que
+			  le rayon a traverse dans la direction de Y*/
+		}
+		shadow_wall(map, graph, rting);
 		calcul_draw(map, graph, rting);
 		hub_draw(map, graph, rting, x);
 		x++;

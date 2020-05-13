@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 15:53:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/13 18:03:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ void	process_window(t_graph *graph)
 	mlx_loop(graph->recup.mlx_ptr);
 }
 
-void	init_map(t_map *map, t_rting *rting)
+void	init_map(t_map *map, t_rting *rting, t_graph *graph)
 {
 	rting->posx = (double)map->recup.posx + (double)0.5;
 	rting->posy = (double)map->recup.posy + (double)0.5;
 	get_direction_position(map, rting);
 	get_plane(rting, map);
+	get_textures(map, graph, rting);
 }
