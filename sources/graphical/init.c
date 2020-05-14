@@ -6,40 +6,39 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 18:03:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 15:22:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_graph(t_graph *graph, t_map *map)
+void	init_gr(t_gr *gr, t_map *map)
 {
-	graph->recup.mlx_ptr = mlx_init();
-	graph->recup.win_ptr = mlx_new_window(graph->recup.mlx_ptr,
+	gr->win.mlx_ptr = mlx_init();
+	gr->win.win_ptr = mlx_new_window(gr->win.mlx_ptr,
 							map->recup.resolution[AXE_X],
 							map->recup.resolution[AXE_Y], "Cub3d");
-	graph->recup.img_ptr = mlx_new_image(graph->recup.mlx_ptr,
+	gr->recup.img_ptr = mlx_new_image(gr->win.mlx_ptr,
 							map->recup.resolution[AXE_X],
 							map->recup.resolution[AXE_Y]);
-	graph->recup.data = (int *)mlx_get_data_addr(graph->recup.img_ptr,
-											&graph->recup.bits,
-											&graph->recup.size_line,
-											&graph->recup.endian);
+	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
+												&gr->win.size_line,
+												&gr->win.endian);
 }
 
-void	process_window(t_graph *graph)
+void	process_window(t_gr *gr)
 {
-	mlx_put_image_to_window(graph->recup.mlx_ptr, graph->recup.win_ptr,
-								graph->recup.img_ptr, 0, 0);
-	mlx_destroy_image(graph->recup.mlx_ptr, graph->recup.img_ptr);
-	mlx_loop(graph->recup.mlx_ptr);
+	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+								0, 0);
+	mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+	mlx_loop(gr->win.mlx_ptr);
 }
 
-void	init_map(t_map *map, t_rting *rting, t_graph *graph)
+void	init_map(t_map *map, t_gr *gr)
 {
-	rting->posx = (double)map->recup.posx + (double)0.5;
-	rting->posy = (double)map->recup.posy + (double)0.5;
-	get_direction_position(map, rting);
-	get_plane(rting, map);
-	get_textures(map, graph, rting);
+	gr->rting.posx = (double)map->recup.posx + (double)0.5;
+	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+	get_direction_position(map, gr);
+	get_plane(gr, map);
+	get_textures(map, gr);
 }

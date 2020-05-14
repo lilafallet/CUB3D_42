@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 18:14:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 15:37:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@
 # define FOV 66
 # define WIDTH 0
 # define HEIGHT 1
+# define	ACCESS	NULL
 
 # include "libft.h"
 # include "mlx.h"
@@ -186,13 +187,9 @@
 # include <limits.h>
 # include <math.h>
 
-enum			e_state
-{
-	RESOLUTION,
-	TEXTURE,
-	COLOR,
-	MAP
-};
+/*############################################################################*/
+/*______________________________STRUCTURE MAP_________________________________*/
+/*############################################################################*/
 
 enum			e_map
 {
@@ -204,12 +201,6 @@ enum			e_map
 	STOP,
 	WRONG_INFO_MAP
 };
-
-typedef struct	s_f_info
-{
-	unsigned long	resolution_x;
-	unsigned long	resolution_y;
-}				t_f_info;
 
 typedef struct	s_recup
 {
@@ -243,6 +234,24 @@ typedef struct	s_utils
 
 }				t_utils;
 
+typedef struct	s_map
+{
+	t_recup			recup;
+	t_utils			utils;
+}				t_map;
+
+/*############################################################################*/
+/*______________________________STRUCTURE MACHINE_____________________________*/
+/*############################################################################*/
+
+enum			e_state
+{
+	RESOLUTION,
+	TEXTURE,
+	COLOR,
+	MAP
+};
+
 typedef struct	s_state_machine
 {
 	enum e_state		state;
@@ -250,60 +259,32 @@ typedef struct	s_state_machine
 	char				pad[4];
 }				t_state_machine;
 
-typedef struct	s_map
-{
-	t_recup			recup;
-	t_utils			utils;
-}				t_map;
+/*############################################################################*/
+/*______________________________STRUCTURE GRAPH_______________________________*/
+/*############################################################################*/
 
-typedef struct	s_recupg
+typedef struct	s_windows
 {
-	void			*mlx_ptr;
-	void			*img_ptr;
-	int				*data;
-	int				*img_data;
-	unsigned long	img_color;
-	void			*win_ptr;
-	int				size_line;
-	int				bits;
-	int				endian;
-}				t_recupg;
+	void			*mlx_ptr; //windows
+	void			*img_ptr; //windows
+	int				*data; //windows
+	int				*img_data; //windows
+	unsigned long	img_color; //windows
+	void			*win_ptr; //windows
+	int				size_line; //windows
+	int				bits; //windows
+	int				endian; //windows
+}				t_windows;
 
-typedef struct	s_utilsg
+typedef struct	s_color
 {
-	int				color_total_f;
-	int				r_f;
-	int				g_f;
-	int				b_f;
-	int				color_total_c;
-	int				color1_c;
-	int				color2_c;
-	int				color3_c;
-	int				img_x;
-	int				img_y;
-	int				pos_x;
-	int				pos_y;
-	int				size_x;
-	int				size_y;
-}				t_utilsg;
-
-typedef struct	s_graph
-{
-	t_recupg	recup;
-	t_utilsg	utils;
-}				t_graph;
-
-typedef struct	s_coord
-{
-	int			x;
-	int			y;
-}				t_coord;
-
-typedef struct	s_set_coord
-{
-	t_coord		start;
-	t_coord		end;
-}				t_set_coord;
+	int		color_north;
+	int		color_south;
+	int		color_west;
+	int		color_east;
+	int		color_wall;
+	int		color_f;
+}				t_color;
 
 typedef struct	s_rting
 {
@@ -333,23 +314,33 @@ typedef struct	s_rting
 	int		stepy; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas) stepY
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
+
+}				t_rting;
+
+typedef struct	s_draw
+{
 	int		height_line; //hauteur du mur lineHeight
 	int		start_draw; //calcul du pixel le plus bas drawStart
 	int		end_draw; //calcul du pixel le plus haut drawEnd
-	int		color_north;
-	int		color_south;
-	int		color_west;
-	int		color_east;
-	int		color_wall;
-	double	wall_pos;
-	int		color_f;
+}				t_draw;
+
+typedef struct	s_text
+{
 	void	*texture;
 	void	*text_data[NB_TEXTURE];
 	void	*text_img[NB_TEXTURE];
 	int		text_size[NB_TEXTURE][2];
-}				t_rting;
+}				t_text;
 
-# define	ACCESS	NULL
+typedef struct	s_graph
+{
+	t_windows		win;
+	t_color			color;
+	t_raycasting	rting;
+	t_draw			draw;
+	t_texture		text;
+}				t_graph;
+
 
 typedef	int	(*t_function)(t_vector *, t_map *, t_state_machine *);
 
@@ -398,19 +389,12 @@ t_state_machine	*get_state_machine(t_state_machine *machine);
 void			start_graph(t_map *map);
 t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
-void			start_graph(t_map *map);
-void			init_graph(t_graph *graph, t_map *map);
-void			get_direction_position(t_map *map, t_rting *rting);
-void			get_plane(t_rting *rting, t_map *map);
-void			process_window(t_graph *graph);
-void			start_raycasting(t_map *map, t_graph *graph, t_rting *rting);
-void			hub_draw(t_map *map, t_graph *graph, t_rting *rting, int x);
-int				get_rgb(int r, int g, int b);
-void			get_direction_position(t_map *map, t_rting *rting);
-void			get_plane(t_rting *rting, t_map *map);
-t_graph			*graph_holder(t_graph *graph);
-void			init_map(t_map *map, t_rting *rting, t_graph *graph);
-void			shadow_wall(t_map *map, t_graph *graph, t_rting *rting);
-void			get_textures(t_map *map, t_graph *graph, t_rting *rting);
+void			init_graph(t_graph *gr, t_map *map);
+void			process_window(t_graph *gr);
+void			init_map(t_map *map, t_graph *gr);
+void			get_direction_position(t_map *map, t_graph *gr);
+void			get_plane(t_graph *gr, t_map *map);
+void			start_raycasting(t_map *map, t_graph *gr);
+void			shadow_wall(t_map *map, t_graph *gr);
 		
 #endif

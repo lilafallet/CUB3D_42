@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 12:19:11 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 15:25:11 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_textures(t_map *map, t_graph *graph, t_rting *rting)
+void	get_textures(t_map *map, t_graph *gr)
 {
 	size_t	i;
 	int		w;
@@ -33,29 +33,31 @@ void	get_textures(t_map *map, t_graph *graph, t_rting *rting)
 	}*/
 	while (i < NB_TEXTURE)
 	{
-		rting->text_img[i] = mlx_xpm_file_to_image
-								(graph->recup.mlx_ptr, map->recup.str_texture[i],
+		gr->text.text_img[i] = mlx_xpm_file_to_image
+								(gr->win.recup.mlx_ptr, map->recup.str_texture[i],
 									&w, &h);
-		rting->text_size[i][WIDTH] = w;
-		rting->text_size[i][HEIGHT] = h;
-		/*ft_printf("ptr = %p : text_size[%d][WIDTH] = %d\n", rting->text_img[i],
-					i, rting->text_size[i][WIDTH]); */
-		/*ft_printf("ptr = %p : text_size[%d][HEIGHT] = %d\n", rting->text_img[i],
-					i, rting->text_size[i][HEIGHT]); */
+		gr->text.text_size[i][WIDTH] = w;
+		gr->text.text_size[i][HEIGHT] = h;
+		//TESTER LE RETOUR = message d'erreur -> wrong type of file
+		/*ft_printf("ptr = %p : text_size[%d][WIDTH] = %d\n", gr->text_img[i],
+					i, gr->text_size[i][WIDTH]); */
+		/*ft_printf("ptr = %p : text_size[%d][HEIGHT] = %d\n", gr->text_img[i],
+					i, gr->text_size[i][HEIGHT]); */
 		i++;
 	}
 	//ft_printf("\n");
 	i = 0;
 	while (i < NB_TEXTURE)
 	{
-		rting->text_data[i] = mlx_get_data_addr(rting->text_img[i],
-								&graph->recup.bits, &graph->recup.size_line,
-								&graph->recup.endian);
-		/*ft_printf("rting->text_data[%d] = %p\n", i, rting->text_data[i]); //
-		ft_printf("rting->text_img[%d] = %p\n", i, rting->text_img[i]); //
-		ft_printf("bits = %d\n", graph->recup.bits); //
-		ft_printf("size_line = %d\n", graph->recup.size_line); //
-		ft_printf("endian = %d\n\n", graph->recup.endian);*/
+		gr->text.text_data[i] = mlx_get_data_addr(gr->text.text_img[i],
+								&gr->win.bits, &gr->win.size_line,
+								&gr->win.endian);
+		//TESTER LE RETOUR = message d'erreur -> failed to get data
+		/*ft_printf("gr->text_data[%d] = %p\n", i, gr->text_data[i]); //
+		ft_printf("gr->text_img[%d] = %p\n", i, gr->text_img[i]); //
+		ft_printf("bits = %d\n", gr->recup.bits); //
+		ft_printf("size_line = %d\n", gr->recup.size_line); //
+		ft_printf("endian = %d\n\n", gr->recup.endian);*/
 		i++;
 	}	
 }

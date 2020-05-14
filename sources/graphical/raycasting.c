@@ -6,122 +6,129 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/13 16:46:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 15:35:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_raycasting(t_map *map, t_graph *graph, t_rting *rting, int x)
+static void	init_raycasting(t_map *map, t_graph *gr, int x)
 {
-	rting->camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
 	//si 1 = droite / 0 = centre / -1 = gauche
-	rting->raydirx = rting->dirx + rting->planecamx * rting->camerax;
-	rting->raydiry = rting->diry + rting->planecamy * rting->camerax;
-	rting->mapx = (int)rting->posx;
-	rting->mapy = (int)rting->posy;
-	rting->deltadistx = fabs(1 / rting->raydirx);
-	rting->deltadisty = fabs(1 / rting->raydiry);
+	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
+							* gr->rting.camerax;
+	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
+							* gr->rting.camerax;
+	gr->rting.mapx = (int)gr->rting.posx;
+	gr->rting.mapy = (int)gr->rting.posy;
+	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
 }
 
-static void	init_step_distray(t_map *map, t_graph *graph, t_rting *rting)
+static void	init_step_distray(t_map *map, t_graph *gr)
 {
-	if (rting->raydirx < 0)
+	if (gr->rting.raydirx < 0)
 	{	
-		rting->stepx = -1; //on se decale a gauche
-		rting->distx = (rting->posx - rting->mapx) * rting->deltadistx;
+		gr->rting.stepx = -1; //on se decale a gauche
+		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
+							* gr->rting.deltadistx;
 		/*si la direction du rayon est negative (gauche),
 		  distx (distance du rayon entre sa position et le cote x du carre)
 		  sera le premier cote a gauche*/
 	}
 	else
 	{
-		rting->stepx = 1; //on se decale a droite
-		rting->distx = (rting->mapx + 1.0 - rting->posx) * rting->deltadistx;
+		gr->rting.stepx = 1; //on se decale a droite
+		gr->rting.distx = (gr->rting.mapx + 1.0 - gr->rting.posx)
+							* gr->rting.deltadistx;
 		/*si la direction du rayon est positive (droite),
 		  distx (distance du rayon entre sa position et le cote x du carre)
 		  sera le premier cote a droite*/
 	}
-	if (rting->raydiry < 0)
+	if (gr->rting.raydiry < 0)
 	{
-		rting->stepy = -1; //on se decale en haut
-		rting->disty = (rting->posy - rting->mapy) * rting->deltadisty;
+		gr->rting.stepy = -1; //on se decale en haut
+		gr->rting.disty = (gr->rting.posy - gr->rting.mapy)
+							* gr->rting.deltadisty;
 		/*si la direction du rayon est negative (monte),
 		  disty (distance du rayon entre sa position et le cote y du carre)
 		  sera le premier cote en haut*/
 	}
 	else
 	{
-		rting->stepy = 1; //on se decale en bas
-		rting->disty = (rting->mapy + 1.0 - rting->posy) * rting->deltadisty;
+		gr->rting.stepy = 1; //on se decale en bas
+		gr->rting.disty = (gr->rting.mapy + 1.0 - gr->rting.posy)
+							* gr->rting.deltadisty;
 		/*si la direction du rayon est positive (descend),
 		  disty (distance du rayon entre sa position et le cote y du carre)
 		  sera le premier cote en bas*/
 	}
 }
 
-static void	check_wall(t_map *map, t_graph *graph, t_rting *rting)
+static void	check_wall(t_map *map, t_graph *gr)
 {
-	rting->hit = 0;
-	while (rting->hit == 0)
+	gr->rting.hit = 0;
+	while (gr->rting.hit == 0)
 	{
-		if (rting->distx < rting->disty)
+		if (gr->rting.distx < gr->rting.disty)
 		{
-			rting->distx += rting->deltadistx;
-			rting->mapx += rting->stepx;
-			rting->side = 0;
+			gr->rting.distx += gr->rting.deltadistx;
+			gr->rting.mapx += gr->rting.stepx;
+			gr->rting.side = 0;
 		}
 		else
 		{
-			rting->disty += rting->deltadisty;
-			rting->mapy += rting->stepy;
-			rting->side = 1;
+			gr->rting.disty += gr->rting.deltadisty;
+			gr->rting.mapy += gr->rting.stepy;
+			gr->rting.side = 1;
 		}
-		if (map->recup.tab_map[rting->mapy][rting->mapx] == 1)
-			rting->hit = 1;
+		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
+			gr->rting.hit = 1;
 	} 
 }
 
-static void	calcul_draw(t_map *map, t_graph *graph, t_rting *rting)
+static void	calcul_draw(t_map *map, t_graph *gr)
 {
-	rting->height_line = (int)(map->recup.resolution[AXE_Y]
-			/ rting->perpwalldist);
-	rting->start_draw = -rting->height_line / 2 + map->recup.resolution[AXE_Y]
-		/ 2;
-	if (rting->start_draw < 0)
-		rting->start_draw = 0;
-	rting->end_draw = rting->height_line / 2 + map->recup.resolution[AXE_Y] / 2;
-	if (rting->end_draw >= map->recup.resolution[AXE_Y])
-		rting->end_draw = map->recup.resolution[AXE_Y] - 1;
+	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
+			/ gr->rting.perpwalldist);
+	gr->draw.start_draw = -gr->draw.height_line / 2
+							+ map->recup.resolution[AXE_Y] / 2;
+	if (gr->draw.start_draw < 0)
+		gr->draw.start_draw = 0;
+	gr->draw.end_draw = gr->draw.height_line / 2
+							+ map->recup.resolution[AXE_Y] / 2;
+	if (gr->draw.end_draw >= map->recup.resolution[AXE_Y])
+		gr->draw.end_draw = map->recup.resolution[AXE_Y] - 1;
 }
 
-void	start_raycasting(t_map *map, t_graph *graph, t_rting *rting)
+void	start_raycasting(t_map *map, t_graph *gr)
 {
 	int	x;
 
 	x = 0;
 	while (x < map->recup.resolution[AXE_X])
 	{
-		init_raycasting(map, graph, rting, x);
-		init_step_distray(map, graph, rting);
-		check_wall(map, graph, rting);
-		if (rting->side == 0)
+		init_raycasting(map, gr, x);
+		init_step_distray(map, gr);
+		check_wall(map, gr);
+		if (gr->rting.side == 0)
 		{
-			rting->perpwalldist = (rting->mapx - rting->posx
-					+ (1 - rting->stepx) / 2) / rting->raydirx;
+			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
+					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
 			/*si un cote X est atteind, perpwalldist = nombre de carres que
 			  le rayon a traverse dans la direction de X*/
 		}
 		else
 		{
-			rting->perpwalldist = (rting->mapy - rting->posy
-					+ (1 - rting->stepy) / 2) / rting->raydiry;
+			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
+					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
 			/*si un cote Y est atteind, perpwalldist = nombre de carres que
 			  le rayon a traverse dans la direction de Y*/
 		}
-		shadow_wall(map, graph, rting);
-		calcul_draw(map, graph, rting);
-		hub_draw(map, graph, rting, x);
+		shadow_wall(map, gr);
+		calcul_draw(map, gr);
+		hub_draw(map, gr, x);
 		x++;
 	}
 }
