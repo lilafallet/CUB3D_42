@@ -1,10 +1,10 @@
-SO ./textures/south.jpeg
-WE ./textures/west.jpeg
-S ./textures/sprite.jpeg
-EA ./textures/east.jpeg
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+S ./textures/sprite.xpm
+EA ./textures/east.xpm
 C 0,204,255
 F 255,51,204
-NO ./textures/north.jpeg
+NO ./textures/north.xpm
 R 1800 1040
 
 111111111111111111111111
