@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 16:13:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:25:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ static void	calcul_draw(t_map *map, t_graph *gr)
 {
 	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
 			/ gr->rting.perpwalldist);
-	gr->draw.start_draw = -gr->draw.height_line / 2
+	gr->draw.start = -gr->draw.height_line / 2
 							+ map->recup.resolution[AXE_Y] / 2;
-	if (gr->draw.start_draw < 0)
-		gr->draw.start_draw = 0;
-	gr->draw.end_draw = gr->draw.height_line / 2
+	if (gr->draw.start < 0)
+		gr->draw.start = 0;
+	gr->draw.end = gr->draw.height_line / 2
 							+ map->recup.resolution[AXE_Y] / 2;
-	if (gr->draw.end_draw >= map->recup.resolution[AXE_Y])
-		gr->draw.end_draw = map->recup.resolution[AXE_Y] - 1;
+	if (gr->draw.end >= map->recup.resolution[AXE_Y])
+		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
 }
 
 void	start_raycasting(t_map *map, t_graph *gr)

@@ -6,186 +6,116 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 16:13:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:56:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#ifndef CUB3D_H
-# define CUB3D_H
-
-# ifndef TRUE
-#  define TRUE 1
-# endif
-
-# ifndef FALSE
-#  define FALSE 0
-# endif
-
-# ifndef SUCCESS
-#  define SUCCESS 0
-# endif
-
-# ifndef FAILURE
-#  define FAILURE -1
-# endif
-
-# define LEN_ZERO 1
-
-# define VOID_LINE 10
-
-# define ERROR 2
-# define NEXT 4
-# define NEXT_OTHERCHAR 6
-
-# define CHAR_RESOLUTION 'R'
-# define STR_TEXTURE_NO "NO"
-# define STR_TEXTURE_SO "SO"
-# define STR_TEXTURE_WE "WE"
-# define STR_TEXTURE_EA "EA"
-# define STR_MAP "012NSWE \t"
-# define STR_TEXTURE "NOSOWEEA"
-# define FIRST_TEXTURE "NSWE"
-# define STR_RESOLUTION "R"
-# define CHAR_WALL '1'
-# define NORTH 'N'
-# define SOUTH 'S'
-# define EAST 'E'
-# define WEST 'W'
-
-# define SPACE ' '
-# define TAB '\t'
-# define PATH "./"
-# define SIZE_PATH 2
-# define SLASH '/'
-# define PLUS '+'
-# define COMMA ','
-# define NB_COMMA 2
-
-# define BT_NO 			0x0000001
-# define BT_SO 			0x0000002
-# define BT_WE 			0x0000004
-# define BT_EA 			0x0000008
-# define BT_SPR			0x0000010
-# define BT_RESOLUTION	0x0000100
-# define BT_COLOR_F		0x0001000
-# define BT_COLOR_C		0x0002000
-
-# define ALL_INFO		0x000311f
-
-# define BT_F_RED 		0x0004000
-# define BT_F_GREEN 	0x0008000
-# define BT_F_BLUE 		0x0010000
-# define BT_C_RED 		0x0020000
-# define BT_C_GREEN 	0x0040000
-# define BT_C_BLUE 		0x0080000
-# define BT_POSITION_N 	0x0100000
-# define BT_POSITION_S 	0x0200000
-# define BT_POSITION_W 	0x0400000
-# define BT_POSITION_E 	0x0800000
-
-# define IS_ERROR										0xFFF000000
-# define NB_ERROR			12
-# define ERR_ARG			0
-# define ERR_GLOBAL			1
-# define ERR_SAVE			2
-# define ERR_FORMAT			3
-# define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x001000000
-# define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x002000000
-# define ERROR_COLOR_WRONG_TYPE_NUMBER					0x004000000
-# define ERROR_COLOR_NUMBER_COLOR_ARGUMENTS				0x008000000
-# define ERROR_COLOR_NUMBER_ARGUMENTS					0x010000000
-# define ERROR_COLOR_ALREADY							0x020000000
-# define ERROR_MAP_NOT_VALID							0x040000000
-# define ERROR_RESOLUTION_WRONG_TYPE_NUMBER				0x080000000
-# define ERROR_RESOLUTION_WRONG_TYPE_INDICATOR			0x100000000
-# define ERROR_TEXTURE_ALREADY							0x200000000
-# define ERROR_COLOR_NOT_NUMBER							0x400000000
-# define ERROR_TEXTURE_FORMAT							0x800000000
-
-# define ERR1				"RESOLUTION : too much information\n"
-# define ERR2				"TEXTURE = too much information\n"
-# define ERR3				"COLOR = wrong type of number\n"
-# define ERR4				"COLOR = number of color is invalid\n"
-# define ERR5				"COLOR = too much information\n"
-# define ERR6				"COLOR = alreagraph->recup.dy have color\n"
-# define ERR7				"MAP = invalid map\n"
-# define ERR8				"RESOLUTION = wrong type of number\n"
-# define ERR9				"RESOLUTION = wrong type of indicator\n"
-# define ERR10				"TEXTURE = alreagraph->recup.dy have texture\n"
-# define ERR11				"COLOR = the argument is not a number\n"
-# define ERR12				"TEXTURE = no path to the texture\n"
-# define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
-# define ERROR_STR_GLOBAL "one line is invalid\n"
-# define ERROR_ARGUMENT_SAVE "SAVE :sauver premiere image rendue format bmp\n"
-# define ERROR_ARGUMENT_FORMAT "ARGUMENTS : wrong format (expecting .cub)\n"
-
-# define STRING_CHECK_R		"SFCNSEW"
-# define STRING_SPACE_TAB " \t"
-
-# define BUFFER_SIZE 4096
-
-# define NB_TEXTURE 5
-# define NB_STATE 4
-# define NB_COLOR 3
-# define NB_RESOLUTION 2
-# define NB_POSITION_MAP 1
-# define NO 0
-# define SO 1
-# define WE 2
-# define EA 3
-# define S 4
-# define NB_INDIC_COLOR 2
-# define NB_INFO 4
-# define NB_DIFF_COLOR 4
-# define DIFF_LEN_COLOR 5
-# define IND_R_COLOR 0
-# define IND_NO_COLOR 1
-# define IND_SO_COLOR 2
-# define IND_WE_COLOR 3
-# define NB_DIFF_MAP_STR 4
-# define NB_DIFF_MAP_C 4
-# define DIFF_LEN_MAP 9
-# define IND_NO_MAP 0
-# define IND_SO_MAP 1
-# define IND_WE_MAP 2
-# define IND_EA_MAP 3
-# define IND_S_MAP 4
-# define IND_R_MAP 5
-# define IND_F_MAP 6
-# define IND_C_MAP 7
-# define WAY_WALL_SPRITE 3
-# define OUTMAP 6
-# define AXE_X 0
-# define AXE_Y 1
-# define FIRST_CHAR 0
-# define NB_DIFF_RESOL 5
-# define DIFF_LEN_RESOL 6
-# define IND_NO_RESOL 0
-# define IND_SO_RESOL 1
-# define IND_WE_RESOL 2
-# define IND_F_RESOL 3
-# define IND_C_RESOL 4
-# define R 0
-# define G 1
-# define B 2
-
-# define COLOR_C 0
-# define COLOR_F 1
-
-# define PI 3.1415926535 //A CHANGER CAR PAS LE DROIT AU MACRO
-# define PI2 PI/2 //A CHANGER CAR PAS LE DROIT AU MACRO
-# define PI3 3*PI2
-# define DR 0.0174533 //pouvoir faire plusieurs rayons
-# define FOV 66
-# define WIDTH 0
-# define HEIGHT 1
-# define	ACCESS	NULL
 
 # include "libft.h"
 # include "mlx.h"
 # include "mlx_int.h"
 # include <limits.h>
 # include <math.h>
+
+#ifndef CUB3D_H
+# define CUB3D_H
+
+# ifndef TRUE
+#  define TRUE		1
+# endif
+
+# ifndef FALSE
+#  define FALSE		0
+# endif
+
+# ifndef SUCCESS
+#  define SUCCESS	0
+# endif
+
+# ifndef FAILURE
+#  define FAILURE	-1
+# endif
+
+# define LEN_ZERO 			1
+# define VOID_LINE 			10
+# define ERROR				2
+# define NEXT 				4
+# define NEXT_OTHERCHAR 	6
+# define SIZE_PATH 			2
+# define NB_COMMA 			2
+# define NB_TEXTURE 		5
+# define NB_STATE 			4
+# define NB_COLOR 			3
+# define NB_RESOLUTION 		2
+# define NB_POSITION_MAP 	1
+# define NO 				0
+# define SO 				1
+# define WE 				2
+# define EA 				3
+# define S 					4
+# define NB_INDIC_COLOR 	2
+# define NB_INFO 			4
+# define NB_DIFF_COLOR 		4
+# define DIFF_LEN_COLOR 	5
+# define IND_R_COLOR 		0
+# define IND_NO_COLOR 		1
+# define IND_SO_COLOR 		2
+# define IND_WE_COLOR 		3
+# define NB_DIFF_MAP_STR 	4
+# define NB_DIFF_MAP_C 		4
+# define DIFF_LEN_MAP 		9
+# define IND_NO_MAP 		0
+# define IND_SO_MAP 		1
+# define IND_WE_MAP 		2
+# define IND_EA_MAP 		3
+# define IND_S_MAP 			4
+# define IND_R_MAP 			5
+# define IND_F_MAP 			6
+# define IND_C_MAP 			7
+# define WAY_WALL_SPRITE 	3
+# define OUTMAP 			6
+# define AXE_X 				0
+# define AXE_Y 				1
+# define FIRST_CHAR 		0
+# define NB_DIFF_RESOL 		5
+# define DIFF_LEN_RESOL 	6
+# define IND_NO_RESOL 		0
+# define IND_SO_RESOL 		1
+# define IND_WE_RESOL 		2
+# define IND_F_RESOL 		3
+# define IND_C_RESOL 		4
+# define R 					0
+# define G 					1
+# define B 					2
+# define COLOR_C 			0
+# define COLOR_F 			1
+# define WIDTH 				0
+# define HEIGHT 			1
+# define BUFFER_SIZE 		4096
+
+# define CHAR_RESOLUTION	'R'
+# define CHAR_WALL 			'1'
+# define NORTH 				'N'
+# define SOUTH 				'S'
+# define EAST 				'E'
+# define WEST 				'W'
+# define SPACE 				' '
+# define TAB 				'\t'
+# define PATH 				"./"
+# define SLASH 				'/'
+# define PLUS 				'+'
+# define COMMA 				','
+# define STRING_SPACE_TAB	" \t"
+
+# define STR_TEXTURE_NO	"NO"
+# define STR_TEXTURE_SO "SO"
+# define STR_TEXTURE_WE "WE"
+# define STR_TEXTURE_EA "EA"
+# define STR_MAP 		"012NSWE \t"
+# define STR_TEXTURE 	"NOSOWEEA"
+# define FIRST_TEXTURE 	"NSWE"
+# define STR_RESOLUTION "R"
+# define STRING_CHECK_R	"SFCNSEW"
+# define ACCESS			NULL
 
 /*############################################################################*/
 /*______________________________STRUCTURE MAP_________________________________*/
@@ -244,6 +174,70 @@ typedef struct	s_map
 /*______________________________STRUCTURE MACHINE_____________________________*/
 /*############################################################################*/
 
+/*############_INFO_##############*/
+
+# define ALL_INFO		0x000311f
+
+# define BT_NO 			0x0000001
+# define BT_SO 			0x0000002
+# define BT_WE 			0x0000004
+# define BT_EA 			0x0000008
+# define BT_SPR			0x0000010
+# define BT_RESOLUTION	0x0000100
+# define BT_COLOR_F		0x0001000
+# define BT_COLOR_C		0x0002000
+# define BT_F_RED 		0x0004000
+# define BT_F_GREEN 	0x0008000
+# define BT_F_BLUE 		0x0010000
+# define BT_C_RED 		0x0020000
+# define BT_C_GREEN 	0x0040000
+# define BT_C_BLUE 		0x0080000
+# define BT_POSITION_N 	0x0100000
+# define BT_POSITION_S 	0x0200000
+# define BT_POSITION_W 	0x0400000
+# define BT_POSITION_E 	0x0800000
+
+/*############_ERROR_##############*/
+
+# define NB_ERROR			12
+# define ERR_ARG			0
+# define ERR_GLOBAL			1
+# define ERR_SAVE			2
+# define ERR_FORMAT			3
+
+# define IS_ERROR										0xFFF000000
+# define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x001000000
+# define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x002000000
+# define ERROR_COLOR_WRONG_TYPE_NUMBER					0x004000000
+# define ERROR_COLOR_NUMBER_COLOR_ARGUMENTS				0x008000000
+# define ERROR_COLOR_NUMBER_ARGUMENTS					0x010000000
+# define ERROR_COLOR_ALREADY							0x020000000
+# define ERROR_MAP_NOT_VALID							0x040000000
+# define ERROR_RESOLUTION_WRONG_TYPE_NUMBER				0x080000000
+# define ERROR_RESOLUTION_WRONG_TYPE_INDICATOR			0x100000000
+# define ERROR_TEXTURE_ALREADY							0x200000000
+# define ERROR_COLOR_NOT_NUMBER							0x400000000
+# define ERROR_TEXTURE_FORMAT							0x800000000
+
+# define ERR1					"RESOLUTION : too much information\n"
+# define ERR2					"TEXTURE = too much information\n"
+# define ERR3					"COLOR = wrong type of number\n"
+# define ERR4					"COLOR = number of color is invalid\n"
+# define ERR5					"COLOR = too much information\n"
+# define ERR6					"COLOR = alreagraph->recup.dy have color\n"
+# define ERR7					"MAP = invalid map\n"
+# define ERR8					"RESOLUTION = wrong type of number\n"
+# define ERR9					"RESOLUTION = wrong type of indicator\n"
+# define ERR10					"TEXTURE = alreagraph->recup.dy have texture\n"
+# define ERR11					"COLOR = the argument is not a number\n"
+# define ERR12					"TEXTURE = no path to the texture\n"
+# define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
+# define ERROR_STR_GLOBAL 		"one line is invalid\n"
+# define ERROR_ARGUMENT_SAVE "SAVE :sauver premiere image rendue format bmp\n"
+# define ERROR_ARGUMENT_FORMAT	"ARGUMENTS : wrong format (expecting .cub)\n"
+
+/*############_STATE_##############*/
+
 enum			e_state
 {
 	RESOLUTION,
@@ -251,6 +245,8 @@ enum			e_state
 	COLOR,
 	MAP
 };
+
+/*############_STATE_MACHINE_##############*/
 
 typedef struct	s_state_machine
 {
@@ -262,6 +258,8 @@ typedef struct	s_state_machine
 /*############################################################################*/
 /*______________________________STRUCTURE GRAPH_______________________________*/
 /*############################################################################*/
+
+/*############_WINDOWS_##############*/
 
 typedef struct	s_windows
 {
@@ -276,15 +274,19 @@ typedef struct	s_windows
 	int				endian; //windows
 }				t_windows;
 
+/*############_COLOR_##############*/
+
 typedef struct	s_color
 {
-	int		color_north;
-	int		color_south;
-	int		color_west;
-	int		color_east;
-	int		color_wall;
+	int		north;
+	int		south;
+	int		west;
+	int		east;
+	int		wall;
 	int		color_f;
 }				t_color;
+
+/*############_RAYTRACING_##############*/
 
 typedef struct	s_rting
 {
@@ -317,20 +319,25 @@ typedef struct	s_rting
 
 }				t_raycasting;
 
+/*############_DRAW_##############*/
+
 typedef struct	s_draw
 {
 	int		height_line; //hauteur du mur lineHeight
-	int		start_draw; //calcul du pixel le plus bas drawStart
-	int		end_draw; //calcul du pixel le plus haut drawEnd
+	int		start; //calcul du pixel le plus bas drawStart
+	int		end; //calcul du pixel le plus haut drawEnd
 }				t_draw;
+
+/*############_TEXTURE_##############*/
 
 typedef struct	s_text
 {
-	void	*texture;
-	void	*text_data[NB_TEXTURE];
-	void	*text_img[NB_TEXTURE];
-	int		text_size[NB_TEXTURE][2];
+	void	*data[NB_TEXTURE];
+	void	*img[NB_TEXTURE];
+	int		size[NB_TEXTURE][2];
 }				t_texture;
+
+/*############_GRAPH_##############*/
 
 typedef struct	s_graph
 {
@@ -341,6 +348,11 @@ typedef struct	s_graph
 	t_texture		text;
 }				t_graph;
 
+/*############################################################################*/
+/*_________________________________FUNCTIONS__________________________________*/
+/*############################################################################*/
+
+/*############_PARSER_##############*/
 
 typedef	int	(*t_function)(t_vector *, t_map *, t_state_machine *);
 
@@ -386,9 +398,12 @@ int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 								t_state_machine *machine);
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
 t_state_machine	*get_state_machine(t_state_machine *machine);
-void			start_graph(t_map *map);
 t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
+
+/*############_GRAPH_##############*/
+
+void			start_graph(t_map *map);
 void			init_graph(t_graph *gr, t_map *map);
 void			process_window(t_graph *gr);
 void			init_map(t_map *map, t_graph *gr);
