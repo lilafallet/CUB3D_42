@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 15:41:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:14:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 	}
 }
 
-void	shadow_wall(t_map *map, t_graph *gr)
+void	shadow_wall(t_graph *gr)
 {
 	gr->color.color_south = 0x0066CC; //BLUE
 	gr->color.color_north = 0x990000; //RED
@@ -72,9 +72,9 @@ void	shadow_wall(t_map *map, t_graph *gr)
 		gr->color.color_wall = gr->color.color_west;	//ombre
 }
 
-void	hub_draw(t_map *map, t_graph *gr, t_graph *gr, int x)
+void	hub_draw(t_map *map, t_graph *gr, int x)
 {
-	draw_wall(map, gr, gr, x);
-	draw_floor(map, gr, gr, x);
-	draw_sky(map, gr, gr, x);
+	draw_wall(map, gr, x);
+	draw_floor(map, gr, x);
+	draw_sky(map, gr, x);
 }

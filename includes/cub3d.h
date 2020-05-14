@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 15:37:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:13:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,7 @@ typedef struct	s_rting
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
 
-}				t_rting;
+}				t_raycasting;
 
 typedef struct	s_draw
 {
@@ -330,7 +330,7 @@ typedef struct	s_text
 	void	*text_data[NB_TEXTURE];
 	void	*text_img[NB_TEXTURE];
 	int		text_size[NB_TEXTURE][2];
-}				t_text;
+}				t_texture;
 
 typedef struct	s_graph
 {
@@ -395,6 +395,9 @@ void			init_map(t_map *map, t_graph *gr);
 void			get_direction_position(t_map *map, t_graph *gr);
 void			get_plane(t_graph *gr, t_map *map);
 void			start_raycasting(t_map *map, t_graph *gr);
-void			shadow_wall(t_map *map, t_graph *gr);
+void			shadow_wall(t_graph *gr);
+void			hub_draw(t_map *map, t_graph *gr, int x);
+int				get_rgb(int r, int g, int b);
+void			get_textures(t_map *map, t_graph *gr);
 		
 #endif

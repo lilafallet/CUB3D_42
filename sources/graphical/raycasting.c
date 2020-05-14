@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 15:35:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/14 16:13:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
 }
 
-static void	init_step_distray(t_map *map, t_graph *gr)
+static void	init_step_distray(t_graph *gr)
 {
 	if (gr->rting.raydirx < 0)
 	{	
@@ -110,7 +110,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 	while (x < map->recup.resolution[AXE_X])
 	{
 		init_raycasting(map, gr, x);
-		init_step_distray(map, gr);
+		init_step_distray(gr);
 		check_wall(map, gr);
 		if (gr->rting.side == 0)
 		{
@@ -126,7 +126,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 			/*si un cote Y est atteind, perpwalldist = nombre de carres que
 			  le rayon a traverse dans la direction de Y*/
 		}
-		shadow_wall(map, gr);
+		shadow_wall(gr);
 		calcul_draw(map, gr);
 		hub_draw(map, gr, x);
 		x++;
