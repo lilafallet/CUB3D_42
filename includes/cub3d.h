@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 16:56:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 02:02:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ typedef struct	s_color
 	int		color_f;
 }				t_color;
 
-/*############_RAYTRACING_##############*/
+/*############_RAYCASTING_##############*/
 
 typedef struct	s_rting
 {
@@ -332,9 +332,16 @@ typedef struct	s_draw
 
 typedef struct	s_text
 {
-	void	*data[NB_TEXTURE];
+	int		*data[NB_TEXTURE];
 	void	*img[NB_TEXTURE];
 	int		size[NB_TEXTURE][2];
+	int		size_line[NB_TEXTURE];
+	int		bits[NB_TEXTURE];
+	int		endian[NB_TEXTURE];
+	double	wallx;
+	int		texx;
+	int		texy;
+	int		color;
 }				t_texture;
 
 /*############_GRAPH_##############*/
@@ -414,5 +421,7 @@ void			shadow_wall(t_graph *gr);
 void			hub_draw(t_map *map, t_graph *gr, int x);
 int				get_rgb(int r, int g, int b);
 void			get_textures(t_map *map, t_graph *gr);
+int				what_texture(t_graph *gr);
+double			calcul_texture(t_graph *gr);
 		
 #endif

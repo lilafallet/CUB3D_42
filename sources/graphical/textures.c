@@ -6,11 +6,31 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 16:29:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 00:38:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double	calcul_texture(t_graph *gr)
+{
+	return (gr->rting.side == 1 ? gr->rting.posy + gr->rting.perpwalldist
+								* gr->rting.raydiry
+							: gr->rting.posx + gr->rting.perpwalldist
+								* gr->rting.raydirx);
+}
+
+int		what_texture(t_graph *gr)
+{
+	if (gr->rting.side == 1 && gr->rting.raydirx > 0)
+		return (EA);
+	else if (gr->rting.side == 1 && gr->rting.raydirx < 0)
+		return (WE);
+	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+		return (NO);
+	else
+		return (SO);
+}
 
 void	get_textures(t_map *map, t_graph *gr)
 {
@@ -49,8 +69,8 @@ void	get_textures(t_map *map, t_graph *gr)
 	i = 0;
 	while (i < NB_TEXTURE)
 	{
-		gr->text.data[i] = mlx_get_data_addr(gr->text.img[i],
-								&gr->win.bits, &gr->win.size_line,
+		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
+								&gr->text.bits[i], &gr->text.size_line[i],
 								&gr->win.endian);
 		//TESTER LE RETOUR = message d'erreur -> failed to get data
 		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
