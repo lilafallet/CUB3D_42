@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 19:20:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 20:22:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,7 +413,9 @@ t_state_machine	*get_state_machine(t_state_machine *machine);
 t_map			*get_map(t_map *map);
 t_graph			*graph_holder(t_graph *graph);
 
-/*############_GRAPH_##############*/
+/*
+** ############_GRAPH_##############
+*/
 
 void			start_graph(t_map *map);
 void			init_graph(t_graph *gr, t_map *map);
