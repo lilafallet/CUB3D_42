@@ -6,44 +6,34 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 02:04:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 19:22:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_wall(t_map *map, t_graph *gr, int x)
+void	draw_wall(t_map *map, t_graph *gr, int x)
 {
+	int		y;
 
-	/*RELIRE LE CODE
-		VOIR CE QUE VAUT X, Y, TEXY
-		VOIR COMMENT AFFICHER L'IMAGE*/
-	int	y;
-	
 	if (gr->rting.side == 0)
-		gr->text.wallx = gr->rting.posy + gr->rting.perpwalldist
-								+ gr->rting.raydiry;
+			gr->text.wallx = gr->rting.posy + gr->rting.perpwalldist
+								* gr->rting.raydiry;
 	else
-		gr->text.wallx = gr->rting.posx + gr->rting.perpwalldist
-								+ gr->rting.raydirx;
+			gr->text.wallx = gr->rting.posx + gr->rting.perpwalldist
+								* gr->rting.raydirx;
 	gr->text.wallx -= (int)gr->text.wallx;
-	gr->text.texx = (int)gr->text.wallx * (double)640; //POURQUOI 640
-	if (gr->rting.side == 0)
-		gr->text.texx = 640 - gr->text.texx - 1;
-	if (gr->rting.side < 0)
-		gr->text.texx = 640 - gr->text.texx - 1;
+	gr->text.texx = gr->text.wallx * (double)gr->text.size[NO][WIDTH];
 	y = gr->draw.start;
-	while (y <= gr->draw.end)
+	while (y < gr->draw.end)
 	{
-		/*gr->win.data[y * map->recup.resolution[AXE_X] + x]
-							= gr->color.wall;*/
-		gr->text.texy = (((y - (map->recup.resolution[AXE_Y] / 2) + 
-							(gr->draw.height_line / 2)) * 640)
-							/ gr->draw.height_line);
-		gr->text.color = gr->text.data[NO][640 * gr->text.texy + gr->text.texx];
-		gr->win.data[y * map->recup.resolution[AXE_X] + x] = gr->text.color;
-		
-		y++;	
+		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
+							+ gr->draw.height_line / 2)
+							* gr->text.size[NO][HEIGHT] / gr->draw.height_line;
+		gr->win.data[x + y * (gr->win.size_line / 4)] =
+						gr->text.data[NO][gr->text.texx + gr->text.texy
+						* gr->text.size[NO][WIDTH]];
+		y++;
 	}
 }
 
@@ -96,7 +86,6 @@ void	shadow_wall(t_graph *gr)
 
 void	hub_draw(t_map *map, t_graph *gr, int x)
 {
-	draw_wall(map, gr, x);
 	draw_floor(map, gr, x);
 	draw_sky(map, gr, x);
 }

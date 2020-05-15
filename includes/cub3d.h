@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 02:02:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 19:20:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@
 # define WIDTH 				0
 # define HEIGHT 			1
 # define BUFFER_SIZE 		4096
+# define TEXTWIDTH			64
+# define TEXTHEIGHT			64
 
 # define CHAR_RESOLUTION	'R'
 # define CHAR_WALL 			'1'
@@ -272,6 +274,10 @@ typedef struct	s_windows
 	int				size_line; //windows
 	int				bits; //windows
 	int				endian; //windows
+	int				screenwidth;
+	int				screenheight;
+	int				mapwidth;
+	int				mapheight;
 }				t_windows;
 
 /*############_COLOR_##############*/
@@ -341,7 +347,6 @@ typedef struct	s_text
 	double	wallx;
 	int		texx;
 	int		texy;
-	int		color;
 }				t_texture;
 
 /*############_GRAPH_##############*/
@@ -423,5 +428,7 @@ int				get_rgb(int r, int g, int b);
 void			get_textures(t_map *map, t_graph *gr);
 int				what_texture(t_graph *gr);
 double			calcul_texture(t_graph *gr);
+void			draw_wall(t_map *map, t_graph *gr, int x);
+
 		
 #endif
