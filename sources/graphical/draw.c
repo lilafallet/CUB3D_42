@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 19:22:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 20:02:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	draw_wall(t_map *map, t_graph *gr, int x)
 {
 	int		y;
+	int		who;
 
+	who = what_texture(gr);
 	if (gr->rting.side == 0)
 			gr->text.wallx = gr->rting.posy + gr->rting.perpwalldist
 								* gr->rting.raydiry;
@@ -23,16 +25,16 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 			gr->text.wallx = gr->rting.posx + gr->rting.perpwalldist
 								* gr->rting.raydirx;
 	gr->text.wallx -= (int)gr->text.wallx;
-	gr->text.texx = gr->text.wallx * (double)gr->text.size[NO][WIDTH];
+	gr->text.texx = gr->text.wallx * (double)gr->text.size[who][WIDTH];
 	y = gr->draw.start;
 	while (y < gr->draw.end)
 	{
 		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
 							+ gr->draw.height_line / 2)
-							* gr->text.size[NO][HEIGHT] / gr->draw.height_line;
+							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
 		gr->win.data[x + y * (gr->win.size_line / 4)] =
-						gr->text.data[NO][gr->text.texx + gr->text.texy
-						* gr->text.size[NO][WIDTH]];
+						gr->text.data[who][gr->text.texx + gr->text.texy
+						* gr->text.size[who][WIDTH]];
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 12:44:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/15 20:02:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ double	calcul_texture(t_graph *gr)
 
 int		what_texture(t_graph *gr)
 {
-	if (gr->rting.side == 1 && gr->rting.raydirx > 0)
+	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
 		return (EA);
-	else if (gr->rting.side == 1 && gr->rting.raydirx < 0)
-		return (WE);
 	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+		return (WE);
+	else if (gr->rting.side == 1 && gr->rting.raydiry < 0)
 		return (NO);
 	else
 		return (SO);
