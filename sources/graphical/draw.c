@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 20:02:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/16 12:00:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 	else
 			gr->text.wallx = gr->rting.posx + gr->rting.perpwalldist
 								* gr->rting.raydirx;
-	gr->text.wallx -= (int)gr->text.wallx;
+	gr->text.wallx -= floor(gr->text.wallx);
 	gr->text.texx = gr->text.wallx * (double)gr->text.size[who][WIDTH];
 	y = gr->draw.start;
 	while (y < gr->draw.end)
