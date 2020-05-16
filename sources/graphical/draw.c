@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/16 12:00:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/16 16:54:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ static void	draw_floor(t_map *map, t_graph *gr, int x)
 	y = map->recup.resolution[AXE_Y] - 1;
 	floor_color = get_rgb(map->recup.tab_color_f[R], map->recup.tab_color_f[G],
 							map->recup.tab_color_f[B]); 
-	while (y >= gr->draw.end)
+	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
+	draw start qui correspond au pixel jusqu'a ou on peut allez*/
 	{
-		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color; //MARRON
+		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
+		//pixel a coloriser sur win
 		y--;
 	}
 }
@@ -62,14 +64,16 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 	y = 0;
 	sky_color = get_rgb(map->recup.tab_color_c[R], map->recup.tab_color_c[G],
 							map->recup.tab_color_c[B]); 
-	while (y < gr->draw.start)
+	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+	(jusqu'a draw start qui correspond au pixel jusqu'a ou on peut aller*/
 	{
-		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color; //BLEU CIEL
+		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+		//pixel a coloriser sur win
 		y++;
 	}
 }
 
-void	shadow_wall(t_graph *gr)
+void	shadow_wall(t_graph *gr) //DETERMINER COMMENT JE VAIS DEVOIR L'UTILSER
 {
 	gr->color.south = 0x0066CC; //BLUE
 	gr->color.north = 0x990000; //RED

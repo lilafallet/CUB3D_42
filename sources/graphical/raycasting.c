@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/15 19:10:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/16 17:59:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 {
 	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
 	//si 1 = droite / 0 = centre / -1 = gauche
+	//correspond que l'on voit, se deplace de gauche a droite en fonction de x*/
 	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
 							* gr->rting.camerax;
 	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
@@ -24,11 +25,12 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 	gr->rting.mapy = (int)gr->rting.posy;
 	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
 	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+	/*distance que le rayon doit parcourir du cote x/y au suivant*/
 }
 
 static void	init_step_distray(t_graph *gr)
 {
-	if (gr->rting.raydirx < 0)
+	if (gr->rting.raydirx < 0) //si le rayon est a gauche
 	{	
 		gr->rting.stepx = -1; //on se decale a gauche
 		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
