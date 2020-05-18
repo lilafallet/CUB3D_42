@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/16 17:59:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/18 14:30:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,22 @@ static void	init_step_distray(t_graph *gr)
 static void	check_wall(t_map *map, t_graph *gr)
 {
 	gr->rting.hit = 0;
-	while (gr->rting.hit == 0)
+	while (gr->rting.hit == 0) //tant qu'on a pas tappe de mur
 	{
 		if (gr->rting.distx < gr->rting.disty)
 		{
-			gr->rting.distx += gr->rting.deltadistx;
-			gr->rting.mapx += gr->rting.stepx;
-			gr->rting.side = 0;
+			gr->rting.distx += gr->rting.deltadistx; /*on ajoute la distance du
+			rayon a la distance du prochain rayon*/
+			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
+			se trouve le rayon sur x et on y ajoute step (si on se deplace a
+			gauche ou a droite)*/
+			gr->rting.side = 0; //WE & EA
 		}
 		else
 		{
 			gr->rting.disty += gr->rting.deltadisty;
 			gr->rting.mapy += gr->rting.stepy;
-			gr->rting.side = 1;
+			gr->rting.side = 1; //NO & SO
 		}
 		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
 			gr->rting.hit = 1;
@@ -93,13 +96,17 @@ static void	check_wall(t_map *map, t_graph *gr)
 static void	calcul_draw(t_map *map, t_graph *gr)
 {
 	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
-			/ gr->rting.perpwalldist);
+			/ gr->rting.perpwalldist); /*la hauteur du mur == resolution sur y
+	divise par la distance du rayon*/
 	gr->draw.start = -gr->draw.height_line / 2
 							+ map->recup.resolution[AXE_Y] / 2;
+	/*le debut des pixels == la negative de la hauteur du mur / 2 + la
+	resolution sur Y / 2*/
 	if (gr->draw.start < 0)
 		gr->draw.start = 0;
 	gr->draw.end = gr->draw.height_line / 2
 							+ map->recup.resolution[AXE_Y] / 2;
+	//le fin des pixels == la hauteur du mur / 2 + la resolution sur Y / 2
 	if (gr->draw.end >= map->recup.resolution[AXE_Y])
 		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
 }

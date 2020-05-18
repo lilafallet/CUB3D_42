@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/16 17:01:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/18 15:32:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,8 +330,8 @@ typedef struct	s_rting
 typedef struct	s_draw
 {
 	int		height_line; //hauteur du mur lineHeight
-	int		start; //calcul du pixel jusqu'a ou on doit allez
-	int		end; //calcul du pixel le plus haut drawEnd
+	int		start;
+	int		end;
 }				t_draw;
 
 /*############_TEXTURE_##############*/
@@ -344,9 +344,9 @@ typedef struct	s_text
 	int		size_line[NB_TEXTURE];
 	int		bits[NB_TEXTURE];
 	int		endian[NB_TEXTURE];
-	double	wallx;
-	int		texx;
-	int		texy;
+	double	wallhit; //la ou le mur a exactement ete tappe
+	int		texx; //position du pixel sur x
+	int		texy; //position du pixel sur y
 }				t_texture;
 
 /*############_GRAPH_##############*/
