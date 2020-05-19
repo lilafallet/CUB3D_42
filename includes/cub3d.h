@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/18 15:32:15 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 18:43:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,9 @@ typedef struct	s_text
 	double	wallhit; //la ou le mur a exactement ete tappe
 	int		texx; //position du pixel sur x
 	int		texy; //position du pixel sur y
+	double	step;
+	double	pos;
+	int		color;
 }				t_texture;
 
 /*############_GRAPH_##############*/

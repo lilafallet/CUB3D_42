@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 16:24:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 17:52:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int		what_texture(t_graph *gr)
 {
-	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+	if (gr->rting.side == EA && gr->rting.raydirx > 0)
 	{
 		//superieur a zero sur x on va vers l'est
 		return (EA);
 	}
-	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+	else if (gr->rting.side == WE && gr->rting.raydirx < 0)
 	{	
 		//inferieur a zero sur x on va vers l'ouest
 		return (WE);
 	}	
-	else if (gr->rting.side == 1 && gr->rting.raydiry < 0)
+	else if (gr->rting.side == NO && gr->rting.raydiry < 0)
 	{
 		//inferieur a zero sur y on va vers le nord
 		return (NO);

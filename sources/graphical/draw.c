@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 16:18:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 20:23:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 	int		who;
 
 	who = what_texture(gr);
-	if (gr->rting.side == 0)
+	if (gr->rting.side == EA || gr->rting.side == WE)
 	{
 			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
 								* gr->rting.raydiry;
@@ -33,10 +33,14 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
 	prendre la valeur du dessous (ex floor(2.51) = 2) -> permet d'avoir une
 	ligne bien droite*/
-	gr->text.texx = gr->text.wallhit * (double)gr->text.size[who][WIDTH];
+	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
 	/*permet d'avoir la position du pixel sur x = la ou a ete tappe le mur
 	* la largeur de l'image EUUUUH BIZARRE NON*/
 	y = gr->draw.start;
+	if ((gr->rting.side == NO || gr->rting.side == SO) && gr->rting.raydiry > 0)
+		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+	if ((gr->rting.side == WE || gr->rting.side == EA) && gr->rting.raydirx < 0)
+		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
 	while (y < gr->draw.end)
 	{
 		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
@@ -98,11 +102,11 @@ void	shadow_wall(t_graph *gr) //DETERMINER COMMENT JE VAIS DEVOIR L'UTILSER
 	gr->color.east = 0xFFD700; //YELLOW
 	gr->color.west = 0x009900; //GREEN
 	
-	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+	if (gr->rting.side == NO && gr->rting.raydirx > 0)
 		gr->color.wall = gr->color.north; //ombre
-	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+	else if (gr->rting.side == SO && gr->rting.raydirx < 0)
 		gr->color.wall = gr->color.south;	//ombre
-	else if (gr->rting.side == 1 && gr->rting.raydiry > 0)
+	else if (gr->rting.side == EA && gr->rting.raydiry > 0)
 		gr->color.wall = gr->color.east;	//ombre
 	else
 		gr->color.wall = gr->color.west;	//ombre

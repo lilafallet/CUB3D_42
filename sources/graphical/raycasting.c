@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/18 14:30:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 17:56:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ static void	check_wall(t_map *map, t_graph *gr)
 			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
 			se trouve le rayon sur x et on y ajoute step (si on se deplace a
 			gauche ou a droite)*/
-			gr->rting.side = 0; //WE & EA
+			gr->rting.side = gr->rting.stepx == 1 ? EA : WE;
 		}
 		else
 		{
 			gr->rting.disty += gr->rting.deltadisty;
 			gr->rting.mapy += gr->rting.stepy;
-			gr->rting.side = 1; //NO & SO
+			gr->rting.side = gr->rting.stepy == 1 ? SO : NO;
 		}
 		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
 			gr->rting.hit = 1;
@@ -121,7 +121,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 		init_raycasting(map, gr, x);
 		init_step_distray(gr);
 		check_wall(map, gr);
-		if (gr->rting.side == 0)
+		if (gr->rting.side == EA || gr->rting.side == WE)
 		{
 			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
 					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
