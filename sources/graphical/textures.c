@@ -6,19 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/18 14:37:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 16:24:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-double	calcul_texture(t_graph *gr)
-{
-	return (gr->rting.side == 0 ? gr->rting.posy + gr->rting.perpwalldist
-								* gr->rting.raydiry
-							: gr->rting.posx + gr->rting.perpwalldist
-								* gr->rting.raydirx);
-}
 
 int		what_texture(t_graph *gr)
 {

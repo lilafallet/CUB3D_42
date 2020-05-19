@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/18 15:55:00 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/19 16:18:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
 	prendre la valeur du dessous (ex floor(2.51) = 2) -> permet d'avoir une
 	ligne bien droite*/
-	printf("wallhit = %lf\n", gr->text.wallhit); //
 	gr->text.texx = gr->text.wallhit * (double)gr->text.size[who][WIDTH];
 	/*permet d'avoir la position du pixel sur x = la ou a ete tappe le mur
 	* la largeur de l'image EUUUUH BIZARRE NON*/
-	printf("texx = %d\n", gr->text.texx); //
 	y = gr->draw.start;
 	while (y < gr->draw.end)
 	{
@@ -47,7 +45,6 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 		/*permet d'avoir la position du pixel sur y = debut du pixel
 		- la resolution sur y (div par 2) + la hauteur du mur (div par 2)
 		* la hauteur de l'image / par la hauteur du mur EUUUH BIZARRE NON*/ 
-		printf("texy = %d\n", gr->text.texy); //
 		gr->win.data[x + y * (gr->win.size_line / 4)] =
 						gr->text.data[who][gr->text.texx + gr->text.texy
 						* gr->text.size[who][WIDTH]];
@@ -56,9 +53,6 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 		de la fenetre * (A QUOI CORRESPOND SIZELINE ??) / 4 (POURQUOI 4) = 
 		le pixel de la texture x + pixel de la texture y * la largeur de la
 		texture*/
-		printf("data = %d\n", x + y * (gr->win.size_line / 4)); //
-		printf("content = %d\n\n", gr->text.data[who][gr->text.texx
-		+ gr->text.texy * gr->text.size[who][WIDTH]]); //
 		y++;
 	}
 }
