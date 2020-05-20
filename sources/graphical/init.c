@@ -6,11 +6,18 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 16:09:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/20 14:22:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <unistd.h> //
+
+static int	deal_key(int key, void *param)
+{
+	ft_putnbr(key); //
+	return (SUCCESS);
+}
 
 void	init_graph(t_graph *gr, t_map *map)
 {
@@ -31,6 +38,7 @@ void	process_window(t_graph *gr)
 	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
 								0, 0);
 	mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+	mlx_key_hook(gr->win.win_ptr, deal_key, (void *)0);
 	mlx_loop(gr->win.mlx_ptr);
 }
 
