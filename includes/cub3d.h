@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 18:43:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/20 17:44:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,12 @@
 # define WIDTH 				0
 # define HEIGHT 			1
 # define BUFFER_SIZE 		4096
-# define TEXTWIDTH			64
-# define TEXTHEIGHT			64
+# define MV_UP				119
+# define MV_LEFT			97
+# define MV_DOWN			115
+# define MV_RIGHT			100
+# define KEYPRESS			2
+# define KEYRELEASE			3
 
 # define CHAR_RESOLUTION	'R'
 # define CHAR_WALL 			'1'
@@ -352,6 +356,16 @@ typedef struct	s_text
 	int		color;
 }				t_texture;
 
+/*############_TEXTURE_##############*/
+
+typedef struct	s_key
+{
+	int	up;
+	int	left;
+	int	down;
+	int	right;
+}				t_key;
+
 /*############_GRAPH_##############*/
 
 typedef struct	s_graph
@@ -361,6 +375,7 @@ typedef struct	s_graph
 	t_raycasting	rting;
 	t_draw			draw;
 	t_texture		text;
+	t_key			key;
 }				t_graph;
 
 /*############################################################################*/
@@ -434,6 +449,7 @@ void			get_textures(t_map *map, t_graph *gr);
 int				what_texture(t_graph *gr);
 double			calcul_texture(t_graph *gr);
 void			draw_wall(t_map *map, t_graph *gr, int x);
+int				keyrelease(int key, t_graph *gr);
+int				keypress(int key, t_graph *gr);
 
-		
 #endif
