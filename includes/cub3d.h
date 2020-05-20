@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/20 17:44:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/20 20:17:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@
 # define MV_RIGHT			100
 # define KEYPRESS			2
 # define KEYRELEASE			3
+# define LK_LEFT			65361
+# define LK_RIGHT			65363
 
 # define CHAR_RESOLUTION	'R'
 # define CHAR_WALL 			'1'
@@ -356,14 +358,18 @@ typedef struct	s_text
 	int		color;
 }				t_texture;
 
-/*############_TEXTURE_##############*/
+/*############_KEY_##############*/
+
+# define MV_UP 			0x0000001
+# define MV_DOWN 		0x0000002
+# define MV_LEFT 		0x0000004
+# define MV_RIGHT		0x0000008
+# define LK_LEFT		0x0000010
+# define LK_RIGHT		0x0000100
 
 typedef struct	s_key
 {
-	int	up;
-	int	left;
-	int	down;
-	int	right;
+	int	log;
 }				t_key;
 
 /*############_GRAPH_##############*/
