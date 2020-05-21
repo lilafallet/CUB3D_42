@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/05/20 17:45:33 by lfallet          ###   ########.fr        #
+#    Updated: 2020/05/21 10:23:14 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -65,6 +65,7 @@ SRCS += utils.c
 SRCS += init.c
 SRCS += textures.c
 SRCS += key.c
+SRCS += moove.c
 
 OBJ_DIR = ./objs/
 
