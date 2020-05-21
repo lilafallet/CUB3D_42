@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/20 20:17:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/21 09:34:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,6 @@
 # define WIDTH 				0
 # define HEIGHT 			1
 # define BUFFER_SIZE 		4096
-# define MV_UP				119
-# define MV_LEFT			97
-# define MV_DOWN			115
-# define MV_RIGHT			100
-# define KEYPRESS			2
-# define KEYRELEASE			3
-# define LK_LEFT			65361
-# define LK_RIGHT			65363
 
 # define CHAR_RESOLUTION	'R'
 # define CHAR_WALL 			'1'
@@ -359,6 +351,15 @@ typedef struct	s_text
 }				t_texture;
 
 /*############_KEY_##############*/
+
+# define KEYPRESS			2
+# define KEYRELEASE			3
+# define KMV_UP				119
+# define KMV_DOWN			115
+# define KMV_LEFT			97
+# define KMV_RIGHT			100
+# define KLK_LEFT			65361
+# define KLK_RIGHT			65363
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
