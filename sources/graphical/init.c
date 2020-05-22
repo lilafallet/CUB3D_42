@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/21 10:20:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 15:01:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	process_window(t_graph *gr)
 	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
 								0, 0);
 	//mlx_key_hook(gr->win.win_ptr, deal_key, (void *)0);
-	mlx_hook(gr->win.win_ptr, KEYPRESS, 0, keypress, gr);
-	mlx_hook(gr->win.win_ptr, KEYRELEASE, 0, keyrelease, gr);
-	mlx_loop_hook(gr->win.mlx_ptr, moove, gr);
+	mlx_hook(gr->win.win_ptr, KEYPRESS, 1L << 0, keypress, gr);
+	mlx_hook(gr->win.win_ptr, KEYRELEASE, 1L << 1, keyrelease, gr);
+	//mlx_loop_hook(gr->win.mlx_ptr, moove, gr);
 	mlx_loop(gr->win.mlx_ptr);
 }
 

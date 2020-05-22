@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/21 10:27:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 14:51:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	moove(t_graph *gr)
 {
 	t_map	*map;
 
+	ft_printf("HEYOH\n"); //
 	map = get_map(NULL);
 	return (SUCCESS);
 }

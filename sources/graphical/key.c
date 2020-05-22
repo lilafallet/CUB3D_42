@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:43:07 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 13:37:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 16:46:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	keyrelease(int key, t_graph *gr)
 		gr->mv.log &= ~LK_LEFT;
 	else if (gr->mv.log & LK_RIGHT)
 		gr->mv.log &= ~LK_RIGHT;
-	return (SUCCESS);
+	return (TRUE);
 }
 
 int	keypress(int key, t_graph *gr)
@@ -73,5 +73,5 @@ int	keypress(int key, t_graph *gr)
 	else if (key == KLK_RIGHT)
 		gr->mv.log |= LK_RIGHT;
 	init_moove(gr);
-	return (SUCCESS);
+	return (TRUE);
 }
