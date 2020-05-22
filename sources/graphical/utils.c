@@ -6,11 +6,17 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:52:06 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/14 16:05:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 21:59:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		is_wall(t_graph *gr, t_map *map)
+{
+	return (map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posy]
+									== WALL ? TRUE : FALSE);
+}
 
 t_graph	*gr_holder(t_graph *gr)
 {

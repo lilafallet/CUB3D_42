@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 18:55:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 21:29:07 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,5 +470,6 @@ void			draw_wall(t_map *map, t_graph *gr, int x);
 int				keyrelease(int key, t_graph *gr);
 int				keypress(int key, t_graph *gr);
 int				moove(t_graph *gr);
+int				is_wall(t_graph *gr, t_map *map);
 
 #endif
