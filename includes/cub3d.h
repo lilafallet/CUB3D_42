@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 17:14:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 18:55:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ typedef struct	s_rting
 	int		stepy; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas) stepY
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
+	int		mv_update;
 
 }				t_raycasting;
 
@@ -360,7 +361,7 @@ typedef struct	s_text
 # define KMV_RIGHT			100
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
-# define SPEED				0.02
+# define SPEED				0.08
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
