@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/21 10:22:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/22 13:33:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,7 +350,7 @@ typedef struct	s_text
 	int		color;
 }				t_texture;
 
-/*############_KEY_##############*/
+/*############_MOOVE_##############*/
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
@@ -368,10 +368,15 @@ typedef struct	s_text
 # define LK_LEFT		0x0000010
 # define LK_RIGHT		0x0000100
 
-typedef struct	s_key
+# define DIR_POS	1
+# define DIR_NEG	-1
+
+typedef struct	s_mv
 {
 	int	log;
-}				t_key;
+	int	mv_dir;
+	int	lk_dir;
+}				t_moove;
 
 /*############_GRAPH_##############*/
 
@@ -382,7 +387,7 @@ typedef struct	s_graph
 	t_raycasting	rting;
 	t_draw			draw;
 	t_texture		text;
-	t_key			key;
+	t_moove			mv;
 }				t_graph;
 
 /*############################################################################*/
