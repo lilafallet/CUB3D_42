@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/24 20:26:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/24 20:36:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	moove(t_graph *gr)
 		gr->rting.posy = gr->mv.new_planecamy;
 		gr->mv.new_planecamx = 0;
 		gr->mv.new_planecamy = 0;
+		init_graph(gr, map);
+		process_window(gr);	
 	}
 	else if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
