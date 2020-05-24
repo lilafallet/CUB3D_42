@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 21:29:07 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/24 20:18:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,7 +361,8 @@ typedef struct	s_text
 # define KMV_RIGHT			100
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
-# define SPEED				0.08
+# define SPEED_MV			0.08
+# define SPEED_LK			3
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
@@ -372,6 +373,7 @@ typedef struct	s_text
 
 # define DIR_POS	1
 # define DIR_NEG	-1
+# define DEGREE		180
 
 typedef struct	s_mv
 {
@@ -380,8 +382,12 @@ typedef struct	s_mv
 	int		lk_dir;
 	double	new_posx;
 	double	new_posy;
-	double	rotx;
-	double	roty;
+	double	degree_lk;
+	double	radius_lk;
+	double	new_planecamx;
+	double	new_planecamy;
+	double	new_dirx;
+	double	new_diry;
 }				t_moove;
 
 /*############_GRAPH_##############*/
