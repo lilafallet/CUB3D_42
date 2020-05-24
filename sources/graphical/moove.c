@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 22:02:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/24 16:12:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	moove(t_graph *gr)
 	//else if (gr->mv.log & LOOK_RIGHT || gr->mov.log & LOOK_LEFT)
 	if (is_wall(gr, map) == FALSE)
 	{
-		gr->rting.mv_update = TRUE;
-		gr->rting.posx = gr->mv.new_posx;
-		gr->rting.posy = gr->mv.new_posy;
-		ft_printf("PAS DE MUR\n"); //
+			gr->rting.mv_update = TRUE;
+			ft_printf("PAS DE MUR\n"); //
 	}
 	if (gr->rting.mv_update == TRUE)
 	{
+		gr->rting.posx = gr->mv.new_posx;
+		gr->rting.posy = gr->mv.new_posy;
 		init_graph(gr, map);
 		process_window(gr);	
 	}

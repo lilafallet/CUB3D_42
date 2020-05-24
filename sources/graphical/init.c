@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 18:52:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/24 16:27:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	init_map(t_map *map, t_graph *gr)
 {
 	gr->rting.posx = (double)map->recup.posx + (double)0.5;
 	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+	gr->mv.new_posx = gr->rting.posx;
+	gr->mv.new_posy = gr->rting.posy;
 	get_direction_position(map, gr);
 	get_plane(gr, map);
 	get_textures(map, gr);
