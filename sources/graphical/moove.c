@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 15:43:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/25 17:43:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	moove(t_graph *gr)
 	{
 		if (gr->mv.log & LK_LEFT)
 		{
+			ft_printf("LOOK LEFT\n"); //
 			gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
 								* sin(-SPEED_LK);
 			gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
@@ -37,6 +38,7 @@ int	moove(t_graph *gr)
 		}
 		else if (gr->mv.log & LK_RIGHT)
 		{
+			ft_printf("LOOK RIGHT\n"); //
 			gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
 								* sin(SPEED_LK);
 			gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
@@ -49,6 +51,7 @@ int	moove(t_graph *gr)
 	}
 	else if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
+		ft_printf("MV UP || MV DOWN\n"); //
 		gr->mv.new_posx = gr->rting.posx + gr->rting.dirx * SPEED_MV
 							* gr->mv.mv_dir;
 		gr->mv.new_posy = gr->rting.posy + gr->rting.diry * SPEED_MV
@@ -56,6 +59,7 @@ int	moove(t_graph *gr)
 	}
 	else if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
 	{
+		ft_printf("MV RIGHT || MV LEFT\n"); //
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
 							- gr->rting.diry * SPEED_MV : gr->rting.posx
 							+ gr->rting.diry * SPEED_MV;
@@ -67,7 +71,6 @@ int	moove(t_graph *gr)
 			gr->rting.mv_update = TRUE;
 	if (gr->rting.mv_update == TRUE)
 	{
-		ft_printf("HELLO\n"); //
 		gr->rting.posx = gr->mv.new_posx;
 		gr->rting.posy = gr->mv.new_posy;
 		init_graph(gr, map);
