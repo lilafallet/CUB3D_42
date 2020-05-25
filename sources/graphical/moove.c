@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 19:16:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/25 19:31:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	moove(t_graph *gr)
 	tmp_planecamx = gr->rting.planecamx;
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
 	{
-		ft_printf("LOOK LEFT || LOOK RIGHT\n"); //
 		if (gr->mv.log & LK_LEFT)
 		{
 			gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
@@ -50,7 +49,6 @@ int	moove(t_graph *gr)
 	}
 	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
-		ft_printf("MV UP || MV DOWN\n"); //
 		gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
 							* SPEED_MV : gr->rting.posx - gr->rting.dirx
 							*SPEED_MV;
@@ -60,7 +58,6 @@ int	moove(t_graph *gr)
 	}
 	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
 	{
-		ft_printf("MV LEFT || MV RIGHT\n"); //
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
 							- gr->rting.diry * SPEED_MV : gr->rting.posx
 							+ gr->rting.diry * SPEED_MV;
