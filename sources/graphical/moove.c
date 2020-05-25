@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/24 20:36:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/25 15:43:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,37 @@
 int	moove(t_graph *gr)
 {
 	t_map	*map;
+	double	tmp_dirx;
+	double	tmp_planecamx;
 
 	map = get_map(NULL);
 	gr->rting.mv_update = FALSE;
+	tmp_dirx = gr->rting.dirx;
+	tmp_planecamx = gr->rting.planecamx;
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
 	{
-		ft_printf("LOOK RIGHT || LOOK RIGHT\n"); //
-		gr->mv.degree_lk = gr->mv.lk_dir * SPEED_LK;
-		gr->mv.radius_lk = gr->mv.degree_lk / DEGREE * M_PI;
-		gr->mv.new_dirx = cos(gr->mv.radius_lk) * gr->rting.posx
-								- sin(gr->mv.radius_lk) * gr->rting.posy; 
-		gr->mv.new_diry = sin(gr->mv.radius_lk) * gr->rting.posx
-								+ cos(gr->mv.radius_lk) * gr->rting.posy;
-		gr->rting.posx = gr->mv.new_dirx;
-		gr->rting.posy = gr->mv.new_diry;
-		gr->mv.new_dirx = 0;
-		gr->mv.new_diry = 0;
-		gr->mv.new_planecamx = cos(gr->mv.radius_lk) * gr->rting.posx
-								- sin(gr->mv.radius_lk) * gr->rting.posy; 
-		gr->mv.new_planecamy = sin(gr->mv.radius_lk) * gr->rting.posx
-								+ cos(gr->mv.radius_lk) + gr->rting.posy;
-		gr->rting.posx = gr->mv.new_planecamx;
-		gr->rting.posy = gr->mv.new_planecamy;
-		gr->mv.new_planecamx = 0;
-		gr->mv.new_planecamy = 0;
-		init_graph(gr, map);
-		process_window(gr);	
+		if (gr->mv.log & LK_LEFT)
+		{
+			gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
+								* sin(-SPEED_LK);
+			gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
+								* cos(-SPEED_LK);
+			gr->rting.planecamx = gr->rting.planecamx * cos(-SPEED_LK)
+									- gr->rting.planecamy * sin(-SPEED_LK);
+			gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
+									+ gr->rting.planecamy * cos(-SPEED_LK);
+		}
+		else if (gr->mv.log & LK_RIGHT)
+		{
+			gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
+								* sin(SPEED_LK);
+			gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
+								* cos(SPEED_LK);
+			gr->rting.planecamx = gr->rting.planecamx * cos(SPEED_LK)
+									- gr->rting.planecamy * sin(SPEED_LK);
+			gr->rting.planecamy = tmp_planecamx * sin(SPEED_LK)
+									+ gr->rting.planecamy * cos(SPEED_LK);
+		}
 	}
 	else if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
