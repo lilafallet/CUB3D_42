@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 17:27:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/25 18:44:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	start_raycasting(t_map *map, t_graph *gr)
 {
 	int	x;
 
+	printf("posx = %lf\n", gr->rting.posx); //
+	printf("posy = %lf\n", gr->rting.posy); //
 	x = 0;
 	while (x < map->recup.resolution[AXE_X])
 	{
