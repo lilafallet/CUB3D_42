@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:52:06 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 14:17:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 15:49:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,4 @@ t_graph	*gr_holder(t_graph *gr)
 int	get_rgb(int r, int g, int b)
 {
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
-}
-
-void		get_direction_position(t_map *map, t_graph *gr)
-{
-	if (map->recup.dirpos == NORTH)
-		gr->rting.diry = -1;
-	else if (map->recup.dirpos == SOUTH)
-		gr->rting.diry = 1;
-	else if (map->recup.dirpos == WEST)
-		gr->rting.dirx = -1;
-	else if (map->recup.dirpos == EAST)
-		gr->rting.dirx = 1;
-}
-
-void	get_plane(t_graph *gr, t_map *map)
-{
-	if (map->recup.dirpos == NORTH)
-		gr->rting.planecamx = 0.66;
-	else if (map->recup.dirpos == SOUTH)
-		gr->rting.planecamx = -0.66;
-	else if (map->recup.dirpos == WEST)
-		gr->rting.planecamy = -0.66;
-	else if (map->recup.dirpos == EAST)
-		gr->rting.planecamy = 0.66;
 }

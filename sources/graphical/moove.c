@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 14:27:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 15:44:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	moove_left_right(t_graph *gr)
 						- gr->rting.dirx * SPEED_MV;
 }
 
-int	moove(t_graph *gr) //61
+int	moove(t_graph *gr)
 {
 	t_map	*map;
 	double	tmp_dirx;

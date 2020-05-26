@@ -6,12 +6,36 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/24 16:27:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 15:49:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <unistd.h> //
+
+void		get_direction_position(t_map *map, t_graph *gr)
+{
+	if (map->recup.dirpos == NORTH)
+		gr->rting.diry = -1;
+	else if (map->recup.dirpos == SOUTH)
+		gr->rting.diry = 1;
+	else if (map->recup.dirpos == WEST)
+		gr->rting.dirx = -1;
+	else if (map->recup.dirpos == EAST)
+		gr->rting.dirx = 1;
+}
+
+void	get_plane(t_graph *gr, t_map *map)
+{
+	if (map->recup.dirpos == NORTH)
+		gr->rting.planecamx = 0.66;
+	else if (map->recup.dirpos == SOUTH)
+		gr->rting.planecamx = -0.66;
+	else if (map->recup.dirpos == WEST)
+		gr->rting.planecamy = -0.66;
+	else if (map->recup.dirpos == EAST)
+		gr->rting.planecamy = 0.66;
+}
 
 void	init_graph(t_graph *gr, t_map *map)
 {
