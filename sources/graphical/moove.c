@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 15:44:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 18:45:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ int	moove(t_graph *gr)
 		moove_up_down(gr);
 	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
 		moove_left_right(gr);
-	if (is_wall(gr, map) == FALSE)
+	if (is_wall(gr, map) == FALSE && gr->mv.log & PRESS
+								&& (gr->mv.log & RELEASE) == FALSE)
 			gr->rting.mv_update = TRUE;
-	if (gr->rting.mv_update == TRUE)
+	if (gr->rting.mv_update == TRUE && gr->mv.log & PRESS
+			&& (gr->rting.posx != gr->mv.new_posx
+			|| gr->rting.posy != gr->mv.new_posy))
 	{
 		gr->rting.posx = gr->mv.new_posx;
 		gr->rting.posy = gr->mv.new_posy;
