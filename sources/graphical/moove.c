@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 18:54:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 00:06:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,40 @@
 
 static void	moove_up_down(t_graph *gr)
 {
-	gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
-						* SPEED_MV : gr->rting.posx - gr->rting.dirx
-						*SPEED_MV;
-	gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
-						* SPEED_MV : gr->rting.posy - gr->rting.diry
-						*SPEED_MV;
+	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+	{
+		gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
+							* SPEED_MV : gr->rting.posx - gr->rting.dirx
+							*SPEED_MV;
+		gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
+							* SPEED_MV : gr->rting.posy - gr->rting.diry
+							*SPEED_MV;
+	}
+	if (gr->mv.log & MV_UP && gr->mv.log & MV_DOWN)
+	{
+		gr->mv.new_posx = gr->rting.posx;
+		gr->mv.new_posy = gr->rting.posy;
+	}
 }
 
 static void	moove_left_right(t_graph *gr)
 {
-	gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
-						- gr->rting.diry * SPEED_MV : gr->rting.posx
-						+ gr->rting.diry * SPEED_MV;
-	gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->rting.posy
-						+ gr->rting.dirx * SPEED_MV : gr->rting.posy
-						- gr->rting.dirx * SPEED_MV;
+	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+	{
+		ft_printf("MV_LEFT\n"); //
+		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
+							- gr->rting.diry * SPEED_MV : gr->rting.posx
+							+ gr->rting.diry * SPEED_MV;
+		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->rting.posy
+							+ gr->rting.dirx * SPEED_MV : gr->rting.posy
+							- gr->rting.dirx * SPEED_MV;
+	}
+	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT)
+	{
+		ft_printf("MV_LEFT && MV_RIGHT\n"); //
+		gr->mv.new_posx = gr->rting.posx;
+		gr->mv.new_posy = gr->rting.posy;
+	}
 }
 
 static void	init_moove_look(t_graph *gr, t_map *map)
@@ -59,10 +77,11 @@ int	moove(t_graph *gr)
 		moove_left_right(gr);
 	if (is_wall(gr, map) == FALSE && gr->mv.log & PRESS
 								&& (gr->mv.log & RELEASE) == FALSE)
+	{
+			ft_printf("WALL\n"); //
 			gr->rting.mv_update = TRUE;
-	if (gr->rting.mv_update == TRUE && gr->mv.log & PRESS
-			&& (gr->rting.posx != gr->mv.new_posx
-			|| gr->rting.posy != gr->mv.new_posy))
+	}
+	if (gr->rting.mv_update == TRUE && gr->mv.log & PRESS)
 		init_moove_look(gr, map);
 	return (SUCCESS);
 }

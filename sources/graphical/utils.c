@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:52:06 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 15:49:09 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 00:20:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		is_wall(t_graph *gr, t_map *map)
 {
+	printf("posy = %lf\n", gr->mv.new_posy); //
+	printf("posx = %lf\n", gr->mv.new_posx); //
 	return (map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posx]
 									== WALL ? TRUE : FALSE);
 }
