@@ -6,18 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 20:23:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 13:58:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall(t_map *map, t_graph *gr, int x)
+static void	init_draw_wall(t_graph *gr, int who)
 {
-	int		y;
-	int		who;
-
-	who = what_texture(gr);
 	if (gr->rting.side == EA || gr->rting.side == WE)
 	{
 			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
@@ -36,6 +32,15 @@ void	draw_wall(t_map *map, t_graph *gr, int x)
 	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
 	/*permet d'avoir la position du pixel sur x = la ou a ete tappe le mur
 	* la largeur de l'image EUUUUH BIZARRE NON*/
+}
+
+void	draw_wall(t_map *map, t_graph *gr, int x) //28
+{
+	int		y;
+	int		who;
+
+	who = what_texture(gr);
+	init_draw_wall(gr, who);
 	y = gr->draw.start;
 	if ((gr->rting.side == NO || gr->rting.side == SO) && gr->rting.raydiry > 0)
 		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;

@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 19:31:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 09:29:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	moove(t_graph *gr)
+int	moove(t_graph *gr) //61
 {
 	t_map	*map;
 	double	tmp_dirx;

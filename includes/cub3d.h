@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/25 20:15:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/26 14:00:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,8 +361,8 @@ typedef struct	s_text
 # define KMV_RIGHT			100
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
-# define SPEED_MV			0.1
-# define SPEED_LK			0.1
+# define SPEED_MV			0.12
+# define SPEED_LK			0.08
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
