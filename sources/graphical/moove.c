@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/27 00:06:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 20:30:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static void	moove_left_right(t_graph *gr)
 {
 	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 	{
-		ft_printf("MV_LEFT\n"); //
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
 							- gr->rting.diry * SPEED_MV : gr->rting.posx
 							+ gr->rting.diry * SPEED_MV;
@@ -44,13 +43,12 @@ static void	moove_left_right(t_graph *gr)
 	}
 	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT)
 	{
-		ft_printf("MV_LEFT && MV_RIGHT\n"); //
 		gr->mv.new_posx = gr->rting.posx;
 		gr->mv.new_posy = gr->rting.posy;
 	}
 }
 
-static void	init_moove_look(t_graph *gr, t_map *map)
+void	init_moove_look(t_graph *gr, t_map *map)
 {
 	gr->rting.posx = gr->mv.new_posx;
 	gr->rting.posy = gr->mv.new_posy;
@@ -64,10 +62,12 @@ int	moove(t_graph *gr)
 	double	tmp_dirx;
 	double	tmp_planecamx;
 	
+	if (gr->update == FALSE)
+		return (SUCCESS);
+	gr->update = FALSE;
 	tmp_dirx = gr->rting.dirx;
 	tmp_planecamx = gr->rting.planecamx;
 	map = get_map(NULL);
-	gr->rting.mv_update = FALSE;
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
 		gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
 									: look_left(gr, tmp_dirx, tmp_planecamx);	
@@ -75,13 +75,7 @@ int	moove(t_graph *gr)
 		moove_up_down(gr);
 	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
 		moove_left_right(gr);
-	if (is_wall(gr, map) == FALSE && gr->mv.log & PRESS
-								&& (gr->mv.log & RELEASE) == FALSE)
-	{
-			ft_printf("WALL\n"); //
-			gr->rting.mv_update = TRUE;
-	}
-	if (gr->rting.mv_update == TRUE && gr->mv.log & PRESS)
+	if (is_wall(gr, map) == FALSE)
 		init_moove_look(gr, map);
 	return (SUCCESS);
 }

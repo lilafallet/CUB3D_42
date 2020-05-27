@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/22 18:54:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 18:30:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	start_graph(t_map *map)
 							map->recup.resolution[AXE_Y], "Cub3d");
 	init_map(map, &gr);
 	init_graph(&gr, map);
-	start_raycasting(map, &gr);
 	process_window(&gr);
 	mlx_hook(gr.win.win_ptr, KEYPRESS, 1L << 0, keypress, &gr);
 	mlx_hook(gr.win.win_ptr, KEYRELEASE, 1L << 1, keyrelease, &gr);

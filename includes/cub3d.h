@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 23:32:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 20:30:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,6 +419,7 @@ typedef struct	s_graph
 	t_draw			draw;
 	t_texture		text;
 	t_moove			mv;
+	int				update;
 }				t_graph;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 13:58:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 19:57:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void	draw_floor(t_map *map, t_graph *gr, int x)
 	int	floor_color;
 
 	y = map->recup.resolution[AXE_Y] - 1;
+	if (y < 0)
+		y = 0;
 	floor_color = get_rgb(map->recup.tab_color_f[R], map->recup.tab_color_f[G],
 							map->recup.tab_color_f[B]); 
 	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a

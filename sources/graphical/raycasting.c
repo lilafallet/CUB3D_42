@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/26 18:45:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/27 19:57:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ static void	calcul_draw(t_map *map, t_graph *gr)
 	//le fin des pixels == la hauteur du mur / 2 + la resolution sur Y / 2
 	if (gr->draw.end >= map->recup.resolution[AXE_Y])
 		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
+	else if (gr->draw.end < 0)
+		gr->draw.end = 0;
 }
 
 void	start_raycasting(t_map *map, t_graph *gr)
@@ -130,6 +132,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 		}
 		else
 		{
+
 			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
 					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
 			/*si un cote Y est atteind, perpwalldist = nombre de carres que
