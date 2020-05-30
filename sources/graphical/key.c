@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 17:43:07 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/27 20:22:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/30 10:55:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int	keypress(int key, t_graph *gr)
 		gr->mv.log |= LK_LEFT;
 	if (key == KLK_RIGHT && (gr->mv.log & LK_RIGHT) == FALSE)
 		gr->mv.log |= LK_RIGHT;
+	if (gr->mv.log & MV_UP || gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT
+			|| gr->mv.log & MV_DOWN)
+		gr->mv.log |= MOOVE;
+	if (gr->mv.log & LK_LEFT || gr->mv.log & LK_RIGHT)
+		gr->mv.log |= LOOK;
 	if (mask != gr->mv.log)
 		gr->update = TRUE;
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/27 20:30:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/30 10:53:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int	moove(t_graph *gr)
 	
 	if (gr->update == FALSE)
 		return (SUCCESS);
-	gr->update = FALSE;
+	if (gr->mv.log & LOOK && gr->mv.log & MOOVE)
+		gr->update = TRUE;
+	else
+		gr->update = FALSE;
 	tmp_dirx = gr->rting.dirx;
 	tmp_planecamx = gr->rting.planecamx;
 	map = get_map(NULL);

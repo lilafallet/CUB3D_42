@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/27 20:30:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/05/30 10:48:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,6 +387,8 @@ typedef struct	s_text
 # define LK_RIGHT		0x0000100
 # define PRESS			0x0000200
 # define RELEASE		0x0000400
+# define MOOVE			0x0000800
+# define LOOK			0x0001000
 
 # define DIR_POS	1
 # define DIR_NEG	-1
