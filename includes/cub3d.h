@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/30 10:48:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/03 14:58:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,6 +389,8 @@ typedef struct	s_text
 # define RELEASE		0x0000400
 # define MOOVE			0x0000800
 # define LOOK			0x0001000
+# define NOT_WALL		0x0002000
+# define CAM			0x0004000
 
 # define DIR_POS	1
 # define DIR_NEG	-1
@@ -407,6 +409,8 @@ typedef struct	s_mv
 	double	new_planecamy;
 	double	new_dirx;
 	double	new_diry;
+	double	comb_posx;
+	double	comb_posy;
 }				t_moove;
 
 /*
