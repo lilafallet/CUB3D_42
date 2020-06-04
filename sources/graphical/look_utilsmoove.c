@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 11:06:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/04 13:33:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@ int		is_wall(t_graph *gr, t_map *map)
 	if ((int)tmp_posx > 0
 		&& (gr->mv.log & MV_DOWN)
 		&& floor(tmp_posx) != floor(tmp_posx - SPEED_MV))
+	{
+		/*si pas dans un mur + DOWN + la position actuelle est different de la
+		prochaine position = position actuelle == la prochaine position*/
 		tmp_posx -= SPEED_MV;
+		//permet de ne pas rentrer dans la texture
+	}
 	if ((int)tmp_posy > 0
 		&& (gr->mv.log & MV_LEFT)
 		&& floor(tmp_posy) != floor(tmp_posy - SPEED_MV))
+	{
+		/*si pas dans un mur + LEFT + la position actuelle est different de la
+		prochaine position = position actuelle == la prochaine position*/
 		tmp_posy -= SPEED_MV;
+		//permet de ne pas rentrer dans la texture
+	}
 	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx] == WALL)
 		return (TRUE);
 	return (FALSE);
@@ -43,6 +53,7 @@ void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 {
 	//ft_printf("FONCTION LOOK RIGHT\n"); //
 	gr->mv.log |= CAM;
+	/*ajoute le fait qu'il va y avoir une rotation*/
 	gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
 						* sin(SPEED_LK);
 	gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
@@ -51,12 +62,14 @@ void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 							- gr->rting.planecamy * sin(SPEED_LK);
 	gr->rting.planecamy = tmp_planecamx * sin(SPEED_LK)
 							+ gr->rting.planecamy * cos(SPEED_LK);
+	/*cos = deplacements en x / sin = deplacements en y*/
 }
 
 void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 {
 	//ft_printf("FONCTION LOOK LEFT\n"); //
 	gr->mv.log |= CAM;
+	/*ajoute le fait qu'il va y avoir une rotation*/
 	gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
 						* sin(-SPEED_LK);
 	gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
@@ -65,4 +78,6 @@ void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 							- gr->rting.planecamy * sin(-SPEED_LK);
 	gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
 							+ gr->rting.planecamy * cos(-SPEED_LK);
+	/*cos = deplacements en x / sin = deplacements en y / SPEED negt car on va
+	vers la gauche*/
 }

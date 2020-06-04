@@ -1,0 +1,653 @@
+Binary file sources/graphical/.look_utilsmoove.c.swp matches
+sources/graphical/moove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+sources/graphical/moove.c:		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->mv.comb_posx
+sources/graphical/moove.c:							- gr->rting.diry * SPEED_MV : gr->mv.comb_posx
+sources/graphical/moove.c:							+ gr->rting.diry * SPEED_MV;
+sources/graphical/moove.c:		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->mv.comb_posy
+sources/graphical/moove.c:							+ gr->rting.dirx * SPEED_MV : gr->mv.comb_posy
+sources/graphical/moove.c:							- gr->rting.dirx * SPEED_MV;
+sources/graphical/moove.c:		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
+sources/graphical/moove.c:							- gr->rting.diry * SPEED_MV : gr->rting.posx
+sources/graphical/moove.c:							+ gr->rting.diry * SPEED_MV;
+sources/graphical/moove.c:		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->rting.posy
+sources/graphical/moove.c:							+ gr->rting.dirx * SPEED_MV : gr->rting.posy
+sources/graphical/moove.c:							- gr->rting.dirx * SPEED_MV;
+sources/graphical/moove.c:	gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
+sources/graphical/moove.c:						* SPEED_MV : gr->rting.posx - gr->rting.dirx
+sources/graphical/moove.c:	gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
+sources/graphical/moove.c:						* SPEED_MV : gr->rting.posy - gr->rting.diry
+sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+sources/graphical/moove.c:		gr->mv.comb_posx = gr->mv.new_posx;
+sources/graphical/moove.c:		gr->mv.comb_posy = gr->mv.new_posy;
+sources/graphical/moove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN) //soit UP ou DOWN
+sources/graphical/moove.c:	if (gr->mv.log & MV_UP && gr->mv.log & MV_DOWN) //UP et DOWN
+sources/graphical/moove.c:		gr->mv.new_posx = gr->rting.posx;
+sources/graphical/moove.c:		gr->mv.new_posy = gr->rting.posy;
+sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT)
+sources/graphical/moove.c:		gr->mv.new_posx = gr->rting.posx;
+sources/graphical/moove.c:		gr->mv.new_posy = gr->rting.posy;
+Binary file sources/graphical/.moove.c.swp matches
+sources/graphical/raycasting.c:	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+sources/graphical/raycasting.c:	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
+sources/graphical/raycasting.c:							* gr->rting.camerax;
+sources/graphical/raycasting.c:	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
+sources/graphical/raycasting.c:							* gr->rting.camerax;
+sources/graphical/raycasting.c:	gr->rting.mapx = (int)gr->rting.posx;
+sources/graphical/raycasting.c:	gr->rting.mapy = (int)gr->rting.posy;
+sources/graphical/raycasting.c:	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+sources/graphical/raycasting.c:	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+sources/graphical/raycasting.c:	if (gr->rting.raydirx < 0) //si le rayon est a gauche
+sources/graphical/raycasting.c:		gr->rting.stepx = -1; //on se decale a gauche
+sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
+sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+sources/graphical/raycasting.c:		gr->rting.stepx = 1; //on se decale a droite
+sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.mapx + 1.0 - gr->rting.posx)
+sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+sources/graphical/raycasting.c:	if (gr->rting.raydiry < 0)
+sources/graphical/raycasting.c:		gr->rting.stepy = -1; //on se decale en haut
+sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.posy - gr->rting.mapy)
+sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+sources/graphical/raycasting.c:		gr->rting.stepy = 1; //on se decale en bas
+sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.mapy + 1.0 - gr->rting.posy)
+sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+sources/graphical/raycasting.c:	gr->rting.hit = 0;
+sources/graphical/raycasting.c:	while (gr->rting.hit == 0) //tant qu'on a pas tappe de mur
+sources/graphical/raycasting.c:		if (gr->rting.distx < gr->rting.disty)
+sources/graphical/raycasting.c:			gr->rting.distx += gr->rting.deltadistx; /*on ajoute la distance du
+sources/graphical/raycasting.c:			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
+sources/graphical/raycasting.c:			gr->rting.side = gr->rting.stepx == 1 ? EA : WE;
+sources/graphical/raycasting.c:			gr->rting.disty += gr->rting.deltadisty;
+sources/graphical/raycasting.c:			gr->rting.mapy += gr->rting.stepy;
+sources/graphical/raycasting.c:			gr->rting.side = gr->rting.stepy == 1 ? SO : NO;
+sources/graphical/raycasting.c:		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
+sources/graphical/raycasting.c:			gr->rting.hit = 1;
+sources/graphical/raycasting.c:	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
+sources/graphical/raycasting.c:			/ gr->rting.perpwalldist); /*la hauteur du mur == resolution sur y
+sources/graphical/raycasting.c:	gr->draw.start = -gr->draw.height_line / 2
+sources/graphical/raycasting.c:	if (gr->draw.start < 0)
+sources/graphical/raycasting.c:		gr->draw.start = 0;
+sources/graphical/raycasting.c:	gr->draw.end = gr->draw.height_line / 2
+sources/graphical/raycasting.c:	if (gr->draw.end >= map->recup.resolution[AXE_Y])
+sources/graphical/raycasting.c:		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
+sources/graphical/raycasting.c:	else if (gr->draw.end < 0)
+sources/graphical/raycasting.c:		gr->draw.end = 0;
+sources/graphical/raycasting.c:		if (gr->rting.side == EA || gr->rting.side == WE)
+sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
+sources/graphical/raycasting.c:					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
+sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
+sources/graphical/raycasting.c:					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
+sources/graphical/textures.c:	if (gr->rting.side == EA && gr->rting.raydirx > 0)
+sources/graphical/textures.c:	else if (gr->rting.side == WE && gr->rting.raydirx < 0)
+sources/graphical/textures.c:	else if (gr->rting.side == NO && gr->rting.raydiry < 0)
+sources/graphical/textures.c:		gr->text.img[i] = mlx_xpm_file_to_image
+sources/graphical/textures.c:								(gr->win.mlx_ptr, map->recup.str_texture[i],
+sources/graphical/textures.c:		gr->text.size[i][WIDTH] = w;
+sources/graphical/textures.c:		gr->text.size[i][HEIGHT] = h;
+sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->img[i],
+sources/graphical/textures.c:					i, gr->size[i][WIDTH]); */
+sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->img[i],
+sources/graphical/textures.c:					i, gr->size[i][HEIGHT]); */
+sources/graphical/textures.c:		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
+sources/graphical/textures.c:								&gr->text.bits[i], &gr->text.size_line[i],
+sources/graphical/textures.c:								&gr->win.endian);
+sources/graphical/textures.c:		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
+sources/graphical/textures.c:		ft_printf("gr->img[%d] = %p\n", i, gr->img[i]); //
+sources/graphical/textures.c:		ft_printf("bits = %d\n", gr->recup.bits); //
+sources/graphical/textures.c:		ft_printf("size_line = %d\n", gr->recup.size_line); //
+sources/graphical/textures.c:		ft_printf("endian = %d\n\n", gr->recup.endian);*/
+sources/graphical/key_hubmoove.c:	tmp_dirx = gr->rting.dirx;
+sources/graphical/key_hubmoove.c:	tmp_planecamx = gr->rting.planecamx;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
+sources/graphical/key_hubmoove.c:		gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
+sources/graphical/key_hubmoove.c:			gr->rting.posx = gr->mv.new_posx;
+sources/graphical/key_hubmoove.c:			gr->rting.posy = gr->mv.new_posy;
+sources/graphical/key_hubmoove.c:		else if (gr->mv.log & CAM)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~CAM;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_UP && key == KMV_UP)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_UP;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_DOWN && key == KMV_DOWN)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_DOWN;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_LEFT && key == KMV_LEFT)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_LEFT;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_RIGHT && key == KMV_RIGHT)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_RIGHT;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_LEFT && key == KLK_LEFT)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~LK_LEFT;
+sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_RIGHT && key == KLK_RIGHT)
+sources/graphical/key_hubmoove.c:		gr->mv.log &= ~LK_RIGHT;
+sources/graphical/key_hubmoove.c:	if (key == KMV_UP && (gr->mv.log & MV_UP) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_UP;
+sources/graphical/key_hubmoove.c:	if (key == KMV_DOWN && (gr->mv.log & MV_DOWN) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_DOWN;
+sources/graphical/key_hubmoove.c:	if (key == KMV_LEFT && (gr->mv.log & MV_LEFT) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_LEFT;
+sources/graphical/key_hubmoove.c:	if (key == KMV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_RIGHT;
+sources/graphical/key_hubmoove.c:	if (key == KLK_LEFT && (gr->mv.log & LK_LEFT) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= LK_LEFT;
+sources/graphical/key_hubmoove.c:	if (key == KLK_RIGHT && (gr->mv.log & LK_RIGHT) == FALSE)
+sources/graphical/key_hubmoove.c:		gr->mv.log |= LK_RIGHT;
+sources/graphical/init.c:		gr->rting.diry = -1;
+sources/graphical/init.c:		gr->rting.diry = 1;
+sources/graphical/init.c:		gr->rting.dirx = -1;
+sources/graphical/init.c:		gr->rting.dirx = 1;
+sources/graphical/init.c:		gr->rting.planecamx = 0.66;
+sources/graphical/init.c:		gr->rting.planecamx = -0.66;
+sources/graphical/init.c:		gr->rting.planecamy = -0.66;
+sources/graphical/init.c:		gr->rting.planecamy = 0.66;
+sources/graphical/init.c:	if (gr->win.img_ptr != NULL)
+sources/graphical/init.c:		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+sources/graphical/init.c:		gr->win.img_ptr = NULL;
+sources/graphical/init.c:	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
+sources/graphical/init.c:	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
+sources/graphical/init.c:												&gr->win.size_line,
+sources/graphical/init.c:												&gr->win.endian);
+sources/graphical/init.c:	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+sources/graphical/init.c:	gr->rting.posx = (double)map->recup.posx + (double)0.5;
+sources/graphical/init.c:	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+sources/graphical/init.c:	gr->mv.new_posx = gr->rting.posx;
+sources/graphical/init.c:	gr->mv.new_posy = gr->rting.posy;
+sources/graphical/look_utilsmoove.c:	tmp_posx = gr->mv.new_posx;
+sources/graphical/look_utilsmoove.c:	tmp_posy = gr->mv.new_posy;
+sources/graphical/look_utilsmoove.c:		&& (gr->mv.log & MV_DOWN)
+sources/graphical/look_utilsmoove.c:		&& (gr->mv.log & MV_LEFT)
+sources/graphical/look_utilsmoove.c:	return (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN || gr->mv.log & MV_LEFT
+sources/graphical/look_utilsmoove.c:			|| gr->mv.log & MV_RIGHT || gr->mv.log & LK_LEFT
+sources/graphical/look_utilsmoove.c:			|| gr->mv.log & LK_RIGHT ? TRUE : FALSE);
+sources/graphical/look_utilsmoove.c:	gr->mv.log |= CAM;
+sources/graphical/look_utilsmoove.c:	gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
+sources/graphical/look_utilsmoove.c:	gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
+sources/graphical/look_utilsmoove.c:	gr->rting.planecamx = gr->rting.planecamx * cos(SPEED_LK)
+sources/graphical/look_utilsmoove.c:							- gr->rting.planecamy * sin(SPEED_LK);
+sources/graphical/look_utilsmoove.c:	gr->rting.planecamy = tmp_planecamx * sin(SPEED_LK)
+sources/graphical/look_utilsmoove.c:							+ gr->rting.planecamy * cos(SPEED_LK);
+sources/graphical/look_utilsmoove.c:	gr->mv.log |= CAM;
+sources/graphical/look_utilsmoove.c:	gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
+sources/graphical/look_utilsmoove.c:	gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
+sources/graphical/look_utilsmoove.c:	gr->rting.planecamx = gr->rting.planecamx * cos(-SPEED_LK)
+sources/graphical/look_utilsmoove.c:							- gr->rting.planecamy * sin(-SPEED_LK);
+sources/graphical/look_utilsmoove.c:	gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
+sources/graphical/look_utilsmoove.c:							+ gr->rting.planecamy * cos(-SPEED_LK);
+sources/graphical/draw.c:	if (gr->rting.side == EA || gr->rting.side == WE)
+sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
+sources/graphical/draw.c:								* gr->rting.raydiry;
+sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
+sources/graphical/draw.c:								* gr->rting.raydirx;
+sources/graphical/draw.c:	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
+sources/graphical/draw.c:	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
+sources/graphical/draw.c:	y = gr->draw.start;
+sources/graphical/draw.c:	if ((gr->rting.side == NO || gr->rting.side == SO) && gr->rting.raydiry > 0)
+sources/graphical/draw.c:		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+sources/graphical/draw.c:	if ((gr->rting.side == WE || gr->rting.side == EA) && gr->rting.raydirx < 0)
+sources/graphical/draw.c:		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+sources/graphical/draw.c:	while (y < gr->draw.end)
+sources/graphical/draw.c:		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
+sources/graphical/draw.c:							+ gr->draw.height_line / 2)
+sources/graphical/draw.c:							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
+sources/graphical/draw.c:		gr->win.data[x + y * (gr->win.size_line / 4)] =
+sources/graphical/draw.c:						gr->text.data[who][gr->text.texx + gr->text.texy
+sources/graphical/draw.c:						* gr->text.size[who][WIDTH]];
+sources/graphical/draw.c:	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
+sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
+sources/graphical/draw.c:	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+sources/graphical/draw.c:	gr->color.south = 0x0066CC; //BLUE
+sources/graphical/draw.c:	gr->color.north = 0x990000; //RED
+sources/graphical/draw.c:	gr->color.east = 0xFFD700; //YELLOW
+sources/graphical/draw.c:	gr->color.west = 0x009900; //GREEN
+sources/graphical/draw.c:	if (gr->rting.side == NO && gr->rting.raydirx > 0)
+sources/graphical/draw.c:		gr->color.wall = gr->color.north; //ombre
+sources/graphical/draw.c:	else if (gr->rting.side == SO && gr->rting.raydirx < 0)
+sources/graphical/draw.c:		gr->color.wall = gr->color.south;	//ombre
+sources/graphical/draw.c:	else if (gr->rting.side == EA && gr->rting.raydiry > 0)
+sources/graphical/draw.c:		gr->color.wall = gr->color.east;	//ombre
+sources/graphical/draw.c:		gr->color.wall = gr->color.west;	//ombre
+Binary file sources/graphical/.key_hubmoove.c.swp matches
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->mv.comb_posx
+mv.comb_posx:sources/graphical/moove.c:							- gr->rting.diry * SPEED_MV : gr->mv.comb_posx
+mv.comb_posx:sources/graphical/moove.c:							+ gr->rting.diry * SPEED_MV;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->mv.comb_posy
+mv.comb_posx:sources/graphical/moove.c:							+ gr->rting.dirx * SPEED_MV : gr->mv.comb_posy
+mv.comb_posx:sources/graphical/moove.c:							- gr->rting.dirx * SPEED_MV;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
+mv.comb_posx:sources/graphical/moove.c:							- gr->rting.diry * SPEED_MV : gr->rting.posx
+mv.comb_posx:sources/graphical/moove.c:							+ gr->rting.diry * SPEED_MV;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->rting.posy
+mv.comb_posx:sources/graphical/moove.c:							+ gr->rting.dirx * SPEED_MV : gr->rting.posy
+mv.comb_posx:sources/graphical/moove.c:							- gr->rting.dirx * SPEED_MV;
+mv.comb_posx:sources/graphical/moove.c:	gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
+mv.comb_posx:sources/graphical/moove.c:						* SPEED_MV : gr->rting.posx - gr->rting.dirx
+mv.comb_posx:sources/graphical/moove.c:	gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
+mv.comb_posx:sources/graphical/moove.c:						* SPEED_MV : gr->rting.posy - gr->rting.diry
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.comb_posx = gr->mv.new_posx;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.comb_posy = gr->mv.new_posy;
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN) //soit UP ou DOWN
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_UP && gr->mv.log & MV_DOWN) //UP et DOWN
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posx = gr->rting.posx;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posy = gr->rting.posy;
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+mv.comb_posx:sources/graphical/moove.c:	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT)
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posx = gr->rting.posx;
+mv.comb_posx:sources/graphical/moove.c:		gr->mv.new_posy = gr->rting.posy;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.camerax;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.camerax;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.mapx = (int)gr->rting.posx;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.mapy = (int)gr->rting.posy;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+mv.comb_posx:sources/graphical/raycasting.c:	if (gr->rting.raydirx < 0) //si le rayon est a gauche
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.stepx = -1; //on se decale a gauche
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.stepx = 1; //on se decale a droite
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.mapx + 1.0 - gr->rting.posx)
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+mv.comb_posx:sources/graphical/raycasting.c:	if (gr->rting.raydiry < 0)
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.stepy = -1; //on se decale en haut
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.posy - gr->rting.mapy)
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.stepy = 1; //on se decale en bas
+mv.comb_posx:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.mapy + 1.0 - gr->rting.posy)
+mv.comb_posx:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->rting.hit = 0;
+mv.comb_posx:sources/graphical/raycasting.c:	while (gr->rting.hit == 0) //tant qu'on a pas tappe de mur
+mv.comb_posx:sources/graphical/raycasting.c:		if (gr->rting.distx < gr->rting.disty)
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.distx += gr->rting.deltadistx; /*on ajoute la distance du
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.side = gr->rting.stepx == 1 ? EA : WE;
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.disty += gr->rting.deltadisty;
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.mapy += gr->rting.stepy;
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.side = gr->rting.stepy == 1 ? SO : NO;
+mv.comb_posx:sources/graphical/raycasting.c:		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.hit = 1;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
+mv.comb_posx:sources/graphical/raycasting.c:			/ gr->rting.perpwalldist); /*la hauteur du mur == resolution sur y
+mv.comb_posx:sources/graphical/raycasting.c:	gr->draw.start = -gr->draw.height_line / 2
+mv.comb_posx:sources/graphical/raycasting.c:	if (gr->draw.start < 0)
+mv.comb_posx:sources/graphical/raycasting.c:		gr->draw.start = 0;
+mv.comb_posx:sources/graphical/raycasting.c:	gr->draw.end = gr->draw.height_line / 2
+mv.comb_posx:sources/graphical/raycasting.c:	if (gr->draw.end >= map->recup.resolution[AXE_Y])
+mv.comb_posx:sources/graphical/raycasting.c:		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
+mv.comb_posx:sources/graphical/raycasting.c:	else if (gr->draw.end < 0)
+mv.comb_posx:sources/graphical/raycasting.c:		gr->draw.end = 0;
+mv.comb_posx:sources/graphical/raycasting.c:		if (gr->rting.side == EA || gr->rting.side == WE)
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
+mv.comb_posx:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
+mv.comb_posx:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
+mv.comb_posx:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
+mv.comb_posx:sources/graphical/textures.c:	if (gr->rting.side == EA && gr->rting.raydirx > 0)
+mv.comb_posx:sources/graphical/textures.c:	else if (gr->rting.side == WE && gr->rting.raydirx < 0)
+mv.comb_posx:sources/graphical/textures.c:	else if (gr->rting.side == NO && gr->rting.raydiry < 0)
+mv.comb_posx:sources/graphical/textures.c:		gr->text.img[i] = mlx_xpm_file_to_image
+mv.comb_posx:sources/graphical/textures.c:								(gr->win.mlx_ptr, map->recup.str_texture[i],
+mv.comb_posx:sources/graphical/textures.c:		gr->text.size[i][WIDTH] = w;
+mv.comb_posx:sources/graphical/textures.c:		gr->text.size[i][HEIGHT] = h;
+mv.comb_posx:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->img[i],
+mv.comb_posx:sources/graphical/textures.c:					i, gr->size[i][WIDTH]); */
+mv.comb_posx:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->img[i],
+mv.comb_posx:sources/graphical/textures.c:					i, gr->size[i][HEIGHT]); */
+mv.comb_posx:sources/graphical/textures.c:		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
+mv.comb_posx:sources/graphical/textures.c:								&gr->text.bits[i], &gr->text.size_line[i],
+mv.comb_posx:sources/graphical/textures.c:								&gr->win.endian);
+mv.comb_posx:sources/graphical/textures.c:		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
+mv.comb_posx:sources/graphical/textures.c:		ft_printf("gr->img[%d] = %p\n", i, gr->img[i]); //
+mv.comb_posx:sources/graphical/textures.c:		ft_printf("bits = %d\n", gr->recup.bits); //
+mv.comb_posx:sources/graphical/textures.c:		ft_printf("size_line = %d\n", gr->recup.size_line); //
+mv.comb_posx:sources/graphical/textures.c:		ft_printf("endian = %d\n\n", gr->recup.endian);*/
+mv.comb_posx:sources/graphical/key_hubmoove.c:	tmp_dirx = gr->rting.dirx;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	tmp_planecamx = gr->rting.planecamx;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:			gr->rting.posx = gr->mv.new_posx;
+mv.comb_posx:sources/graphical/key_hubmoove.c:			gr->rting.posy = gr->mv.new_posy;
+mv.comb_posx:sources/graphical/key_hubmoove.c:		else if (gr->mv.log & CAM)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~CAM;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_UP && key == KMV_UP)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_UP;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_DOWN && key == KMV_DOWN)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_DOWN;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_LEFT && key == KMV_LEFT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_LEFT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & MV_RIGHT && key == KMV_RIGHT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~MV_RIGHT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_LEFT && key == KLK_LEFT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~LK_LEFT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (gr->mv.log & LK_RIGHT && key == KLK_RIGHT)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log &= ~LK_RIGHT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KMV_UP && (gr->mv.log & MV_UP) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_UP;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KMV_DOWN && (gr->mv.log & MV_DOWN) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_DOWN;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KMV_LEFT && (gr->mv.log & MV_LEFT) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_LEFT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KMV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= MV_RIGHT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KLK_LEFT && (gr->mv.log & LK_LEFT) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= LK_LEFT;
+mv.comb_posx:sources/graphical/key_hubmoove.c:	if (key == KLK_RIGHT && (gr->mv.log & LK_RIGHT) == FALSE)
+mv.comb_posx:sources/graphical/key_hubmoove.c:		gr->mv.log |= LK_RIGHT;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.diry = -1;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.diry = 1;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.dirx = -1;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.dirx = 1;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.planecamx = 0.66;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.planecamx = -0.66;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.planecamy = -0.66;
+mv.comb_posx:sources/graphical/init.c:		gr->rting.planecamy = 0.66;
+mv.comb_posx:sources/graphical/init.c:	if (gr->win.img_ptr != NULL)
+mv.comb_posx:sources/graphical/init.c:		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+mv.comb_posx:sources/graphical/init.c:		gr->win.img_ptr = NULL;
+mv.comb_posx:sources/graphical/init.c:	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
+mv.comb_posx:sources/graphical/init.c:	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
+mv.comb_posx:sources/graphical/init.c:												&gr->win.size_line,
+mv.comb_posx:sources/graphical/init.c:												&gr->win.endian);
+mv.comb_posx:sources/graphical/init.c:	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+mv.comb_posx:sources/graphical/init.c:	gr->rting.posx = (double)map->recup.posx + (double)0.5;
+mv.comb_posx:sources/graphical/init.c:	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+mv.comb_posx:sources/graphical/init.c:	gr->mv.new_posx = gr->rting.posx;
+mv.comb_posx:sources/graphical/init.c:	gr->mv.new_posy = gr->rting.posy;
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	tmp_posx = gr->mv.new_posx;
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	tmp_posy = gr->mv.new_posy;
+mv.comb_posx:sources/graphical/look_utilsmoove.c:		&& (gr->mv.log & MV_DOWN)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:		&& (gr->mv.log & MV_LEFT)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	return (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN || gr->mv.log & MV_LEFT
+mv.comb_posx:sources/graphical/look_utilsmoove.c:			|| gr->mv.log & MV_RIGHT || gr->mv.log & LK_LEFT
+mv.comb_posx:sources/graphical/look_utilsmoove.c:			|| gr->mv.log & LK_RIGHT ? TRUE : FALSE);
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->mv.log |= CAM;
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.planecamx = gr->rting.planecamx * cos(SPEED_LK)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:							- gr->rting.planecamy * sin(SPEED_LK);
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.planecamy = tmp_planecamx * sin(SPEED_LK)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:							+ gr->rting.planecamy * cos(SPEED_LK);
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->mv.log |= CAM;
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.planecamx = gr->rting.planecamx * cos(-SPEED_LK)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:							- gr->rting.planecamy * sin(-SPEED_LK);
+mv.comb_posx:sources/graphical/look_utilsmoove.c:	gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
+mv.comb_posx:sources/graphical/look_utilsmoove.c:							+ gr->rting.planecamy * cos(-SPEED_LK);
+mv.comb_posx:sources/graphical/draw.c:	if (gr->rting.side == EA || gr->rting.side == WE)
+mv.comb_posx:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
+mv.comb_posx:sources/graphical/draw.c:								* gr->rting.raydiry;
+mv.comb_posx:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
+mv.comb_posx:sources/graphical/draw.c:								* gr->rting.raydirx;
+mv.comb_posx:sources/graphical/draw.c:	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
+mv.comb_posx:sources/graphical/draw.c:	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
+mv.comb_posx:sources/graphical/draw.c:	y = gr->draw.start;
+mv.comb_posx:sources/graphical/draw.c:	if ((gr->rting.side == NO || gr->rting.side == SO) && gr->rting.raydiry > 0)
+mv.comb_posx:sources/graphical/draw.c:		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+mv.comb_posx:sources/graphical/draw.c:	if ((gr->rting.side == WE || gr->rting.side == EA) && gr->rting.raydirx < 0)
+mv.comb_posx:sources/graphical/draw.c:		gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+mv.comb_posx:sources/graphical/draw.c:	while (y < gr->draw.end)
+mv.comb_posx:sources/graphical/draw.c:		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
+mv.comb_posx:sources/graphical/draw.c:							+ gr->draw.height_line / 2)
+mv.comb_posx:sources/graphical/draw.c:							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
+mv.comb_posx:sources/graphical/draw.c:		gr->win.data[x + y * (gr->win.size_line / 4)] =
+mv.comb_posx:sources/graphical/draw.c:						gr->text.data[who][gr->text.texx + gr->text.texy
+mv.comb_posx:sources/graphical/draw.c:						* gr->text.size[who][WIDTH]];
+mv.comb_posx:sources/graphical/draw.c:	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
+mv.comb_posx:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
+mv.comb_posx:sources/graphical/draw.c:	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+mv.comb_posx:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+mv.comb_posx:sources/graphical/draw.c:	gr->color.south = 0x0066CC; //BLUE
+mv.comb_posx:sources/graphical/draw.c:	gr->color.north = 0x990000; //RED
+mv.comb_posx:sources/graphical/draw.c:	gr->color.east = 0xFFD700; //YELLOW
+mv.comb_posx:sources/graphical/draw.c:	gr->color.west = 0x009900; //GREEN
+mv.comb_posx:sources/graphical/draw.c:	if (gr->rting.side == NO && gr->rting.raydirx > 0)
+mv.comb_posx:sources/graphical/draw.c:		gr->color.wall = gr->color.north; //ombre
+mv.comb_posx:sources/graphical/draw.c:	else if (gr->rting.side == SO && gr->rting.raydirx < 0)
+mv.comb_posx:sources/graphical/draw.c:		gr->color.wall = gr->color.south;	//ombre
+mv.comb_posx:sources/graphical/draw.c:	else if (gr->rting.side == EA && gr->rting.raydiry > 0)
+mv.comb_posx:sources/graphical/draw.c:		gr->color.wall = gr->color.east;	//ombre
+mv.comb_posx:sources/graphical/draw.c:		gr->color.wall = gr->color.west;	//ombre
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.camerax;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.camerax;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.mapx = (int)gr->rting.posx;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.mapy = (int)gr->rting.posy;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	if (gr->rting.raydirx < 0) //si le rayon est a gauche
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.stepx = -1; //on se decale a gauche
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.stepx = 1; //on se decale a droite
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.mapx + 1.0 - gr->rting.posx)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	if (gr->rting.raydiry < 0)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.stepy = -1; //on se decale en haut
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.posy - gr->rting.mapy)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.stepy = 1; //on se decale en bas
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.mapy + 1.0 - gr->rting.posy)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->rting.hit = 0;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	while (gr->rting.hit == 0) //tant qu'on a pas tappe de mur
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		if (gr->rting.distx < gr->rting.disty)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.distx += gr->rting.deltadistx; /*on ajoute la distance du
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.side = 0; //WE & EA
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.disty += gr->rting.deltadisty;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.mapy += gr->rting.stepy;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.side = 1; //NO & SO
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.hit = 1;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			/ gr->rting.perpwalldist); /*la hauteur du mur == resolution sur y
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->draw.start = -gr->draw.height_line / 2
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	if (gr->draw.start < 0)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->draw.start = 0;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	gr->draw.end = gr->draw.height_line / 2
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:	if (gr->draw.end >= map->recup.resolution[AXE_Y])
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:		if (gr->rting.side == 0)
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
+mv.comb_posx:rting.side:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
+mv.comb_posx:rting.side:sources/graphical/textures.c:	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+mv.comb_posx:rting.side:sources/graphical/textures.c:	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+mv.comb_posx:rting.side:sources/graphical/textures.c:	else if (gr->rting.side == 1 && gr->rting.raydiry < 0)
+mv.comb_posx:rting.side:sources/graphical/textures.c:		gr->text.img[i] = mlx_xpm_file_to_image
+mv.comb_posx:rting.side:sources/graphical/textures.c:								(gr->win.mlx_ptr, map->recup.str_texture[i],
+mv.comb_posx:rting.side:sources/graphical/textures.c:		gr->text.size[i][WIDTH] = w;
+mv.comb_posx:rting.side:sources/graphical/textures.c:		gr->text.size[i][HEIGHT] = h;
+mv.comb_posx:rting.side:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->img[i],
+mv.comb_posx:rting.side:sources/graphical/textures.c:					i, gr->size[i][WIDTH]); */
+mv.comb_posx:rting.side:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->img[i],
+mv.comb_posx:rting.side:sources/graphical/textures.c:					i, gr->size[i][HEIGHT]); */
+mv.comb_posx:rting.side:sources/graphical/textures.c:		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
+mv.comb_posx:rting.side:sources/graphical/textures.c:								&gr->text.bits[i], &gr->text.size_line[i],
+mv.comb_posx:rting.side:sources/graphical/textures.c:								&gr->win.endian);
+mv.comb_posx:rting.side:sources/graphical/textures.c:		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
+mv.comb_posx:rting.side:sources/graphical/textures.c:		ft_printf("gr->img[%d] = %p\n", i, gr->img[i]); //
+mv.comb_posx:rting.side:sources/graphical/textures.c:		ft_printf("bits = %d\n", gr->recup.bits); //
+mv.comb_posx:rting.side:sources/graphical/textures.c:		ft_printf("size_line = %d\n", gr->recup.size_line); //
+mv.comb_posx:rting.side:sources/graphical/textures.c:		ft_printf("endian = %d\n\n", gr->recup.endian);*/
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->win.mlx_ptr = mlx_init();
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->win.win_ptr = mlx_new_window(gr->win.mlx_ptr,
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
+mv.comb_posx:rting.side:sources/graphical/init.c:												&gr->win.size_line,
+mv.comb_posx:rting.side:sources/graphical/init.c:												&gr->win.endian);
+mv.comb_posx:rting.side:sources/graphical/init.c:	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+mv.comb_posx:rting.side:sources/graphical/init.c:	mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+mv.comb_posx:rting.side:sources/graphical/init.c:	mlx_loop(gr->win.mlx_ptr);
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->rting.posx = (double)map->recup.posx + (double)0.5;
+mv.comb_posx:rting.side:sources/graphical/init.c:	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	if (gr->rting.side == 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
+mv.comb_posx:rting.side:sources/graphical/draw.c:								* gr->rting.raydiry;
+mv.comb_posx:rting.side:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
+mv.comb_posx:rting.side:sources/graphical/draw.c:								* gr->rting.raydirx;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->text.texx = gr->text.wallhit * (double)gr->text.size[who][WIDTH];
+mv.comb_posx:rting.side:sources/graphical/draw.c:	y = gr->draw.start;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	//if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:	//	gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	//if (gr->rting.side == 1 && gr->rting.raydirx < 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:	//	gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	while (y < gr->draw.end)
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
+mv.comb_posx:rting.side:sources/graphical/draw.c:							+ gr->draw.height_line / 2)
+mv.comb_posx:rting.side:sources/graphical/draw.c:							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
+mv.comb_posx:rting.side:sources/graphical/draw.c:		if (gr->text.texy < 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->win.data[x + y * (gr->win.size_line / 4)] =
+mv.comb_posx:rting.side:sources/graphical/draw.c:						gr->text.data[who][gr->text.texx + gr->text.texy
+mv.comb_posx:rting.side:sources/graphical/draw.c:						* gr->text.size[who][WIDTH]];
+mv.comb_posx:rting.side:sources/graphical/draw.c:	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->color.south = 0x0066CC; //BLUE
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->color.north = 0x990000; //RED
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->color.east = 0xFFD700; //YELLOW
+mv.comb_posx:rting.side:sources/graphical/draw.c:	gr->color.west = 0x009900; //GREEN
+mv.comb_posx:rting.side:sources/graphical/draw.c:	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.north; //ombre
+mv.comb_posx:rting.side:sources/graphical/draw.c:	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.south;	//ombre
+mv.comb_posx:rting.side:sources/graphical/draw.c:	else if (gr->rting.side == 1 && gr->rting.raydiry > 0)
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.east;	//ombre
+mv.comb_posx:rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.west;	//ombre
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.diry = -1;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.diry = 1;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.dirx = -1;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.dirx = 1;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.planecamx = 0.66;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.planecamx = -0.66;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.planecamy = -0.66;
+mv.comb_posx:rting.side:sources/graphical/utils.c:		gr->rting.planecamy = 0.66;
+rting.side:sources/graphical/raycasting.c:	gr->rting.camerax = 2 * x / (double)map->recup.resolution[AXE_X] - 1;
+rting.side:sources/graphical/raycasting.c:	gr->rting.raydirx = gr->rting.dirx + gr->rting.planecamx
+rting.side:sources/graphical/raycasting.c:							* gr->rting.camerax;
+rting.side:sources/graphical/raycasting.c:	gr->rting.raydiry = gr->rting.diry + gr->rting.planecamy
+rting.side:sources/graphical/raycasting.c:							* gr->rting.camerax;
+rting.side:sources/graphical/raycasting.c:	gr->rting.mapx = (int)gr->rting.posx;
+rting.side:sources/graphical/raycasting.c:	gr->rting.mapy = (int)gr->rting.posy;
+rting.side:sources/graphical/raycasting.c:	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+rting.side:sources/graphical/raycasting.c:	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+rting.side:sources/graphical/raycasting.c:	if (gr->rting.raydirx < 0) //si le rayon est a gauche
+rting.side:sources/graphical/raycasting.c:		gr->rting.stepx = -1; //on se decale a gauche
+rting.side:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
+rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+rting.side:sources/graphical/raycasting.c:		gr->rting.stepx = 1; //on se decale a droite
+rting.side:sources/graphical/raycasting.c:		gr->rting.distx = (gr->rting.mapx + 1.0 - gr->rting.posx)
+rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadistx;
+rting.side:sources/graphical/raycasting.c:	if (gr->rting.raydiry < 0)
+rting.side:sources/graphical/raycasting.c:		gr->rting.stepy = -1; //on se decale en haut
+rting.side:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.posy - gr->rting.mapy)
+rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+rting.side:sources/graphical/raycasting.c:		gr->rting.stepy = 1; //on se decale en bas
+rting.side:sources/graphical/raycasting.c:		gr->rting.disty = (gr->rting.mapy + 1.0 - gr->rting.posy)
+rting.side:sources/graphical/raycasting.c:							* gr->rting.deltadisty;
+rting.side:sources/graphical/raycasting.c:	gr->rting.hit = 0;
+rting.side:sources/graphical/raycasting.c:	while (gr->rting.hit == 0) //tant qu'on a pas tappe de mur
+rting.side:sources/graphical/raycasting.c:		if (gr->rting.distx < gr->rting.disty)
+rting.side:sources/graphical/raycasting.c:			gr->rting.distx += gr->rting.deltadistx; /*on ajoute la distance du
+rting.side:sources/graphical/raycasting.c:			gr->rting.mapx += gr->rting.stepx; /*on ajoute au carre actuel ou
+rting.side:sources/graphical/raycasting.c:			gr->rting.side = 0; //WE & EA
+rting.side:sources/graphical/raycasting.c:			gr->rting.disty += gr->rting.deltadisty;
+rting.side:sources/graphical/raycasting.c:			gr->rting.mapy += gr->rting.stepy;
+rting.side:sources/graphical/raycasting.c:			gr->rting.side = 1; //NO & SO
+rting.side:sources/graphical/raycasting.c:		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
+rting.side:sources/graphical/raycasting.c:			gr->rting.hit = 1;
+rting.side:sources/graphical/raycasting.c:	gr->draw.height_line = (int)(map->recup.resolution[AXE_Y]
+rting.side:sources/graphical/raycasting.c:			/ gr->rting.perpwalldist); /*la hauteur du mur == resolution sur y
+rting.side:sources/graphical/raycasting.c:	gr->draw.start = -gr->draw.height_line / 2
+rting.side:sources/graphical/raycasting.c:	if (gr->draw.start < 0)
+rting.side:sources/graphical/raycasting.c:		gr->draw.start = 0;
+rting.side:sources/graphical/raycasting.c:	gr->draw.end = gr->draw.height_line / 2
+rting.side:sources/graphical/raycasting.c:	if (gr->draw.end >= map->recup.resolution[AXE_Y])
+rting.side:sources/graphical/raycasting.c:		gr->draw.end = map->recup.resolution[AXE_Y] - 1;
+rting.side:sources/graphical/raycasting.c:		if (gr->rting.side == 0)
+rting.side:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
+rting.side:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
+rting.side:sources/graphical/raycasting.c:			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
+rting.side:sources/graphical/raycasting.c:					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
+rting.side:sources/graphical/textures.c:	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+rting.side:sources/graphical/textures.c:	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+rting.side:sources/graphical/textures.c:	else if (gr->rting.side == 1 && gr->rting.raydiry < 0)
+rting.side:sources/graphical/textures.c:		gr->text.img[i] = mlx_xpm_file_to_image
+rting.side:sources/graphical/textures.c:								(gr->win.mlx_ptr, map->recup.str_texture[i],
+rting.side:sources/graphical/textures.c:		gr->text.size[i][WIDTH] = w;
+rting.side:sources/graphical/textures.c:		gr->text.size[i][HEIGHT] = h;
+rting.side:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->img[i],
+rting.side:sources/graphical/textures.c:					i, gr->size[i][WIDTH]); */
+rting.side:sources/graphical/textures.c:		/*ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->img[i],
+rting.side:sources/graphical/textures.c:					i, gr->size[i][HEIGHT]); */
+rting.side:sources/graphical/textures.c:		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
+rting.side:sources/graphical/textures.c:								&gr->text.bits[i], &gr->text.size_line[i],
+rting.side:sources/graphical/textures.c:								&gr->win.endian);
+rting.side:sources/graphical/textures.c:		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
+rting.side:sources/graphical/textures.c:		ft_printf("gr->img[%d] = %p\n", i, gr->img[i]); //
+rting.side:sources/graphical/textures.c:		ft_printf("bits = %d\n", gr->recup.bits); //
+rting.side:sources/graphical/textures.c:		ft_printf("size_line = %d\n", gr->recup.size_line); //
+rting.side:sources/graphical/textures.c:		ft_printf("endian = %d\n\n", gr->recup.endian);*/
+rting.side:sources/graphical/init.c:	gr->win.mlx_ptr = mlx_init();
+rting.side:sources/graphical/init.c:	gr->win.win_ptr = mlx_new_window(gr->win.mlx_ptr,
+rting.side:sources/graphical/init.c:	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
+rting.side:sources/graphical/init.c:	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
+rting.side:sources/graphical/init.c:												&gr->win.size_line,
+rting.side:sources/graphical/init.c:												&gr->win.endian);
+rting.side:sources/graphical/init.c:	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+rting.side:sources/graphical/init.c:	mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+rting.side:sources/graphical/init.c:	mlx_loop(gr->win.mlx_ptr);
+rting.side:sources/graphical/init.c:	gr->rting.posx = (double)map->recup.posx + (double)0.5;
+rting.side:sources/graphical/init.c:	gr->rting.posy = (double)map->recup.posy + (double)0.5;
+rting.side:sources/graphical/draw.c:	if (gr->rting.side == 0)
+rting.side:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
+rting.side:sources/graphical/draw.c:								* gr->rting.raydiry;
+rting.side:sources/graphical/draw.c:			gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
+rting.side:sources/graphical/draw.c:								* gr->rting.raydirx;
+rting.side:sources/graphical/draw.c:	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
+rting.side:sources/graphical/draw.c:	gr->text.texx = gr->text.wallhit * (double)gr->text.size[who][WIDTH];
+rting.side:sources/graphical/draw.c:	y = gr->draw.start;
+rting.side:sources/graphical/draw.c:	//if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+rting.side:sources/graphical/draw.c:	//	gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+rting.side:sources/graphical/draw.c:	//if (gr->rting.side == 1 && gr->rting.raydirx < 0)
+rting.side:sources/graphical/draw.c:	//	gr->text.texx = gr->text.size[who][WIDTH] - gr->text.texx - 1;
+rting.side:sources/graphical/draw.c:	while (y < gr->draw.end)
+rting.side:sources/graphical/draw.c:		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
+rting.side:sources/graphical/draw.c:							+ gr->draw.height_line / 2)
+rting.side:sources/graphical/draw.c:							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
+rting.side:sources/graphical/draw.c:		if (gr->text.texy < 0)
+rting.side:sources/graphical/draw.c:		gr->win.data[x + y * (gr->win.size_line / 4)] =
+rting.side:sources/graphical/draw.c:						gr->text.data[who][gr->text.texx + gr->text.texy
+rting.side:sources/graphical/draw.c:						* gr->text.size[who][WIDTH]];
+rting.side:sources/graphical/draw.c:	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
+rting.side:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
+rting.side:sources/graphical/draw.c:	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+rting.side:sources/graphical/draw.c:		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+rting.side:sources/graphical/draw.c:	gr->color.south = 0x0066CC; //BLUE
+rting.side:sources/graphical/draw.c:	gr->color.north = 0x990000; //RED
+rting.side:sources/graphical/draw.c:	gr->color.east = 0xFFD700; //YELLOW
+rting.side:sources/graphical/draw.c:	gr->color.west = 0x009900; //GREEN
+rting.side:sources/graphical/draw.c:	if (gr->rting.side == 0 && gr->rting.raydirx > 0)
+rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.north; //ombre
+rting.side:sources/graphical/draw.c:	else if (gr->rting.side == 0 && gr->rting.raydirx < 0)
+rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.south;	//ombre
+rting.side:sources/graphical/draw.c:	else if (gr->rting.side == 1 && gr->rting.raydiry > 0)
+rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.east;	//ombre
+rting.side:sources/graphical/draw.c:		gr->color.wall = gr->color.west;	//ombre
+rting.side:sources/graphical/utils.c:		gr->rting.diry = -1;
+rting.side:sources/graphical/utils.c:		gr->rting.diry = 1;
+rting.side:sources/graphical/utils.c:		gr->rting.dirx = -1;
+rting.side:sources/graphical/utils.c:		gr->rting.dirx = 1;
+rting.side:sources/graphical/utils.c:		gr->rting.planecamx = 0.66;
+rting.side:sources/graphical/utils.c:		gr->rting.planecamx = -0.66;
+rting.side:sources/graphical/utils.c:		gr->rting.planecamy = -0.66;
+rting.side:sources/graphical/utils.c:		gr->rting.planecamy = 0.66;
