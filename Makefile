@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/06/04 11:07:07 by lfallet          ###   ########.fr        #
+#    Updated: 2020/06/04 12:14:40 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -15,6 +15,7 @@ LIB = $(LIBDIR)libft.a
 
 CFLAGS += -Wall
 CFLAGS += -Wextra
+CFLAGS += -O3
 ifeq ($(debug), 0)
 	CFLAGS += -g3
 else ifeq ($(debug), 1)
