@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/03 17:33:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/04 11:01:11 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -509,5 +509,10 @@ int				moove(t_graph *gr);
 int				is_wall(t_graph *gr, t_map *map);
 void			look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx);
 void			look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx);
+int				update(t_graph *gr);
+void			left_or_right(t_graph *gr);
+void			up_or_down(t_graph *gr);
+void			moove_left_right(t_graph *gr);
+void			moove_up_down(t_graph *gr);
 
 #endif

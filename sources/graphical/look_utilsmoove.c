@@ -1,16 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   look.c                                             :+:      :+:    :+:   */
+/*   look_utilsmoove.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/26 18:53:33 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/03 15:19:31 by lfallet          ###   ########.fr       */
+/*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
+/*   Updated: 2020/06/04 11:06:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		is_wall(t_graph *gr, t_map *map)
+{
+	double	tmp_posx;
+	double	tmp_posy;
+
+	tmp_posx = gr->mv.new_posx;
+	tmp_posy = gr->mv.new_posy;
+	if ((int)tmp_posx > 0
+		&& (gr->mv.log & MV_DOWN)
+		&& floor(tmp_posx) != floor(tmp_posx - SPEED_MV))
+		tmp_posx -= SPEED_MV;
+	if ((int)tmp_posy > 0
+		&& (gr->mv.log & MV_LEFT)
+		&& floor(tmp_posy) != floor(tmp_posy - SPEED_MV))
+		tmp_posy -= SPEED_MV;
+	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx] == WALL)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	update(t_graph *gr)
+{
+	return (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN || gr->mv.log & MV_LEFT
+			|| gr->mv.log & MV_RIGHT || gr->mv.log & LK_LEFT
+			|| gr->mv.log & LK_RIGHT ? TRUE : FALSE);
+}
 
 void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 {
@@ -39,4 +66,3 @@ void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 	gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
 							+ gr->rting.planecamy * cos(-SPEED_LK);
 }
-

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/03 19:44:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/04 09:21:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 			/*si un cote Y est atteind, perpwalldist = nombre de carres que
 			  le rayon a traverse dans la direction de Y*/
 		}
-		shadow_wall(gr);
+		//shadow_wall(gr);
 		calcul_draw(map, gr);
 		draw_wall(map, gr, x);
 		hub_draw(map, gr, x);
