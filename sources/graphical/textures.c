@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 16:33:56 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/19 17:52:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/04 15:34:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	get_textures(t_map *map, t_graph *gr)
 		gr->text.size[i][WIDTH] = w;
 		gr->text.size[i][HEIGHT] = h;
 		//TESTER LE RETOUR = message d'erreur -> wrong type of file
-		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->img[i],
-					i, gr->size[i][WIDTH]); */
-		/*ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->img[i],
-					i, gr->size[i][HEIGHT]); */
+		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->text.img[i],
+					i, gr->text.size[i][WIDTH]);
+		ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->text.img[i],
+					i, gr->text.size[i][HEIGHT]);*/
 		i++;
 	}
 	//ft_printf("\n");
@@ -77,11 +77,12 @@ void	get_textures(t_map *map, t_graph *gr)
 								&gr->text.bits[i], &gr->text.size_line[i],
 								&gr->win.endian);
 		//TESTER LE RETOUR = message d'erreur -> failed to get data
-		/*ft_printf("gr->data[%d] = %p\n", i, gr->data[i]); //
-		ft_printf("gr->img[%d] = %p\n", i, gr->img[i]); //
-		ft_printf("bits = %d\n", gr->recup.bits); //
-		ft_printf("size_line = %d\n", gr->recup.size_line); //
-		ft_printf("endian = %d\n\n", gr->recup.endian);*/
+		/*ft_printf("gr->data[%d] = %p\n", i, gr->text.data[i]); //
+		ft_printf("gr->img[%d] = %p\n", i, gr->text.img[i]); //
+		ft_printf("bits = %d\n", gr->win.bits); //
+		ft_printf("size_line = %d\n", gr->win.size_line); //
+		ft_printf("endian = %d\n\n", gr->win.endian);*/
 		i++;
-	}	
+	}
+	hub_sprite(map, gr);
 }
