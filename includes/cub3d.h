@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 15:37:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 12:17:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct	s_utils
 
 }				t_utils;
 
+	
 typedef struct	s_map
 {
 	t_recup			recup;
@@ -415,6 +416,21 @@ typedef struct	s_mv
 }				t_moove;
 
 /*
+**###########_SPRITE_#################
+*/
+
+typedef struct	s_pos
+{
+	double	x;
+	double	y;
+}				t_position;
+
+typedef struct	s_sp
+{
+	t_position	*pos;
+}				t_sprite;
+
+/*
 **###########_GRAPH_#################
 */
 
@@ -426,7 +442,7 @@ typedef struct	s_graph
 	t_draw			draw;
 	t_texture		text;
 	t_moove			mv;
-	int				update;
+	t_sprite		sp;
 }				t_graph;
 
 /*
