@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 12:17:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 12:36:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,6 +428,7 @@ typedef struct	s_pos
 typedef struct	s_sp
 {
 	t_position	*pos;
+	size_t		nb_sprite;
 }				t_sprite;
 
 /*
@@ -531,6 +532,5 @@ void			left_or_right(t_graph *gr);
 void			up_or_down(t_graph *gr);
 void			moove_left_right(t_graph *gr);
 void			moove_up_down(t_graph *gr);
-void			hub_sprite(t_map *map, t_graph *gr);
 
 #endif
