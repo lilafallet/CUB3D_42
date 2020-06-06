@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 12:21:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 13:14:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	init_graph(t_graph *gr, t_map *map)
 												&gr->win.size_line,
 												&gr->win.endian);
 	start_raycasting(map, gr);
+	hub_sprite(map, gr);
 }
 
 void	process_window(t_graph *gr)

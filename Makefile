@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/06/04 15:37:34 by lfallet          ###   ########.fr        #
+#    Updated: 2020/06/06 13:12:29 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = cub3d
@@ -64,7 +64,7 @@ SRCS += raycasting.c
 SRCS += draw.c
 SRCS += utils.c
 SRCS += init.c
-SRCS += textures.c
+SRCS += init_textsprite.c
 SRCS += key_hubmoove.c
 SRCS += moove.c
 SRCS += look_utilsmoove.c

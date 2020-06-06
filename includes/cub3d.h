@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 12:36:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 14:26:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@
 # define WAY_WALL_SPRITE 	3
 # define S 					4
 # define NB_TEXTURE 		5
+# define POW_2				2
 # define FIRST_TEXTURE 		"NSWE"
 # define STR_TEXTURE_NO		"NO"
 # define STR_TEXTURE_SO 	"SO"
@@ -429,6 +430,7 @@ typedef struct	s_sp
 {
 	t_position	*pos;
 	size_t		nb_sprite;
+	double		*dist;
 }				t_sprite;
 
 /*
@@ -532,5 +534,6 @@ void			left_or_right(t_graph *gr);
 void			up_or_down(t_graph *gr);
 void			moove_left_right(t_graph *gr);
 void			moove_up_down(t_graph *gr);
+void			hub_sprite(t_map *map, t_graph *gr);
 
 #endif
