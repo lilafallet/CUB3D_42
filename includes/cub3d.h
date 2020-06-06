@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 18:48:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 21:46:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@
 # define WAY_WALL_SPRITE 	3
 # define S 					4
 # define NB_TEXTURE 		5
-# define POW_2				2
 # define FIRST_TEXTURE 		"NSWE"
 # define STR_TEXTURE_NO		"NO"
 # define STR_TEXTURE_SO 	"SO"
@@ -420,6 +419,10 @@ typedef struct	s_mv
 **###########_SPRITE_#################
 */
 
+# define POW_2				2
+# define PIXEL				256
+# define PIXEL_DIV2			128
+
 typedef struct	s_pos
 {
 	double	x;
@@ -431,11 +434,21 @@ typedef struct	s_sp
 	t_position	*pos;
 	size_t		nb_sprite;
 	double		*dist;
+	int			*color;
 	double		x;
 	double		y;
 	double		det;
-	double		real_x;
-	double		real_y;
+	double		realx;
+	double		realy;
+	int			screen;
+	int			height;
+	int			starty;
+	int			endy;
+	int			width;
+	int			startx;
+	int			endx;
+	int			textx;
+	int			texty;
 }				t_sprite;
 
 /*
