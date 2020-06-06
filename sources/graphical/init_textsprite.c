@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 14:23:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 16:44:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 			{
 				gr->sp.pos[count].x = x + 0.5;
 				gr->sp.pos[count].y = y + 0.5;
-				/*printf("sprite[%zu]{x %lf, y %lf}\n", count,
-							gr->sp.pos[count].x, gr->sp.pos[count].y);*/
+				printf("sprite[%zu]{x %lf, y %lf}\n", count,
+							gr->sp.pos[count].x, gr->sp.pos[count].y);
 				count++;
 			}
 			x++;
 		}
 		y++;
 	}
+	printf("\n"); //
 }
 
 int		what_texture(t_graph *gr)
