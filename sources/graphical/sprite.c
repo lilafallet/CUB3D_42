@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 17:00:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 19:06:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,32 @@ static void	swap_sprite(t_graph *gr)
 	}
 }
 
+static void	init_draw_sprite(t_graph *gr, size_t i, t_map *map)
+{	
+	gr->sp.x = gr->sp.pos[i].x - gr->rting.posx;
+	gr->sp.y = gr->sp.pos[i].y - gr->rting.posy;
+	//position en x et en y par rapport au personnage
+	printf("x = %lf\n", gr->sp.x); //
+	printf("y = %lf\n", gr->sp.y); //
+	gr->sp.det = 1.0 / (gr->rting.mapx * gr->rting.diry - gr->rting.dirx
+						* gr->rting.planecamy);
+	//en lien avec la rotation mais ne comprends pas totalement
+	printf("det = %lf\n\n", gr->sp.det); //
+	gr->sp.real_x = gr->sp.det * (gr->rting.diry * gr->sp.x - gr->rting.dirx
+						* gr->sp.y);
+	//en lien avec la rotation mais ne comprends pas totalement
+	printf("real_x = %lf\n\n", gr->sp.real_x); //
+	gr->sp.real_y = gr->sp.det * (-gr->rting.planecamy * gr->sp.x
+						+ gr->rting.planecamx * gr->sp.y);
+	//en lien avec la rotation mais ne comprends pas totalement
+	printf("real_y = %lf\n\n", gr->sp.real_y); //
+}
+
 void		hub_sprite(t_map *map, t_graph *gr)
 {
-	//size_t	i; //
+	size_t	i;
 
-	//i = 0; //
+	i = 0;
 	init_spdist(gr);
 	swap_sprite(gr);
 	/*while (i < gr->sp.nb_sprite) //
@@ -104,4 +125,9 @@ void		hub_sprite(t_map *map, t_graph *gr)
 					gr->sp.pos[i].x, i, gr->sp.pos[i].y); //
 		i++; //
 	}*/
+	while (i < gr->sp.nb_sprite)
+	{
+		init_draw_sprite(gr, i, map);
+		i++;
+	}
 }

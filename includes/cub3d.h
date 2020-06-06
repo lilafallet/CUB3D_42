@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 14:26:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 18:48:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -431,6 +431,11 @@ typedef struct	s_sp
 	t_position	*pos;
 	size_t		nb_sprite;
 	double		*dist;
+	double		x;
+	double		y;
+	double		det;
+	double		real_x;
+	double		real_y;
 }				t_sprite;
 
 /*

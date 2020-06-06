@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 16:44:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/06 18:35:12 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 		}
 		y++;
 	}
-	printf("\n"); //
 }
 
 int		what_texture(t_graph *gr)
