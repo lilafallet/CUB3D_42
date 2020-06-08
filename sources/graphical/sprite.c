@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/08 16:18:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 17:41:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 								/ PIXEL);
 			gr->sp.color = ((int *)gr->text.data[S])[gr->sp.textw * gr->sp.texty
 								+ gr->sp.textx];
-			if ((gr->sp.color & 0x00FFFFFF) != 0)
+			if ((gr->sp.color & 0xFFFFFF) != 0)
 			{
 				gr->win.data[tmp_starty * map->recup.resolution[AXE_X] + startx]
 							= gr->sp.color;
