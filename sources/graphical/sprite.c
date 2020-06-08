@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/08 14:12:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 16:18:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	init_draw_sprite(t_graph *gr, size_t i, t_map *map)
 						+ gr->rting.planecamx * gr->sp.y);
 	//printf("realy = %lf\n", gr->sp.realy); //
 	gr->sp.screen = ((map->recup.resolution[AXE_X] / 2)
-						* (1 - gr->sp.realx / gr->sp.realy));
+						* (1 + gr->sp.realx / gr->sp.realy));
 	//printf("screen = %d\n", gr->sp.screen); //
 	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.realy));
 	//printf("height = %d\n", gr->sp.height); //
@@ -139,11 +139,10 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 	gr->sp.textx = (int)(PIXEL * (startx - (-gr->sp.width / 2
 						+ gr->sp.screen))
 						* gr->text.size[S][WIDTH]
-						/ gr->sp.width) / PIXEL;
+						/ gr->sp.width / PIXEL);
 	if (gr->sp.realy > 0 && startx > 0 && startx < map->recup.resolution[AXE_X]
-			/*&& gr->text.size[S][WIDTH] < gr->sp.raybuff[startx]*/)
+			&& gr->sp.realy  < gr->sp.raybuff[startx])
 	{
-		ft_printf("ET ICI ?\n"); //
 		tmp_starty = gr->sp.starty;
 		gr->sp.textw = gr->text.size[S][WIDTH];
 		while (tmp_starty < gr->sp.endy)
@@ -156,7 +155,6 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 								+ gr->sp.textx];
 			if ((gr->sp.color & 0x00FFFFFF) != 0)
 			{
-				ft_printf("RENTRE LA\n"); //
 				gr->win.data[tmp_starty * map->recup.resolution[AXE_X] + startx]
 							= gr->sp.color;
 			}
