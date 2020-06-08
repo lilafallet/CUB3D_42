@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 22:09:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 14:12:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	init_spdist(t_graph *gr)
 		du sprite il faut faire la position - la position du sprite
 		pow 2 car on est sur 2 axes (x et y)*/
 		gr->sp.dist[i] = distx + disty;
-		printf("dist[%zu] = %lf\n", i, gr->sp.dist[i]); //
+		//printf("dist[%zu] = %lf\n", i, gr->sp.dist[i]); //
 		i++;
 	}
-	printf("\n"); //
+	//printf("\n"); //
 }
 
 static void	process_swap(t_graph *gr, size_t i)
@@ -95,40 +95,40 @@ static void	init_draw_sprite(t_graph *gr, size_t i, t_map *map)
 	gr->sp.x = gr->sp.pos[i].x - gr->rting.posx;
 	gr->sp.y = gr->sp.pos[i].y - gr->rting.posy;
 	//position en x et en y par rapport au personnage
-	printf("x = %lf\n", gr->sp.x); //
-	printf("y = %lf\n", gr->sp.y); //
-	gr->sp.det = 1.0 / (gr->rting.mapx * gr->rting.diry - gr->rting.dirx
+	//printf("x = %lf\n", gr->sp.x); //
+	//printf("y = %lf\n", gr->sp.y); //
+	gr->sp.det = 1.0 / (gr->rting.planecamx * gr->rting.diry - gr->rting.dirx
 						* gr->rting.planecamy);
-	printf("det = %lf\n", gr->sp.det); //
+	//printf("det = %lf\n", gr->sp.det); //
 	gr->sp.realx = gr->sp.det * (gr->rting.diry * gr->sp.x - gr->rting.dirx
 						* gr->sp.y);
-	printf("realx = %lf\n", gr->sp.realx); //
+	//printf("realx = %lf\n", gr->sp.realx); //
 	gr->sp.realy = gr->sp.det * (-gr->rting.planecamy * gr->sp.x
 						+ gr->rting.planecamx * gr->sp.y);
-	printf("realy = %lf\n", gr->sp.realy); //
-	gr->sp.screen = (int)((map->recup.resolution[AXE_X] / 2)
-						* (1.0 + gr->sp.realx / gr->sp.realy));
-	printf("screen = %d\n", gr->sp.screen); //
+	//printf("realy = %lf\n", gr->sp.realy); //
+	gr->sp.screen = ((map->recup.resolution[AXE_X] / 2)
+						* (1 - gr->sp.realx / gr->sp.realy));
+	//printf("screen = %d\n", gr->sp.screen); //
 	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.realy));
-	printf("height = %d\n", gr->sp.height); //
+	//printf("height = %d\n", gr->sp.height); //
 	gr->sp.starty = -gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
 	if (gr->sp.starty < 0)
 		gr->sp.starty = 0;
-	printf("starty = %d\n", gr->sp.starty); //
+	//printf("starty = %d\n", gr->sp.starty); //
 	gr->sp.endy = gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
-	if (gr->sp.starty >= map->recup.resolution[AXE_Y])
+	if (gr->sp.endy >= map->recup.resolution[AXE_Y])
 		gr->sp.endy	= map->recup.resolution[AXE_Y] - 1;
-	printf("endy = %d\n", gr->sp.endy); //
+	//printf("endy = %d\n", gr->sp.endy); //
 	gr->sp.width = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.realy));
-	printf("width = %d\n", gr->sp.width); //
+	//printf("width = %d\n", gr->sp.width); //
 	gr->sp.startx = -gr->sp.width / 2 + gr->sp.screen;
 	if (gr->sp.startx < 0)
 		gr->sp.startx = 0;
-	printf("startx = %d\n", gr->sp.startx); //
+	//printf("startx = %d\n", gr->sp.startx); //
 	gr->sp.endx = gr->sp.width / 2 + gr->sp.screen;
 	if (gr->sp.endx >= map->recup.resolution[AXE_X])
 			gr->sp.endx = map->recup.resolution[AXE_X] - 1;	
-	printf("endx = %d\n", gr->sp.endx); //
+	//printf("endx = %d\n", gr->sp.endx); //
 }
 
 static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
@@ -136,7 +136,34 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 	int	tmp_starty;
 	int	mult;
 
-	tmp_starty = gr->sp.starty;
+	gr->sp.textx = (int)(PIXEL * (startx - (-gr->sp.width / 2
+						+ gr->sp.screen))
+						* gr->text.size[S][WIDTH]
+						/ gr->sp.width) / PIXEL;
+	if (gr->sp.realy > 0 && startx > 0 && startx < map->recup.resolution[AXE_X]
+			/*&& gr->text.size[S][WIDTH] < gr->sp.raybuff[startx]*/)
+	{
+		ft_printf("ET ICI ?\n"); //
+		tmp_starty = gr->sp.starty;
+		gr->sp.textw = gr->text.size[S][WIDTH];
+		while (tmp_starty < gr->sp.endy)
+		{
+			mult = tmp_starty * PIXEL - map->recup.resolution[AXE_Y]
+					* PIXEL_DIV2 + gr->sp.height * PIXEL_DIV2;
+			gr->sp.texty = ((mult * gr->text.size[S][HEIGHT] / gr->sp.height)
+								/ PIXEL);
+			gr->sp.color = ((int *)gr->text.data[S])[gr->sp.textw * gr->sp.texty
+								+ gr->sp.textx];
+			if ((gr->sp.color & 0x00FFFFFF) != 0)
+			{
+				ft_printf("RENTRE LA\n"); //
+				gr->win.data[tmp_starty * map->recup.resolution[AXE_X] + startx]
+							= gr->sp.color;
+			}
+			tmp_starty++;	
+		}
+	}	
+	/*tmp_starty = gr->sp.starty;
 	gr->sp.color = (int *)malloc(sizeof(int) * gr->sp.nb_sprite);
 	//A PROTEGER 
 	while (gr->sp.starty < gr->sp.endy)
@@ -154,19 +181,19 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 				gr->sp.color[nb_sprite] = gr->text.data[S][gr->sp.textx
 					+ gr->sp.texty * gr->text.size[S][WIDTH]];
 			else
-				gr->sp.color[nb_sprite] = 0xffffff;
+				gr->sp.color[nb_sprite] = 0x00FFFFFF;
 		}
-		if (gr->sp.color[nb_sprite] != 0xffffff
+		if (gr->sp.color[nb_sprite] != 0x00FFFFFF
 				&& gr->sp.realy < gr->rting.perpwalldist)
 		{
-			if (startx >= 0 && startx > map->recup.resolution[AXE_X]
+			if (startx >= 0 && startx < map->recup.resolution[AXE_X]
 					&& tmp_starty >= 0
 					&& tmp_starty < map->recup.resolution[AXE_Y])
 				gr->win.data[startx + tmp_starty * (gr->win.size_line / 4)]
 					= gr->sp.color[nb_sprite];	
 		}
 		gr->sp.starty++;
-	}
+	}*/
 }
 
 void		hub_sprite(t_map *map, t_graph *gr)
@@ -188,18 +215,13 @@ void		hub_sprite(t_map *map, t_graph *gr)
 	{
 		init_draw_sprite(gr, i, map);
 		tmp_startx = gr->sp.startx;
-		ft_printf("tmp_startx = %d\n", tmp_startx); //
-		while (tmp_startx < gr->sp.endx
-					&& tmp_startx < map->recup.resolution[AXE_X])
+		//ft_printf("tmp_startx = %d\n", tmp_startx); //
+		while (tmp_startx < gr->sp.endx)
 		{
 			//tant que plus petit que la fin du dessin en X et la resol X
-			gr->sp.textx = (int)(PIXEL * (tmp_startx - (-gr->sp.width / 2
-								+ gr->sp.screen))
-								* gr->text.size[S][WIDTH]
-								/ gr->sp.width) / PIXEL;
+			draw_sprite(gr, tmp_startx, i, map);
 			//ft_printf("textx = %d\n", gr->sp.textx); //	
-			if (gr->sp.realy > 0)
-				draw_sprite(gr, tmp_startx, i, map);
+			//if (gr->sp.realy > 0)*/
 			tmp_startx++;
 		}	
 		i++;

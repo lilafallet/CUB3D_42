@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 14:33:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 13:45:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	start_raycasting(t_map *map, t_graph *gr)
 		}
 		//shadow_wall(gr);
 		calcul_draw(map, gr);
+		gr->sp.raybuff[x] = gr->rting.perpwalldist;
 		draw_wall(map, gr, x);
 		hub_draw(map, gr, x);
 		x++;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 13:14:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 13:49:00 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	process_window(t_graph *gr)
 
 void	init_map(t_map *map, t_graph *gr)
 {
+	gr->sp.raybuff = malloc(sizeof(double) * map->recup.resolution[AXE_X]);
+	//PROTEGER
 	gr->rting.posx = (double)map->recup.posx + (double)0.5;
 	gr->rting.posy = (double)map->recup.posy + (double)0.5;
 	gr->mv.new_posx = gr->rting.posx;

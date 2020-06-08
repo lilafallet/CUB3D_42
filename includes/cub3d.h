@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/06 21:46:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/08 13:59:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,9 +432,10 @@ typedef struct	s_pos
 typedef struct	s_sp
 {
 	t_position	*pos;
+	double		*raybuff;
 	size_t		nb_sprite;
 	double		*dist;
-	int			*color;
+	int			color;
 	double		x;
 	double		y;
 	double		det;
@@ -449,6 +450,7 @@ typedef struct	s_sp
 	int			endx;
 	int			textx;
 	int			texty;
+	int			textw;
 }				t_sprite;
 
 /*
