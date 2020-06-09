@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/08 13:59:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/09 16:43:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,7 +378,7 @@ typedef struct	s_text
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
 # define SPEED_MV			0.1
-# define SPEED_LK			0.1
+# define SPEED_LK			0.05
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
@@ -438,10 +438,10 @@ typedef struct	s_sp
 	int			color;
 	double		x;
 	double		y;
-	double		det;
-	double		realx;
-	double		realy;
-	int			screen;
+	double		rot;
+	double		playposx;
+	double		playposy;
+	int			screen_where;
 	int			height;
 	int			starty;
 	int			endy;
