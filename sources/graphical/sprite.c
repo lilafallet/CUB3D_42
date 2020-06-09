@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/09 17:34:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/09 17:39:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,41 @@ static void	swap_sprite(t_graph *gr)
 	}
 }
 
-static void	init_draw_sprite(t_graph *gr, size_t i, t_map *map)
+static void	calc_draw_sprite(t_graph *gr, size_t i, t_map *map)
+{
+	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
+	/*permet d'avoir la hauteur du sprite selon la hauteur de l'ecran et surtout
+	la position du player par rapport au sprite pour avoir de la perspective*/
+	//printf("height = %d\n\n", gr->sp.height); //
+	gr->sp.starty = -gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
+	if (gr->sp.starty < 0)
+		gr->sp.starty = 0;
+	//pixel sur y a colorise = start
+	//printf("starty = %d\n", gr->sp.starty); //
+	gr->sp.endy = gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
+	if (gr->sp.endy >= map->recup.resolution[AXE_Y])
+		gr->sp.endy	= map->recup.resolution[AXE_Y] - 1;
+	/*pixel sur y a colorise = end
+	-> colorise de haut en bas*/
+	//printf("endy = %d\n\n", gr->sp.endy); //
+	gr->sp.width = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
+	/*permet de savoir combien de pixel du point le plus a gauche d'au plus a
+	droite il y a*/
+	//printf("width = %d\n", gr->sp.width); //
+	gr->sp.startx = -gr->sp.width / 2 + gr->sp.screen_where;
+	if (gr->sp.startx < 0)
+		gr->sp.startx = 0;
+	//pixel sur x a colorise = start
+	//printf("startx = %d\n", gr->sp.startx); //
+	gr->sp.endx = gr->sp.width / 2 + gr->sp.screen_where;
+	if (gr->sp.endx >= map->recup.resolution[AXE_X])
+			gr->sp.endx = map->recup.resolution[AXE_X] - 1;	
+	/*pixel sur x a colorise = end
+	-> colorise de gauche a droite*/
+	//printf("endx = %d\n", gr->sp.endx); //
+}
+
+static void	calc_pos_sprite(t_graph *gr, size_t i, t_map *map)
 {	
 	gr->sp.x = gr->sp.pos[i].x - gr->rting.posx;
 	gr->sp.y = gr->sp.pos[i].y - gr->rting.posy;
@@ -124,36 +158,6 @@ static void	init_draw_sprite(t_graph *gr, size_t i, t_map *map)
 	= plus on va vers l'ouest, plus la valeur augmente
 	= plus on va vers l'est, plus la valeur diminue*/
 	//printf("screen_where = %d\n\n", gr->sp.screen_where); //
-	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
-	/*permet d'avoir la hauteur du sprite selon la hauteur de l'ecran et surtout
-	la position du player par rapport au sprite pour avoir de la perspective*/
-	//printf("height = %d\n\n", gr->sp.height); //
-	gr->sp.starty = -gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
-	if (gr->sp.starty < 0)
-		gr->sp.starty = 0;
-	//pixel sur y a colorise = start
-	//printf("starty = %d\n", gr->sp.starty); //
-	gr->sp.endy = gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
-	if (gr->sp.endy >= map->recup.resolution[AXE_Y])
-		gr->sp.endy	= map->recup.resolution[AXE_Y] - 1;
-	/*pixel sur y a colorise = end
-	-> colorise de haut en bas*/
-	//printf("endy = %d\n\n", gr->sp.endy); //
-	gr->sp.width = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
-	/*permet de savoir combien de pixel du point le plus a gauche d'au plus a
-	droite il y a*/
-	//printf("width = %d\n", gr->sp.width); //
-	gr->sp.startx = -gr->sp.width / 2 + gr->sp.screen_where;
-	if (gr->sp.startx < 0)
-		gr->sp.startx = 0;
-	//pixel sur x a colorise = start
-	printf("startx = %d\n", gr->sp.startx); //
-	gr->sp.endx = gr->sp.width / 2 + gr->sp.screen_where;
-	if (gr->sp.endx >= map->recup.resolution[AXE_X])
-			gr->sp.endx = map->recup.resolution[AXE_X] - 1;	
-	/*pixel sur x a colorise = end
-	-> colorise de gauche a droite*/
-	//printf("endx = %d\n", gr->sp.endx); //
 }
 
 static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
@@ -198,7 +202,8 @@ void		hub_sprite(t_map *map, t_graph *gr)
 	swap_sprite(gr);
 	while (i < gr->sp.nb_sprite)
 	{
-		init_draw_sprite(gr, i, map);
+		calc_pos_sprite(gr, i, map);
+		calc_draw_sprite(gr, i, map);
 		tmp_startx = gr->sp.startx;
 		//ft_printf("tmp_startx = %d\n", tmp_startx); //
 		while (tmp_startx < gr->sp.endx)
