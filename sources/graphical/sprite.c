@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/09 18:23:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/09 23:03:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ static void	calcpos_sprite(t_graph *gr, size_t i, t_map *map)
 static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 {
 	int	tmp_starty;
-	int	mult;
+	int	dim;
 
 	gr->sp.textx = (int)(PIXEL * (startx - (-gr->sp.width / 2
 						+ gr->sp.screen_where))
@@ -174,15 +174,20 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 	if (gr->sp.playposy > 0 && startx > 0 && startx < map->recup.resolution[AXE_X]
 			&& gr->sp.playposy < gr->sp.raybuff[startx])
 	{
-		printf("raybuff = %lf\n", gr->sp.raybuff[startx]); //
 		//verifie si on est bien dans la map 
 		tmp_starty = gr->sp.starty;
 		gr->sp.textw = gr->text.size[S][WIDTH];
 		while (tmp_starty < gr->sp.endy)
 		{
-			mult = tmp_starty * PIXEL - map->recup.resolution[AXE_Y]
+			dim = tmp_starty * PIXEL - map->recup.resolution[AXE_Y]
 					* PIXEL_DIV2 + gr->sp.height * PIXEL_DIV2;
-			gr->sp.texty = ((mult * gr->text.size[S][HEIGHT] / gr->sp.height)
+			/*permet d'avoir la dimension de la texture
+			-> 1er mult = largeur en pixel du sprite
+			-> 2eme mult = quel pixel position moitie ecran
+			-> 3eme mult = hauteur en pixel du sprite
+			== largeur - position moitie ecran + hauteur*/
+			//printf("mult 2 = %d\n", map->recup.resolution[AXE_Y] * PIXEL_DIV2);
+			gr->sp.texty = ((dim * gr->text.size[S][HEIGHT] / gr->sp.height)
 								/ PIXEL);
 			gr->sp.color = ((int *)gr->text.data[S])[gr->sp.textw * gr->sp.texty
 								+ gr->sp.textx];
