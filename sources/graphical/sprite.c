@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/09 17:39:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/09 18:23:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	swap_sprite(t_graph *gr)
 	}
 }
 
-static void	calc_draw_sprite(t_graph *gr, size_t i, t_map *map)
+static void	calcdraw_sprite(t_graph *gr, size_t i, t_map *map)
 {
 	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
 	/*permet d'avoir la hauteur du sprite selon la hauteur de l'ecran et surtout
@@ -125,7 +125,7 @@ static void	calc_draw_sprite(t_graph *gr, size_t i, t_map *map)
 	//printf("endx = %d\n", gr->sp.endx); //
 }
 
-static void	calc_pos_sprite(t_graph *gr, size_t i, t_map *map)
+static void	calcpos_sprite(t_graph *gr, size_t i, t_map *map)
 {	
 	gr->sp.x = gr->sp.pos[i].x - gr->rting.posx;
 	gr->sp.y = gr->sp.pos[i].y - gr->rting.posy;
@@ -169,9 +169,13 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 						+ gr->sp.screen_where))
 						* gr->text.size[S][WIDTH]
 						/ gr->sp.width / PIXEL);
+	/*permet de savoir combien sur x on voit de la texture*/
+	//ft_printf("textx = %d\n", gr->sp.textx); //
 	if (gr->sp.playposy > 0 && startx > 0 && startx < map->recup.resolution[AXE_X]
-			&& gr->sp.playposy  < gr->sp.raybuff[startx])
+			&& gr->sp.playposy < gr->sp.raybuff[startx])
 	{
+		printf("raybuff = %lf\n", gr->sp.raybuff[startx]); //
+		//verifie si on est bien dans la map 
 		tmp_starty = gr->sp.starty;
 		gr->sp.textw = gr->text.size[S][WIDTH];
 		while (tmp_starty < gr->sp.endy)
@@ -202,8 +206,8 @@ void		hub_sprite(t_map *map, t_graph *gr)
 	swap_sprite(gr);
 	while (i < gr->sp.nb_sprite)
 	{
-		calc_pos_sprite(gr, i, map);
-		calc_draw_sprite(gr, i, map);
+		calcpos_sprite(gr, i, map);
+		calcdraw_sprite(gr, i, map);
 		tmp_startx = gr->sp.startx;
 		//ft_printf("tmp_startx = %d\n", tmp_startx); //
 		while (tmp_startx < gr->sp.endx)
