@@ -1,36 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialisation.c                                   :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/10 17:36:16 by lfallet          ###   ########.fr       */
+/*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
+/*   Updated: 2020/06/10 17:55:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h> /*DEBUG*/
 
-t_map			*get_map(t_map *map)
+void	free_cpytab(t_graph *gr, t_map *map)
 {
-	static t_map	*gen_map = NULL;
 
-	if (gen_map == NULL)
-		gen_map = map;
-	return (gen_map);
 }
 
-void			ft_free(t_map *map, t_vector *line)
+void	free_raybuff(t_graph *gr, t_map *map)
 {
-	size_t	i;
-	printf("hello\n"); //
 
-	i = 0;
-	line = NULL;
-	ft_free_tab(NB_TEXTURE, map->recup.str_texture);
-	while (i < map->utils.max_line)
-		free(map->recup.tab_map[i++]);
-	free(map->recup.tab_map);
+}
+
+void	free_spdist(t_graph *gr)
+{
+
+}
+
+void	free_sppos(t_graph *gr)
+{
+
+}
+
+int	exitred(t_graph *gr)
+{
+	t_map *map;
+
+	map = get_map(NULL);
+	free_sppos(gr);
+	free_spdist(gr);
+	free_raybuff(gr, map);
+	free_cpytab(gr, map);
+	ft_free(map, NULL);
+	printf("hihi\n"); //
+	exit(0);
+	return (TRUE);
 }

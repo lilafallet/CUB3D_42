@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/10 15:26:07 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/10 17:49:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,7 @@ typedef struct	s_text
 
 # define KEYPRESS			2
 # define KEYRELEASE			3
+# define EXIT				33
 # define KMV_UP				119
 # define KMV_DOWN			115
 # define KMV_LEFT			97
@@ -558,5 +559,6 @@ void			hub_sprite(t_map *map, t_graph *gr);
 void			calcdraw_sprite(t_graph *gr, size_t i, t_map *map);
 void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
 								t_map *map);
+int				exitred(t_graph *gr);
 
 #endif
