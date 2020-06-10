@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/09 22:35:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/10 12:29:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -555,5 +555,8 @@ void			up_or_down(t_graph *gr);
 void			moove_left_right(t_graph *gr);
 void			moove_up_down(t_graph *gr);
 void			hub_sprite(t_map *map, t_graph *gr);
+void			calcdraw_sprite(t_graph *gr, size_t i, t_map *map);
+void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
+								t_map *map);
 
 #endif
