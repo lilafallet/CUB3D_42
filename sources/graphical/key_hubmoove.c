@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 13:12:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/10 15:27:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ static void	hub_moove_look(t_graph *gr)
 	/*permet d'avoir des variables temp afin de faire toutes les verifications
 	necessaires avant de les actualiser reellement*/
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
-		gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
-									: look_left(gr, tmp_dirx, tmp_planecamx);	
+	{
+		if ((gr->mv.log & LK_LEFT && ((gr->mv.log & LK_RIGHT) == FALSE))
+				|| (gr->mv.log & LK_RIGHT && ((gr->mv.log & LK_LEFT) == FALSE)))
+				gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
+										: look_left(gr, tmp_dirx, tmp_planecamx);
+	}
 	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 		moove_up_down(gr);
 	if (gr->mv.log & MV_RIGHT || gr->mv.log & MV_LEFT)
