@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/09 23:03:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/10 09:32:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,11 @@ static void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 			-> 2eme mult = quel pixel position moitie ecran
 			-> 3eme mult = hauteur en pixel du sprite
 			== largeur - position moitie ecran + hauteur*/
-			//printf("mult 2 = %d\n", map->recup.resolution[AXE_Y] * PIXEL_DIV2);
 			gr->sp.texty = ((dim * gr->text.size[S][HEIGHT] / gr->sp.height)
 								/ PIXEL);
+			/*permet de de savoir sur quel pixel sur Y on se situe
+			(dimension du pixel * taille de l'image du pixel / hauteur du sprite
+			reel / 256 (nombre de pixel))*/
 			gr->sp.color = ((int *)gr->text.data[S])[gr->sp.textw * gr->sp.texty
 								+ gr->sp.textx];
 			if ((gr->sp.color & 0xFFFFFF) != 0)
