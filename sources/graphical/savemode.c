@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 20:23:12 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 20:30:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 void	savemode(t_map *map, t_graph *gr)
 {
-	int	fd;
+	int		fd;
+	char	*tmp_data;
 	
 	if (!(fd = open("screenshot.bmp", O_RDWR | O_CREAT, 77777)))
 		return ;
@@ -36,6 +37,7 @@ void	savemode(t_map *map, t_graph *gr)
 	ft_memset(&(gr->bmp.header), FILLOF0, HEADERSIZE);
 	gr->bmp.header[TYPEFILE0] = 'B';
 	gr->bmp.header[TYPEFILE0 + 1] = 'M';
+	//faire une belle fonction avec des defines qui represente chaque pointeurs
 	ft_memcpy(gr->bmp.header + FILESIZE2, &(gr->bmp.totalsize),
 				sizeof(unsigned int));
 	ft_memcpy(gr->bmp.header + PIXOFFSET10, &(gr->bmp.pixoffset),
@@ -50,4 +52,12 @@ void	savemode(t_map *map, t_graph *gr)
 	ft_memcpy(gr->bmp.header + BUFFSIZE34, &(gr->bmp.buffsize), sizeof(short));
 	ft_memcpy(gr->bmp.header + XCOLOR38, &(gr->bmp.xcolor), sizeof(int));
 	ft_memcpy(gr->bmp.header + YCOLOR42, &(gr->bmp.ycolor), sizeof(int));
+	//
+	write(fd, gr->bmp.header, HEADERSIZE);
+	if ((tmp_data = (char *)(gr->win.data)) != NULL)
+	{
+		write(fd, tmp_data, (int)(map->recup.resolution[AXE_X]
+				* map->recup.resolution[AXE_Y] * PIXOFFSET));
+	}
+	exitred(gr);	
 }
