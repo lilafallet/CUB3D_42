@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:16:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 12:42:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 
 static int	parser_texture(t_vector *vct, t_map *map, t_state_machine *machine)
 {
-	char		*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
+	const char		*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
 	t_vector	*split;
 	uint8_t		i;
 	uint8_t		count;
@@ -69,7 +69,7 @@ static int	parser_texture(t_vector *vct, t_map *map, t_state_machine *machine)
 
 static int	parser_color(t_vector *vct, t_map *map, t_state_machine *machine)
 {
-	char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
+	const char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	uint8_t		i;
 	uint8_t		count;
 	t_vector	*split;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/10 14:55:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 13:21:42 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,5 @@ void		hub_sprite(t_map *map, t_graph *gr)
 		}	
 		i++;
 	}
+	free(gr->sp.dist);
 }
