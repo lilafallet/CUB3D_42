@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 14:09:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 18:14:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct	s_utils
 	size_t			count_comma;
 	size_t			count_line;
 	size_t			count_position;
+	size_t			save_mode;
 
 }				t_utils;
 
@@ -456,6 +457,27 @@ typedef struct	s_sp
 }				t_sprite;
 
 /*
+**###########_SPRITE_#################
+*/
+
+# define HEADERSIZE		54
+# define INFODATASIZE	40
+# define PIXOFFSET		4
+# define BPP			32
+# define PLANECOLOR		1
+# define XPIXELS		0x0B13
+# define YPIXELS		0x0B13
+
+typedef struct	s_bmp
+{
+	char			header[HEADERSIZE];
+	unsigned int	totalpix;
+	unsigned int	totalsize;
+	size_t			width;
+	size_t			height;
+}				t_bmp;
+
+/*
 **###########_GRAPH_#################
 */
 
@@ -468,6 +490,7 @@ typedef struct	s_graph
 	t_texture		text;
 	t_moove			mv;
 	t_sprite		sp;
+	t_bmp			bmp;
 }				t_graph;
 
 /*
@@ -518,7 +541,7 @@ void			recuperation_texture(t_state_machine *machine, uint8_t count,
 void			is_indic_resolution(t_vector *split, t_state_machine *machine);
 void			is_number_resolution(t_vector *split, t_state_machine *machine,
 										size_t i, t_map *map);
-int				what_second_argument(char *argument);
+int				parser_savemode(char *argument, t_map *map);
 int				is_good_file(char *str);
 int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 								t_state_machine *machine);

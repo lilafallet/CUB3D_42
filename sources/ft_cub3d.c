@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 15:18:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 15:37:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_cub3d(int fd, t_map *map)
 	return (ret);
 }
 
-static int	parser_argument(int ac, char **av)
+static int	parser_argument(int ac, char **av, t_map *map)
 {
 	if (ac < 2 || ac > 3)
 	{
@@ -75,7 +75,7 @@ static int	parser_argument(int ac, char **av)
 		return (FAILURE);
 	if (ac == 3)
 	{
-		if (what_second_argument(av[2]) == FAILURE)
+		if (parser_savemode(av[2], map) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -90,10 +90,9 @@ int			main(int ac, char **av)
 	(void)av;
 	get_map(&map);
 	ft_bzero(&map, sizeof(map));
-	ret = parser_argument(ac, av);
+	ret = parser_argument(ac, av, &map);
 	if (ret == SUCCESS)
 		fd = open(av[1], O_RDONLY);
-	save_mode(ac, av);
 	if (ft_cub3d(fd, &map) == FAILURE)
 	{
 		close(fd);
