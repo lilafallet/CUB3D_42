@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 12:35:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 15:18:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			main(int ac, char **av)
 	ret = parser_argument(ac, av);
 	if (ret == SUCCESS)
 		fd = open(av[1], O_RDONLY);
+	save_mode(ac, av);
 	if (ft_cub3d(fd, &map) == FAILURE)
 	{
 		close(fd);
