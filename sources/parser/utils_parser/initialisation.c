@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 12:34:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 14:10:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_map			*get_map(t_map *map)
 void			ft_free(t_map *map, t_vector *line)
 {
 	size_t	i;
-	printf("hello\n"); //
 
 	i = 0;
 	line = NULL;
