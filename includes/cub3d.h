@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 18:14:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/11 20:23:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -467,14 +467,33 @@ typedef struct	s_sp
 # define PLANECOLOR		1
 # define XPIXELS		0x0B13
 # define YPIXELS		0x0B13
+# define FILLOF0		0
+# define TYPEFILE0		0
+# define FILESIZE2		2
+# define PIXOFFSET10	10
+# define HEADERSIZE14	14
+# define IMGWIDTH18		18
+# define IMGHEIGHT22	22
+# define PLANECOLOR26	26
+# define BPP28			28
+# define BUFFSIZE34		34
+# define XCOLOR38		38
+# define YCOLOR42		42
 
 typedef struct	s_bmp
 {
 	char			header[HEADERSIZE];
 	unsigned int	totalpix;
 	unsigned int	totalsize;
-	size_t			width;
-	size_t			height;
+	int				imgwidth; //ou size_t ?
+	int				imgheight;
+	unsigned int	pixoffset;
+	unsigned int	headersize;
+	short			planecolor;
+	short			bpp;
+	short			buffsize;
+	int				xcolor;
+	int				ycolor;
 }				t_bmp;
 
 /*
