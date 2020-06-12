@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 20:30:34 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/12 20:53:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,18 @@
 
 void	savemode(t_map *map, t_graph *gr)
 {
-	int		fd;
-	char	*tmp_data;
-	
-	if (!(fd = open("screenshot.bmp", O_RDWR | O_CREAT, 77777)))
-		return ;
-	//revoir la ligne du dessus
-	gr->bmp.pixoffset = (unsigned int)PIXOFFSET;
-	gr->bmp.headersize = (unsigned int)HEADERSIZE;
-	gr->bmp.planecolor = (short)PLANECOLOR;
-	gr->bmp.bpp = (short)BPP;
-	gr->bmp.bpp = (short)BPP;
-	gr->bmp.imgwidth = map->recup.resolution[AXE_X];	
-	gr->bmp.imgheight = map->recup.resolution[AXE_Y];	
-	gr->bmp.totalpix = (unsigned)(gr->bmp.imgwidth * gr->bmp.imgheight);
-	gr->bmp.buffsize = (unsigned int)(gr->bmp.totalpix * PIXOFFSET);
-	//c'est quoi ?
-	gr->bmp.totalsize = (unsigned)(gr->bmp.totalpix * PIXOFFSET) + HEADERSIZE;
-	gr->bmp.xcolor = XPIXELS;
-	gr->bmp.ycolor = YPIXELS;
-	ft_memset(&(gr->bmp.header), FILLOF0, HEADERSIZE);
-	gr->bmp.header[TYPEFILE0] = 'B';
-	gr->bmp.header[TYPEFILE0 + 1] = 'M';
-	//faire une belle fonction avec des defines qui represente chaque pointeurs
-	ft_memcpy(gr->bmp.header + FILESIZE2, &(gr->bmp.totalsize),
-				sizeof(unsigned int));
-	ft_memcpy(gr->bmp.header + PIXOFFSET10, &(gr->bmp.pixoffset),
-				sizeof(unsigned int));
-	ft_memcpy(gr->bmp.header + HEADERSIZE14, &(gr->bmp.headersize),
-				sizeof(unsigned int));
-	ft_memcpy(gr->bmp.header + IMGWIDTH18, &(gr->bmp.imgwidth), sizeof(int));
-	ft_memcpy(gr->bmp.header + IMGHEIGHT22, &(gr->bmp.imgheight), sizeof(int));
-	ft_memcpy(gr->bmp.header + PLANECOLOR, &(gr->bmp.planecolor),
-				sizeof(short));
-	ft_memcpy(gr->bmp.header + BPP28, &(gr->bmp.bpp), sizeof(short));
-	ft_memcpy(gr->bmp.header + BUFFSIZE34, &(gr->bmp.buffsize), sizeof(short));
-	ft_memcpy(gr->bmp.header + XCOLOR38, &(gr->bmp.xcolor), sizeof(int));
-	ft_memcpy(gr->bmp.header + YCOLOR42, &(gr->bmp.ycolor), sizeof(int));
-	//
-	write(fd, gr->bmp.header, HEADERSIZE);
-	if ((tmp_data = (char *)(gr->win.data)) != NULL)
-	{
-		write(fd, tmp_data, (int)(map->recup.resolution[AXE_X]
-				* map->recup.resolution[AXE_Y] * PIXOFFSET));
-	}
-	exitred(gr);	
+	int	fd;
+	int	filesize;
+	int	buffer;
+
+	buffer = (PIXOFFSET - (map->recup.resolution[AXE_X] * 3) % PIXOFFSET)
+				% PIXOFFSET;
+	//pourquoi vaut 0 ?
+	//a quoi correspond 3
+	printf("buffer = %d\n", buffer); //
+	filesize = HEADERSIZE + (3 * (map->recup.resolution[AXE_X] + buffer)
+				* map->recup.resolution[AXE_Y]);
+	//a quoi correspond 3
+	printf("filesize = %d\n", filesize); //
+	if ((fd = open("screensh
 }
