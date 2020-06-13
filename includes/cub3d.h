@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 20:23:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 12:27:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,13 +457,13 @@ typedef struct	s_sp
 }				t_sprite;
 
 /*
-**###########_SPRITE_#################
+**###########_BMP_#################
 */
 
 # define HEADERSIZE		54
 # define INFODATASIZE	40
 # define PIXOFFSET		4
-# define BPP			32
+# define BPP			24
 # define PLANECOLOR		1
 # define XPIXELS		0x0B13
 # define YPIXELS		0x0B13
@@ -479,6 +479,7 @@ typedef struct	s_sp
 # define BUFFSIZE34		34
 # define XCOLOR38		38
 # define YCOLOR42		42
+# define CHAR0			'0'
 
 typedef struct	s_bmp
 {
