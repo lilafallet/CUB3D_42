@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 15:38:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 13:27:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int			parser_savemode(char *argument, t_map *map)
 {
 	if (ft_strequ(argument, "--save") == FALSE)
 	{
+		map->utils.save_mode = FALSE;
 		printf_errors(ERR_SAVE, 0);
 		return (FAILURE);
-	}
-	map->utils.save_mode = TRUE;	
+	}	
+	map->utils.save_mode = TRUE;
 	return (SUCCESS);
 }
 

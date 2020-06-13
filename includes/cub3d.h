@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 12:27:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 14:03:00 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,7 +483,7 @@ typedef struct	s_sp
 
 typedef struct	s_bmp
 {
-	char			header[HEADERSIZE];
+	/*char			header[HEADERSIZE];
 	unsigned int	totalpix;
 	unsigned int	totalsize;
 	int				imgwidth; //ou size_t ?
@@ -494,7 +494,14 @@ typedef struct	s_bmp
 	short			bpp;
 	short			buffsize;
 	int				xcolor;
-	int				ycolor;
+	int				ycolor;*/
+	int				size;
+	char			*image;
+	int				fd;
+	unsigned char	header[14];
+	unsigned char	info[40];
+	unsigned char	pad[3];
+	int				color;
 }				t_bmp;
 
 /*
@@ -604,5 +611,6 @@ void			calcdraw_sprite(t_graph *gr, size_t i, t_map *map);
 void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
 								t_map *map);
 int				exitred(t_graph *gr);
+void			savemode(t_map *map, t_graph *gr);
 
 #endif

@@ -6,22 +6,12 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 12:47:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 14:04:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
-
-static int	get_pixel(t_graph *gr, unsigned int x, unsigned int y)
-{
-	int	ptr;
-
-	ptr = *(int*)(gr->win.data + (4 * (int)gr->win.screenwidth
-			* ((int)gr->win.screenheight - 1 - y)) + (4 * x));
-	return ((ptr & 0xFF0000) | (ptr & 0x00FF00) | (ptr & 0x0000FF));
-	//comprendre tout ce charabia
-}
 
 static void	int_to_char(int n, unsigned char *src)
 {
@@ -32,60 +22,78 @@ static void	int_to_char(int n, unsigned char *src)
 	//comprendre cette fonction et sinon essaye de faire comme Fred
 }
 
+static void	image_bmp(t_graph *gr, t_map *map)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	j = 0;
+	while (j < map->recup.resolution[AXE_Y])
+	{
+		i = 0;
+		while (i < map->recup.resolution[AXE_X])
+		{
+			x = i;
+			y = map->recup.resolution[AXE_Y] - 1 - j;
+			gr->bmp.color = gr->win.data[x + y * map->recup.resolution[AXE_X]];
+			write(gr->bmp.fd, &gr->bmp.color, 3);
+			i++;
+		}
+		i = 0;
+		while (i < (4 - (map->recup.resolution[AXE_X] * 3) % 4) % 4)
+		{
+			write(gr->bmp.fd, &gr->bmp.pad, 1);
+			i++;
+		}
+		j++;
+	}
+}
+
 void	savemode(t_map *map, t_graph *gr)
 {
-	int				fd;
-	int				filesize;
-	int				buffer;
-	int				header;
-	size_t			y;
-	unsigned char	data[HEADERSIZE];
-	unsigned char	zero[3]; //pourquoi 3 ?
-	size_t			x;
-	int				color;
+	int	image_size;
+	int	i;
 
-	buffer = (PIXOFFSET - (map->recup.resolution[AXE_X] * 3) % PIXOFFSET)
-				% PIXOFFSET;
-	//pourquoi vaut 0 ?
-	//a quoi correspond 3
-	printf("buffer = %d\n", buffer); //
-	filesize = HEADERSIZE + (3 * (map->recup.resolution[AXE_X] + buffer)
-				* map->recup.resolution[AXE_Y]);
-	//a quoi correspond 3
-	printf("filesize = %d\n", filesize); //
-	if ((fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND,
-						0666)) < 0)
-		return ;
-	//comprendre tous les O et 0666
-	ft_bzero(data, HEADERSIZE);
-	data[TYPEFILE0] = (unsigned char)'B';
-	data[TYPEFILE0 + 1] = (unsigned char)'M';
-	int_to_char(filesize, data + FILESIZE2);
-	//permet d'avoir l'adresse de filesize ?
-	data[PIXOFFSET10] = (unsigned char)HEADERSIZE;
-	//represente le decalage le decalage actuel de pixel dans le bit
-	data[HEADERSIZE14] = (unsigned char)INFODATASIZE;
-	//la taille en bytes du header
-	int_to_char(map->recup.resolution[AXE_X], data + IMGWIDTH18);
-	int_to_char(map->recup.resolution[AXE_Y], data + IMGHEIGHT22);
-	data[PLANECOLOR26] = (unsigned char)PLANECOLOR;
-	data[BPP28] = (unsigned char)BPP;
-	//nombre de bits qu'un pixel prend
-	write(fd, data, HEADERSIZE);
-	ft_bzero(zero, 3);
-	y = 0;
-	while (y < map->recup.resolution[HEIGHT])
+	i = 0;
+	image_size = 3 * map->recup.resolution[AXE_X] * map->recup.resolution[AXE_Y];
+	gr->bmp.size = 54 + image_size;
+	gr->bmp.image = malloc((sizeof(char) * image_size));
+	//A PROTEGER
+	ft_memset(gr->bmp.image, 0, image_size);
+	gr->bmp.fd = open("screenshot.bmp", O_CREAT | O_WRONLY, S_IRWXU);
+	//A PROTEGER
+	while (i < 14)
 	{
-		x = 0;
-		while (x < map->recup.resolution[WIDTH])
-		{
-			color = get_pixel(gr, y, x);
-			write(fd, &color, 3);
-			write(fd, &zero, buffer);
-			x++; 
-		}
-		y++;
+		gr->bmp.header[i] = 0;
+		i++;
 	}
-	close(fd);
-	//exitred(gr);
+	gr->bmp.header[0] = 'B';
+	gr->bmp.header[1] = 'M';
+	gr->bmp.header[10] = 54;
+	i = 0;
+	while (i < 40)
+	{
+		gr->bmp.info[i] = 0;
+		i++;
+	}
+	gr->bmp.info[0] = 40;
+	gr->bmp.info[12] = 1;
+	gr->bmp.info[14] = 24;
+	i = 0;
+	while (i < 3)
+	{
+		gr->bmp.pad[i] = 0;
+		i++;	
+	}
+	int_to_char(gr->bmp.size, &gr->bmp.header[2]);
+	int_to_char(map->recup.resolution[AXE_X], &gr->bmp.info[4]);
+	int_to_char(map->recup.resolution[AXE_Y], &gr->bmp.info[8]);
+	write(gr->bmp.fd, gr->bmp.header, 14);
+	write(gr->bmp.fd, gr->bmp.info, 40);
+	image_bmp(gr, map);
+	free(gr->bmp.image);
+	close(gr->bmp.fd);
+	exitred(gr);
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 15:04:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 13:41:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ void	start_graph(t_map *map)
 
 	ft_bzero(&gr, sizeof(gr));
 	gr.win.mlx_ptr = mlx_init();
-	mlx_get_screen_size(gr.win.mlx_ptr, &screenx, &screeny);
-	//ft_printf("screenx = %d\n", screenx); //
-	//ft_printf("screeny = %d\n", screeny); //
 	if (map->recup.resolution[AXE_X] > screenx)
 		map->recup.resolution[AXE_X] = screenx;
 	if (map->recup.resolution[AXE_Y] > screeny)
 		map->recup.resolution[AXE_Y] = screeny;
+	//ft_printf("screenx = %d\n", screenx); //
+	//ft_printf("screeny = %d\n", screeny); //
 	gr.win.win_ptr = mlx_new_window(gr.win.mlx_ptr,
 							map->recup.resolution[AXE_X],
 							map->recup.resolution[AXE_Y], "Cub3d");
