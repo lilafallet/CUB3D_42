@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 19:16:44 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 20:32:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int		my_mlx_pixel_reverse(t_graph *gr, t_map *map, int x, int y)
+static int		get_color(t_graph *gr, t_map *map, int x, int y)
 {
 	int *color;
 
@@ -22,63 +22,52 @@ int		my_mlx_pixel_reverse(t_graph *gr, t_map *map, int x, int y)
 	return (*(int *)color);
 }
 
-void	set_int_in_char(unsigned char *start, int value)
+int		bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 {
-	start[0] = (unsigned char)(value);
-	start[1] = (unsigned char)(value >> 8);
-	start[2] = (unsigned char)(value >> 16);
-	start[3] = (unsigned char)(value >> 24);
+	unsigned char	header[HEADERSIZE];
+
+	ft_bzero(header, HEADERSIZE);
+	header[TYPEFILE0] = (unsigned char)('B');
+	header[TYPEFILE0 + 1] = (unsigned char)('M');
+	ft_int_to_char(header + FILESIZE2, filesize);
+	header[PIXOFFSET10] = (unsigned char)(54);
+	header[HEADERSIZE14] = (unsigned char)(40);
+	ft_int_to_char(header + IMGWIDTH18, map->recup.resolution[AXE_X]);
+	ft_int_to_char(header + IMGHEIGHT22, map->recup.resolution[AXE_Y]);
+	header[PLANECOLOR27] = (unsigned char)(1);
+	header[BPP28] = (unsigned char)(24);
+	if (write(fd, header, HEADERSIZE) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
-int		write_bmp_header(int fd, int filesize, t_graph *gr, t_map *map)
-{
-	int				i;
-	int				tmp;
-	unsigned char	bmpfileheader[54];
-
-	i = 0;
-	while (i < 54)
-	{
-		bmpfileheader[i] = (unsigned char)(0);
-		i++;
-	}
-	bmpfileheader[0] = (unsigned char)('B');
-	bmpfileheader[1] = (unsigned char)('M');
-	set_int_in_char(bmpfileheader + 2, filesize);
-	bmpfileheader[10] = (unsigned char)(54);
-	bmpfileheader[14] = (unsigned char)(40);
-	tmp = map->recup.resolution[AXE_X];
-	set_int_in_char(bmpfileheader + 18, tmp);
-	tmp = map->recup.resolution[AXE_Y];
-	set_int_in_char(bmpfileheader + 22, tmp);
-	bmpfileheader[27] = (unsigned char)(1);
-	bmpfileheader[28] = (unsigned char)(24);
-	return (!(write(fd, bmpfileheader, 54) < 0));
-}
-
-int		write_bmp_data(int fd, t_graph *gr, int pad, t_map *map)
+int		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
-	int					i;
-	int					j;
+	int					y;
+	int					x;
 	int					color;
 
-	i = map->recup.resolution[AXE_Y] - 1;
-	while (i >= 0)
+	y = map->recup.resolution[AXE_Y] - 1;
+	/*la boucle se fait a l'envers pour pas que le bmp soit affiche a l'envers 
+	en little indian*/
+	while (y >= 0)
 	{
-		j = 0;
-		while (j < map->recup.resolution[AXE_X])
+		x = 0;
+		while (x < map->recup.resolution[AXE_X])
 		{
-			color = my_mlx_pixel_reverse(gr, map, j, i);
+			color = get_color(gr, map, x, y);
 			if (write(fd, &color, 3) < 0)
-				return (0);
+				return (FAILURE);
+			//ecris les informations sur les couleurs (pixels)
 			if (pad > 0 && write(fd, &zero, pad) < 0)
-				return (0);
-			j++;
+				return (FAILURE);
+			//permet de rajouter les octets bidons (entre 1 et 3)
+			x++;
 		}
-		i--;
+		y--;
 	}
-	return (1);
+	return (SUCCESS);
 }
 
 void		savemode(t_map *map, t_graph *gr)
@@ -87,15 +76,26 @@ void		savemode(t_map *map, t_graph *gr)
 	int			fd;
 	int			pad;
 
-	pad = (4 - ((int)map->recup.resolution[AXE_X] * 3) % 4) % 4;
-	filesize = 54 + (3 * ((int)map->recup.resolution[AXE_X] + pad) *
-					(int)map->recup.resolution[AXE_Y]);
-	if ((fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0777)) == -1)
-		return ;
-	if (!write_bmp_header(fd, filesize, gr, map))
-		return ;
-	if (!write_bmp_data(fd, gr, pad, map))
-		return ;
+	pad = (PIXOFFSET - ((int)map->recup.resolution[AXE_X] * 3) % PIXOFFSET) % 4;
+	//permet d'alligner en memoire
+	filesize = HEADERSIZE + (OCTET3 * ((int)map->recup.resolution[AXE_X]
+					+ pad) * (int)map->recup.resolution[AXE_Y]);
+	/*taille du headersize + AXE_X * AXE_Y // on a 24 bits (3 octets) par pixel,
+	il se peut que la somme des pixels d'une ligne ne soit pas un multiple de 4.
+	Dans ce cas, on rajoute a la fin de la ligne, entre 0 et 3 octets bidons
+	pour assurer que la ligne est un multiple de 4 octets*/
+	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC
+						| O_APPEND, 0644);
+	//ERROR
+	//permet de remplacer un fichier tout en ecrasant toutes les donnees restantes
+	if (bmp_header(gr, map, fd, filesize) == FAILURE)
+	{
+		//ERROR
+	}
+	if (bmp_data(gr, map, fd, pad) == FAILURE)
+	{
+		//ERROR
+	}
 	close(fd);
 	exitred(gr);
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 19:13:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 20:35:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -474,49 +474,13 @@ typedef struct	s_sp
 # define HEADERSIZE14	14
 # define IMGWIDTH18		18
 # define IMGHEIGHT22	22
-# define PLANECOLOR26	26
+# define PLANECOLOR27	27
 # define BPP28			28
 # define BUFFSIZE34		34
 # define XCOLOR38		38
 # define YCOLOR42		42
 # define CHAR0			'0'
-
-typedef struct	s_bmp
-{
-	char			header[54];
-	unsigned int	pixcount;
-	unsigned int	bufsize;
-	unsigned int	total_size;
-	unsigned int	pix_data_offset;
-	unsigned int	header_size;
-	int				imagewidth;
-	int				imageheight;
-	short			color_planes;
-	short			bpp;
-	int				compression;
-	int				total_colors;
-	/*char			header[HEADERSIZE];
-	unsigned int	totalpix;
-	unsigned int	totalsize;
-	int				imgwidth; //ou size_t ?
-	int				imgheight;
-	unsigned int	pixoffset;
-	unsigned int	headersize;
-	short			planecolor;
-	short			bpp;
-	short			buffsize;
-	int				xcolor;
-	int				ycolor;*/
-	/*int				size;
-	char			*image;
-	int				fd;
-	unsigned char	header[14];
-	unsigned char	info[40];
-	unsigned char	pad[3];
-	int				color;
-	int				*tmp_data; //windows*/
-	
-}				t_bmp;
+# define OCTET3			3
 
 /*
 **###########_GRAPH_#################
@@ -531,7 +495,6 @@ typedef struct	s_graph
 	t_texture		text;
 	t_moove			mv;
 	t_sprite		sp;
-	t_bmp			bmp;
 }				t_graph;
 
 /*
