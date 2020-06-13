@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 14:04:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 14:10:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	savemode(t_map *map, t_graph *gr)
 	gr->bmp.image = malloc((sizeof(char) * image_size));
 	//A PROTEGER
 	ft_memset(gr->bmp.image, 0, image_size);
-	gr->bmp.fd = open("screenshot.bmp", O_CREAT | O_WRONLY, S_IRWXU);
+	gr->bmp.fd = open("screenshot.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	//A PROTEGER
 	while (i < 14)
 	{
