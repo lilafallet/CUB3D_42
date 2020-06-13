@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:23:14 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/10 12:30:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 16:19:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ static void	colorisation_sprite(t_graph *gr, int starty, int startx, t_map *map)
 	/*permet de savoir a quel coordonnes de data on se situe et recupere
 	la couleur de la coordonnee*/
 	if ((gr->sp.color & 0xFFFFFF) != 0)
-			gr->win.data[starty * map->recup.resolution[AXE_X] + startx]
-							= gr->sp.color;
+	{
+		gr->win.data[starty * map->recup.resolution[AXE_X] + startx]
+						= gr->sp.color;
+	}
 	//permet de coloriser le pixel en x/y de la fenetre
 }
 

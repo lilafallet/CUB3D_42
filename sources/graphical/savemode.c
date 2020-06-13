@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 14:10:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 16:19:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	image_bmp(t_graph *gr, t_map *map)
 		{
 			x = i;
 			y = map->recup.resolution[AXE_Y] - 1 - j;
-			gr->bmp.color = gr->win.data[x + y * map->recup.resolution[AXE_X]];
+			gr->bmp.color = gr->win.data[x + y
+								* map->recup.resolution[AXE_X]];
 			write(gr->bmp.fd, &gr->bmp.color, 3);
 			i++;
 		}

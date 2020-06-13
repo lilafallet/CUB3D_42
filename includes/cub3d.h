@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 14:03:00 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 15:43:51 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -502,6 +502,8 @@ typedef struct	s_bmp
 	unsigned char	info[40];
 	unsigned char	pad[3];
 	int				color;
+	int				*tmp_data; //windows
+	
 }				t_bmp;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 12:57:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 15:25:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	exitred(t_graph *gr)
 {
 	t_map *map;
 
-	printf("LA\n"); //
+	//mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+	//gr->win.img_ptr = NULL;
 	map = get_map(NULL);
 	free(gr->sp.pos);
 	free(gr->sp.raybuff);
