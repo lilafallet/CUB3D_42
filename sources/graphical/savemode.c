@@ -6,75 +6,96 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 16:55:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 19:16:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
+#include <string.h>
 
-static void	int_to_char(unsigned char *src, int n)
+int		my_mlx_pixel_reverse(t_graph *gr, t_map *map, int x, int y)
 {
-	src[0] = (unsigned char)(n);
-	src[1] = (unsigned char)(n >> 8);
-	src[2] = (unsigned char)(n >> 16);
-	src[3] = (unsigned char)(n >> 24);
-	//comprendre cette fonction et sinon essaye de faire comme Fred
+	int *color;
+
+	color = gr->win.data + (y * map->recup.resolution[AXE_X] + x);
+	return (*(int *)color);
 }
 
-static void	image_bmp(t_graph *gr, t_map *map)
+void	set_int_in_char(unsigned char *start, int value)
 {
-	int	i;
-	int	j;
-	int	x;
-	int	y;
+	start[0] = (unsigned char)(value);
+	start[1] = (unsigned char)(value >> 8);
+	start[2] = (unsigned char)(value >> 16);
+	start[3] = (unsigned char)(value >> 24);
+}
 
-	j = 0;
-	while (j < map->recup.resolution[AXE_Y])
+int		write_bmp_header(int fd, int filesize, t_graph *gr, t_map *map)
+{
+	int				i;
+	int				tmp;
+	unsigned char	bmpfileheader[54];
+
+	i = 0;
+	while (i < 54)
 	{
-		i = 0;
-		while (i < map->recup.resolution[AXE_X])
-		{
-			x = i;
-			y = map->recup.resolution[AXE_Y] - 1 - j;
-			gr->bmp.color = gr->win.data[x + y
-								* map->recup.resolution[AXE_X]];
-			write(gr->bmp.fd, &gr->bmp.color, 3);
-			i++;
-		}
-		i = 0;
-		while (i < (PIXOFFSET - (map->recup.resolution[AXE_X] * 3)
-						% PIXOFFSET) % PIXOFFSET)
-		{
-			write(gr->bmp.fd, &gr->bmp.pad, 1);
-			i++;
-		}
-		j++;
+		bmpfileheader[i] = (unsigned char)(0);
+		i++;
 	}
+	bmpfileheader[0] = (unsigned char)('B');
+	bmpfileheader[1] = (unsigned char)('M');
+	set_int_in_char(bmpfileheader + 2, filesize);
+	bmpfileheader[10] = (unsigned char)(54);
+	bmpfileheader[14] = (unsigned char)(40);
+	tmp = map->recup.resolution[AXE_X];
+	set_int_in_char(bmpfileheader + 18, tmp);
+	tmp = map->recup.resolution[AXE_Y];
+	set_int_in_char(bmpfileheader + 22, tmp);
+	bmpfileheader[27] = (unsigned char)(1);
+	bmpfileheader[28] = (unsigned char)(24);
+	return (!(write(fd, bmpfileheader, 54) < 0));
 }
 
-void	savemode(t_map *map, t_graph *gr)
+int		write_bmp_data(int fd, t_graph *gr, int pad, t_map *map)
 {
-	int	image_size;
+	const unsigned char	zero[3] = {0, 0, 0};
+	int					i;
+	int					j;
+	int					color;
 
-	image_size = 3 * map->recup.resolution[AXE_X] * map->recup.resolution[AXE_Y];
-	gr->bmp.size = HEADERSIZE + image_size;
-	//A PROTEGER
-	gr->bmp.fd = open("screenshot.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	//A PROTEGER
-	ft_bzero(gr->bmp.header, HEADERSIZE - INFODATASIZE);
-	ft_bzero(gr->bmp.pad, 3);
-	gr->bmp.header[TYPEFILE0] = 'B';
-	gr->bmp.header[TYPEFILE0 + 1] = 'M';
-	gr->bmp.header[PIXOFFSET10] = HEADERSIZE;
-	gr->bmp.header[HEADERSIZE14] = INFODATASIZE;
-	gr->bmp.header[PLANECOLOR26] = PLANECOLOR;
-	gr->bmp.header[BPP28] = BPP;
-	int_to_char(&gr->bmp.header[FILESIZE2], gr->bmp.size);
-	int_to_char(&gr->bmp.header[IMGWIDTH18], map->recup.resolution[AXE_X]);
-	int_to_char(&gr->bmp.header[IMGHEIGHT22], map->recup.resolution[AXE_Y]);
-	write(gr->bmp.fd, gr->bmp.header, HEADERSIZE);
-	image_bmp(gr, map);
-	close(gr->bmp.fd);
+	i = map->recup.resolution[AXE_Y] - 1;
+	while (i >= 0)
+	{
+		j = 0;
+		while (j < map->recup.resolution[AXE_X])
+		{
+			color = my_mlx_pixel_reverse(gr, map, j, i);
+			if (write(fd, &color, 3) < 0)
+				return (0);
+			if (pad > 0 && write(fd, &zero, pad) < 0)
+				return (0);
+			j++;
+		}
+		i--;
+	}
+	return (1);
+}
+
+void		savemode(t_map *map, t_graph *gr)
+{
+	int			filesize;
+	int			fd;
+	int			pad;
+
+	pad = (4 - ((int)map->recup.resolution[AXE_X] * 3) % 4) % 4;
+	filesize = 54 + (3 * ((int)map->recup.resolution[AXE_X] + pad) *
+					(int)map->recup.resolution[AXE_Y]);
+	if ((fd = open("screenshot.bmp", O_CREAT | O_RDWR | O_TRUNC, 0777)) == -1)
+		return ;
+	if (!write_bmp_header(fd, filesize, gr, map))
+		return ;
+	if (!write_bmp_data(fd, gr, pad, map))
+		return ;
+	close(fd);
 	exitred(gr);
 }

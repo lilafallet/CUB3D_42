@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 16:18:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 18:21:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_graph(t_graph *gr, t_map *map)
 {
 	if (gr->win.img_ptr != NULL)
 	{
+		printf("HELLO\n"); 
 		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
 		gr->win.img_ptr = NULL;
 	}

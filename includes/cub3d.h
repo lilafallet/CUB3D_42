@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 15:43:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/13 19:13:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,6 +483,18 @@ typedef struct	s_sp
 
 typedef struct	s_bmp
 {
+	char			header[54];
+	unsigned int	pixcount;
+	unsigned int	bufsize;
+	unsigned int	total_size;
+	unsigned int	pix_data_offset;
+	unsigned int	header_size;
+	int				imagewidth;
+	int				imageheight;
+	short			color_planes;
+	short			bpp;
+	int				compression;
+	int				total_colors;
 	/*char			header[HEADERSIZE];
 	unsigned int	totalpix;
 	unsigned int	totalsize;
@@ -495,14 +507,14 @@ typedef struct	s_bmp
 	short			buffsize;
 	int				xcolor;
 	int				ycolor;*/
-	int				size;
+	/*int				size;
 	char			*image;
 	int				fd;
 	unsigned char	header[14];
 	unsigned char	info[40];
 	unsigned char	pad[3];
 	int				color;
-	int				*tmp_data; //windows
+	int				*tmp_data; //windows*/
 	
 }				t_bmp;
 
