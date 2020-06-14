@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:23:14 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 16:19:58 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/14 09:10:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 						/ gr->sp.width / PIXEL);
 	/*permet de savoir combien sur x on voit de la texture, quel x on est*/
 	//ft_printf("textx = %d\n", gr->sp.textx); //
-	if (gr->sp.playposy > 0 && startx > 0 && startx < map->recup.resolution[AXE_X]
+	if (gr->sp.playposy > 0 && startx >= 0 && startx < map->recup.resolution[AXE_X]
 			&& gr->sp.playposy < gr->sp.raybuff[startx])
 	{
 		//verifie si on est bien dans la map 
@@ -91,7 +91,7 @@ void	calcdraw_sprite(t_graph *gr, size_t i, t_map *map)
 	//printf("startx = %d\n", gr->sp.startx); //
 	gr->sp.endx = gr->sp.width / 2 + gr->sp.screen_where;
 	if (gr->sp.endx >= map->recup.resolution[AXE_X])
-			gr->sp.endx = map->recup.resolution[AXE_X] - 1;	
+			gr->sp.endx = map->recup.resolution[AXE_X];	
 	/*pixel sur x a colorise = end
 	-> colorise de gauche a droite*/
 	//printf("endx = %d\n", gr->sp.endx); //
