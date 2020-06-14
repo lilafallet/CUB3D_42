@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 16:18:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/14 10:36:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,23 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 {
 	int	y;
 	int	sky_color;
-	
+	int	axe_x;
+
 	y = 0;
 	sky_color = get_rgb(map->recup.tab_color_c[R], map->recup.tab_color_c[G],
-							map->recup.tab_color_c[B]); 
+							map->recup.tab_color_c[B]);
+	axe_x = map->recup.resolution[AXE_X];
+	/*if (x == 0 && y == 0)
+	{
+		printf("HELLO\n"); //
+		x = 1;
+		y = 1;
+		axe_x = map->recup.resolution[AXE_X] - 1;
+	}*/
 	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
 	(jusqu'a draw start qui correspond au pixel jusqu'a ou on peut aller*/
 	{
-		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+		gr->win.data[y * axe_x + x] = sky_color;
 		//pixel a coloriser sur win
 		y++;
 	}
@@ -121,6 +130,8 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 
 void	hub_draw(t_map *map, t_graph *gr, int x)
 {
+	printf("x = %d\n", x);
 	draw_floor(map, gr, x);
-	draw_sky(map, gr, x);
+	if (x != 0)
+		draw_sky(map, gr, x);
 }
