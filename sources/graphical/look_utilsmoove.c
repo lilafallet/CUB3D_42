@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 18:02:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 20:40:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,31 @@ int		is_wall(t_graph *gr, t_map *map)
 {
 	double	tmp_posx;
 	double	tmp_posy;
+	double	tmpx;
+	int		left;
+	
 
+	if (gr->mv.log & MV_LEFT)
+	{
+		left = TRUE;
+		gr->mv.tmp_left += left;
+		printf("left = %d\n", left); //
+	}
+	printf("tmp_left = %d\n", gr->mv.tmp_left); //
+	if (gr->mv.tmp_left != 0 && gr->mv.log & MV_RIGHT)
+	{
+		printf("COUCOU\n"); //
+		gr->mv.tmp = gr->mv.tmp_left;
+		gr->mv.tmp_left = 0;
+	}
 	if (gr->mv.y == 10 && (gr->mv.log & MV_UP) == FALSE)
 	{
 		gr->mv.stopy = FALSE;
 		gr->mv.y = 0;
 	}
-	if (gr->mv.x == 10 && (gr->mv.log & MV_RIGHT) == FALSE)
+	if (gr->mv.x == 10
+			&& ((gr->mv.log & MV_LEFT && (gr->mv.log & MV_RIGHT) == FALSE)
+			|| ((gr->mv.log & MV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE))))
 	{
 		printf("HERE\n"); //
 		gr->mv.stopx = FALSE;
@@ -36,18 +54,31 @@ int		is_wall(t_graph *gr, t_map *map)
 	printf("tmp_posy = %d\n", (int)tmp_posy); //
 	printf("floor(tmp_posx) = %lf\n", floor(tmp_posx)); //
 	printf("floor(tmp_posx - SPEED_MV) = %lf\n", floor(tmp_posx - SPEED_MV)); //
+	printf("tmpx = %lf\n", tmpx); //
+	printf("tmp = %d\n", gr->mv.tmp); //
 	if ((int)tmp_posy == 1 && gr->mv.y < 10)
 	{
 		printf("HERE Y\n"); //
 		gr->mv.y++;
 	}
 	printf("y = %d\n\n", gr->mv.y); //
-	if ((int)tmp_posx == 1 && gr->mv.x < 10 && (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT))
+	if ((int)tmp_posx == 1 && gr->mv.x < 10 && (gr->mv.log & MV_RIGHT))
 	{
 		printf("HERE X\n"); //
 		gr->mv.x++;
+		if (gr->mv.stopx == TRUE)
+		{
+			gr->mv.x = gr->mv.x;
+			return (TRUE);
+		}
 	}
 	printf("x = %d\n\n", gr->mv.x); //
+	if (gr->mv.log & MV_RIGHT && gr->mv.tmp == gr->mv.x && gr->mv.x != 0)
+	{
+		printf("PITIEEEE\n"); //
+		gr->mv.stopx = TRUE;
+		//return (TRUE);
+	}
 	if (((int)tmp_posx > 0
 		&& (gr->mv.log & MV_DOWN || gr->mv.log & MV_UP)
 		&& floor(tmp_posx) != floor(tmp_posx - SPEED_MV)))
@@ -71,19 +102,14 @@ int		is_wall(t_graph *gr, t_map *map)
 		//permet de ne pas rentrer dans la texture
 	}
 	if ((int)tmp_posy == 1 && gr->mv.y == 10 && (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
-			&& floor(tmp_posy) == 1.000000)
+			&& floor(tmp_posy - SPEED_MV) == 0.000000)
 	{
 		printf("RETURN TRUE Y\n"); //
 		gr->mv.stopy = TRUE;
 		return (TRUE);
 	}
-	if (gr->mv.log & MV_RIGHT)
-		printf("MOOVE RIGHT\n"); //
-	if (floor(tmp_posx) == 1.000000)
-		printf("TRUE TMP_POSX\n"); //
-	printf("new tmp_posx = %lf\n", tmp_posx); //
 	if ((int)tmp_posx == 1 && gr->mv.x == 10 && (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
-			&& floor(tmp_posx) == 1.0000)
+			&& floor(tmp_posx - SPEED_MV) == 0.000000)
 	{
 			printf("RETURN TRUE X\n"); //
 			gr->mv.stopx = TRUE;
@@ -98,12 +124,6 @@ int		is_wall(t_graph *gr, t_map *map)
 		if (gr->mv.y == 10)
 			return (TRUE);
 	}
-	/*if (gr->mv.log & MV_LEFT
-			&& map->recup.tab_map[(int)tmp_posy][(int)tmp_posx - 1] == WALL)
-	{
-		printf("IS WALL X");
-		return (TRUE);
-	}*/
 	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx] == WALL)
 	{
 		printf("IS_WALL\n");
