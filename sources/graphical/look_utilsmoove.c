@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 21:23:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 23:14:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,15 @@ int		is_wall(t_graph *gr, t_map *map)
 	printf("tmpx = %lf\n", tmpx); //
 	printf("tmpl = %d\n", gr->mv.tmpl); //
 	printf("tmpd = %d\n", gr->mv.tmpd); //
-	if ((int)tmp_posy == 1 && gr->mv.y < 10)
+	if ((int)tmp_posy == 1 && gr->mv.y < 10 && (gr->mv.log & MV_UP))
 	{
 		printf("HERE Y\n"); //
 		gr->mv.y++;
+		if (gr->mv.stopy == TRUE)
+		{
+			gr->mv.y = gr->mv.y;
+			return (TRUE); 
+		}
 	}
 	printf("y = %d\n\n", gr->mv.y); //
 	if ((int)tmp_posx == 1 && gr->mv.x < 10 && (gr->mv.log & MV_RIGHT))
@@ -98,7 +103,7 @@ int		is_wall(t_graph *gr, t_map *map)
 	{
 		printf("PITIEEEE Y\n"); //
 		gr->mv.stopy = TRUE;
-		//return (TRUE);
+		return (TRUE);
 	}
 	if (((int)tmp_posx > 0
 		&& (gr->mv.log & MV_DOWN || gr->mv.log & MV_UP)
@@ -142,11 +147,8 @@ int		is_wall(t_graph *gr, t_map *map)
 		|| map->recup.tab_map[(int)tmp_posy + 1][(int)tmp_posx] == WALL)
 	{
 		printf("JE VEUX QUE CA RENTRE LA\n");
-		if (gr->mv.stopy == FALSE)
-		{
-			printf("FALSE\n"); //
+		if (gr->mv.y < 10 && gr->mv.y > -1 && gr->mv.log & MV_UP)
 			gr->mv.y++;
-		}
 		printf("y = %d\n", gr->mv.y); //
 		if (gr->mv.y == 10)
 		{
