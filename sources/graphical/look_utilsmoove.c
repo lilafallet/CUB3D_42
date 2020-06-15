@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 17:37:51 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 18:02:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		is_wall(t_graph *gr, t_map *map)
 		gr->mv.stopy = FALSE;
 		gr->mv.y = 0;
 	}
-	if (gr->mv.x == 10 && gr->mv.log & MV_RIGHT)
+	if (gr->mv.x == 10 && (gr->mv.log & MV_RIGHT) == FALSE)
 	{
 		printf("HERE\n"); //
 		gr->mv.stopx = FALSE;
@@ -42,7 +42,7 @@ int		is_wall(t_graph *gr, t_map *map)
 		gr->mv.y++;
 	}
 	printf("y = %d\n\n", gr->mv.y); //
-	if ((int)tmp_posx == 1 && gr->mv.x < 10 && gr->mv.log & MV_LEFT)
+	if ((int)tmp_posx == 1 && gr->mv.x < 10 && (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT))
 	{
 		printf("HERE X\n"); //
 		gr->mv.x++;
@@ -70,19 +70,20 @@ int		is_wall(t_graph *gr, t_map *map)
 		tmp_posy -= SPEED_MV;
 		//permet de ne pas rentrer dans la texture
 	}
-	if ((int)tmp_posy == 1 && gr->mv.y == 10 && gr->mv.log & MV_UP
-			&& tmp_posy == 1.000000)
+	if ((int)tmp_posy == 1 && gr->mv.y == 10 && (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
+			&& floor(tmp_posy) == 1.000000)
 	{
 		printf("RETURN TRUE Y\n"); //
 		gr->mv.stopy = TRUE;
 		return (TRUE);
 	}
-	printf("HELLO\n"); //
-	if (gr->mv.log & MV_LEFT)
-		printf("MOOVE LEFT\n"); //
+	if (gr->mv.log & MV_RIGHT)
+		printf("MOOVE RIGHT\n"); //
+	if (floor(tmp_posx) == 1.000000)
+		printf("TRUE TMP_POSX\n"); //
 	printf("new tmp_posx = %lf\n", tmp_posx); //
-	if ((int)tmp_posx == 1 && gr->mv.x == 10 && gr->mv.log & MV_LEFT
-			/*&& tmp_posx == 1.0000*/)
+	if ((int)tmp_posx == 1 && gr->mv.x == 10 && (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
+			&& floor(tmp_posx) == 1.0000)
 	{
 			printf("RETURN TRUE X\n"); //
 			gr->mv.stopx = TRUE;
@@ -90,7 +91,7 @@ int		is_wall(t_graph *gr, t_map *map)
 	}
 	if (gr->mv.y != 10
 		&& map->recup.tab_map[(int)tmp_posy - 1][(int)tmp_posx] == WALL
-		/*&& gr->mv.y == 10 - ((int)tmp_posy - 1)*/ && gr->mv.log & MV_UP)
+		/*&& gr->mv.y == 10 - ((int)tmp_posy - 1)*/ && (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN))
 	{
 		printf("JE VEUX QUE CA RENTRE LA\n");
 		gr->mv.y++;
