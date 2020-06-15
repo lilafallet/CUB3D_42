@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 13:11:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 14:20:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,6 +418,8 @@ typedef struct	s_mv
 	double	comb_posy;
 	int		update;
 	int		is_wall;
+	int		y;
+	int		stop;
 }				t_moove;
 
 /*

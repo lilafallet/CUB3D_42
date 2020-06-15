@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 13:27:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 14:25:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	moove(t_graph *gr)
 		hub_moove_look(gr);
 		if (is_wall(gr, map) == FALSE)
 		{
+			printf("PAS DE WALL\n"); //
 			//si il n'y a pas de mur on peut faire les modifications
 			gr->rting.posx = gr->mv.new_posx;
 			gr->rting.posy = gr->mv.new_posy;
@@ -63,7 +64,6 @@ int	moove(t_graph *gr)
 			init_moove_look(gr, map);
 		}
 		gr->mv.log &= ~CAM;
-		gr->mv.is_wall = FALSE;
 		return (SUCCESS);
 	}
 	return (FALSE);
