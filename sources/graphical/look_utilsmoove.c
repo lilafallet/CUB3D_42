@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 10:33:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:27:33 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		is_wall(t_graph *gr, t_map *map)
 	tmp_posx = gr->mv.new_posx;
 	tmp_posy = gr->mv.new_posy;
 	if ((int)tmp_posx > 0
-		&& (gr->mv.log & MV_DOWN)
+		&& (gr->mv.log & MV_DOWN || gr->mv.log & MV_UP)
 		&& floor(tmp_posx) != floor(tmp_posx - SPEED_MV))
 	{
 		/*si pas dans un mur + DOWN + la position actuelle est different de la
@@ -29,7 +29,7 @@ int		is_wall(t_graph *gr, t_map *map)
 		//permet de ne pas rentrer dans la texture
 	}
 	if ((int)tmp_posy > 0
-		&& (gr->mv.log & MV_LEFT)
+		&& (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 		&& floor(tmp_posy) != floor(tmp_posy - SPEED_MV))
 	{
 		/*si pas dans un mur + LEFT + la position actuelle est different de la

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 10:36:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:23:35 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,6 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 
 void	hub_draw(t_map *map, t_graph *gr, int x)
 {
-	printf("x = %d\n", x);
 	draw_floor(map, gr, x);
-	if (x != 0)
-		draw_sky(map, gr, x);
+	draw_sky(map, gr, x);
 }

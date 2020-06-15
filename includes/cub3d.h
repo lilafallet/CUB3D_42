@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 10:20:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:11:45 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,6 +344,7 @@ typedef struct	s_draw
 	int		height_line; //hauteur du mur lineHeight
 	int		start;
 	int		end;
+	int		no_sky;
 }				t_draw;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 10:00:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:17:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,6 @@ void	start_raycasting(t_map *map, t_graph *gr)
 		draw_wall(map, gr, x);
 		hub_draw(map, gr, x);
 		x++;
+		gr->draw.no_sky = FALSE;
 	}
 }
