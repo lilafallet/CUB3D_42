@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 14:20:33 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/15 17:00:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,7 +419,9 @@ typedef struct	s_mv
 	int		update;
 	int		is_wall;
 	int		y;
-	int		stop;
+	int		x;
+	int		stopy;
+	int		stopx;
 }				t_moove;
 
 /*
