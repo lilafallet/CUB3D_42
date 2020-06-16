@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 16:58:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 18:03:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	exterior_wall(double tmp_posx, double tmp_posy,
 							t_graph *gr, t_map *map)
 {
-	printf("INTERIOR WALL\n"); //
+	printf("EXTERIOR WALL\n"); //
 	if ((int)tmp_posy == map->utils.max_line - 1 
 		|| (int)tmp_posx == map->utils.max_index - 2)
 		return (TRUE);
@@ -45,6 +45,7 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 	static int	xp = 0;
 	static int	xm = 0;
 
+	printf("INTERIOR WALL\n"); //
 	if (map->recup.tab_map[(int)tmp_posy + 1][(int)tmp_posx] == WALL)
 	{
 		printf("Y + 1\n"); //
@@ -54,10 +55,15 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 		yp++;
 		if (yp == TRUE)
 			gr->mv.tmp_yp = (int)tmp_posy + 1;
-		if (tmp_posy >= (double)gr->mv.tmp_yp - 0.1)
+		printf("tmp_yp = %d\n", gr->mv.tmp_yp); //
+		printf("tmp_yp - 0.1 = %lf\n", (double)gr->mv.tmp_yp - 0.1); //
+		if (tmp_posy > (double)gr->mv.tmp_yp - 0.1)
+		{	
+			printf("TRUE YP\n\n"); //
 			return (TRUE);
+		}
 	}
-	if (map->recup.tab_map[(int)tmp_posy - 1][(int)tmp_posx] == WALL)
+	else if (map->recup.tab_map[(int)tmp_posy - 1][(int)tmp_posx] == WALL)
 	{
 		printf("Y - 1\n"); //
 		yp = FALSE;
@@ -66,9 +72,15 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 		ym++;
 		if (ym == TRUE)
 			gr->mv.tmp_ym = (int)tmp_posy;
+		printf("tmp_ym = %d\n", gr->mv.tmp_ym); //
+		printf("tmp_ym + 0.1 = %lf\n", (double)gr->mv.tmp_ym + 0.1); //
+		printf("tmp_ym + 0.2 = %lf\n", (double)gr->mv.tmp_ym + 0.2); //
 		if (tmp_posy >= (double)gr->mv.tmp_ym + 0.1
 				&& tmp_posy <= (double)gr->mv.tmp_ym + 0.2)
+		{
+			printf("TRUE YM\n\n"); //
 			return (TRUE);
+		}
 	}
 	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx + 1] == WALL)
 	{
@@ -79,10 +91,15 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 		xp++;	
 		if (xp == TRUE)
 			gr->mv.tmp_xp = (int)tmp_posx + 1;
-		if (tmp_posx >= (double)gr->mv.tmp_xp - 0.1)
+		printf("tmp_xp = %d\n", gr->mv.tmp_yp); //
+		printf("tmp_xp - 0.1 = %lf\n", (double)gr->mv.tmp_xp - 0.1); //
+		if (tmp_posx > (double)gr->mv.tmp_xp - 0.1)
+		{
+			printf("TRUE XP\n\n"); //
 			return (TRUE);
+		}
 	}
-	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx - 1] == WALL)
+	else if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx - 1] == WALL)
 	{
 		printf("X - 1\n"); //
 		ym = FALSE;
@@ -91,9 +108,15 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 		xm++;
 		if (xm == TRUE)
 			gr->mv.tmp_xm = (int)tmp_posx;
+		printf("tmp_xm = %d\n", gr->mv.tmp_xm); //
+		printf("tmp_xm + 0.1 = %lf\n", (double)gr->mv.tmp_xm + 0.1); //
+		printf("tmp_xm + 0.2 = %lf\n", (double)gr->mv.tmp_xm + 0.2); //
 		if (tmp_posx >= (double)gr->mv.tmp_xm + 0.1
 				&& tmp_posx <= (double)gr->mv.tmp_xm + 0.2)
+		{
+			printf("TRUE XM\n\n"); //
 			return (TRUE);
+		}
 	}
 	return (FALSE);
 }
