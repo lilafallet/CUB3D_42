@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 14:19:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:28:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ int		is_wall(t_graph *gr, t_map *map)
 		}
 		if (tmp_posy >= 1.1 && tmp_posy <= 1.2)
 		{
-			printf("COUCOU\n"); //
+			printf("COUCOU Y\n"); //
+			return (TRUE); //
+		}
+		if (tmp_posx >= 1.1 && tmp_posx <= 1.2)
+		{
+			printf("COUCOU X\n"); //
 			return (TRUE); //
 		}
 	}
