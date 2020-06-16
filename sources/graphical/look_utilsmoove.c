@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 16:08:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 16:58:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,13 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 	static int	ym = 0;
 	static int	xp = 0;
 	static int	xm = 0;
-	printf("EXTERIOR WALL\n"); //
+
 	if (map->recup.tab_map[(int)tmp_posy + 1][(int)tmp_posx] == WALL)
 	{
+		printf("Y + 1\n"); //
+		ym = FALSE;
+		xp = FALSE;
+		xm = FALSE;
 		yp++;
 		if (yp == TRUE)
 			gr->mv.tmp_yp = (int)tmp_posy + 1;
@@ -55,18 +59,41 @@ static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
 	}
 	if (map->recup.tab_map[(int)tmp_posy - 1][(int)tmp_posx] == WALL)
 	{
-		yp = FALSE;
 		printf("Y - 1\n"); //
+		yp = FALSE;
+		xp = FALSE;
+		xm = FALSE;
+		ym++;
+		if (ym == TRUE)
+			gr->mv.tmp_ym = (int)tmp_posy;
+		if (tmp_posy >= (double)gr->mv.tmp_ym + 0.1
+				&& tmp_posy <= (double)gr->mv.tmp_ym + 0.2)
+			return (TRUE);
 	}
 	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx + 1] == WALL)
 	{
-		yp = FALSE;
 		printf("X + 1\n"); //
+		ym = FALSE;
+		yp = FALSE;
+		xm = FALSE;
+		xp++;	
+		if (xp == TRUE)
+			gr->mv.tmp_xp = (int)tmp_posx + 1;
+		if (tmp_posx >= (double)gr->mv.tmp_xp - 0.1)
+			return (TRUE);
 	}
 	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx - 1] == WALL)
 	{
+		printf("X - 1\n"); //
+		ym = FALSE;
 		yp = FALSE;
-		printf("Y - 1\n"); //
+		xp = FALSE;
+		xm++;
+		if (xm == TRUE)
+			gr->mv.tmp_xm = (int)tmp_posx;
+		if (tmp_posx >= (double)gr->mv.tmp_xm + 0.1
+				&& tmp_posx <= (double)gr->mv.tmp_xm + 0.2)
+			return (TRUE);
 	}
 	return (FALSE);
 }
@@ -90,97 +117,6 @@ int		is_wall(t_graph *gr, t_map *map)
 	if (ret == TRUE)
 		return (TRUE);
 	return (FALSE); 
-	/*if (gr->mv.log & MV_LEFT)
-	{
-		printf("MV_LEFT\n"); //
-		left = TRUE;
-		gr->mv.tmp_left += left;
-	}
-	if (gr->mv.log & MV_DOWN)
-	{
-		printf("MV_LEFT\n"); //
-		down = TRUE;
-		gr->mv.tmp_down += down;
-	}
-	if (gr->mv.tmp_left != 0 && gr->mv.log & MV_RIGHT)
-	{
-		printf("TMP_LEFT\n"); //
-		gr->mv.tmpl = gr->mv.tmp_left;
-		gr->mv.tmp_left = 0;
-	}
-	if (gr->mv.tmp_down != 0 && gr->mv.log & MV_UP)
-	{
-		printf("TMP_DOWN\n"); //
-		gr->mv.tmpd = gr->mv.tmp_down;
-		gr->mv.tmp_down = 0;
-	}
-	if (gr->mv.ydown == 10 && (gr->mv.log & MV_UP) == FALSE)
-	{
-		printf("STOPY DOWN\n"); //
-		gr->mv.stopydown = FALSE;
-		gr->mv.ydown = 0;
-	}
-	if ((int)tmp_posy == 1 && gr->mv.yup < 10 && (gr->mv.log & MV_UP))
-	{
-		gr->mv.yup++;
-		printf("YUP ++\n"); //
-		if (gr->mv.stopyup == TRUE)
-		{
-			printf("YUP = YUP\n\n"); //
-			gr->mv.yup = gr->mv.yup;
-			return (TRUE); 
-		}
-	}
-	if ((int)tmp_posx == 1 && gr->mv.xright < 10 && (gr->mv.log & MV_RIGHT))
-	{
-		gr->mv.xright++;
-		printf("XRIGHT ++\n"); //
-		if (gr->mv.stopxright == TRUE)
-		{
-			printf("XRIGHT = XRIGHT\n\n"); //
-			gr->mv.xright = gr->mv.xright;
-			return (TRUE);
-		}
-	}
-	if (gr->mv.log & MV_RIGHT && gr->mv.tmpl == gr->mv.xright && gr->mv.xright != 0)
-	{
-		printf("STOPY XRIGHT\n\n"); //
-		gr->mv.stopxright = TRUE;
-		return (TRUE);
-	}
-	if (gr->mv.log & MV_UP && gr->mv.tmpd == gr->mv.yup && gr->mv.yup != 0)
-	{
-		printf("STOPY YUP\n\n"); //
-		gr->mv.stopyup = TRUE;
-		return (TRUE);
-	}
-	if (((int)tmp_posx > 0
-		&& (gr->mv.log & MV_DOWN || gr->mv.log & MV_UP)
-		&& floor(tmp_posx) != floor(tmp_posx - SPEED_MV)))
-	{
-		printf("POSX\n"); //
-		*si pas dans un mur + DOWN + la position actuelle est different de la
-		prochaine position = position actuelle == la prochaine position
-		tmp_posx -= SPEED_MV;
-		//permet de ne pas rentrer dans la texture
-	}
-	if (((int)tmp_posy > 0
-		&& (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
-		&& floor(tmp_posy) != floor(tmp_posy - SPEED_MV)))
-	{
-		printf("POSY\n"); //
-	*si pas dans un mur + LEFT + la position actuelle est different de la
-		prochaine position = position actuelle == la prochaine position
-		tmp_posy -= SPEED_MV;
-		//permet de ne pas rentrer dans la texture
-	}
-	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx] == WALL)
-	{
-		printf("IS_WALL\n\n");
-		return (TRUE);
-	}
-	printf("\n"); //
-	return (FALSE);*/
 }
 
 int	update(t_graph *gr)
