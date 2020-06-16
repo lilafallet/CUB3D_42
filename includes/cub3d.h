@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 13:53:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 15:10:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -430,6 +430,10 @@ typedef struct	s_mv
 	int		tmpd;
 	int		tmp_down;
 	int		tmpup;
+	int		tmp_yp;
+	int		tmp_ym;
+	int		tmp_xp;
+	int		tmp_xm;
 }				t_moove;
 
 /*

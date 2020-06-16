@@ -6,25 +6,16 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 14:42:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 16:08:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		is_wall(t_graph *gr, t_map *map)
+static int	exterior_wall(double tmp_posx, double tmp_posy,
+							t_graph *gr, t_map *map)
 {
-	double	tmp_posx;
-	double	tmp_posy;
-	int		left;
-	int		down;
-	
-	tmp_posx = gr->mv.new_posx;
-	tmp_posy = gr->mv.new_posy;
-	printf("tmp_posx = %lf\n", tmp_posx); //
-	printf("tmp_posy = %lf\n", tmp_posy); //
-	printf("max_line = %zu\n", map->utils.max_line); //
-	printf("max_index = %zu\n", map->utils.max_index); //
+	printf("INTERIOR WALL\n"); //
 	if ((int)tmp_posy == map->utils.max_line - 1 
 		|| (int)tmp_posx == map->utils.max_index - 2)
 		return (TRUE);
@@ -43,6 +34,61 @@ int		is_wall(t_graph *gr, t_map *map)
 		return (TRUE);
 	}
 	printf("\n"); //
+	return (FALSE);
+}
+
+static int	interior_wall(double tmp_posx, double tmp_posy, t_graph *gr,
+							t_map *map)
+{
+	static int	yp = 0;
+	static int	ym = 0;
+	static int	xp = 0;
+	static int	xm = 0;
+	printf("EXTERIOR WALL\n"); //
+	if (map->recup.tab_map[(int)tmp_posy + 1][(int)tmp_posx] == WALL)
+	{
+		yp++;
+		if (yp == TRUE)
+			gr->mv.tmp_yp = (int)tmp_posy + 1;
+		if (tmp_posy >= (double)gr->mv.tmp_yp - 0.1)
+			return (TRUE);
+	}
+	if (map->recup.tab_map[(int)tmp_posy - 1][(int)tmp_posx] == WALL)
+	{
+		yp = FALSE;
+		printf("Y - 1\n"); //
+	}
+	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx + 1] == WALL)
+	{
+		yp = FALSE;
+		printf("X + 1\n"); //
+	}
+	if (map->recup.tab_map[(int)tmp_posy][(int)tmp_posx - 1] == WALL)
+	{
+		yp = FALSE;
+		printf("Y - 1\n"); //
+	}
+	return (FALSE);
+}
+
+int		is_wall(t_graph *gr, t_map *map)
+{
+	double	tmp_posx;
+	double	tmp_posy;
+	int		ret;
+	
+	tmp_posx = gr->mv.new_posx;
+	tmp_posy = gr->mv.new_posy;
+	printf("tmp_posx = %lf\n", tmp_posx); //
+	printf("tmp_posy = %lf\n", tmp_posy); //
+	printf("max_line = %zu\n", map->utils.max_line); //
+	printf("max_index = %zu\n", map->utils.max_index); //
+	ret = exterior_wall(tmp_posx, tmp_posy, gr, map);
+	if (ret == TRUE)
+		return (TRUE);
+	ret = interior_wall(tmp_posx, tmp_posy, gr, map);
+	if (ret == TRUE)
+		return (TRUE);
 	return (FALSE); 
 	/*if (gr->mv.log & MV_LEFT)
 	{
