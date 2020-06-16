@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 14:33:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:38:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,13 @@ int		is_wall(t_graph *gr, t_map *map)
 	printf("tmp_posy = %lf\n", tmp_posy); //
 	printf("max_line = %zu\n", map->utils.max_line); //
 	printf("max_index = %zu\n", map->utils.max_index); //
-	if (map->recup.dirpos == SOUTH || map->recup.dirpos == NORTH)
-	{
-		if ((int)tmp_posy == map->utils.max_line - 1 
-			|| (int)tmp_posx == map->utils.max_index - 2)
-		{
-			printf("SOUTH/NORTH TRUE MAX\n\n"); //
-			return (TRUE);
-		}
-		if (tmp_posy >= 1.1 && tmp_posy <= 1.2)
-		{
-			printf("COUCOU Y\n"); //
-			return (TRUE); //
-		}
-		if (tmp_posx >= 1.1 && tmp_posx <= 1.2)
-		{
-			printf("COUCOU X\n"); //
-			return (TRUE); //
-		}
-	}
-	if (map->recup.dirpos == NORTH)
-	{
-		//int ((int)tmp_posy == 
-	}
+	if ((int)tmp_posy == map->utils.max_line - 1 
+		|| (int)tmp_posx == map->utils.max_index - 2)
+		return (TRUE);
+	if (tmp_posy >= 1.1 && tmp_posy <= 1.2)
+		return (TRUE); //
+	if (tmp_posx >= 1.1 && tmp_posx <= 1.2)
+		return (TRUE); //
 	printf("\n"); //
 	return (FALSE); 
 	/*if (gr->mv.log & MV_LEFT)
