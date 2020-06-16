@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 23:14:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 10:55:04 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int		is_wall(t_graph *gr, t_map *map)
 		gr->mv.stopy = FALSE;
 		gr->mv.y = 0;
 	}
+	if (gr->mv.log & MV_DOWN)
+		gr->mv.y = 0;
 	if (gr->mv.x == 10
 			&& ((gr->mv.log & MV_LEFT && (gr->mv.log & MV_RIGHT) == FALSE)
 			|| ((gr->mv.log & MV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE))))
