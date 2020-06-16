@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 15:10:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 22:52:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,6 +408,8 @@ typedef struct	s_mv
 	int		lk_dir;
 	double	new_posx;
 	double	new_posy;
+	double	old_posx;
+	double	old_posy;
 	double	degree_lk;
 	double	radius_lk;
 	double	new_planecamx;
