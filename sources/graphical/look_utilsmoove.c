@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 14:38:53 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 14:42:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ int		is_wall(t_graph *gr, t_map *map)
 		return (TRUE); //
 	if (tmp_posx >= 1.1 && tmp_posx <= 1.2)
 		return (TRUE); //
+	if (tmp_posy < 1.000000)
+	{
+		gr->mv.new_posy = 1.1;
+		return (TRUE);
+	}
+	if (tmp_posx < 1.000000)
+	{
+		gr->mv.new_posx = 1.1;
+		return (TRUE);
+	}
 	printf("\n"); //
 	return (FALSE); 
 	/*if (gr->mv.log & MV_LEFT)
