@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 21:21:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/16 13:53:42 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,15 +418,18 @@ typedef struct	s_mv
 	double	comb_posy;
 	int		update;
 	int		is_wall;
-	int		y;
-	int		x;
-	int		stopy;
-	int		stopx;
+	int		ydown;
+	int		yup;
+	int		xright;
+	int		stopydown;
+	int		stopyup;
+	int		stopxright;
 	int		tmp_left;
 	int		tmp_mv;
 	int		tmpl;
 	int		tmpd;
 	int		tmp_down;
+	int		tmpup;
 }				t_moove;
 
 /*
