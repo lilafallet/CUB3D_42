@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 14:21:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 14:31:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		is_wall(t_graph *gr, t_map *map)
 			gr->lf.is_sprite = TRUE;
 			if (gr->lf.firsty == FALSE)
 				gr->lf.firsty++;
+			gr->lf.count_outsprite = -1;
 			printf("SPRITE Y\n"); //
 		}
 		//printf("gr->mv.new_posy = %lf\n", gr->mv.new_posy); //
@@ -70,9 +71,9 @@ int		is_wall(t_graph *gr, t_map *map)
 		if (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == SPRITE
 			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE) //BONUS
 		{
-			gr->lf.is_sprite = TRUE;
 			if (gr->lf.firstx == FALSE)
 				gr->lf.firstx++;
+			gr->lf.count_outsprite = -1;
 			printf("SPRITE X\n"); //
 		}
 		//printf("gr->mv.new_posx = %lf\n", gr->mv.new_posx); //
@@ -92,7 +93,11 @@ int		is_wall(t_graph *gr, t_map *map)
 		gr->mv.new_posy = gr->mv.old_posy;
 		gr->mv.new_posx = gr->mv.old_posx;
 	}
-	printf("HORS SPRITE\n"); //
+	if (gr->lf.firstx == TRUE || gr->lf.firsty == TRUE)
+	{
+		gr->lf.count_outsprite++;
+		printf("count out sprite = %zu\n", gr->lf.count_outsprite); //
+	}
 	return (FALSE); 
 }
 
