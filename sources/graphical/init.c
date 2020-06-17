@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:29:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:38:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_graph(t_graph *gr, t_map *map)
 	}
 	if (gr->lf.count == 14)
 	{
-		died(gr, map);
+		screen_life(gr, map, 0xFF0000);
 	}
 }
 

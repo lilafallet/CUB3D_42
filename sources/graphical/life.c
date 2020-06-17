@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 11:14:46 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:15:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:41:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	died(t_graph *gr, t_map *map)
+void	screen_life(t_graph *gr, t_map *map, int color)
 {
 	int	y;
 	int	x;
@@ -23,7 +23,7 @@ void	died(t_graph *gr, t_map *map)
 		x = 0;
 		while (x < map->recup.resolution[AXE_X])
 		{	
-			gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0xFF0000;
+			gr->win.data[y * map->recup.resolution[AXE_X] + x] = color;
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 16:28:11 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:41:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		is_wall(t_graph *gr, t_map *map)
 			if (gr->lf.firsty == FALSE)
 				gr->lf.firsty++;
 			gr->lf.count_outsprite = -1;
+			screen_life(gr, map, 0xFFFFFF); 
 			//printf("SPRITE Y\n"); //
 		}
 		//printf("gr->mv.new_posy = %lf\n", gr->mv.new_posy); //
@@ -74,6 +75,7 @@ int		is_wall(t_graph *gr, t_map *map)
 			if (gr->lf.firstx == FALSE)
 				gr->lf.firstx++;
 			gr->lf.count_outsprite = -1;
+			screen_life(gr, map, 0xFFFFFF); 
 			//printf("SPRITE X\n"); //
 		}
 		//printf("gr->mv.new_posx = %lf\n", gr->mv.new_posx); //
