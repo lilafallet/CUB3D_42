@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 11:15:27 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:36:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ void	init_graph(t_graph *gr, t_map *map)
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
 												&gr->win.size_line,
 												&gr->win.endian);
-	start_raycasting(map, gr);
-	if (gr->sp.nb_sprite != 0)
-		hub_sprite(map, gr);
+	if (gr->lf.count != 14)
+	{
+		start_raycasting(map, gr);
+		if (gr->sp.nb_sprite != 0)
+			hub_sprite(map, gr);
+	}
 	life(gr, map); //BONUS
 }
 

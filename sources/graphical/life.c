@@ -6,11 +6,29 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 11:14:46 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 14:54:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 15:36:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	died(t_graph *gr, t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < map->recup.resolution[AXE_Y])
+	{
+		x = 0;
+		while (x < map->recup.resolution[AXE_X])
+		{	
+			gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0xFF0000;
+			x++;
+		}
+		y++;
+	}
+}
 
 void	life(t_graph *gr, t_map *map) //BONUS
 {
@@ -18,9 +36,7 @@ void	life(t_graph *gr, t_map *map) //BONUS
 	size_t	x;
 
 	if (gr->lf.count == 14)
-	{
-		//exitred(gr);
-	}
+		exitred(gr); //
 	if (gr->lf.count_outsprite == 1)
 	{
 		gr->lf.count++;	
@@ -65,4 +81,6 @@ void	life(t_graph *gr, t_map *map) //BONUS
 		}
 		y++;
 	}
+	if (gr->lf.count == 15)
+		died(gr, map);
 }
