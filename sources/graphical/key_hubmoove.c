@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 09:21:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 11:01:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	moove(t_graph *gr)
 	{
 		map = get_map(NULL);
 		hub_moove_look(gr);
-		is_wall(gr, map);
+		is_wall(gr, map); //BONUS
 		gr->rting.posx = gr->mv.new_posx;
 		gr->rting.posy = gr->mv.new_posy;
 		init_moove_look(gr, map);
