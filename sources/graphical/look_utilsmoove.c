@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/16 23:57:21 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 10:59:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,39 @@ static int	exterior_wall(double tmp_posx, double tmp_posy,
 int		is_wall(t_graph *gr, t_map *map)
 {
 	if ((gr->mv.new_posy > gr->mv.old_posy
-			&& (size_t)(gr->mv.old_posy + SPEED_MV) < map->utils.max_line
-			&& (map->recup.tab_map[(int)(gr->mv.new_posy + SPEED_MV)][(int)gr->mv.new_posx] == WALL
-			|| map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == WALL))
-		|| (gr->mv.new_posy < gr->mv.old_posy
-			&& (int)(gr->mv.old_posy - SPEED_MV) >= 0
-			&& (map->recup.tab_map[(int)(gr->mv.new_posy - SPEED_MV)][(int)gr->mv.new_posx] == WALL
-			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == WALL)))
+		&& (size_t)(gr->mv.old_posy + SPEED_MV) < map->utils.max_line
+		&& (map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == WALL
+			|| map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == SPRITE))
+		|| (gr->mv.new_posy < gr->mv.old_posy && (int)(gr->mv.old_posy - SPEED_MV) >= 0
+		&& (map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == WALL
+			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == SPRITE)))
 	{
+		printf("gr->mv.new_posy = %lf\n", gr->mv.new_posy); //
 		gr->mv.new_posy = gr->mv.old_posy;
 	}
 	if ((gr->mv.new_posx > gr->mv.old_posx
-			&& (size_t)(gr->mv.old_posx + SPEED_MV) < map->utils.max_index - 1
-			&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.new_posx + SPEED_MV)] == WALL
-			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == WALL))
-		|| (gr->mv.new_posx < gr->mv.old_posx
-			&& (int)(gr->mv.old_posx - SPEED_MV) >= 0
-			&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.new_posx - SPEED_MV)] == WALL
-			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == WALL)))
+		&& (size_t)(gr->mv.old_posx + SPEED_MV) < map->utils.max_index - 1
+		&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == WALL
+			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == SPRITE))
+		|| (gr->mv.new_posx < gr->mv.old_posx && (int)(gr->mv.old_posx - SPEED_MV) >= 0
+		&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == WALL
+			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE)))
 	{
+		printf("gr->mv.new_posx = %lf\n", gr->mv.new_posx); //
 		gr->mv.new_posx = gr->mv.old_posx;
 	}
-	if ((int)gr->mv.new_posy >= map->utils.max_line)
+	if ((size_t)gr->mv.new_posy >= map->utils.max_line)
 		gr->mv.new_posy = (double)map->utils.max_line - SPEED_MV;
-	if ((int)gr->mv.new_posx >= map->utils.max_index - 1)
+	if ((int)gr->mv.new_posy < 0)
+		gr->mv.new_posy = SPEED_MV;
+	if ((size_t)gr->mv.new_posx >= map->utils.max_index - 1)
 		gr->mv.new_posx = (double)map->utils.max_index - 1 - SPEED_MV;
-	if (map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posx] == WALL)
+	if ((int)gr->mv.new_posx < 0)
+		gr->mv.new_posx = SPEED_MV;
+	if (map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posx] == WALL
+		|| map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posy] == SPRITE)
 	{
+		printf("SPRITE\n"); //
 		gr->mv.new_posy = gr->mv.old_posy;
 		gr->mv.new_posx = gr->mv.old_posx;
 	}
