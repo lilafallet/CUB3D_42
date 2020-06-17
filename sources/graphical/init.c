@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 15:36:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:29:28 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,49 @@ void	get_plane(t_graph *gr, t_map *map)
 
 void	init_graph(t_graph *gr, t_map *map)
 {
+
 	if (gr->win.img_ptr != NULL)
 	{
 		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
 		gr->win.img_ptr = NULL;
 	}
 	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
-							map->recup.resolution[AXE_X],
-							map->recup.resolution[AXE_Y]);
+						map->recup.resolution[AXE_X],
+						map->recup.resolution[AXE_Y]);
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
-												&gr->win.size_line,
-												&gr->win.endian);
+											&gr->win.size_line,
+											&gr->win.endian);
 	if (gr->lf.count != 14)
 	{
 		start_raycasting(map, gr);
 		if (gr->sp.nb_sprite != 0)
 			hub_sprite(map, gr);
+		life(gr, map); //BONUS
 	}
-	life(gr, map); //BONUS
+	if (gr->lf.count == 14)
+	{
+		died(gr, map);
+	}
 }
 
 void	process_window(t_graph *gr)
 {
+	t_map	*map;
+
+	map = get_map(NULL);
 	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
-								0, 0);
+									0, 0);
+	if (gr->lf.count == 14)
+	{
+		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
+						map->recup.resolution[AXE_X] / 2 - 200,
+						map->recup.resolution[AXE_Y] / 2, 0xFFFFFF,
+						"YOU DIED");
+		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
+						map->recup.resolution[AXE_X] / 2 - 200,
+						map->recup.resolution[AXE_Y] / 2 + 20, 0xFFFFFF,
+						"PLEASE SELECT THE ESCAPE KEY OR THE RED CROSS TO EXIT THE GAME");
+	}
 }
 
 void	init_map(t_map *map, t_graph *gr)

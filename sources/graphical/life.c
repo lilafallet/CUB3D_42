@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 11:14:46 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 15:36:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 17:15:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	died(t_graph *gr, t_map *map)
+void	died(t_graph *gr, t_map *map)
 {
 	int	y;
 	int	x;
@@ -35,13 +35,11 @@ void	life(t_graph *gr, t_map *map) //BONUS
 	size_t	y;
 	size_t	x;
 
-	if (gr->lf.count == 14)
-		exitred(gr); //
 	if (gr->lf.count_outsprite == 1)
 	{
 		gr->lf.count++;	
 	}
-	printf("count = %d\n", gr->lf.count); //
+	//printf("count = %d\n", gr->lf.count); //
 	gr->lf.starty = 50;
 	y = gr->lf.starty;
 	gr->lf.endy = 110;
@@ -81,6 +79,4 @@ void	life(t_graph *gr, t_map *map) //BONUS
 		}
 		y++;
 	}
-	if (gr->lf.count == 15)
-		died(gr, map);
 }
