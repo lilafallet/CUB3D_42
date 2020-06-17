@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:38:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 19:00:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	init_graph(t_graph *gr, t_map *map)
 
 	if (gr->win.img_ptr != NULL)
 	{
+		printf("ICI\n"); //
 		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
-		gr->win.img_ptr = NULL;
 	}
 	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
 						map->recup.resolution[AXE_X],
@@ -76,16 +76,21 @@ void	process_window(t_graph *gr)
 		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
 						map->recup.resolution[AXE_X] / 2 - 200,
 						map->recup.resolution[AXE_Y] / 2, 0xFFFFFF,
-						"YOU DIED");
+						"YOU DIED...");
 		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
 						map->recup.resolution[AXE_X] / 2 - 200,
 						map->recup.resolution[AXE_Y] / 2 + 20, 0xFFFFFF,
-						"PLEASE SELECT THE ESCAPE KEY OR THE RED CROSS TO EXIT THE GAME");
+						"PLEASE SELECT THE ESCAPE KEY OR THE RED CROSS TO EXIT THE GAME !");
+		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
+						map->recup.resolution[AXE_X] / 2 - 200,
+						map->recup.resolution[AXE_Y] / 2 + 40, 0x000000,
+						"IF YOU WANT TO RESTART THE GAME, PLEASE SELECT THE 'R' KEY !");
 	}
 }
 
 void	init_map(t_map *map, t_graph *gr)
 {
+	printf("JE RENTRE LA\n"); //
 	gr->sp.raybuff = malloc(sizeof(double) * (map->recup.resolution[AXE_X]
 						* map->recup.resolution[AXE_Y]));
 	//PROTEGER
@@ -97,5 +102,9 @@ void	init_map(t_map *map, t_graph *gr)
 	gr->mv.old_posy = gr->mv.new_posy;
 	get_direction_position(map, gr);
 	get_plane(gr, map);
-	get_textures(map, gr);
+	if ((gr->mv.log & RESTART) == FALSE)
+		get_textures(map, gr);
+	init_graph(gr, map);
+	gr->mv.log &= ~RESTART;
+	process_window(gr);
 }

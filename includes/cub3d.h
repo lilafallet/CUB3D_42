@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:39:04 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 18:07:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,6 +378,7 @@ typedef struct	s_text
 # define KMV_DOWN			115
 # define KMV_LEFT			97
 # define KMV_RIGHT			100
+# define K_RESTART			114
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
 # define KEY_ESCAPE			65307
@@ -396,6 +397,7 @@ typedef struct	s_text
 # define LOOK			0x0001000
 # define NOT_WALL		0x0002000
 # define CAM			0x0004000
+# define RESTART		0x0008000
 
 # define DIR_POS	1
 # define DIR_NEG	-1

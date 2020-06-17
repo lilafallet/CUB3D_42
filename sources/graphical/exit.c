@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 09:32:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 18:37:20 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exitred(t_graph *gr)
 	map = get_map(NULL);
 	free(gr->sp.pos);
 	free(gr->sp.raybuff);
+	free(gr->win.mlx_ptr);
 	ft_free(map, NULL);
 	exit(0);
 	return (TRUE);

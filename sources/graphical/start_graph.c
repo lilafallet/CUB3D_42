@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:34:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 18:49:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	start_graph(t_map *map)
 						map->recup.resolution[AXE_Y], "Cub3D");
 	//printf("ET LA\n"); //
 	init_map(map, &gr);
-	init_graph(&gr, map);
 	printf("PAS ICI\n"); //
-	process_window(&gr);
 	mlx_hook(gr.win.win_ptr, KEYPRESS, 1L << 0, keypress, &gr);
 	mlx_hook(gr.win.win_ptr, KEYRELEASE, 1L << 1, keyrelease, &gr);
 	mlx_hook(gr.win.win_ptr, EXIT, 0, exitred, &gr);
