@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 11:14:46 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 14:39:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 14:54:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void	life(t_graph *gr, t_map *map) //BONUS
 	size_t	y;
 	size_t	x;
 
+	if (gr->lf.count == 14)
+	{
+		//exitred(gr);
+	}
 	if (gr->lf.count_outsprite == 1)
 	{
 		gr->lf.count++;	
@@ -31,18 +35,13 @@ void	life(t_graph *gr, t_map *map) //BONUS
 	gr->lf.width_outxright = 265;
 	gr->lf.width_outyup = 55;
 	gr->lf.width_outydown = 105;
+	gr->lf.endx_sprite = 265;
 	if (gr->lf.count == 0)
-	{
-		gr->lf.endx_sprite = 265;
 		gr->lf.startx_sprite = 250;
-	}
 	if (gr->lf.count > 0 && gr->lf.count_outsprite == 1)
-	{
-		printf("HERE\n"); //
-		gr->lf.endx_sprite = 265;
-		gr->lf.startx_sprite = gr->lf.startx_sprite - 15;
-
-	}
+		gr->lf.tmp_startx_sprite = gr->lf.startx_sprite - 15;
+	if (gr->lf.count > 0 && gr->lf.count_outsprite == 0)
+		gr->lf.startx_sprite = gr->lf.tmp_startx_sprite;
 	while (y < gr->lf.endy)
 	{
 		x = gr->lf.startx;

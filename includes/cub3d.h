@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 14:34:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 14:47:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,6 +523,8 @@ typedef struct	s_life //BONUS
 	int		firstx;
 	int		firsty;
 	int		count;
+	int	tmp_endx_sprite;
+	int	tmp_startx_sprite;
 }				t_life;
 
 /*
