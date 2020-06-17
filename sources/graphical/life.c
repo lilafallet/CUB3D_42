@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 11:14:46 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 12:28:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 14:20:14 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,19 @@ void	life(t_graph *gr, t_map *map) //BONUS
 		x = gr->lf.startx;
 		while (x < gr->lf.endx)
 		{
+			gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0x228B22;
+			if (((gr->lf.firstx == TRUE || gr->lf.firsty == TRUE)
+					&& x > gr->lf.startx_sprite
+					&& x <= gr->lf.endx_sprite))
+			{
+				//PERTE DE VIE
+				gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0xFF0000;
+			}
 			if (x < gr->lf.width_outxleft || x > gr->lf.width_outxright ||
 					y < gr->lf.width_outyup || y > gr->lf.width_outydown)
 			{	
+				//CONTOUR
 				gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0xFFFFFF;
-			}
-			else
-			{
-				if (gr->lf.is_sprite = TRUE && x > gr->lf.startx_sprite
-					&& x <= gr->lf.endx_sprite)
-				{
-					
-					gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0xFF0000;
-				}
-				else
-				{
-					gr->win.data[y * map->recup.resolution[AXE_X] + x] = 0x228B22;
-
-				}
 			}
 			x++;
 		}

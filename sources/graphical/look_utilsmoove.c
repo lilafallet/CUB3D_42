@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 12:17:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/17 14:21:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	exterior_wall(double tmp_posx, double tmp_posy,
 
 int		is_wall(t_graph *gr, t_map *map)
 {
-	gr->lf.is_sprite = FALSE; //BONUS
 	if ((gr->mv.new_posy > gr->mv.old_posy
 		&& (size_t)(gr->mv.old_posy + SPEED_MV) < map->utils.max_line
 		&& (map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == WALL
@@ -53,6 +52,8 @@ int		is_wall(t_graph *gr, t_map *map)
 			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == SPRITE) //BONUS
 		{
 			gr->lf.is_sprite = TRUE;
+			if (gr->lf.firsty == FALSE)
+				gr->lf.firsty++;
 			printf("SPRITE Y\n"); //
 		}
 		//printf("gr->mv.new_posy = %lf\n", gr->mv.new_posy); //
@@ -70,6 +71,8 @@ int		is_wall(t_graph *gr, t_map *map)
 			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE) //BONUS
 		{
 			gr->lf.is_sprite = TRUE;
+			if (gr->lf.firstx == FALSE)
+				gr->lf.firstx++;
 			printf("SPRITE X\n"); //
 		}
 		//printf("gr->mv.new_posx = %lf\n", gr->mv.new_posx); //
@@ -89,10 +92,7 @@ int		is_wall(t_graph *gr, t_map *map)
 		gr->mv.new_posy = gr->mv.old_posy;
 		gr->mv.new_posx = gr->mv.old_posx;
 	}
-	if (gr->lf.is_sprite == FALSE) //BONUS
-	{
-		printf("HORS SPRITE\n"); //
-	}
+	printf("HORS SPRITE\n"); //
 	return (FALSE); 
 }
 
