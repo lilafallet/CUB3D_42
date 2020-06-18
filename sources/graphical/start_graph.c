@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/18 10:59:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 16:12:22 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	start_graph(t_map *map)
 	if (map->utils.save_mode == TRUE)
 	{
 		init_map(map, &gr);
-		gr.win.img_ptr = mlx_new_image(gr.win.mlx_ptr,
-								map->recup.resolution[AXE_X],
-								map->recup.resolution[AXE_Y]);
+		//gr.win.img_ptr = mlx_new_image(gr.win.mlx_ptr,
+		//						map->recup.resolution[AXE_X],
+		//						map->recup.resolution[AXE_Y]);
 		gr.win.data = (int *)mlx_get_data_addr(gr.win.img_ptr, &gr.win.bits,
 												&gr.win.size_line,
 												&gr.win.endian);

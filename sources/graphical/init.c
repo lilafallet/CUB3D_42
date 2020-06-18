@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/18 10:55:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 16:11:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	process_window(t_graph *gr)
 	t_map	*map;
 
 	map = get_map(NULL);
-	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
-									0, 0);
+	if (map->utils.save_mode == FALSE)
+		mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
+										0, 0);
 }
 
 void	init_map(t_map *map, t_graph *gr)
