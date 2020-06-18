@@ -6,7 +6,7 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/06/17 11:23:31 by lfallet          ###   ########.fr        #
+#    Updated: 2020/06/18 10:54:03 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = Cub3D
@@ -72,7 +72,6 @@ SRCS += sprite.c
 SRCS += sprite_draw.c
 SRCS += exit.c
 SRCS += savemode.c
-SRCS += life.c
 
 OBJ_DIR = ./objs/
 

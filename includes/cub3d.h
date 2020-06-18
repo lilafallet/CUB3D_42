@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 18:07:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 10:53:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -637,7 +637,5 @@ void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
 								t_map *map);
 int				exitred(t_graph *gr);
 void			savemode(t_map *map, t_graph *gr);
-void			life(t_graph *gr, t_map *map); //BONUS
-void			screen_life(t_graph *gr, t_map *map, int color); //BONUS
 
 #endif

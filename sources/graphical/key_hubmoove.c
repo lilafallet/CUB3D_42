@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 19:04:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 10:56:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ int	keyrelease(int key, t_graph *gr)
 		gr->mv.log &= ~LK_LEFT;
 	if (gr->mv.log & LK_RIGHT && key == KLK_RIGHT)
 		gr->mv.log &= ~LK_RIGHT;
-	if (gr->mv.log & RESTART && key == K_RESTART)
-		gr->mv.log &= ~RESTART;
 	return (TRUE);
 }
 
@@ -97,31 +95,17 @@ int	keypress(int key, t_graph *gr)
 	map = get_map(NULL);
 	if (key == KEY_ESCAPE)
 		exitred(gr);
-	if (gr->lf.count != 14)
-	{
-		if (key == KMV_UP && (gr->mv.log & MV_UP) == FALSE)
-			gr->mv.log |= MV_UP;
-		if (key == KMV_DOWN && (gr->mv.log & MV_DOWN) == FALSE)
-			gr->mv.log |= MV_DOWN;
-		if (key == KMV_LEFT && (gr->mv.log & MV_LEFT) == FALSE)
-			gr->mv.log |= MV_LEFT;
-		if (key == KMV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE)
-			gr->mv.log |= MV_RIGHT;
-		if (key == KLK_LEFT && (gr->mv.log & LK_LEFT) == FALSE)
-			gr->mv.log |= LK_LEFT;
-		if (key == KLK_RIGHT && (gr->mv.log & LK_RIGHT) == FALSE)
-			gr->mv.log |= LK_RIGHT;
-	}
-	if (gr->lf.count == 14)
-	{
-		if (key == K_RESTART && (gr->mv.log & RESTART) == FALSE)
-		{
-			printf("HELLO\n"); //
-			gr->mv.log |= RESTART;
-			gr->lf.count = 0;
-			free(gr->sp.raybuff);
-			init_map(map, gr);
-		}
-	}
+	if (key == KMV_UP && (gr->mv.log & MV_UP) == FALSE)
+		gr->mv.log |= MV_UP;
+	if (key == KMV_DOWN && (gr->mv.log & MV_DOWN) == FALSE)
+		gr->mv.log |= MV_DOWN;
+	if (key == KMV_LEFT && (gr->mv.log & MV_LEFT) == FALSE)
+		gr->mv.log |= MV_LEFT;
+	if (key == KMV_RIGHT && (gr->mv.log & MV_RIGHT) == FALSE)
+		gr->mv.log |= MV_RIGHT;
+	if (key == KLK_LEFT && (gr->mv.log & LK_LEFT) == FALSE)
+		gr->mv.log |= LK_LEFT;
+	if (key == KLK_RIGHT && (gr->mv.log & LK_RIGHT) == FALSE)
+		gr->mv.log |= LK_RIGHT;
 	return (TRUE);
 }

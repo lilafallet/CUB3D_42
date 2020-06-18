@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 19:00:34 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 10:55:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,9 @@ void	init_graph(t_graph *gr, t_map *map)
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
 											&gr->win.size_line,
 											&gr->win.endian);
-	if (gr->lf.count != 14)
-	{
-		start_raycasting(map, gr);
-		if (gr->sp.nb_sprite != 0)
-			hub_sprite(map, gr);
-		life(gr, map); //BONUS
-	}
-	if (gr->lf.count == 14)
-	{
-		screen_life(gr, map, 0xFF0000);
-	}
+	start_raycasting(map, gr);
+	if (gr->sp.nb_sprite != 0)
+		hub_sprite(map, gr);
 }
 
 void	process_window(t_graph *gr)
@@ -71,21 +63,6 @@ void	process_window(t_graph *gr)
 	map = get_map(NULL);
 	mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
 									0, 0);
-	if (gr->lf.count == 14)
-	{
-		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
-						map->recup.resolution[AXE_X] / 2 - 200,
-						map->recup.resolution[AXE_Y] / 2, 0xFFFFFF,
-						"YOU DIED...");
-		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
-						map->recup.resolution[AXE_X] / 2 - 200,
-						map->recup.resolution[AXE_Y] / 2 + 20, 0xFFFFFF,
-						"PLEASE SELECT THE ESCAPE KEY OR THE RED CROSS TO EXIT THE GAME !");
-		mlx_string_put(gr->win.mlx_ptr, gr->win.win_ptr,
-						map->recup.resolution[AXE_X] / 2 - 200,
-						map->recup.resolution[AXE_Y] / 2 + 40, 0x000000,
-						"IF YOU WANT TO RESTART THE GAME, PLEASE SELECT THE 'R' KEY !");
-	}
 }
 
 void	init_map(t_map *map, t_graph *gr)
@@ -102,9 +79,7 @@ void	init_map(t_map *map, t_graph *gr)
 	gr->mv.old_posy = gr->mv.new_posy;
 	get_direction_position(map, gr);
 	get_plane(gr, map);
-	if ((gr->mv.log & RESTART) == FALSE)
-		get_textures(map, gr);
+	get_textures(map, gr);
 	init_graph(gr, map);
-	gr->mv.log &= ~RESTART;
 	process_window(gr);
 }

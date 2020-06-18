@@ -6,36 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/17 17:41:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/18 10:57:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	exterior_wall(double tmp_posx, double tmp_posy,
-							t_graph *gr, t_map *map)
-{
-	printf("EXTERIOR WALL\n"); //
-	if ((int)tmp_posy == map->utils.max_line - 1 
-		|| (int)tmp_posx == map->utils.max_index - 2)
-		return (TRUE);
-	if (tmp_posy >= 1.1 && tmp_posy <= 1.2)
-		return (TRUE); //
-	if (tmp_posx >= 1.1 && tmp_posx <= 1.2)
-		return (TRUE); //
-	if (tmp_posy < 1.000000)
-	{
-		gr->mv.new_posy = 1.1;
-		return (TRUE);
-	}
-	if (tmp_posx < 1.000000)
-	{
-		gr->mv.new_posx = 1.1;
-		return (TRUE);
-	}
-	printf("\n"); //
-	return (FALSE);
-}
 
 int		is_wall(t_graph *gr, t_map *map)
 {
@@ -47,18 +22,6 @@ int		is_wall(t_graph *gr, t_map *map)
 		&& (map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == WALL
 			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == SPRITE)))
 	{
-		
-		if (map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == SPRITE
-			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == SPRITE) //BONUS
-		{
-			gr->lf.is_sprite = TRUE;
-			if (gr->lf.firsty == FALSE)
-				gr->lf.firsty++;
-			gr->lf.count_outsprite = -1;
-			screen_life(gr, map, 0xFFFFFF); 
-			//printf("SPRITE Y\n"); //
-		}
-		//printf("gr->mv.new_posy = %lf\n", gr->mv.new_posy); //
 		gr->mv.new_posy = gr->mv.old_posy;
 	}
 	if ((gr->mv.new_posx > gr->mv.old_posx
@@ -69,16 +32,6 @@ int		is_wall(t_graph *gr, t_map *map)
 		&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == WALL
 			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE)))
 	{
-		if (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == SPRITE
-			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE) //BONUS
-		{
-			if (gr->lf.firstx == FALSE)
-				gr->lf.firstx++;
-			gr->lf.count_outsprite = -1;
-			screen_life(gr, map, 0xFFFFFF); 
-			//printf("SPRITE X\n"); //
-		}
-		//printf("gr->mv.new_posx = %lf\n", gr->mv.new_posx); //
 		gr->mv.new_posx = gr->mv.old_posx;
 	}
 	if ((size_t)gr->mv.new_posy >= map->utils.max_line)
@@ -94,11 +47,6 @@ int		is_wall(t_graph *gr, t_map *map)
 	{
 		gr->mv.new_posy = gr->mv.old_posy;
 		gr->mv.new_posx = gr->mv.old_posx;
-	}
-	if (gr->lf.firstx == TRUE || gr->lf.firsty == TRUE)
-	{
-		gr->lf.count_outsprite++;
-		//printf("count out sprite = %zu\n", gr->lf.count_outsprite); //
 	}
 	return (FALSE); 
 }
