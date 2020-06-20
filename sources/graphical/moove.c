@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/04 13:04:59 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/20 18:21:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,33 @@ void	left_or_right(t_graph *gr)
 	{
 		//si combinaison avec UP et DOWN
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->mv.comb_posx
-							- gr->rting.diry * SPEED_MV : gr->mv.comb_posx
-							+ gr->rting.diry * SPEED_MV;
+							- gr->rting.diry * gr->mv.speed_mv : gr->mv.comb_posx
+							+ gr->rting.diry * gr->mv.speed_mv;
 		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->mv.comb_posy
-							+ gr->rting.dirx * SPEED_MV : gr->mv.comb_posy
-							- gr->rting.dirx * SPEED_MV;
+							+ gr->rting.dirx * gr->mv.speed_mv : gr->mv.comb_posy
+							- gr->rting.dirx * gr->mv.speed_mv;
 		/*combposx et combxposy correspondent au position de UP ou DOWN pour
 		permettre de pouvoir avancer en diagonale (au lieu de posx ou posy)*/
 	}
 	else
 	{
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->rting.posx
-							- gr->rting.diry * SPEED_MV : gr->rting.posx
-							+ gr->rting.diry * SPEED_MV;
+							- gr->rting.diry * gr->mv.speed_mv : gr->rting.posx
+							+ gr->rting.diry * gr->mv.speed_mv;
 		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->rting.posy
-							+ gr->rting.dirx * SPEED_MV : gr->rting.posy
-							- gr->rting.dirx * SPEED_MV;
+							+ gr->rting.dirx * gr->mv.speed_mv : gr->rting.posy
+							- gr->rting.dirx * gr->mv.speed_mv;
 	}
 }
 
 void	up_or_down(t_graph *gr)
 {
 	gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
-						* SPEED_MV : gr->rting.posx - gr->rting.dirx
-						*SPEED_MV;
+						* gr->mv.speed_mv : gr->rting.posx - gr->rting.dirx
+						*gr->mv.speed_mv;
 	gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
-						* SPEED_MV : gr->rting.posy - gr->rting.diry
-						*SPEED_MV;
+						* gr->mv.speed_mv : gr->rting.posy - gr->rting.diry
+						*gr->mv.speed_mv;
 	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 	{
 		/*si combinaison avec left ou droite*/

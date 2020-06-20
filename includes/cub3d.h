@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/18 10:53:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/20 18:19:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 */
 
 # define R 					0
-# define G 					1
+# define G 		1
 # define B 					2
 # define NB_INDIC_COLOR 	2
 # define NB_COLOR 			3
@@ -106,6 +106,18 @@
 # define EAST 				'E'
 # define STR_MAP 			"012NSWE \t"
 
+# define GREEN				0x33cc33
+# define BLACK				0x000000
+# define GREY				0x696969
+# define BLUE				0x3333ff				
+# define RED				0xff0000
+# define CASE_SIZE			20
+# define MAP_OFFSET_X		170
+# define MAP_OFFSET_Y		150
+# define PLAYER_POS			0
+# define MID_NB_MAP			5
+
+# define MIN_PAD			0.11
 /*
 ** #############################################################################
 **_____________________________STRUCTURE MAP____________________________________
@@ -382,8 +394,6 @@ typedef struct	s_text
 # define KLK_LEFT			65361
 # define KLK_RIGHT			65363
 # define KEY_ESCAPE			65307
-# define SPEED_MV			0.1
-# define SPEED_LK			0.05
 
 # define MV_UP 			0x0000001
 # define MV_DOWN 		0x0000002
@@ -438,6 +448,8 @@ typedef struct	s_mv
 	int		tmp_ym;
 	int		tmp_xp;
 	int		tmp_xm;
+	double	speed_mv;
+	double	speed_lk;
 }				t_moove;
 
 /*
@@ -505,31 +517,6 @@ typedef struct	s_sp
 # define OCTET3			3
 
 /*
-**###########_LIFE_#################
-*/
-
-typedef struct	s_life //BONUS
-{
-	int	startx;
-	int	starty;
-	int	endx;
-	int	endy;
-	int	width_outxleft;
-	int	width_outxright;
-	int	width_outyup;
-	int	width_outydown;
-	int	is_sprite;
-	int	endx_sprite;
-	int	startx_sprite;
-	int	count_outsprite;
-	int		firstx;
-	int		firsty;
-	int		count;
-	int	tmp_endx_sprite;
-	int	tmp_startx_sprite;
-}				t_life;
-
-/*
 **###########_GRAPH_#################
 */
 
@@ -542,7 +529,6 @@ typedef struct	s_graph
 	t_texture		text;
 	t_moove			mv;
 	t_sprite		sp;
-	t_life			lf;
 }				t_graph;
 
 /*

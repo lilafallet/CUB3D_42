@@ -6,48 +6,73 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/18 10:57:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/20 18:18:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int is_sprite(t_graph *gr, t_map *map, double y, double x)
+{
+	const double pad = gr->mv.speed_mv + 0.01;
+
+	if ((int)y - pad < 0 || (size_t)y + pad > map->utils.max_line)
+		return (FALSE);
+	if ((int)x - pad < 0 || (size_t)x + pad > map->utils.max_index - 1)
+		return (FALSE);
+	return (map->recup.tab_map[(int)(y)][(int)(x)] == SPRITE
+		|| map->recup.tab_map[(int)(y + pad)][(int)(x)] == SPRITE
+		|| map->recup.tab_map[(int)(y - pad)][(int)(x)] == SPRITE
+		|| map->recup.tab_map[(int)(y)][(int)(x + pad)] == SPRITE
+		|| map->recup.tab_map[(int)(y)][(int)(x - pad)] == SPRITE
+		|| map->recup.tab_map[(int)(y - pad)][(int)(x - pad)] == SPRITE
+		|| map->recup.tab_map[(int)(y + pad)][(int)(x + pad)] == SPRITE
+		|| map->recup.tab_map[(int)(y + pad)][(int)(x - pad)] == SPRITE
+		|| map->recup.tab_map[(int)(y - pad)][(int)(x + pad)] == SPRITE);
+}
+
+static int is_wall_or_sprite(t_map *map, double y, double x)
+{
+	return (map->recup.tab_map[(int)y][(int)x] == WALL
+			|| map->recup.tab_map[(int)y][(int)x] == SPRITE);
+}
+
+int		is_posx_into_wall(t_graph *gr, t_map *map)
+{
+	const double pad = gr->mv.speed_mv + MIN_PAD;
+
+	if ((size_t)(gr->mv.old_posx + pad) >= map->utils.max_index - 1
+		|| (size_t)(gr->mv.new_posx) >= map->utils.max_index - 1)
+		return (TRUE);
+	if ((int)(gr->mv.old_posx - pad) < 0 || (int)(gr->mv.new_posx) < 0)
+		return (TRUE);
+	return (is_wall_or_sprite(map, gr->mv.new_posy,
+			(gr->mv.new_posx > gr->mv.old_posx) ?
+				gr->mv.old_posx + pad : 
+				gr->mv.old_posx - pad));
+}
+
+int		is_posy_into_wall(t_graph *gr, t_map *map)
+{
+	const double pad = gr->mv.speed_mv + MIN_PAD;
+
+	if ((size_t)(gr->mv.old_posy + pad) >= map->utils.max_line
+		|| (size_t)(gr->mv.new_posy) >= map->utils.max_line)
+		return (TRUE);
+	if ((int)(gr->mv.old_posy - pad) < 0 || (int)(gr->mv.new_posy) < 0)
+		return (TRUE);
+	return (is_wall_or_sprite(map, (gr->mv.new_posy > gr->mv.old_posy) ?
+					gr->mv.old_posy + pad : 
+					gr->mv.old_posy - pad,
+						 gr->mv.new_posx));
+}
+
 int		is_wall(t_graph *gr, t_map *map)
 {
-	if ((gr->mv.new_posy > gr->mv.old_posy
-		&& (size_t)(gr->mv.old_posy + SPEED_MV) < map->utils.max_line
-		&& (map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == WALL
-			|| map->recup.tab_map[(int)(gr->mv.old_posy + SPEED_MV)][(int)gr->mv.new_posx] == SPRITE))
-		|| (gr->mv.new_posy < gr->mv.old_posy && (int)(gr->mv.old_posy - SPEED_MV) >= 0
-		&& (map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == WALL
-			|| map->recup.tab_map[(int)(gr->mv.old_posy - SPEED_MV)][(int)gr->mv.new_posx] == SPRITE)))
-	{
+	if (is_posy_into_wall(gr, map) == TRUE)
 		gr->mv.new_posy = gr->mv.old_posy;
-	}
-	if ((gr->mv.new_posx > gr->mv.old_posx
-		&& (size_t)(gr->mv.old_posx + SPEED_MV) < map->utils.max_index - 1
-		&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == WALL
-			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx + SPEED_MV)] == SPRITE))
-		|| (gr->mv.new_posx < gr->mv.old_posx && (int)(gr->mv.old_posx - SPEED_MV) >= 0
-		&& (map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == WALL
-			|| map->recup.tab_map[(int)gr->mv.new_posy][(int)(gr->mv.old_posx - SPEED_MV)] == SPRITE)))
-	{
+	if (is_posx_into_wall(gr, map) == TRUE)
 		gr->mv.new_posx = gr->mv.old_posx;
-	}
-	if ((size_t)gr->mv.new_posy >= map->utils.max_line)
-		gr->mv.new_posy = (double)map->utils.max_line - SPEED_MV;
-	if ((int)gr->mv.new_posy < 0)
-		gr->mv.new_posy = SPEED_MV;
-	if ((size_t)gr->mv.new_posx >= map->utils.max_index - 1)
-		gr->mv.new_posx = (double)map->utils.max_index - 1 - SPEED_MV;
-	if ((int)gr->mv.new_posx < 0)
-		gr->mv.new_posx = SPEED_MV;
-	if (map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posx] == WALL
-		|| map->recup.tab_map[(int)gr->mv.new_posy][(int)gr->mv.new_posy] == SPRITE)
-	{
-		gr->mv.new_posy = gr->mv.old_posy;
-		gr->mv.new_posx = gr->mv.old_posx;
-	}
 	return (FALSE); 
 }
 
@@ -63,14 +88,14 @@ void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 	//ft_printf("FONCTION LOOK RIGHT\n"); //
 	gr->mv.log |= CAM;
 	/*ajoute le fait qu'il va y avoir une rotation*/
-	gr->rting.dirx = gr->rting.dirx * cos(SPEED_LK) - gr->rting.diry
-						* sin(SPEED_LK);
-	gr->rting.diry = tmp_dirx * sin(SPEED_LK) + gr->rting.diry
-						* cos(SPEED_LK);
-	gr->rting.planecamx = gr->rting.planecamx * cos(SPEED_LK)
-							- gr->rting.planecamy * sin(SPEED_LK);
-	gr->rting.planecamy = tmp_planecamx * sin(SPEED_LK)
-							+ gr->rting.planecamy * cos(SPEED_LK);
+	gr->rting.dirx = gr->rting.dirx * cos(gr->mv.speed_lk) - gr->rting.diry
+						* sin(gr->mv.speed_lk);
+	gr->rting.diry = tmp_dirx * sin(gr->mv.speed_lk) + gr->rting.diry
+						* cos(gr->mv.speed_lk);
+	gr->rting.planecamx = gr->rting.planecamx * cos(gr->mv.speed_lk)
+							- gr->rting.planecamy * sin(gr->mv.speed_lk);
+	gr->rting.planecamy = tmp_planecamx * sin(gr->mv.speed_lk)
+							+ gr->rting.planecamy * cos(gr->mv.speed_lk);
 	/*cos = deplacements en x / sin = deplacements en y*/
 }
 
@@ -79,14 +104,14 @@ void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 	//ft_printf("FONCTION LOOK LEFT\n"); //
 	gr->mv.log |= CAM;
 	/*ajoute le fait qu'il va y avoir une rotation*/
-	gr->rting.dirx = gr->rting.dirx * cos(-SPEED_LK) - gr->rting.diry
-						* sin(-SPEED_LK);
-	gr->rting.diry = tmp_dirx * sin(-SPEED_LK) + gr->rting.diry
-						* cos(-SPEED_LK);
-	gr->rting.planecamx = gr->rting.planecamx * cos(-SPEED_LK)
-							- gr->rting.planecamy * sin(-SPEED_LK);
-	gr->rting.planecamy = tmp_planecamx * sin(-SPEED_LK)
-							+ gr->rting.planecamy * cos(-SPEED_LK);
+	gr->rting.dirx = gr->rting.dirx * cos(-gr->mv.speed_lk) - gr->rting.diry
+						* sin(-gr->mv.speed_lk);
+	gr->rting.diry = tmp_dirx * sin(-gr->mv.speed_lk) + gr->rting.diry
+						* cos(-gr->mv.speed_lk);
+	gr->rting.planecamx = gr->rting.planecamx * cos(-gr->mv.speed_lk)
+							- gr->rting.planecamy * sin(-gr->mv.speed_lk);
+	gr->rting.planecamy = tmp_planecamx * sin(-gr->mv.speed_lk)
+							+ gr->rting.planecamy * cos(-gr->mv.speed_lk);
 	/*cos = deplacements en x / sin = deplacements en y / SPEED negt car on va
 	vers la gauche*/
 }
