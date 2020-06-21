@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/08 22:36:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/21 11:10:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	is_number_resolution(t_vector *split, t_state_machine *machine,
 	else
 	{
 		nb = ft_atoul(vct_getstr(split));
-		if (nb > INT_MAX)
+		if (nb > INT_MAX || nb <= 0)
 			machine->info |= ERROR_RESOLUTION_WRONG_TYPE_NUMBER;
 		else
 			map->recup.resolution[i - 1] = vct_apply(split, TO_ATOI);

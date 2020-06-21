@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 13:23:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/21 11:11:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 		y = 1;
 		axe_x = map->recup.resolution[AXE_X] - 1;
 	}*/
-	while (y < gr->draw.start) /*colorise les pixels en descendant sur y
+	while (y < gr->draw.start && y < map->recup.resolution[AXE_Y]) /*colorise les pixels en descendant sur y
 	(jusqu'a draw start qui correspond au pixel jusqu'a ou on peut aller*/
 	{
 		gr->win.data[y * axe_x + x] = sky_color;

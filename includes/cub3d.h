@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/20 18:19:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/21 11:18:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,11 @@
 # define GREY				0x696969
 # define BLUE				0x3333ff				
 # define RED				0xff0000
-# define CASE_SIZE			20
-# define MAP_OFFSET_X		170
-# define MAP_OFFSET_Y		150
+# define CASE_MAX_SIZE		20
+# define UNDEFINED			-1
+# define MAX_WIDTH			1920
+# define MAX_HEIGHT			1080
+# define MAP_OFFSET			150
 # define PLAYER_POS			0
 # define MID_NB_MAP			5
 
@@ -295,6 +297,8 @@ typedef struct	s_windows
 	int				screenheight;
 	int				mapwidth;
 	int				mapheight;
+	int				max_screen_width;
+	int				max_screen_height;
 }				t_windows;
 
 /*
@@ -517,6 +521,46 @@ typedef struct	s_sp
 # define OCTET3			3
 
 /*
+**###########_LIFE_#################
+*/
+
+typedef struct	s_life //BONUS
+{
+	int	startx;
+	int	starty;
+	int	endx;
+	int	endy;
+	int	width_outxleft;
+	int	width_outxright;
+	int	width_outyup;
+	int	width_outydown;
+	int	is_sprite;
+	int	endx_sprite;
+	int	startx_sprite;
+	int	count_outsprite;
+	int		firstx;
+	int		firsty;
+	int		count;
+	int	tmp_endx_sprite;
+	int	tmp_startx_sprite;
+	int	spritey;
+	int	old;
+	int	sprite;
+}				t_life;
+
+/*
+**###########_LIFE_#################
+*/
+
+typedef struct	s_minmap //BONUS
+{
+	int	starty;
+	int	endy;
+	int	startx;
+	int	endx;
+}				t_minmap;
+
+/*
 **###########_GRAPH_#################
 */
 
@@ -529,6 +573,8 @@ typedef struct	s_graph
 	t_texture		text;
 	t_moove			mv;
 	t_sprite		sp;
+	t_life			lf;
+	t_minmap		minmap;
 }				t_graph;
 
 /*
@@ -623,5 +669,9 @@ void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
 								t_map *map);
 int				exitred(t_graph *gr);
 void			savemode(t_map *map, t_graph *gr);
+void			life(t_graph *gr, t_map *map); //BONUS
+void			screen_dead(t_graph *gr, t_map *map, int color); //BONUS
+void			minimap(t_map *map, t_graph *gr);
+void			screen_life(t_graph *gr, t_map *map, int color);
 
 #endif

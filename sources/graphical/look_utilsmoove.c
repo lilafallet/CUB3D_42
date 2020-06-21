@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/20 18:18:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/21 11:16:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int is_sprite(t_graph *gr, t_map *map, double y, double x)
 {
-	const double pad = gr->mv.speed_mv + 0.01;
+	const double pad = gr->mv.speed_mv + 0.06;
 
 	if ((int)y - pad < 0 || (size_t)y + pad > map->utils.max_line)
 		return (FALSE);

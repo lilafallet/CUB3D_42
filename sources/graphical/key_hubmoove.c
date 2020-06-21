@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/18 10:56:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/21 11:14:54 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ int	moove(t_graph *gr)
 		gr->rting.posx = gr->mv.new_posx;
 		gr->rting.posy = gr->mv.new_posy;
 		init_moove_look(gr, map);
-		if (gr->mv.log & CAM)
-		{
-			/*dans le cas ou on est face a un mur mais qu'on veut quand meme
-			faire une rotation, permet quand meme d'init la windows mais sans
-			les nouvelles positions car elles n'ont pas change*/
-			init_moove_look(gr, map);
-		}
-		gr->mv.log &= ~CAM;
 		return (SUCCESS);
 	}
 	return (FALSE);
