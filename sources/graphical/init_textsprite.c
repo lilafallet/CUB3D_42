@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 21:17:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 22:43:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	get_textures(t_map *map, t_graph *gr)
 		}
 	}*/
 	ft_bzero(gr->text.img, sizeof(int *) * NB_TEXTURE);
+	ft_bzero(gr->text.data, sizeof(int *) * NB_TEXTURE);
 	while (i < NB_TEXTURE)
 	{
 		gr->text.img[i] = (int *)mlx_xpm_file_to_image
@@ -116,7 +117,6 @@ void	get_textures(t_map *map, t_graph *gr)
 		if (gr->text.img[i] == NULL)
 		{
 			//MESSAGE ERREUR
-			gr->text.error_sprite = TRUE;
 			exitred(gr);
 		}
 		gr->text.size[i][WIDTH] = w;
@@ -138,7 +138,6 @@ void	get_textures(t_map *map, t_graph *gr)
 		if (gr->text.data[i] == NULL)
 		{	
 			//MESSAGE ERREUR
-			gr->text.error_sprite = TRUE;
 			exitred(gr);
 		}
 		//TESTER LE RETOUR = message d'erreur -> failed to get data

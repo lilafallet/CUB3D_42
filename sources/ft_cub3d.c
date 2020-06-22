@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:38:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:16:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,11 @@ int			main(int ac, char **av)
 	ret = parser_argument(ac, av, &map);
 	if (ret == SUCCESS)
 		fd = open(av[1], O_RDONLY);
-	if (fd == FAILURE)
-	{
-		//MESSAGE ERREUR
-		close(fd);
-		ft_free(&map, NULL);
-		exit(0);
-		return (EXIT_FAILURE);
-	}
-	if (ft_cub3d(fd, &map) == FAILURE)
-	{
-		close(fd);
-		ft_free(&map, NULL);
-		exit(0);
-		return (EXIT_FAILURE);
-	}
-	start_graph(&map);
+	if (fd != FAILURE && (ret = ft_cub3d(fd, &map)) != FAILURE)
+		start_graph(&map);
+//	if (fd == -1)
+//		perror()
 	ft_free(&map, NULL);
 	close(fd);
-	return (EXIT_SUCCESS);
+	return (ret == FAILURE || fd == FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:15:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:04:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void		savemode(t_map *map, t_graph *gr)
 	il se peut que la somme des pixels d'une ligne ne soit pas un multiple de 4.
 	Dans ce cas, on rajoute a la fin de la ligne, entre 0 et 3 octets bidons
 	pour assurer que la ligne est un multiple de 4 octets*/
-	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC
-						| O_APPEND, 0644);
+	fd = open(SCREENSHOT, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 	{
 		//MESSAGE ERREUR
+		ft_dprintf(STDERR_FILENO, "Error\n%s: %s\n", SCREENSHOT, strerror(errno));
 		exitred(gr);
 	}
 	bmp_header(gr, map, fd, filesize);

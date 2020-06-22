@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 21:10:48 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:02:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include <limits.h>
+# include <errno.h>
 # include <math.h>
 
 # ifndef TRUE
@@ -39,6 +40,7 @@
 **###########_PARSER_##############
 */
 
+# define SCREENSHOT			"screenshot.bmp"
 # define ERROR				2
 # define NB_INFO 			4
 # define ACCESS				NULL

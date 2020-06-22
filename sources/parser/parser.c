@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 19:24:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:19:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 	{
 		close(fd);
 		ft_free(map, line);
-		exit(0);
+		exit(1);
 		return (EXIT_FAILURE);
 	}
 	if (machine->info & IS_ERROR || ret == FAILURE)
