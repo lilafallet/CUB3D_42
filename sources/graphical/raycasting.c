@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/15 13:17:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 17:53:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 							* gr->rting.camerax;
 	gr->rting.mapx = (int)gr->rting.posx;
 	gr->rting.mapy = (int)gr->rting.posy;
-	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
-	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
+
+	gr->rting.deltadistx = 	gr->rting.raydirx == 0 ? 1.0 : fabs(1 / gr->rting.raydirx);
+	gr->rting.deltadisty = 	gr->rting.raydiry == 0 ? 1.0 : fabs(1 / gr->rting.raydiry);
 	/*distance que le rayon doit parcourir du cote x/y au suivant*/
 }
 

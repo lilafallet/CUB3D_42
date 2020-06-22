@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:38:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 17:20:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static int		fill_tab(ssize_t index_char, t_map *map, size_t index,
 	{
 		map->recup.dirpos = vct_getfirstchar(map_inf);
 		map->recup.tab_map[map->utils.count_line][index] = POSITION;
-		map->recup.posx = index;
-		map->recup.posy = map->utils.count_line;
+		map->recup.posx = (int)index;
+		map->recup.posy = (int)map->utils.count_line;
 		map->utils.count_position++;
 	}
 	else

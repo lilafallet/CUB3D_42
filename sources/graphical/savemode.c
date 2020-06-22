@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 14:46:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 18:15:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		get_color(t_graph *gr, t_map *map, int x, int y)
 	return (*(int *)color);
 }
 
-void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
+static void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 {
 	unsigned char	header[HEADERSIZE];
 
@@ -43,7 +43,7 @@ void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 	}
 }
 
-void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
+static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					y;

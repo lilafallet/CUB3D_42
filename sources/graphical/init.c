@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 14:37:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 17:34:09 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	init_map(t_map *map, t_graph *gr)
 	gr->mv.speed_mv = 0.1;
 	gr->mv.speed_lk = 0.05;
 	printf("JE RENTRE LA\n"); //
-	gr->sp.raybuff = malloc(sizeof(double) * (map->recup.resolution[AXE_X]
-						* map->recup.resolution[AXE_Y]));
+	gr->sp.raybuff = (double *)malloc(sizeof(double)
+				* (map->recup.resolution[AXE_X] * map->recup.resolution[AXE_Y]));
 	if (gr->sp.raybuff == NULL)
 	{
 		//MESSAGE ERREUR

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 14:39:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 18:02:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 	size_t	j;
 
 	i = 0;
-	j = 0;
 	while (i < map->utils.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *

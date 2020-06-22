@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:54:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 17:46:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,19 +139,19 @@ enum			e_map
 
 typedef struct	s_recup
 {
-	int				resolution[NB_RESOLUTION];
-	int				posx;
-	int				posy;
-	char			dirpos;
+	enum e_map		**tab_map;
 	char			*str_texture[NB_TEXTURE];
 	char			*str_text_spr;
 	char			*str_text_no;
 	char			*str_text_so;
 	char			*str_text_we;
 	char			*str_text_ea;
+	int				resolution[NB_RESOLUTION];
+	int				posx;
+	int				posy;
 	int				tab_color_f[NB_COLOR];
 	int				tab_color_c[NB_COLOR];
-	enum e_map		**tab_map;
+	char			dirpos;
 	char			pad[7];
 }				t_recup;
 
@@ -267,8 +267,8 @@ enum			e_state
 
 typedef struct	s_state_machine
 {
-	enum e_state		state;
 	unsigned long		info;
+	enum e_state		state;
 	char				pad[4];
 }				t_state_machine;
 
@@ -286,10 +286,10 @@ typedef struct	s_windows
 {
 	void			*mlx_ptr; //windows
 	void			*img_ptr; //windows
+	void			*win_ptr; //windows
 	int				*data; //windows
 	int				*img_data; //windows
 	unsigned long	img_color; //windows
-	void			*win_ptr; //windows
 	int				size_line; //windows
 	int				bits; //windows
 	int				endian; //windows
@@ -299,6 +299,7 @@ typedef struct	s_windows
 	int				mapheight;
 	int				max_screen_width;
 	int				max_screen_height;
+	char			pad[4];
 }				t_windows;
 
 /*
@@ -332,10 +333,6 @@ typedef struct	s_rting
 	double	camerax; //coordonnees de la camera sur x
 	double	raydirx; //direction du rayon sur X
 	double	raydiry; //direction du rayon sur Y
-	int		mapx; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
-					dans le carre*/
-	int		mapy; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
-					dans le carre*/
 	double	distx; /*distance que le rayon doit parcourir de sa position de depart au premier
 						cote de x*/
 	double	disty; /*distance que le rayon doit parcourir de sa position de depart au premier
@@ -343,11 +340,16 @@ typedef struct	s_rting
 	double	deltadistx; //distance que le rayon doit parcourir du cote x au suivant deltaDistX
 	double	deltadisty; //distance que le rayon doit parcourir du cote y au suivant deltaDistY
 	double	perpwalldist; //calculer la taille du rayon perpwalldist
+	int		mapx; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
+					dans le carre*/
+	int		mapy; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
+					dans le carre*/
 	int		stepx; //stocker si le deplacement de x est de -1 (gauche) ou +1 (droite) stepX
 	int		stepy; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas) stepY
 	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
 	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
 	int		mv_update;
+	char	pad[4];
 
 }				t_raycasting;
 
@@ -369,17 +371,17 @@ typedef struct	s_draw
 
 typedef struct	s_text
 {
-	int		*data[NB_TEXTURE];
 	void	*img[NB_TEXTURE];
+	double	wallhit; //la ou le mur a exactement ete tappe
+	double	step;
+	double	pos;
+	int		*data[NB_TEXTURE];
 	int		size[NB_TEXTURE][2];
 	int		size_line[NB_TEXTURE];
 	int		bits[NB_TEXTURE];
 	int		endian[NB_TEXTURE];
-	double	wallhit; //la ou le mur a exactement ete tappe
 	int		texx; //position du pixel sur x
 	int		texy; //position du pixel sur y
-	double	step;
-	double	pos;
 	int		color;
 }				t_texture;
 
@@ -419,9 +421,6 @@ typedef struct	s_text
 
 typedef struct	s_mv
 {
-	int		log;
-	int		mv_dir;
-	int		lk_dir;
 	double	new_posx;
 	double	new_posy;
 	double	old_posx;
@@ -434,6 +433,11 @@ typedef struct	s_mv
 	double	new_diry;
 	double	comb_posx;
 	double	comb_posy;
+	double	speed_mv;
+	double	speed_lk;
+	int		log;
+	int		mv_dir;
+	int		lk_dir;
 	int		update;
 	int		is_wall;
 	int		ydown;
@@ -452,8 +456,7 @@ typedef struct	s_mv
 	int		tmp_ym;
 	int		tmp_xp;
 	int		tmp_xm;
-	double	speed_mv;
-	double	speed_lk;
+	char	pad[4];
 }				t_moove;
 
 /*
@@ -474,15 +477,15 @@ typedef struct	s_sp
 {
 	t_position	*pos;
 	double		*raybuff;
-	size_t		nb_sprite;
 	double		*dist;
-	int			color;
 	double		x;
 	double		y;
 	double		rot;
 	double		playposx;
 	double		playposy;
-	int			screen_where;
+	double		screen_where;
+	size_t		nb_sprite;
+	int			color;
 	int			height;
 	int			starty;
 	int			endy;
@@ -492,6 +495,7 @@ typedef struct	s_sp
 	int			textx;
 	int			texty;
 	int			textw;
+	char		pad[4];
 }				t_sprite;
 
 /*
@@ -632,7 +636,7 @@ int				true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 size_t			fill_line(t_map *map, enum e_map **cpy_tab);
 t_state_machine	*get_state_machine(t_state_machine *machine);
 t_map			*get_map(t_map *map);
-t_graph			*graph_holder(t_graph *graph);
+t_graph			*graph_holder(t_graph *gr);
 
 /*
 **###########_GRAPH_#################

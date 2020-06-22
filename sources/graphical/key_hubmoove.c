@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:43:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 17:33:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_moove_look(t_graph *gr, t_map *map)
+static void	init_moove_look(t_graph *gr, t_map *map)
 {
 		init_graph(gr, map);
 		process_window(gr);
