@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 13:35:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:39:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
 				(map->utils.max_index));
+		if (cpy_tab[i] == NULL)
+		{
+			//MESSAGE ERREUR
+			exitred(NULL);
+		}
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 		j = 0;
 		while (j < map->utils.max_index
@@ -48,12 +53,22 @@ int				realloc_tab(t_map *map, size_t count_line,
 	if (old_index == 0 || new_index > old_index)
 		map->utils.max_index = new_index;
 	cpy_tab = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line));
+	if (cpy_tab == NULL)
+	{
+		//MESSAGE ERREUR
+		exitred(NULL);
+	}
 	ft_bzero(cpy_tab, map->utils.count_line);
 	i = fill_line(map, cpy_tab);
 	if (count_line != map->utils.max_line)
 	{
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
 				map->utils.max_index);
+		if (cpy_tab[i] == NULL)
+		{
+			//MESSAGE ERREUR
+			exitred(NULL);
+		}
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 	}
 	free(map->recup.tab_map);

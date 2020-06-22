@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 13:21:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:36:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static void	init_spdist(t_graph *gr)
 
 	i = 0;
 	gr->sp.dist = (double *)malloc(sizeof(double) * gr->sp.nb_sprite);
-	//A PROTEGER
+	if (gr->sp.dist == NULL)
+	{
+		//A PROTEGER
+		exitred(&gr);
+	}
 	while (i < gr->sp.nb_sprite)
 	{
 		distx = ft_lfpow(gr->rting.posx - gr->sp.pos[i].x, POW_2);

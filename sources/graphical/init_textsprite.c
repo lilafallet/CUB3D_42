@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 14:12:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:35:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 	y = 0;
 	count = 0;
 	gr->sp.pos = (t_position *)malloc(sizeof(t_position) * gr->sp.nb_sprite);
-	//A PROTEGER
+	if (gr->sp.pos == NULL)
+	{
+		//A PROTEGER
+		exitred(gr);
+	}
 	while (y < map->utils.count_line)
 	{
 		x = 0;
