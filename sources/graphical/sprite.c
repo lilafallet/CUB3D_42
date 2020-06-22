@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 17:38:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 18:27:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ static void	process_swap(t_graph *gr, size_t i)
 	double	tmp_x;
 	double	tmp_y;
 
-	tmp_dist = 0; //
-	tmp_x = 0; //
-	tmp_y = 0; //
 	//printf("tmp_dist = %lf\n", tmp_dist); //
 	//printf("tmp_x = %lf\n", tmp_x); //
 	//printf("tmp_y = %lf\n", tmp_x); //
@@ -75,7 +72,6 @@ static void	process_swap(t_graph *gr, size_t i)
 	//printf("dist[%zu (+1)] aft = %lf\n", i + 1, gr->sp.dist[i + 1]); //
 	//printf("pos[%zu (+1)].x aft = %lf\n", i + 1, gr->sp.pos[i + 1].x); //
 	//printf("pos[%zu (+1)].y aft = %lf\n\n", i + 1, gr->sp.pos[i + 1].y); //
-	tmp_dist = gr->sp.dist[i];
 }
 
 static void	swap_sprite(t_graph *gr)

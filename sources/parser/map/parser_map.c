@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:02:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 18:20:03 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int				is_map(t_vector *vct)
 	size_t		clen;
 
 	ret = TRUE;
-	clen = 0;
 	cpy_vct = vct_dup(vct);
 	clen = vct_clen(cpy_vct, CHAR_WALL);
 	if (clen != 0)
