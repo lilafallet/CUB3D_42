@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 16:14:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:12:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	get_textures(t_map *map, t_graph *gr)
 		gr->text.img[i] = mlx_xpm_file_to_image
 								(gr->win.mlx_ptr, map->recup.str_texture[i],
 									&w, &h);
+		if (gr->text.img[i] == NULL)
+		{
+			//MESSAGE ERREUR
+			exitred(gr);
+		}
 		gr->text.size[i][WIDTH] = w;
 		gr->text.size[i][HEIGHT] = h;
 		//TESTER LE RETOUR = message d'erreur -> wrong type of file
@@ -124,6 +129,11 @@ void	get_textures(t_map *map, t_graph *gr)
 		gr->text.data[i] = (int *)mlx_get_data_addr(gr->text.img[i],
 								&gr->text.bits[i], &gr->text.size_line[i],
 								&gr->win.endian);
+		if (gr->text.data[i] == NULL)
+		{	
+			//MESSAGE ERREUR
+			exitred(gr);
+		}
 		//TESTER LE RETOUR = message d'erreur -> failed to get data
 		/*ft_printf("gr->data[%d] = %p\n", i, gr->text.data[i]); //
 		ft_printf("gr->img[%d] = %p\n", i, gr->text.img[i]); //

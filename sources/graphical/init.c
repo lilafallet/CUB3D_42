@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/21 11:13:10 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:28:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	get_plane(t_graph *gr, t_map *map)
 
 void	init_graph(t_graph *gr, t_map *map)
 {
-
 	if (gr->win.img_ptr != NULL)
 	{
 		mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
@@ -48,9 +47,19 @@ void	init_graph(t_graph *gr, t_map *map)
 	gr->win.img_ptr = mlx_new_image(gr->win.mlx_ptr,
 						map->recup.resolution[AXE_X],
 						map->recup.resolution[AXE_Y]);
+	if (gr->win.img_ptr == NULL)
+	{
+		//MESSAGE ERREUR
+		exitred(gr);
+	}
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
 											&gr->win.size_line,
 											&gr->win.endian);
+	if (gr->win.data == NULL)
+	{
+		//MESSAGE ERREUR
+		exitred(gr);
+	}
 	start_raycasting(map, gr);
 	if (gr->sp.nb_sprite != 0)
 		hub_sprite(map, gr);
