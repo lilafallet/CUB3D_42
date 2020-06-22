@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/13 20:32:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 14:46:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		get_color(t_graph *gr, t_map *map, int x, int y)
 	return (*(int *)color);
 }
 
-int		bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
+void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 {
 	unsigned char	header[HEADERSIZE];
 
@@ -37,11 +37,13 @@ int		bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 	header[PLANECOLOR27] = (unsigned char)(1);
 	header[BPP28] = (unsigned char)(24);
 	if (write(fd, header, HEADERSIZE) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
+	{
+		//MESSAGE ERREUR
+		exitred(gr);
+	}
 }
 
-int		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
+void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					y;
@@ -58,16 +60,21 @@ int		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 		{
 			color = get_color(gr, map, x, y);
 			if (write(fd, &color, 3) < 0)
-				return (FAILURE);
+			{
+				//MESSAGE ERREUR
+				exitred(gr);
+			}
 			//ecris les informations sur les couleurs (pixels)
 			if (pad > 0 && write(fd, &zero, pad) < 0)
-				return (FAILURE);
+			{
+				//MESSAGE ERREUR
+				exitred(gr);
+			}
 			//permet de rajouter les octets bidons (entre 1 et 3)
 			x++;
 		}
 		y--;
 	}
-	return (SUCCESS);
 }
 
 void		savemode(t_map *map, t_graph *gr)
@@ -86,16 +93,13 @@ void		savemode(t_map *map, t_graph *gr)
 	pour assurer que la ligne est un multiple de 4 octets*/
 	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC
 						| O_APPEND, 0644);
-	//ERROR
-	//permet de remplacer un fichier tout en ecrasant toutes les donnees restantes
-	if (bmp_header(gr, map, fd, filesize) == FAILURE)
+	if (fd == FAILURE)
 	{
-		//ERROR
+		//MESSAGE ERREUR
+		exitred(gr);
 	}
-	if (bmp_data(gr, map, fd, pad) == FAILURE)
-	{
-		//ERROR
-	}
+	bmp_header(gr, map, fd, filesize);
+	bmp_data(gr, map, fd, pad);
 	close(fd);
 	exitred(gr);
 }
