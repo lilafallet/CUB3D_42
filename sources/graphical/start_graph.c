@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 17:27:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:33:26 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	start_graph(t_map *map)
 	if (gr.win.mlx_ptr == NULL)
 	{
 		//A PROTEGER
-		exitred(&gr);
+		exitred(&gr, FAILURE);
 	}
 	mlx_get_screen_size(gr.win.mlx_ptr, &screenx, &screeny);
 	gr.win.max_screen_width = screenx;
@@ -51,7 +51,7 @@ void	start_graph(t_map *map)
 		if (gr.win.data == NULL)
 		{
 			//A PROTEGER
-			exitred(&gr);
+			exitred(&gr, FAILURE);
 		}
 		start_raycasting(map, &gr);
 		if (gr.sp.nb_sprite != 0)
@@ -65,7 +65,7 @@ void	start_graph(t_map *map)
 	if (gr.win.win_ptr == NULL)
 	{
 		//A PROTEGER
-		exitred(&gr);
+		exitred(&gr, FAILURE);
 	}
 	init_map(map, &gr);
 	mlx_hook(gr.win.win_ptr, KEYPRESS, 1L << 0, keypress, &gr);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:27:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:31:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_spdist(t_graph *gr)
 	if (gr->sp.dist == NULL)
 	{
 		//A PROTEGER
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	while (i < gr->sp.nb_sprite)
 	{

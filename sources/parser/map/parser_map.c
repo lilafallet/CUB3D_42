@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:20:03 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:35:21 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 		if (cpy_tab[i] == NULL)
 		{
 			//MESSAGE ERREUR
-			exitred(NULL);
+			exitred(NULL, FAILURE);
 		}
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 		j = 0;
@@ -55,7 +55,7 @@ int				realloc_tab(t_map *map, size_t count_line,
 	if (cpy_tab == NULL)
 	{
 		//MESSAGE ERREUR
-		exitred(NULL);
+		exitred(NULL, FAILURE);
 	}
 	ft_bzero(cpy_tab, map->utils.count_line);
 	i = fill_line(map, cpy_tab);
@@ -66,7 +66,7 @@ int				realloc_tab(t_map *map, size_t count_line,
 		if (cpy_tab[i] == NULL)
 		{
 			//MESSAGE ERREUR
-			exitred(NULL);
+			exitred(NULL, FAILURE);
 		}
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 	}

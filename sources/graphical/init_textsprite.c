@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 22:43:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:37:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 	if (gr->sp.pos == NULL)
 	{
 		//A PROTEGER
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	while (y < map->utils.count_line)
 	{
@@ -117,7 +117,7 @@ void	get_textures(t_map *map, t_graph *gr)
 		if (gr->text.img[i] == NULL)
 		{
 			//MESSAGE ERREUR
-			exitred(gr);
+			exitred(gr, FAILURE);
 		}
 		gr->text.size[i][WIDTH] = w;
 		gr->text.size[i][HEIGHT] = h;
@@ -138,7 +138,7 @@ void	get_textures(t_map *map, t_graph *gr)
 		if (gr->text.data[i] == NULL)
 		{	
 			//MESSAGE ERREUR
-			exitred(gr);
+			exitred(gr, FAILURE);
 		}
 		//TESTER LE RETOUR = message d'erreur -> failed to get data
 		/*ft_printf("gr->data[%d] = %p\n", i, gr->text.data[i]); //

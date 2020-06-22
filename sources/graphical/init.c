@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 21:07:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:32:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_graph(t_graph *gr, t_map *map)
 	if (gr->win.img_ptr == NULL)
 	{
 		//MESSAGE ERREUR
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
 											&gr->win.size_line,
@@ -58,7 +58,7 @@ void	init_graph(t_graph *gr, t_map *map)
 	if (gr->win.data == NULL)
 	{
 		//MESSAGE ERREUR
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	start_raycasting(map, gr);
 	if (gr->sp.nb_sprite != 0)
@@ -84,7 +84,7 @@ void	init_map(t_map *map, t_graph *gr)
 	if (gr->sp.raybuff == NULL)
 	{
 		//MESSAGE ERREUR
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	gr->rting.posx = (double)map->recup.posx + (double)0.5;
 	gr->rting.posy = (double)map->recup.posy + (double)0.5;

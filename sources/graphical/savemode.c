@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:04:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:37:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 	if (write(fd, header, HEADERSIZE) == FAILURE)
 	{
 		//MESSAGE ERREUR
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 }
 
@@ -62,13 +62,13 @@ static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 			if (write(fd, &color, 3) < 0)
 			{
 				//MESSAGE ERREUR
-				exitred(gr);
+				exitred(gr, FAILURE);
 			}
 			//ecris les informations sur les couleurs (pixels)
 			if (pad > 0 && write(fd, &zero, pad) < 0)
 			{
 				//MESSAGE ERREUR
-				exitred(gr);
+				exitred(gr, FAILURE);
 			}
 			//permet de rajouter les octets bidons (entre 1 et 3)
 			x++;
@@ -96,10 +96,10 @@ void		savemode(t_map *map, t_graph *gr)
 	{
 		//MESSAGE ERREUR
 		ft_dprintf(STDERR_FILENO, "Error\n%s: %s\n", SCREENSHOT, strerror(errno));
-		exitred(gr);
+		exitred(gr, FAILURE);
 	}
 	bmp_header(gr, map, fd, filesize);
 	bmp_data(gr, map, fd, pad);
 	close(fd);
-	exitred(gr);
+	exitred(gr, SUCCESS);
 }

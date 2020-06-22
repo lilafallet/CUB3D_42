@@ -6,18 +6,17 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:17:45 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 23:37:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	exitred(t_graph *gr)
+int	exitred(t_graph *gr, int flag)
 {
 	t_map *map;
 	size_t	i;
 
-	printf("error_sprite = %d\n", gr->text.error_sprite); //
 	i = 0;
 	while (i < NB_TEXTURE)
 	{
@@ -39,5 +38,5 @@ int	exitred(t_graph *gr)
 			mlx_destroy_window(gr->win.mlx_ptr, gr->win.win_ptr);
 	}
 	free(gr->win.mlx_ptr);
-	exit(1);
+	exit(flag);
 }
