@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 12:42:28 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:36:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	parser_texture(t_vector *vct, t_map *map, t_state_machine *machine)
 	return (machine->state == RESOLUTION ? SUCCESS : FAILURE);
 }
 
-static int	parser_color(t_vector *vct, t_map *map, t_state_machine *machine)
+static int	parser_color(t_vector *vct,  t_map *map, t_state_machine *machine)
 {
 	const char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	uint8_t		i;
@@ -76,6 +76,7 @@ static int	parser_color(t_vector *vct, t_map *map, t_state_machine *machine)
 
 	i = 0;
 	count = 0;
+	(void)map;
 	while ((split = vct_split(vct, " \t", NO_SEP)) && (machine->info
 				& IS_ERROR) == FALSE && machine->state == COLOR)
 	{

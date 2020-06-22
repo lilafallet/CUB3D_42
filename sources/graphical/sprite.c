@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 14:36:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:54:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_spdist(t_graph *gr)
 	if (gr->sp.dist == NULL)
 	{
 		//A PROTEGER
-		exitred(&gr);
+		exitred(gr);
 	}
 	while (i < gr->sp.nb_sprite)
 	{
@@ -141,13 +141,13 @@ void		hub_sprite(t_map *map, t_graph *gr)
 	while (i < gr->sp.nb_sprite)
 	{
 		calcpos_sprite(gr, i, map);
-		calcdraw_sprite(gr, i, map);
+		calcdraw_sprite(gr, map);
 		tmp_startx = gr->sp.startx;
 		//ft_printf("tmp_startx = %d\n", tmp_startx); //
 		while (tmp_startx < gr->sp.endx)
 		{
 			//tant que plus petit que la fin du dessin en X et la resol X
-			draw_sprite(gr, tmp_startx, i, map);
+			draw_sprite(gr, tmp_startx, map);
 			//ft_printf("textx = %d\n", gr->sp.textx); //	
 			tmp_startx++;
 		}	

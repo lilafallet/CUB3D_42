@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/27 20:10:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:38:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int				clean_and_print(t_map *map, size_t i, size_t j,
 									t_state_machine *machine)
 {
+	(void)machine;
 	if (map->recup.tab_map[i][j] == STOP)
 		map->recup.tab_map[i][j] = OUT;
 	return (TRUE);

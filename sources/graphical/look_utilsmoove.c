@@ -6,30 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/21 11:16:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:45:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int is_sprite(t_graph *gr, t_map *map, double y, double x)
-{
-	const double pad = gr->mv.speed_mv + 0.06;
-
-	if ((int)y - pad < 0 || (size_t)y + pad > map->utils.max_line)
-		return (FALSE);
-	if ((int)x - pad < 0 || (size_t)x + pad > map->utils.max_index - 1)
-		return (FALSE);
-	return (map->recup.tab_map[(int)(y)][(int)(x)] == SPRITE
-		|| map->recup.tab_map[(int)(y + pad)][(int)(x)] == SPRITE
-		|| map->recup.tab_map[(int)(y - pad)][(int)(x)] == SPRITE
-		|| map->recup.tab_map[(int)(y)][(int)(x + pad)] == SPRITE
-		|| map->recup.tab_map[(int)(y)][(int)(x - pad)] == SPRITE
-		|| map->recup.tab_map[(int)(y - pad)][(int)(x - pad)] == SPRITE
-		|| map->recup.tab_map[(int)(y + pad)][(int)(x + pad)] == SPRITE
-		|| map->recup.tab_map[(int)(y + pad)][(int)(x - pad)] == SPRITE
-		|| map->recup.tab_map[(int)(y - pad)][(int)(x + pad)] == SPRITE);
-}
 
 static int is_wall_or_sprite(t_map *map, double y, double x)
 {

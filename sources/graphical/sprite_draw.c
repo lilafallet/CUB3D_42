@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:23:14 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/14 09:10:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:54:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	colorisation_sprite(t_graph *gr, int starty, int startx, t_map *map)
 	//permet de coloriser le pixel en x/y de la fenetre
 }
 
-void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
+void	draw_sprite(t_graph *gr, int startx, t_map *map)
 {
 	int	tmp_starty;
 	int	dim;
@@ -63,7 +63,7 @@ void	draw_sprite(t_graph *gr, int startx, size_t	nb_sprite, t_map *map)
 	}	
 }
 
-void	calcdraw_sprite(t_graph *gr, size_t i, t_map *map)
+void	calcdraw_sprite(t_graph *gr, t_map *map)
 {
 	gr->sp.height = abs((int)(map->recup.resolution[AXE_Y] / gr->sp.playposy));
 	/*permet d'avoir la hauteur du sprite selon la hauteur de l'ecran et surtout

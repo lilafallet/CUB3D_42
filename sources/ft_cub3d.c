@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/11 15:37:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:27:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ int			main(int ac, char **av)
 	if (ft_cub3d(fd, &map) == FAILURE)
 	{
 		close(fd);
-		ft_free(&map, NULL);
+		ft_free(&map);
 		exit(0);
 		return (EXIT_FAILURE);
 	}
 	start_graph(&map);
-	ft_free(&map, NULL);
+	ft_free(&map);
 	close(fd);
 	return (EXIT_SUCCESS);
 }

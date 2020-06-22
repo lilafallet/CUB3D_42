@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/05/03 13:29:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:41:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ int			true_or_false(t_vector *split, t_vector *vct, uint8_t count,
 }
 
 void		is_color(uint8_t *count, t_vector *split, t_state_machine *machine,
-						char *tab_color[NB_INDIC_COLOR])
+						const char *tab_color[NB_INDIC_COLOR])
 {
 	while (*count < NB_INDIC_COLOR
-			&& ft_strequ(vct_getstr(split), tab_color[*count]) == FALSE)
+			&& ft_strequ(vct_getstr(split), (char*)tab_color[*count]) == FALSE)
 		*count = *count + 1;
 	if (*count == NB_INDIC_COLOR)
 		machine->state = MAP;

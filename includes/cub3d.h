@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/21 11:18:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:54:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -591,7 +591,7 @@ typedef	int	(*t_function)(t_vector *, t_map *, t_state_machine *);
 
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
-void			ft_free(t_map *map, t_vector *line);
+void			ft_free(t_map *map);
 int				first_parser(t_map *map, int fd, t_state_machine *machine);
 void			printf_errors(unsigned long flag, unsigned long line);
 int				is_map(t_vector *vct);
@@ -614,12 +614,12 @@ int				verif_map(t_map *map, size_t y, size_t x,
 int				have_all_info(t_state_machine *machine);
 void			is_color(uint8_t *count, t_vector *split,
 							t_state_machine *machine,
-							char *tab_color[NB_INDIC_COLOR]);
+							const char *tab_color[NB_INDIC_COLOR]);
 int				init_machine_color(uint8_t count, t_state_machine *machine,
 									t_vector *cp);
 void			is_texture(uint8_t *count, t_vector *split,
 							t_state_machine *machine,
-							char *tab_texture[NB_TEXTURE]);
+							const char *tab_texture[NB_TEXTURE]);
 void			recuperation_texture(t_state_machine *machine, uint8_t count,
 										t_vector *split, t_map *map);
 void			is_indic_resolution(t_vector *split, t_state_machine *machine);
@@ -664,14 +664,13 @@ void			up_or_down(t_graph *gr);
 void			moove_left_right(t_graph *gr);
 void			moove_up_down(t_graph *gr);
 void			hub_sprite(t_map *map, t_graph *gr);
-void			calcdraw_sprite(t_graph *gr, size_t i, t_map *map);
-void			draw_sprite(t_graph *gr, int startx, size_t	nb_sprite,
-								t_map *map);
+void			calcdraw_sprite(t_graph *gr, t_map *map);
 int				exitred(t_graph *gr);
 void			savemode(t_map *map, t_graph *gr);
 void			life(t_graph *gr, t_map *map); //BONUS
 void			screen_dead(t_graph *gr, t_map *map, int color); //BONUS
 void			minimap(t_map *map, t_graph *gr);
 void			screen_life(t_graph *gr, t_map *map, int color);
+void			draw_sprite(t_graph *gr, int startx, t_map *map);
 
 #endif

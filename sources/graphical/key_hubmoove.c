@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/21 11:14:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 15:43:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ int	keyrelease(int key, t_graph *gr)
 
 int	keypress(int key, t_graph *gr)
 {
-	t_map	*map;
-	
-	map = get_map(NULL);
 	if (key == KEY_ESCAPE)
 		exitred(gr);
 	if (key == KMV_UP && (gr->mv.log & MV_UP) == FALSE)
