@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:26:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 20:18:00 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,21 @@
 int	exitred(t_graph *gr)
 {
 	t_map *map;
+	size_t	i;
 
+	i = 0;
+	while (i < NB_TEXTURE)
+		mlx_destroy_image(gr->win.mlx_ptr, gr->text.img[i++]);
 	//ATTENTION, PEUT ETRE PAS LA MEME CHOSE DANS LA PARTIE NORMALE
 	map = get_map(NULL);
 	free(gr->sp.pos);
 	free(gr->sp.raybuff);
+	ft_free(map, NULL);
+	mlx_destroy_image(gr->win.mlx_ptr, gr->win.img_ptr);
+	mlx_clear_window(gr->win.mlx_ptr, gr->win.win_ptr);
+	mlx_destroy_window(gr->win.mlx_ptr, gr->win.win_ptr);
 	free(gr->win.mlx_ptr);
-	ft_free(map);
+	free(gr->win.win_ptr);
 	exit(0);
 	return (TRUE);
 }

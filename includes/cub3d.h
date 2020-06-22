@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 17:46:15 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 18:37:57 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,7 +595,7 @@ typedef	int	(*t_function)(t_vector *, t_map *, t_state_machine *);
 
 int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
-void			ft_free(t_map *map);
+void			ft_free(t_map *map, t_vector *line);
 int				first_parser(t_map *map, int fd, t_state_machine *machine);
 void			printf_errors(unsigned long flag, unsigned long line);
 int				is_map(t_vector *vct);

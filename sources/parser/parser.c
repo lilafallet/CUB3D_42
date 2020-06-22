@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:36:05 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 19:24:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,14 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 			vct_split(NULL, NULL, INIT);
 	}
 	vct_del(&line);
+	vct_readline(NULL, CLEANUP);
+	if (ret == FAILURE)
+	{
+		close(fd);
+		ft_free(map, line);
+		exit(0);
+		return (EXIT_FAILURE);
+	}
 	if (machine->info & IS_ERROR || ret == FAILURE)
 	{
 		printf_errors(machine->info, map->utils.nb_line);

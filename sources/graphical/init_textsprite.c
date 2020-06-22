@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 17:28:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 19:43:46 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ void	get_textures(t_map *map, t_graph *gr)
 			fclose(file);
 		}
 	}*/
+	ft_bzero(gr->text.img, sizeof(int *) * NB_TEXTURE);
 	while (i < NB_TEXTURE)
 	{
-		gr->text.img[i] = mlx_xpm_file_to_image
+		gr->text.img[i] = (int *)mlx_xpm_file_to_image
 								(gr->win.mlx_ptr, map->recup.str_texture[i],
 									&w, &h);
 		if (gr->text.img[i] == NULL)
