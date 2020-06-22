@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 18:37:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/22 21:10:48 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,6 +383,7 @@ typedef struct	s_text
 	int		texx; //position du pixel sur x
 	int		texy; //position du pixel sur y
 	int		color;
+	int		error_sprite;
 }				t_texture;
 
 /*
