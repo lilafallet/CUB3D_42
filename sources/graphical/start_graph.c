@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/08 15:50:30 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:33:26 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:50:59 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	start_graph(t_map *map)
 	gr.win.mlx_ptr = mlx_init();
 	if (gr.win.mlx_ptr == NULL)
 	{
-		//A PROTEGER
+		printf_errors(ERROR_MLX_PTR, 0, NULL);
 		exitred(&gr, FAILURE);
 	}
 	mlx_get_screen_size(gr.win.mlx_ptr, &screenx, &screeny);
@@ -50,7 +50,7 @@ void	start_graph(t_map *map)
 												&gr.win.endian);
 		if (gr.win.data == NULL)
 		{
-			//A PROTEGER
+			printf_errors(ERROR_WINDATA, 0, NULL);
 			exitred(&gr, FAILURE);
 		}
 		start_raycasting(map, &gr);
@@ -64,7 +64,7 @@ void	start_graph(t_map *map)
 						map->recup.resolution[AXE_Y], "Cub3D");
 	if (gr.win.win_ptr == NULL)
 	{
-		//A PROTEGER
+		printf_errors(ERROR_WIN_PTR, 0, NULL);
 		exitred(&gr, FAILURE);
 	}
 	init_map(map, &gr);
