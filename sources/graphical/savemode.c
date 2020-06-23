@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:39:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 18:35:17 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ void		savemode(t_map *map, t_graph *gr)
 	}
 	bmp_header(gr, map, fd, filesize);
 	bmp_data(gr, map, fd, pad);
-	close(fd);
+	if (close(fd) == FAILURE)
+	{
+		perror("Error\nFail to close the screenshot");
+		exitred(gr, FAILURE);
+	}
 	exitred(gr, SUCCESS);
 }

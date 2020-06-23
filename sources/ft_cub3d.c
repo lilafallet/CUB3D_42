@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:06:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 18:35:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			main(int ac, char **av)
 	if (fd == FAILURE)
 		perror("Error\nFail to open the map");
 	ft_free(&map, NULL);
-	close(fd);
+	if (close(fd) == FAILURE)
+		perror("Error\nFail to close the map");
 	return (ret == FAILURE || fd == FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
 }

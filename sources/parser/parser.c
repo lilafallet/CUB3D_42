@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:06:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 18:38:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,10 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 	if (ret == FAILURE)
 	{
 		vct_del(&line);
-		close(fd);
+		if (close(fd) == FAILURE)
+			perror("Error\nFail to close the map");
 		ft_free(map, line);
-		exit(1);
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	if (machine->info & IS_ERROR || ret == FAILURE)
 	{
