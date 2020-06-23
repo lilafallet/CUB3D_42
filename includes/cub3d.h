@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:22:34 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:37:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ typedef struct	s_map
 # define ERR_SAVE			2
 # define ERR_FORMAT			3
 # define ERR_ARG_BIG		4
+# define ERR_MALLOC_CPYTAB	5
 
 # define IS_ERROR										0x1FFF000000
 # define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x0001000000
@@ -255,6 +256,7 @@ typedef struct	s_map
 # define ERROR_ARGUMENT_FORMAT	"ARGUMENTS : wrong format (expecting .cub)\n"
 # define ERROR_SAVE				"SAVE : if you want to be in save mode, please enter : --save\n"
 # define ERROR_ARGUMENTS_BIG 	"ARGUMENTS : to much arguments\n"
+# define ERROR_MALLOC_CPYTAB 	"CPY_TAB : malloc failed\n"
 
 /*
 **###########_STATE_#################

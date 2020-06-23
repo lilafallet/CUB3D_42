@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 12:49:57 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:33:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int			main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 	if (ret != FAILURE && fd != FAILURE && (ret = ft_cub3d(fd, &map)) != FAILURE)
 		start_graph(&map);
-//	if (fd == -1)
-//		perror()
+	if (fd == FAILURE)
+		perror("Error\nFail to open the map");
 	ft_free(&map, NULL);
 	close(fd);
 	return (ret == FAILURE || fd == FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);

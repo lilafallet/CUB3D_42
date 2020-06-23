@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 12:40:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:38:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static void	not_map(unsigned long flag, unsigned long nb_line, t_vector *line)
 		ft_dprintf(STDERR_FILENO,"%s", ERROR_SAVE);
 	else if (flag == ERR_ARG_BIG)
 		ft_dprintf(STDERR_FILENO,"%s", ERROR_ARGUMENTS_BIG);
+	else if (flag == ERR_MALLOC_CPYTAB)
+		ft_dprintf(STDERR_FILENO,"%s", ERROR_MALLOC_CPYTAB);
 }
 
 void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
@@ -79,7 +81,8 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 	if (loops_function != 0)
 		return ;
 	if (flag == ERR_ARG_LITTLE || flag == ERR_SAVE || flag == ERR_FORMAT
-		|| flag == ERR_GLOBAL || flag == ERR_ARG_BIG)
+		|| flag == ERR_GLOBAL || flag == ERR_ARG_BIG
+		|| flag == ERR_MALLOC_CPYTAB)
 		not_map(flag, nb_line, line);
 	index = flag >> 24;
 	while (i < NB_ERROR)
