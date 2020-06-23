@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 15:00:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:06:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static int	parser_argument(int ac, char **av, t_map *map)
 	if (ac < 2 || ac > 3)
 	{
 		if (ac < 2)
-			printf_errors(ERR_ARG_LITTLE, 0, NULL);
+			printf_errors(ERROR_ARG_LITTLE, 0, NULL);
 		if (ac > 3)
-			printf_errors(ERR_ARG_BIG, 0, NULL);
+			printf_errors(ERROR_ARG_BIG, 0, NULL);
 		return (FAILURE);
 	}
 	if (is_good_file(av[1]) == FAILURE)
