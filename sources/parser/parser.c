@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:19:05 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 10:41:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static int	parser_map(t_vector *vct, t_map *map, t_state_machine *machine)
 	if (ret == ERROR)
 	{
 		if (map->recup.tab_map == NULL)
-			printf_errors(ERR_GLOBAL, map->utils.nb_line);
+			printf_errors(ERR_GLOBAL, map->utils.nb_line, vct);
 		machine->info |= (map->recup.tab_map == NULL ? IS_ERROR :
 									ERROR_MAP_NOT_VALID);
 		vct_del(&cpy_vct);
@@ -143,10 +143,10 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 			&& function[machine->state](line, map, machine) == FAILURE)
 			vct_split(NULL, NULL, INIT);
 	}
-	vct_del(&line);
 	vct_readline(NULL, CLEANUP);
 	if (ret == FAILURE)
 	{
+		vct_del(&line);
 		close(fd);
 		ft_free(map, line);
 		exit(1);
@@ -154,8 +154,10 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 	}
 	if (machine->info & IS_ERROR || ret == FAILURE)
 	{
-		printf_errors(machine->info, map->utils.nb_line);
+		printf_errors(machine->info, map->utils.nb_line, line);
+		vct_del(&line);
 		return (FAILURE);
 	}
+	vct_del(&line);
 	return (SUCCESS);
 }

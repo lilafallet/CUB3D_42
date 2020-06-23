@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:29:31 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 10:44:58 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,10 +243,10 @@ typedef struct	s_map
 # define ERR7					"MAP = invalid map\n"
 # define ERR8					"RESOLUTION = wrong type of number\n"
 # define ERR9					"RESOLUTION = wrong type of indicator\n"
-# define ERR10					"TEXTURE = alreagraph->recup.dy have texture\n"
+# define ERR10					"TEXTURE = already have a texture\n"
 # define ERR11					"COLOR = the argument is not a number\n"
 # define ERR12					"TEXTURE = no path to the texture\n"
-# define ERROR_ARGUMENTS "ARGUMENTS :programme affiche image dans une fenetre\n"
+# define ERROR_ARGUMENTS "ARGUMENTS : missing second argument\n"
 # define ERROR_STR_GLOBAL 		"one line is invalid\n"
 # define ERROR_ARGUMENT_SAVE "SAVE :sauver premiere image rendue format bmp\n"
 # define ERROR_ARGUMENT_FORMAT	"ARGUMENTS : wrong format (expecting .cub)\n"
@@ -600,7 +600,7 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_map *map, t_vector *line);
 int				first_parser(t_map *map, int fd, t_state_machine *machine);
-void			printf_errors(unsigned long flag, unsigned long line);
+void			printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line);
 int				is_map(t_vector *vct);
 int				recuperation_map(t_vector *line, t_map *map);
 int				recuperation_eachelem(t_state_machine *machine,
