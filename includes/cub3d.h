@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:34:18 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:41:38 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,9 @@ typedef struct	s_map
 **###########_ERROR_#################
 */
 
-# define NB_ERROR			25
+# define NB_ERROR			26
 
-# define IS_ERROR										0x1FFFFFF000000
+# define IS_ERROR										0x3FFFFFF000000
 # define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x0000001000000
 # define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x0000002000000
 # define ERROR_COLOR_WRONG_TYPE_NUMBER					0x0000004000000
@@ -244,6 +244,7 @@ typedef struct	s_map
 # define ERROR_MALLOC_POS								0x0400000000000
 # define ERROR_IMG										0x0800000000000
 # define ERROR_DATA										0x1000000000000
+# define ERROR_MALLOC_DIST								0x2000000000000
 
 # define ERR1					"RESOLUTION : the number of information is not good\n"
 # define ERR2					"TEXTURE = too much information\n"
@@ -270,6 +271,7 @@ typedef struct	s_map
 # define ERR23					"POS : malloc sprite pos failed\n"
 # define ERR24					"IMG : mlx_xmp_file_to_image failed\n"
 # define ERR25					"DATA : mlx_get_data_addr failed\n"
+# define ERR26					"DIST : malloc dist sprite failed\n"
 
 /*
 **###########_STATE_#################

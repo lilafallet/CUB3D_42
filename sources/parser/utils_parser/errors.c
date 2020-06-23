@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:32:39 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:40:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 										ERR7, ERR8, ERR9, ERR10, ERR11, ERR12,
 										ERR13, ERR14, ERR15, ERR16, ERR17,
 										ERR18, ERR19, ERR20, ERR21, ERR22,
-										ERR23, ERR24, ERR25};
+										ERR23, ERR24, ERR25, ERR26};
 	unsigned long	index;
 	size_t			i;
 	static size_t	loops_function = 0;
