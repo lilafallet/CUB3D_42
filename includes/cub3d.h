@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:44:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 15:43:31 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct	s_utils
 	size_t			count_position;
 	size_t			save_mode;
 	size_t			count_resolution;
+	size_t			not_map;
 
 }				t_utils;
 
@@ -250,7 +251,7 @@ typedef struct	s_map
 # define ERR10					"TEXTURE = already have a texture\n"
 # define ERR11					"COLOR = the argument is not a number\n"
 # define ERR12					"TEXTURE = no path to the texture\n"
-# define ERR13					"MAP = too much position\n"
+# define ERR13					"MAP = too much information\n"
 # define ERROR_ARGUMENTS_LITTLE "ARGUMENTS : missing second argument\n"
 # define ERROR_STR_GLOBAL 		"one line is invalid\n"
 # define ERROR_ARGUMENT_FORMAT	"ARGUMENTS : wrong format (expecting .cub)\n"

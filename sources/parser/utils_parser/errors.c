@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:44:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 15:40:00 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 				ft_dprintf(STDERR_FILENO, " -> ");
 			}
 			ft_dprintf(STDERR_FILENO, "%s", error[i]);
+			break ;
 		}
 		i++;
 	}
-	loops_function++;
 }

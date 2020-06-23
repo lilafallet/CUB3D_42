@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:21:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 15:41:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 	}
 	vct_del(&split);
 	if (map->utils.count_resolution == 1 || map->utils.count_resolution > 2)
-			machine->info |= ERROR_RESOLUTION_NUMBER_ARGUMENTS;
+			machine->info |= ERROR_RESOLUTION_WRONG_TYPE_NUMBER;
 	if (machine->state == RESOLUTION)
 		return (SUCCESS);
 	return (FAILURE);
@@ -115,7 +115,11 @@ static int	parser_map(t_vector *vct, t_map *map, t_state_machine *machine)
 	if (ret == ERROR)
 	{
 		if (map->recup.tab_map == NULL)
+		{
 			printf_errors(ERR_GLOBAL, map->utils.nb_line, vct);
+			ft_free(map, NULL);
+			exit(EXIT_FAILURE);
+		}
 		machine->info |= (map->recup.tab_map == NULL ? IS_ERROR :
 									ERROR_MAP_LOT_POSITION);
 		vct_del(&cpy_vct);
