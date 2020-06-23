@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:38:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:44:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 	static size_t	loops_function = 0;
 	
 	i = 0;
-	//vct_print(line);
 	if (loops_function != 0)
 		return ;
 	if (flag == ERR_ARG_LITTLE || flag == ERR_SAVE || flag == ERR_FORMAT

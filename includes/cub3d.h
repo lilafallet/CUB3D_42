@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:37:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:44:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ typedef struct	s_map
 # define ERR3					"COLOR = wrong type of number\n"
 # define ERR4					"COLOR = number of color is invalid\n"
 # define ERR5					"COLOR = data format not good\n"
-# define ERR6					"COLOR = alreagraph->recup.dy have color\n"
+# define ERR6					"COLOR = already have color\n"
 # define ERR7					"MAP = invalid map\n"
 # define ERR8					"RESOLUTION = wrong type of number\n"
 # define ERR9					"RESOLUTION = wrong type of indicator\n"
