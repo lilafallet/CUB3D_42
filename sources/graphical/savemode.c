@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:37:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:39:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 	header[BPP28] = (unsigned char)(24);
 	if (write(fd, header, HEADERSIZE) == FAILURE)
 	{
-		//MESSAGE ERREUR
+		perror("Error\nFail to write the header on the bmp file");
 		exitred(gr, FAILURE);
 	}
 }
@@ -61,13 +61,13 @@ static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 			color = get_color(gr, map, x, y);
 			if (write(fd, &color, 3) < 0)
 			{
-				//MESSAGE ERREUR
+				perror("Error\nFail to write color the bmp file");
 				exitred(gr, FAILURE);
 			}
 			//ecris les informations sur les couleurs (pixels)
 			if (pad > 0 && write(fd, &zero, pad) < 0)
 			{
-				//MESSAGE ERREUR
+				perror("Error\nFail to write the pading the bmp file");
 				exitred(gr, FAILURE);
 			}
 			//permet de rajouter les octets bidons (entre 1 et 3)
@@ -94,7 +94,6 @@ void		savemode(t_map *map, t_graph *gr)
 	fd = open(SCREENSHOT, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 	{
-		//MESSAGE ERREUR
 		ft_dprintf(STDERR_FILENO, "Error\n%s: %s\n", SCREENSHOT, strerror(errno));
 		exitred(gr, FAILURE);
 	}
