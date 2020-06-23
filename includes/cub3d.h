@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 13:24:20 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:22:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct	s_utils
 	size_t			count_line;
 	size_t			count_position;
 	size_t			save_mode;
+	size_t			count_resolution;
 
 }				t_utils;
 
@@ -236,7 +237,7 @@ typedef struct	s_map
 # define ERROR_TEXTURE_FORMAT							0x0800000000
 # define ERROR_MAP_LOT_POSITION							0x1000000000
 
-# define ERR1					"RESOLUTION : too much information\n"
+# define ERR1					"RESOLUTION : the number of information is not good\n"
 # define ERR2					"TEXTURE = too much information\n"
 # define ERR3					"COLOR = wrong type of number\n"
 # define ERR4					"COLOR = number of color is invalid\n"

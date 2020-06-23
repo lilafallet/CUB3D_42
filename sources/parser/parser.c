@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 12:59:48 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 14:21:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 		i++;
 	}
 	vct_del(&split);
+	if (map->utils.count_resolution == 1 || map->utils.count_resolution > 2)
+			machine->info |= ERROR_RESOLUTION_NUMBER_ARGUMENTS;
 	if (machine->state == RESOLUTION)
 		return (SUCCESS);
 	return (FAILURE);
