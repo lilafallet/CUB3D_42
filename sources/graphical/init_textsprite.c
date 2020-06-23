@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:37:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:34:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 	gr->sp.pos = (t_position *)malloc(sizeof(t_position) * gr->sp.nb_sprite);
 	if (gr->sp.pos == NULL)
 	{
-		//A PROTEGER
+		printf_errors(ERROR_MALLOC_POS, 0, NULL);
 		exitred(gr, FAILURE);
 	}
 	while (y < map->utils.count_line)
@@ -116,7 +116,7 @@ void	get_textures(t_map *map, t_graph *gr)
 									&w, &h);
 		if (gr->text.img[i] == NULL)
 		{
-			//MESSAGE ERREUR
+			printf_errors(ERROR_IMG, 0, NULL);
 			exitred(gr, FAILURE);
 		}
 		gr->text.size[i][WIDTH] = w;
@@ -137,7 +137,7 @@ void	get_textures(t_map *map, t_graph *gr)
 								&gr->win.endian);
 		if (gr->text.data[i] == NULL)
 		{	
-			//MESSAGE ERREUR
+			printf_errors(ERROR_DATA, 0, NULL);
 			exitred(gr, FAILURE);
 		}
 		//TESTER LE RETOUR = message d'erreur -> failed to get data

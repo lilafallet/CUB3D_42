@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:27:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:34:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,31 +216,34 @@ typedef struct	s_map
 **###########_ERROR_#################
 */
 
-# define NB_ERROR			22
+# define NB_ERROR			25
 
-# define IS_ERROR										0x2FFFFF000000
-# define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x000001000000
-# define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x000002000000
-# define ERROR_COLOR_WRONG_TYPE_NUMBER					0x000004000000
-# define ERROR_COLOR_NUMBER_COLOR_ARGUMENTS				0x000008000000
-# define ERROR_COLOR_NUMBER_ARGUMENTS					0x000010000000
-# define ERROR_COLOR_ALREADY							0x000020000000
-# define ERROR_MAP_NOT_VALID							0x000040000000
-# define ERROR_RESOLUTION_WRONG_TYPE_NUMBER				0x000080000000
-# define ERROR_RESOLUTION_WRONG_TYPE_INDICATOR			0x000100000000
-# define ERROR_TEXTURE_ALREADY							0x000200000000
-# define ERROR_COLOR_NOT_NUMBER							0x000400000000
-# define ERROR_TEXTURE_FORMAT							0x000800000000
-# define ERROR_MAP_LOT_POSITION							0x001000000000
-# define ERROR_GLOBAL									0x002000000000
-# define ERROR_SAVE										0x004000000000
-# define ERROR_FORMAT									0x008000000000
-# define ERROR_ARG_BIG									0x010000000000
-# define ERROR_ARG_LITTLE								0x020000000000
-# define ERROR_MALLOC_CPYTAB							0x040000000000
-# define ERROR_IMGPTR									0x080000000000
-# define ERROR_WINDATA									0x100000000000
-# define ERROR_MALLOC_RAYBUFF							0x200000000000
+# define IS_ERROR										0x1FFFFFF000000
+# define ERROR_RESOLUTION_NUMBER_ARGUMENTS				0x0000001000000
+# define ERROR_TEXTURE_NUMBER_ARGUMENTS					0x0000002000000
+# define ERROR_COLOR_WRONG_TYPE_NUMBER					0x0000004000000
+# define ERROR_COLOR_NUMBER_COLOR_ARGUMENTS				0x0000008000000
+# define ERROR_COLOR_NUMBER_ARGUMENTS					0x0000010000000
+# define ERROR_COLOR_ALREADY							0x0000020000000
+# define ERROR_MAP_NOT_VALID							0x0000040000000
+# define ERROR_RESOLUTION_WRONG_TYPE_NUMBER				0x0000080000000
+# define ERROR_RESOLUTION_WRONG_TYPE_INDICATOR			0x0000100000000
+# define ERROR_TEXTURE_ALREADY							0x0000200000000
+# define ERROR_COLOR_NOT_NUMBER							0x0000400000000
+# define ERROR_TEXTURE_FORMAT							0x0000800000000
+# define ERROR_MAP_LOT_POSITION							0x0001000000000
+# define ERROR_GLOBAL									0x0002000000000
+# define ERROR_SAVE										0x0004000000000
+# define ERROR_FORMAT									0x0008000000000
+# define ERROR_ARG_BIG									0x0010000000000
+# define ERROR_ARG_LITTLE								0x0020000000000
+# define ERROR_MALLOC_CPYTAB							0x0040000000000
+# define ERROR_IMGPTR									0x0080000000000
+# define ERROR_WINDATA									0x0100000000000
+# define ERROR_MALLOC_RAYBUFF							0x0200000000000
+# define ERROR_MALLOC_POS								0x0400000000000
+# define ERROR_IMG										0x0800000000000
+# define ERROR_DATA										0x1000000000000
 
 # define ERR1					"RESOLUTION : the number of information is not good\n"
 # define ERR2					"TEXTURE = too much information\n"
@@ -264,6 +267,9 @@ typedef struct	s_map
 # define ERR20					"IMG_PTR : mlx_new_image failed\n"
 # define ERR21					"WIN_DATA : mlx_get_data_addr failed\n"
 # define ERR22					"RAYBUFF : malloc raybuff failed\n"
+# define ERR23					"POS : malloc sprite pos failed\n"
+# define ERR24					"IMG : mlx_xmp_file_to_image failed\n"
+# define ERR25					"DATA : mlx_get_data_addr failed\n"
 
 /*
 **###########_STATE_#################
