@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:07:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 17:27:01 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	init_graph(t_graph *gr, t_map *map)
 						map->recup.resolution[AXE_Y]);
 	if (gr->win.img_ptr == NULL)
 	{
-		//MESSAGE ERREUR
+		printf_errors(ERROR_IMGPTR, 0, NULL);
 		exitred(gr, FAILURE);
 	}
 	gr->win.data = (int *)mlx_get_data_addr(gr->win.img_ptr, &gr->win.bits,
@@ -57,7 +57,7 @@ void	init_graph(t_graph *gr, t_map *map)
 											&gr->win.endian);
 	if (gr->win.data == NULL)
 	{
-		//MESSAGE ERREUR
+		printf_errors(ERROR_WINDATA, 0, NULL);
 		exitred(gr, FAILURE);
 	}
 	start_raycasting(map, gr);
@@ -83,7 +83,7 @@ void	init_map(t_map *map, t_graph *gr)
 				* (map->recup.resolution[AXE_X] * map->recup.resolution[AXE_Y]));
 	if (gr->sp.raybuff == NULL)
 	{
-		//MESSAGE ERREUR
+		printf_errors(ERROR_MALLOC_RAYBUFF, 0, NULL);
 		exitred(gr, FAILURE);
 	}
 	gr->rting.posx = (double)map->recup.posx + (double)0.5;
