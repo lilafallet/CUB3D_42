@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 10:37:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 12:40:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			verification_global_map(t_map *map, t_state_machine *machine)
 					map->utils.max_index);
 	if (map->utils.count_position != 1)
 	{
-		machine->info |= ERROR_MAP_NOT_VALID;
+		machine->info |= ERROR_MAP_LOT_POSITION;
 		return (ERROR);
 	}
 	iter_map(map, clean_and_print, machine);

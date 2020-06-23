@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 10:37:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 12:40:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_cub3d(int fd, t_map *map)
 	{
 		if (verification_global_map(map, &machine) == ERROR)
 		{
-			printf_errors(machine.info, map->utils.nb_line, NULL);
+			printf_errors(machine.info, 0, NULL);
 			return (FAILURE);
 		}
 		else
@@ -68,7 +68,10 @@ static int	parser_argument(int ac, char **av, t_map *map)
 {
 	if (ac < 2 || ac > 3)
 	{
-		printf_errors(ERR_ARG, 0, NULL);
+		if (ac < 2)
+			printf_errors(ERR_ARG_LITTLE, 0, NULL);
+		if (ac > 3)
+			printf_errors(ERR_ARG_BIG, 0, NULL);
 		return (FAILURE);
 	}
 	if (is_good_file(av[1]) == FAILURE)
