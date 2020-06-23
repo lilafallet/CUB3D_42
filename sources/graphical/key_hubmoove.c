@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 23:29:54 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:35:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,8 @@ static void	init_moove_look(t_graph *gr, t_map *map)
 {
 		init_graph(gr, map);
 		process_window(gr);
-	//	if (gr->mv.new_posx == gr->mv.old_posx + SPEED_MV
-	//		|| gr->mv.new_posx == gr->mv.old_posx - SPEED_MV)
-			gr->mv.old_posx = gr->mv.new_posx;
-	//	if (gr->mv.new_posy == gr->mv.old_posy + SPEED_MV
-	//		|| gr->mv.new_posy == gr->mv.old_posy - SPEED_MV)
-			gr->mv.old_posy = gr->mv.new_posy;
+		gr->mv.old_posx = gr->mv.new_posx;
+		gr->mv.old_posy = gr->mv.new_posy;
 }
 
 static void	hub_moove_look(t_graph *gr)
@@ -31,8 +27,6 @@ static void	hub_moove_look(t_graph *gr)
 	
 	tmp_dirx = gr->rting.dirx;
 	tmp_planecamx = gr->rting.planecamx;
-	/*permet d'avoir des variables temp afin de faire toutes les verifications
-	necessaires avant de les actualiser reellement*/
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
 	{
 		if ((gr->mv.log & LK_LEFT && ((gr->mv.log & LK_RIGHT) == FALSE))
@@ -54,7 +48,7 @@ int	moove(t_graph *gr)
 	{
 		map = get_map(NULL);
 		hub_moove_look(gr);
-		is_wall(gr, map); //BONUS
+		is_wall(gr, map);
 		gr->rting.posx = gr->mv.new_posx;
 		gr->rting.posy = gr->mv.new_posy;
 		init_moove_look(gr, map);

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:50:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:26:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,15 +312,15 @@ typedef struct	s_state_machine
 
 typedef struct	s_windows
 {
-	void			*mlx_ptr; //windows
-	void			*img_ptr; //windows
-	void			*win_ptr; //windows
-	int				*data; //windows
-	int				*img_data; //windows
-	unsigned long	img_color; //windows
-	int				size_line; //windows
-	int				bits; //windows
-	int				endian; //windows
+	void			*mlx_ptr;
+	void			*img_ptr;
+	void			*win_ptr;
+	int				*data;
+	int				*img_data;
+	unsigned long	img_color;
+	int				size_line;
+	int				bits;
+	int				endian;
 	int				screenwidth;
 	int				screenheight;
 	int				mapwidth;
@@ -350,32 +350,28 @@ typedef struct	s_color
 
 typedef struct	s_rting
 {
-	double	posx; //position du joueur en X
-	double	posy; //position du joueur en Y
-	double	dirx; //direction du joueur vers X
-	double	diry; //direction du joueur vers Y
-	double	planecamx; //plan de la camera en x
-	double	planecamy; //plan de la camera en y
-	double	time; //l'heure actuelle de l'image;
-	double	oldtime; //l'heure de l'image precedente
-	double	camerax; //coordonnees de la camera sur x
-	double	raydirx; //direction du rayon sur X
-	double	raydiry; //direction du rayon sur Y
-	double	distx; /*distance que le rayon doit parcourir de sa position de depart au premier
-						cote de x*/
-	double	disty; /*distance que le rayon doit parcourir de sa position de depart au premier
-						cote de y*/
-	double	deltadistx; //distance que le rayon doit parcourir du cote x au suivant deltaDistX
-	double	deltadisty; //distance que le rayon doit parcourir du cote y au suivant deltaDistY
-	double	perpwalldist; //calculer la taille du rayon perpwalldist
-	int		mapx; /*carre actuel ou se trouve le rayon sur x (le carre mais aussi ou on est
-					dans le carre*/
-	int		mapy; /*carre actuel ou se trouve le rayon sur y (le carre mais aussi ou on est
-					dans le carre*/
-	int		stepx; //stocker si le deplacement de x est de -1 (gauche) ou +1 (droite) stepX
-	int		stepy; //stocker si le deplacement de x est de -1 (haut) ou +1 (bas) stepY
-	int		hit; //0 si un mur n'a pas ete touche, 1 si un mur a ete touche
-	int		side; //le mur touche est-il au nord, sud, ouest ou a l'est
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planecamx;
+	double	planecamy;
+	double	time;
+	double	oldtime;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	distx;
+	double	disty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
 	int		mv_update;
 	char	pad[4];
 
@@ -387,7 +383,7 @@ typedef struct	s_rting
 
 typedef struct	s_draw
 {
-	int		height_line; //hauteur du mur lineHeight
+	int		height_line;
 	int		start;
 	int		end;
 	int		no_sky;
@@ -400,7 +396,7 @@ typedef struct	s_draw
 typedef struct	s_text
 {
 	void	*img[NB_TEXTURE];
-	double	wallhit; //la ou le mur a exactement ete tappe
+	double	wallhit;
 	double	step;
 	double	pos;
 	int		*data[NB_TEXTURE];
@@ -408,8 +404,8 @@ typedef struct	s_text
 	int		size_line[NB_TEXTURE];
 	int		bits[NB_TEXTURE];
 	int		endian[NB_TEXTURE];
-	int		texx; //position du pixel sur x
-	int		texy; //position du pixel sur y
+	int		texx;
+	int		texy;
 	int		color;
 	int		error_sprite;
 }				t_texture;
@@ -554,46 +550,6 @@ typedef struct	s_sp
 # define OCTET3			3
 
 /*
-**###########_LIFE_#################
-*/
-
-typedef struct	s_life //BONUS
-{
-	int	startx;
-	int	starty;
-	int	endx;
-	int	endy;
-	int	width_outxleft;
-	int	width_outxright;
-	int	width_outyup;
-	int	width_outydown;
-	int	is_sprite;
-	int	endx_sprite;
-	int	startx_sprite;
-	int	count_outsprite;
-	int		firstx;
-	int		firsty;
-	int		count;
-	int	tmp_endx_sprite;
-	int	tmp_startx_sprite;
-	int	spritey;
-	int	old;
-	int	sprite;
-}				t_life;
-
-/*
-**###########_LIFE_#################
-*/
-
-typedef struct	s_minmap //BONUS
-{
-	int	starty;
-	int	endy;
-	int	startx;
-	int	endx;
-}				t_minmap;
-
-/*
 **###########_GRAPH_#################
 */
 
@@ -606,8 +562,6 @@ typedef struct	s_graph
 	t_texture		text;
 	t_moove			mv;
 	t_sprite		sp;
-	t_life			lf;
-	t_minmap		minmap;
 }				t_graph;
 
 /*
@@ -700,10 +654,6 @@ void			hub_sprite(t_map *map, t_graph *gr);
 void			calcdraw_sprite(t_graph *gr, t_map *map);
 int				exitred(t_graph *gr, int flag);
 void			savemode(t_map *map, t_graph *gr);
-void			life(t_graph *gr, t_map *map); //BONUS
-void			screen_dead(t_graph *gr, t_map *map, int color); //BONUS
-void			minimap(t_map *map, t_graph *gr);
-void			screen_life(t_graph *gr, t_map *map, int color);
 void			draw_sprite(t_graph *gr, int startx, t_map *map);
 
 #endif

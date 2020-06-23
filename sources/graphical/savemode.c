@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 18:35:17 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:55:30 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 	int					color;
 
 	y = map->recup.resolution[AXE_Y] - 1;
-	/*la boucle se fait a l'envers pour pas que le bmp soit affiche a l'envers 
-	en little indian*/
 	while (y >= 0)
 	{
 		x = 0;
@@ -64,13 +62,11 @@ static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 				perror("Error\nFail to write color the bmp file");
 				exitred(gr, FAILURE);
 			}
-			//ecris les informations sur les couleurs (pixels)
 			if (pad > 0 && write(fd, &zero, pad) < 0)
 			{
 				perror("Error\nFail to write the pading the bmp file");
 				exitred(gr, FAILURE);
 			}
-			//permet de rajouter les octets bidons (entre 1 et 3)
 			x++;
 		}
 		y--;
@@ -84,13 +80,8 @@ void		savemode(t_map *map, t_graph *gr)
 	int			pad;
 
 	pad = (PIXOFFSET - ((int)map->recup.resolution[AXE_X] * 3) % PIXOFFSET) % 4;
-	//permet d'alligner en memoire
 	filesize = HEADERSIZE + (OCTET3 * ((int)map->recup.resolution[AXE_X]
 					+ pad) * (int)map->recup.resolution[AXE_Y]);
-	/*taille du headersize + AXE_X * AXE_Y // on a 24 bits (3 octets) par pixel,
-	il se peut que la somme des pixels d'une ligne ne soit pas un multiple de 4.
-	Dans ce cas, on rajoute a la fin de la ligne, entre 0 et 3 octets bidons
-	pour assurer que la ligne est un multiple de 4 octets*/
 	fd = open(SCREENSHOT, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 	{

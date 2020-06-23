@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/20 18:21:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:37:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ void	left_or_right(t_graph *gr)
 {
 	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
-		//si combinaison avec UP et DOWN
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->mv.comb_posx
 							- gr->rting.diry * gr->mv.speed_mv : gr->mv.comb_posx
 							+ gr->rting.diry * gr->mv.speed_mv;
 		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->mv.comb_posy
 							+ gr->rting.dirx * gr->mv.speed_mv : gr->mv.comb_posy
 							- gr->rting.dirx * gr->mv.speed_mv;
-		/*combposx et combxposy correspondent au position de UP ou DOWN pour
-		permettre de pouvoir avancer en diagonale (au lieu de posx ou posy)*/
 	}
 	else
 	{
@@ -47,32 +44,27 @@ void	up_or_down(t_graph *gr)
 						*gr->mv.speed_mv;
 	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 	{
-		/*si combinaison avec left ou droite*/
 		gr->mv.comb_posx = gr->mv.new_posx;
 		gr->mv.comb_posy = gr->mv.new_posy;
-		/*permet dans la fonction de moove left et right de remplacer posx ou
-		posy par ses variables pour avoir deja la nouvelle position lorsque
-		qu'on UP ou DOWN*/
 	}
 }
 
 void	moove_up_down(t_graph *gr)
 {
-	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN) //soit UP ou DOWN
+	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 		up_or_down(gr);
-	if (gr->mv.log & MV_UP && gr->mv.log & MV_DOWN) //UP et DOWN
+	if (gr->mv.log & MV_UP && gr->mv.log & MV_DOWN)
 	{
 		gr->mv.new_posx = gr->rting.posx;
 		gr->mv.new_posy = gr->rting.posy;
-		//permet de faire un stop en ne changeant pas les positions
 	}
 }
 
 void	moove_left_right(t_graph *gr)
 {
-	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT) //soit LEFT ou RIGHT
+	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 		left_or_right(gr);
-	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT) //LEFT et RIGHT
+	if (gr->mv.log & MV_LEFT && gr->mv.log & MV_RIGHT)
 	{
 		gr->mv.new_posx = gr->rting.posx;
 		gr->mv.new_posy = gr->rting.posy;

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/21 11:11:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:31:55 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,16 @@
 static void	init_draw_wall(t_graph *gr, int who)
 {
 	if (gr->rting.side == EA || gr->rting.side == WE)
-	{
-			gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
-								* gr->rting.raydiry;
-			//la ou le mur a ete exactement tappe sur y
-	}
+		gr->text.wallhit = gr->rting.posy + gr->rting.perpwalldist
+							* gr->rting.raydiry;
 	else
-	{
-			gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
-								* gr->rting.raydirx;
-			//la ou le mur a ete exactement tappe sur x
-	}
-	gr->text.wallhit -= floor(gr->text.wallhit); /*la fonction floor permet de
-	prendre la valeur du dessous (ex floor(2.51) = 2) -> permet d'avoir une
-	ligne bien droite*/
+		gr->text.wallhit = gr->rting.posx + gr->rting.perpwalldist
+							* gr->rting.raydirx;
+	gr->text.wallhit -= floor(gr->text.wallhit);
 	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
-	/*permet d'avoir la position du pixel sur x = la ou a ete tappe le mur
-	* la largeur de l'image EUUUUH BIZARRE NON*/
 }
 
-void	draw_wall(t_map *map, t_graph *gr, int x) //28
+void	draw_wall(t_map *map, t_graph *gr, int x)
 {
 	int		y;
 	int		who;
@@ -51,17 +41,9 @@ void	draw_wall(t_map *map, t_graph *gr, int x) //28
 		gr->text.texy = (y - map->recup.resolution[AXE_Y] / 2
 							+ gr->draw.height_line / 2)
 							* gr->text.size[who][HEIGHT] / gr->draw.height_line;
-		/*permet d'avoir la position du pixel sur y = debut du pixel
-		- la resolution sur y (div par 2) + la hauteur du mur (div par 2)
-		* la hauteur de l'image / par la hauteur du mur EUUUH BIZARRE NON*/ 
 		gr->win.data[x + y * (gr->win.size_line / 4)] =
 						gr->text.data[who][gr->text.texx + gr->text.texy
 						* gr->text.size[who][WIDTH]];
-		/*permet de mettre le pixel de l'image dans la data de la fenetre au
-		pixel correspondant = position sur x de la fenetre + position sur y
-		de la fenetre * (A QUOI CORRESPOND SIZELINE ??) / 4 (POURQUOI 4) = 
-		le pixel de la texture x + pixel de la texture y * la largeur de la
-		texture*/
 		y++;
 	}
 }
@@ -76,11 +58,9 @@ static void	draw_floor(t_map *map, t_graph *gr, int x)
 		y = 0;
 	floor_color = get_rgb(map->recup.tab_color_f[R], map->recup.tab_color_f[G],
 							map->recup.tab_color_f[B]); 
-	while (y >= gr->draw.end) /*colorise les pixels en montant sur y (jusqu'a
-	draw start qui correspond au pixel jusqu'a ou on peut allez*/
+	while (y >= gr->draw.end)
 	{
 		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
-		//pixel a coloriser sur win
 		y--;
 	}
 }
@@ -89,44 +69,16 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 {
 	int	y;
 	int	sky_color;
-	int	axe_x;
 
 	y = 0;
 	sky_color = get_rgb(map->recup.tab_color_c[R], map->recup.tab_color_c[G],
 							map->recup.tab_color_c[B]);
-	axe_x = map->recup.resolution[AXE_X];
-	/*if (x == 0 && y == 0)
+	while (y < gr->draw.start && y < map->recup.resolution[AXE_Y])
 	{
-		printf("HELLO\n"); //
-		x = 1;
-		y = 1;
-		axe_x = map->recup.resolution[AXE_X] - 1;
-	}*/
-	while (y < gr->draw.start && y < map->recup.resolution[AXE_Y]) /*colorise les pixels en descendant sur y
-	(jusqu'a draw start qui correspond au pixel jusqu'a ou on peut aller*/
-	{
-		gr->win.data[y * axe_x + x] = sky_color;
-		//pixel a coloriser sur win
+		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
 		y++;
 	}
 }
-
-/*void	shadow_wall(t_graph *gr) //DETERMINER COMMENT JE VAIS DEVOIR L'UTILSER
-{
-	gr->color.south = 0x0066CC; //BLUE
-	gr->color.north = 0x990000; //RED
-	gr->color.east = 0xFFD700; //YELLOW
-	gr->color.west = 0x009900; //GREEN
-	
-	if (gr->rting.side == NO && gr->rting.raydirx > 0)
-		gr->color.wall = gr->color.north; //ombre
-	else if (gr->rting.side == SO && gr->rting.raydirx < 0)
-		gr->color.wall = gr->color.south;	//ombre
-	else if (gr->rting.side == EA && gr->rting.raydiry > 0)
-		gr->color.wall = gr->color.east;	//ombre
-	else
-		gr->color.wall = gr->color.west;	//ombre
-}*/
 
 void	hub_draw(t_map *map, t_graph *gr, int x)
 {

@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:06:53 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:45:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:36:43 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ int	update(t_graph *gr)
 
 void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 {
-	//ft_printf("FONCTION LOOK RIGHT\n"); //
 	gr->mv.log |= CAM;
-	/*ajoute le fait qu'il va y avoir une rotation*/
 	gr->rting.dirx = gr->rting.dirx * cos(gr->mv.speed_lk) - gr->rting.diry
 						* sin(gr->mv.speed_lk);
 	gr->rting.diry = tmp_dirx * sin(gr->mv.speed_lk) + gr->rting.diry
@@ -77,14 +75,11 @@ void	look_right(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 							- gr->rting.planecamy * sin(gr->mv.speed_lk);
 	gr->rting.planecamy = tmp_planecamx * sin(gr->mv.speed_lk)
 							+ gr->rting.planecamy * cos(gr->mv.speed_lk);
-	/*cos = deplacements en x / sin = deplacements en y*/
 }
 
 void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 {
-	//ft_printf("FONCTION LOOK LEFT\n"); //
 	gr->mv.log |= CAM;
-	/*ajoute le fait qu'il va y avoir une rotation*/
 	gr->rting.dirx = gr->rting.dirx * cos(-gr->mv.speed_lk) - gr->rting.diry
 						* sin(-gr->mv.speed_lk);
 	gr->rting.diry = tmp_dirx * sin(-gr->mv.speed_lk) + gr->rting.diry
@@ -93,6 +88,4 @@ void	look_left(t_graph *gr, double tmp_dirx, double tmp_planecamx)
 							- gr->rting.planecamy * sin(-gr->mv.speed_lk);
 	gr->rting.planecamy = tmp_planecamx * sin(-gr->mv.speed_lk)
 							+ gr->rting.planecamy * cos(-gr->mv.speed_lk);
-	/*cos = deplacements en x / sin = deplacements en y / SPEED negt car on va
-	vers la gauche*/
 }

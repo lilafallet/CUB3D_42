@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:34:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 21:34:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 			{
 				gr->sp.pos[count].x = x + 0.5;
 				gr->sp.pos[count].y = y + 0.5;
-				/*printf("sprite[%zu]{x %lf, y %lf}\n", count,
-							gr->sp.pos[count].x, gr->sp.pos[count].y);*/
 				count++;
 			}
 			x++;
@@ -67,25 +65,13 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 int		what_texture(t_graph *gr)
 {
 	if (gr->rting.side == EA && gr->rting.raydirx > 0)
-	{
-		//superieur a zero sur x on va vers l'est
 		return (EA);
-	}
 	else if (gr->rting.side == WE && gr->rting.raydirx < 0)
-	{	
-		//inferieur a zero sur x on va vers l'ouest
 		return (WE);
-	}	
 	else if (gr->rting.side == NO && gr->rting.raydiry < 0)
-	{
-		//inferieur a zero sur y on va vers le nord
 		return (NO);
-	}
 	else
-	{
-		//superieur a zero sur y on va vers le sud
 		return (SO);
-	}
 }
 
 void	get_textures(t_map *map, t_graph *gr)
@@ -95,18 +81,6 @@ void	get_textures(t_map *map, t_graph *gr)
 	int		h;
 
 	i = 0;
-	/*for (int j = 0;j < NB_TEXTURE; j++)
-	{
-		FILE *file = fopen(map->recup.str_texture[j] , "rw");	
-	
-		if (file == NULL)
-			perror("fopen");
-		else
-		{
-			printf("%s: c'est good !\n", map->recup.str_texture[j]);
-			fclose(file);
-		}
-	}*/
 	ft_bzero(gr->text.img, sizeof(int *) * NB_TEXTURE);
 	ft_bzero(gr->text.data, sizeof(int *) * NB_TEXTURE);
 	while (i < NB_TEXTURE)
@@ -121,14 +95,8 @@ void	get_textures(t_map *map, t_graph *gr)
 		}
 		gr->text.size[i][WIDTH] = w;
 		gr->text.size[i][HEIGHT] = h;
-		//TESTER LE RETOUR = message d'erreur -> wrong type of file
-		/*ft_printf("ptr = %p : size[%d][WIDTH] = %d\n", gr->text.img[i],
-					i, gr->text.size[i][WIDTH]);
-		ft_printf("ptr = %p : size[%d][HEIGHT] = %d\n", gr->text.img[i],
-					i, gr->text.size[i][HEIGHT]);*/
 		i++;
 	}
-	//ft_printf("\n");
 	i = 0;
 	while (i < NB_TEXTURE)
 	{
@@ -140,12 +108,6 @@ void	get_textures(t_map *map, t_graph *gr)
 			printf_errors(ERROR_DATA, 0, NULL);
 			exitred(gr, FAILURE);
 		}
-		//TESTER LE RETOUR = message d'erreur -> failed to get data
-		/*ft_printf("gr->data[%d] = %p\n", i, gr->text.data[i]); //
-		ft_printf("gr->img[%d] = %p\n", i, gr->text.img[i]); //
-		ft_printf("bits = %d\n", gr->win.bits); //
-		ft_printf("size_line = %d\n", gr->win.size_line); //
-		ft_printf("endian = %d\n\n", gr->win.endian);*/
 		i++;
 	}
 	count_sprite(map, gr);
