@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:41:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 15:15:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	recup_digit_color(t_vector *split, unsigned long flag,
 		machine->info |= ERROR_COLOR_NOT_NUMBER;
 	else
 	{
-		if ((nb = vct_apply(split, TO_ATOI)) > 255 || vct_getlen(split) > 3)
+		if ((nb = vct_apply(split, TO_ATOI)) > 255)
 			machine->info |= ERROR_COLOR_WRONG_TYPE_NUMBER;
 		else if (flag == BT_COLOR_F)
 			map->recup.tab_color_f[i / 2] = nb;

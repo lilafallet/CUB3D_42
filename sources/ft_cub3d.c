@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:33:06 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 15:00:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-static int	debug_print_map(t_map *map, size_t i, size_t j,
+/*static int	debug_print_map(t_map *map, size_t i, size_t j,
 				t_state_machine *machine)
 {
 	(void)machine;
 	ft_printf("%d%c", map->recup.tab_map[i][j],
 			(j + 1 == map->utils.max_index) ? '\n' : ' '); //DEBUG//
 	return (TRUE);
-}
+}*/
 
-static void	debug(t_map *map, t_state_machine *machine)
+/*static void	debug(t_map *map, t_state_machine *machine)
 {
 	ft_printf("R:\t\t%d %d\n",			map->recup.resolution[0],
 										map->recup.resolution[1]);
@@ -42,7 +42,7 @@ static void	debug(t_map *map, t_state_machine *machine)
 										map->recup.tab_color_c[1],
 										map->recup.tab_color_c[2]);
 	iter_map(map, debug_print_map, machine);
-}
+}*/
 
 static int	ft_cub3d(int fd, t_map *map)
 {
@@ -58,8 +58,8 @@ static int	ft_cub3d(int fd, t_map *map)
 			printf_errors(machine.info, 0, NULL);
 			return (FAILURE);
 		}
-		else
-			debug(map, &machine); // DEBUG
+		//else
+			//debug(map, &machine); // DEBUG
 	}
 	return (ret);
 }
