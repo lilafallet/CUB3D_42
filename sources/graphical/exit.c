@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:06:58 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:33:22 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/23 23:37:34 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,21 @@ int	exitred(t_graph *gr, int flag)
 	free(gr->win.mlx_ptr);
 	exit(flag);
 }
+
+/*
+**
+**	appeler free_xvar((t_xvar *)gr->win.mlx_ptr)
+**			a la place de free(gr->win.mlx_ptr)
+**
+**	void	free_xvar(t_xvar *xvar)
+**	{
+**		if (xvar != NULL)
+**		{
+**			if (xvar->private_cmap)
+**				XFreeColormap(xvar->display, (Colormap)xvar->private_cmap);
+**			XCloseDisplay(xvar->display);
+**			free(xvar);
+**		}
+**	}
+*/
+
