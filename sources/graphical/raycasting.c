@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:44:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 12:19:05 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 	gr->rting.mapx = (int)gr->rting.posx;
 	gr->rting.mapy = (int)gr->rting.posy;
 
-	gr->rting.deltadistx = 	gr->rting.raydirx == 0 ? 1.0 : fabs(1 / gr->rting.raydirx);
-	gr->rting.deltadisty = 	gr->rting.raydiry == 0 ? 1.0 : fabs(1 / gr->rting.raydiry);
+	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
+	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
 }
 
 static void	init_step_distray(t_graph *gr)

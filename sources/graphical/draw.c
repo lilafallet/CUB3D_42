@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:31:55 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 12:15:02 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 {
 	int	y;
 	int	sky_color;
+	int	axe_x;
 
 	y = 0;
+	axe_x = map->recup.resolution[AXE_X];
 	sky_color = get_rgb(map->recup.tab_color_c[R], map->recup.tab_color_c[G],
 							map->recup.tab_color_c[B]);
 	while (y < gr->draw.start && y < map->recup.resolution[AXE_Y])
 	{
-		gr->win.data[y * map->recup.resolution[AXE_X] + x] = sky_color;
+		gr->win.data[y * axe_x + x] = sky_color;
 		y++;
 	}
 }
