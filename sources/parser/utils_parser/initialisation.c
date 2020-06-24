@@ -6,12 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:57:21 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 09:23:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:29:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h> /*DEBUG*/
 
 t_map			*get_map(t_map *map)
 {

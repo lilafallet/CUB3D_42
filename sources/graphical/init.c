@@ -6,14 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 11:04:29 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:27:01 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 15:15:56 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <unistd.h> //
 
-void		get_direction_position(t_map *map, t_graph *gr)
+void	get_direction_position(t_map *map, t_graph *gr)
 {
 	if (map->recup.dirpos == NORTH)
 		gr->rting.diry = -1;
@@ -71,8 +70,8 @@ void	process_window(t_graph *gr)
 
 	map = get_map(NULL);
 	if (map->utils.save_mode == FALSE)
-		mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr, gr->win.img_ptr,
-										0, 0);
+		mlx_put_image_to_window(gr->win.mlx_ptr, gr->win.win_ptr,
+									gr->win.img_ptr, 0, 0);
 }
 
 void	init_map(t_map *map, t_graph *gr)
@@ -80,7 +79,8 @@ void	init_map(t_map *map, t_graph *gr)
 	gr->mv.speed_mv = 0.1;
 	gr->mv.speed_lk = 0.05;
 	gr->sp.raybuff = (double *)malloc(sizeof(double)
-				* (map->recup.resolution[AXE_X] * map->recup.resolution[AXE_Y]));
+				* (map->recup.resolution[AXE_X]
+				* map->recup.resolution[AXE_Y]));
 	if (gr->sp.raybuff == NULL)
 	{
 		printf_errors(ERROR_MALLOC_RAYBUFF, 0, NULL);

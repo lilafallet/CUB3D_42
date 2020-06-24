@@ -6,11 +6,17 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:52:06 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 17:09:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 15:33:18 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	pos(t_graph *gr, size_t x, size_t y)
+{
+	gr->sp.pos[gr->sp.count].x = x + 0.5;
+	gr->sp.pos[gr->sp.count].y = y + 0.5;
+}
 
 t_graph	*gr_holder(t_graph *gr)
 {

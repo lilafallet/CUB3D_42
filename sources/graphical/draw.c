@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:45:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 12:15:02 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:31:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	init_draw_wall(t_graph *gr, int who)
 	gr->text.texx = (int)(gr->text.wallhit * (double)gr->text.size[who][WIDTH]);
 }
 
-void	draw_wall(t_map *map, t_graph *gr, int x)
+void		draw_wall(t_map *map, t_graph *gr, int x)
 {
 	int		y;
 	int		who;
@@ -57,7 +57,7 @@ static void	draw_floor(t_map *map, t_graph *gr, int x)
 	if (y < 0)
 		y = 0;
 	floor_color = get_rgb(map->recup.tab_color_f[R], map->recup.tab_color_f[G],
-							map->recup.tab_color_f[B]); 
+							map->recup.tab_color_f[B]);
 	while (y >= gr->draw.end)
 	{
 		gr->win.data[y * map->recup.resolution[AXE_X] + x] = floor_color;
@@ -82,7 +82,7 @@ static void	draw_sky(t_map *map, t_graph *gr, int x)
 	}
 }
 
-void	hub_draw(t_map *map, t_graph *gr, int x)
+void		hub_draw(t_map *map, t_graph *gr, int x)
 {
 	draw_floor(map, gr, x);
 	draw_sky(map, gr, x);
