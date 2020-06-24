@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 13:11:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 15:35:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 20:25:15 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	count_sprite(t_map *map, t_graph *gr)
 	while (y < map->utils.count_line)
 	{
 		x = 0;
-		while (map->recup.tab_map[y][x] != OUT)
+		while (x < map->utils.max_index)
 		{
 			if (map->recup.tab_map[y][x] == SPRITE)
 				gr->sp.nb_sprite++;
@@ -47,7 +47,7 @@ static void	init_coord_sprite(t_map *map, t_graph *gr)
 	while (y < map->utils.count_line)
 	{
 		x = 0;
-		while (map->recup.tab_map[y][x] != OUT)
+		while (x < map->utils.max_index)
 		{
 			if (map->recup.tab_map[y][x] == SPRITE)
 			{
