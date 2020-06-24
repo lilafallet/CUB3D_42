@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 11:11:49 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 11:27:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define NB_INFO 			4
 # define ACCESS				NULL
 # define COMMA 				','
+# define STR_COMMA 			","
 # define PATH 				"./"
 # define PLUS 				'+'
 # define SLASH 				'/'
@@ -84,6 +85,11 @@
 # define B 					2
 # define NB_INDIC_COLOR 	2
 # define NB_COLOR 			3
+# define COLOR_MAX 			255
+# define MAX_FACTO 			5
+# define MAX_NB_COLOR 		3
+# define ONE_COLOR			0
+# define TWO_COLOR			1
 
 /*
 **##########_RESOLUTION_##########
