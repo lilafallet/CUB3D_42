@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 18:38:36 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:54:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 	uint8_t		i;
 
 	i = 0;
-	vct_split(NULL, NULL, INIT);
-	while ((split = vct_split(vct, " \t", NO_SEP))
+	vct_split(NO_VECTOR, NO_VECTOR, INIT);
+	while ((split = vct_split(vct, STRING_SPACE_TAB, NO_SEP))
 			&& (machine->info & IS_ERROR) == FALSE
 			&& machine->state == RESOLUTION)
 	{
-		if (i == 0)
+		if (i == NB_INDIC_RESOL)
 			is_indic_resolution(split, machine);
-		else if (i == 3)
+		else if (i == SUP_MAX_RESOL)
 			machine->info |= ERROR_RESOLUTION_NUMBER_ARGUMENTS;
 		else
 			is_number_resolution(split, machine, i, map);
@@ -34,8 +34,9 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 		i++;
 	}
 	vct_del(&split);
-	if (map->utils.count_resolution == 1 || map->utils.count_resolution > 2)
-			machine->info |= ERROR_RESOLUTION_WRONG_TYPE_NUMBER;
+	if (map->utils.count_resolution == NOT_ENOUGH
+			|| map->utils.count_resolution > TO_MUCH)
+		machine->info |= ERROR_RESOLUTION_WRONG_TYPE_NUMBER;
 	if (machine->state == RESOLUTION)
 		return (SUCCESS);
 	return (FAILURE);
@@ -43,20 +44,20 @@ static int	parser_resolution(t_vector *vct, t_map *map,
 
 static int	parser_texture(t_vector *vct, t_map *map, t_state_machine *machine)
 {
-	const char		*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
+	const char	*tab_texture[NB_TEXTURE] = {"NO", "SO", "WE", "EA", "S"};
 	t_vector	*split;
 	uint8_t		i;
 	uint8_t		count;
 
 	i = 0;
 	count = 0;
-	while ((split = vct_split(vct, " \t", NO_SEP))
+	while ((split = vct_split(vct, STRING_SPACE_TAB, NO_SEP))
 			&& (machine->info & IS_ERROR) == FALSE
 			&& machine->state == TEXTURE)
 	{
 		if (i == 0)
 			is_texture(&count, split, machine, tab_texture);
-		else if (i == 2)
+		else if (i == SUP_MAX_TEXT)
 			machine->info |= ERROR_TEXTURE_NUMBER_ARGUMENTS;
 		else
 			recuperation_texture(machine, count, split, map);
@@ -69,9 +70,9 @@ static int	parser_texture(t_vector *vct, t_map *map, t_state_machine *machine)
 	return (machine->state == RESOLUTION ? SUCCESS : FAILURE);
 }
 
-static int	parser_color(t_vector *vct,  t_map *map, t_state_machine *machine)
+static int	parser_color(t_vector *vct, t_map *map, t_state_machine *machine)
 {
-	const char		*tab_color[NB_INDIC_COLOR] = {"F", "C"};
+	const char	*tab_color[NB_INDIC_COLOR] = {"F", "C"};
 	uint8_t		i;
 	uint8_t		count;
 	t_vector	*split;
@@ -79,7 +80,7 @@ static int	parser_color(t_vector *vct,  t_map *map, t_state_machine *machine)
 	i = 0;
 	count = 0;
 	(void)map;
-	while ((split = vct_split(vct, " \t", NO_SEP)) && (machine->info
+	while ((split = vct_split(vct, STRING_SPACE_TAB, NO_SEP)) && (machine->info
 				& IS_ERROR) == FALSE && machine->state == COLOR)
 	{
 		if (i == 0)
@@ -115,11 +116,7 @@ static int	parser_map(t_vector *vct, t_map *map, t_state_machine *machine)
 	if (ret == ERROR)
 	{
 		if (map->recup.tab_map == NULL)
-		{
-			printf_errors(ERROR_GLOBAL, map->utils.nb_line, vct);
-			ft_free(map, NULL);
-			exit(EXIT_FAILURE);
-		}
+			error(map, ERROR_GLOBAL, vct);
 		machine->info |= (map->recup.tab_map == NULL ? IS_ERROR :
 									ERROR_MAP_LOT_POSITION);
 		vct_del(&cpy_vct);
@@ -135,6 +132,7 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 										parser_color, parser_map};
 	ssize_t				ret;
 	t_vector			*line;
+	ssize_t				ret_function;
 
 	line = vct_new();
 	ret = 0;
@@ -144,26 +142,13 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 		map->utils.nb_line++;
 		if (line->len == 0 && machine->state != MAP)
 			continue ;
-		vct_split(NULL, NULL, INIT);
+		vct_split(NO_VECTOR, NO_VECTOR, INIT);
 		while ((machine->info & IS_ERROR) == FALSE
 			&& function[machine->state](line, map, machine) == FAILURE)
-			vct_split(NULL, NULL, INIT);
+			vct_split(NO_VECTOR, NO_VECTOR, INIT);
 	}
-	vct_readline(NULL, CLEANUP);
-	if (ret == FAILURE)
-	{
-		vct_del(&line);
-		if (close(fd) == FAILURE)
-			perror("Error\nFail to close the map");
-		ft_free(map, line);
-		exit(EXIT_FAILURE);
-	}
-	if (machine->info & IS_ERROR || ret == FAILURE)
-	{
-		printf_errors(machine->info, map->utils.nb_line, line);
-		vct_del(&line);
-		return (FAILURE);
-	}
+	vct_readline(NO_VECTOR, CLEANUP);
+	ret_function = gestion_parser(ret, line, map, machine, fd);
 	vct_del(&line);
-	return (SUCCESS);
+	return (ret_function);
 }

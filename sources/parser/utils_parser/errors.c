@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 17:49:29 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:54:40 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,42 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h> /*DEBUG*/
+
+int			gestion_parser(int ret, t_vector *line, t_map *map,
+							t_state_machine *machine, int fd)
+{
+	if (ret == FAILURE)
+	{
+		vct_del(&line);
+		if (close(fd) == FAILURE)
+			perror(FAIL_CLOSE_MAP);
+		ft_free(map, line);
+		exit(EXIT_FAILURE);
+	}
+	if (machine->info & IS_ERROR || ret == FAILURE)
+	{
+		printf_errors(machine->info, map->utils.nb_line, line);
+		vct_del(&line);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+void		error(t_map *map, unsigned long flag, t_vector *vct)
+{
+	if (flag == ERROR_MALLOC_CPYTAB)
+	{
+		printf_errors(ERROR_MALLOC_CPYTAB, NO_LINE, NO_VECTOR);
+		ft_free(map, NO_VECTOR);
+		exit(EXIT_FAILURE);
+	}
+	if (flag == ERROR_GLOBAL)
+	{
+		printf_errors(ERROR_GLOBAL, map->utils.nb_line, vct);
+		ft_free(map, NO_VECTOR);
+		exit(EXIT_FAILURE);
+	}
+}
 
 int			is_good_file(char *str)
 {

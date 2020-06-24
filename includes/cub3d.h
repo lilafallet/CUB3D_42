@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 12:33:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:54:16 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@
 # define STR_TEXTURE_SO 	"SO"
 # define STR_TEXTURE_WE 	"WE"
 # define STR_TEXTURE_EA 	"EA"
+# define SUP_MAX_TEXT 		2
 
 /*
 **###########_COLOR_###############
@@ -99,6 +100,10 @@
 # define CHAR_RESOLUTION	'R'
 # define STR_RESOLUTION 	"R"
 # define STRING_CHECK_R		"SFCNSEW"
+# define NB_INDIC_RESOL		0
+# define SUP_MAX_RESOL		3
+# define NOT_ENOUGH			1
+# define TO_MUCH			2
 
 /*
 **############_MAP_###############
@@ -668,5 +673,8 @@ void			calcdraw_sprite(t_graph *gr, t_map *map);
 int				exitred(t_graph *gr, int flag);
 void			savemode(t_map *map, t_graph *gr);
 void			draw_sprite(t_graph *gr, int startx, t_map *map);
+void			error(t_map *map, unsigned long flag, t_vector *vct);
+int				gestion_parser(int ret, t_vector *line, t_map *map,
+									t_state_machine *machine, int fd);
 
 #endif

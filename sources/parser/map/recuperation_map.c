@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:40:05 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 12:59:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:07:44 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				clean_and_print(t_map *map, size_t i, size_t j,
 	return (TRUE);
 }
 
-static int		fill_tab(ssize_t index_char, t_map *map, size_t index, 
+static int		fill_tab(ssize_t index_char, t_map *map, size_t index,
 							t_vector *map_inf)
 {
 	int	ret;

@@ -6,18 +6,11 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 12:24:42 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:47:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void		error(t_map *map)
-{
-	printf_errors(ERROR_MALLOC_CPYTAB, NO_LINE, NO_VECTOR);
-	ft_free(map, NO_VECTOR);
-	exit(EXIT_FAILURE);
-}
 
 size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 {
@@ -30,7 +23,7 @@ size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
 				(map->utils.max_index));
 		if (cpy_tab[i] == NULL)
-			error(map);
+			error(map, ERROR_MALLOC_CPYTAB, NO_VECTOR);
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 		j = 0;
 		while (j < map->utils.max_index
@@ -57,7 +50,7 @@ int				realloc_tab(t_map *map, size_t count_line,
 		map->utils.max_index = new_index;
 	cpy_tab = (enum e_map **)malloc(sizeof(enum e_map *) * (count_line));
 	if (cpy_tab == NULL)
-		error(map);
+		error(map, ERROR_MALLOC_CPYTAB, NO_VECTOR);
 	ft_bzero(cpy_tab, map->utils.count_line);
 	i = fill_line(map, cpy_tab);
 	if (count_line != map->utils.max_line)
@@ -65,7 +58,7 @@ int				realloc_tab(t_map *map, size_t count_line,
 		cpy_tab[i] = (enum e_map *)malloc(sizeof(enum e_map) *
 				map->utils.max_index);
 		if (cpy_tab[i] == NULL)
-			error(map);
+			error(map, ERROR_MALLOC_CPYTAB, NO_VECTOR);
 		ft_memset(cpy_tab[i], STOP, map->utils.max_index);
 	}
 	free(map->recup.tab_map);
