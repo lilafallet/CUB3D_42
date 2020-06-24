@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 18:05:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 19:29:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,10 @@
 # define ACCESS				NULL
 # define COMMA 				','
 # define STR_COMMA 			","
-# define PATH 				"./"
-# define PLUS 				'+'
-# define SLASH 				'/'
 # define SPACE 				' '
 # define STR_TEXTURE 		"NOSOWEEA"
 # define STRING_SPACE_TAB	" \t"
-# define TAB 				'\t'
+# define TAB				'\t'
 # define FIRST_ARG			1
 # define SECOND_ARG			2
 # define THIRD_ARG			3
@@ -124,18 +121,10 @@
 # define EAST 				'E'
 # define STR_MAP 			"012NSWE \t"
 
-# define GREEN				0x33cc33
-# define BLACK				0x000000
-# define GREY				0x696969
-# define BLUE				0x3333ff
-# define RED				0xff0000
-# define CASE_MAX_SIZE		20
 # define UNDEFINED			-1
 # define MAX_WIDTH			1920
 # define MAX_HEIGHT			1080
 # define MAP_OFFSET			150
-# define PLAYER_POS			0
-# define MID_NB_MAP			5
 # define SIZE_FORMAT		4
 # define STR_FORMAT			".cub"
 
@@ -191,7 +180,7 @@ typedef struct	s_utils
 	size_t			count_resolution;
 	size_t			not_map;
 	int				fd;
-
+	char			pad[4];
 }				t_utils;
 
 typedef struct	s_map
@@ -439,6 +428,7 @@ typedef struct	s_text
 	int		texy;
 	int		color;
 	int		error_sprite;
+	char	pad[4];
 }				t_texture;
 
 /*
@@ -492,26 +482,8 @@ typedef struct	s_mv
 	double	speed_mv;
 	double	speed_lk;
 	int		log;
-	int		mv_dir;
-	int		lk_dir;
 	int		update;
 	int		is_wall;
-	int		ydown;
-	int		yup;
-	int		xright;
-	int		stopydown;
-	int		stopyup;
-	int		stopxright;
-	int		tmp_left;
-	int		tmp_mv;
-	int		tmpl;
-	int		tmpd;
-	int		tmp_down;
-	int		tmpup;
-	int		tmp_yp;
-	int		tmp_ym;
-	int		tmp_xp;
-	int		tmp_xm;
 	char	pad[4];
 }				t_moove;
 
@@ -541,6 +513,7 @@ typedef struct	s_sp
 	double		playposy;
 	double		screen_where;
 	size_t		nb_sprite;
+	size_t		count;
 	int			color;
 	int			height;
 	int			starty;
@@ -551,8 +524,6 @@ typedef struct	s_sp
 	int			textx;
 	int			texty;
 	int			textw;
-	char		pad[4];
-	size_t		count;
 }				t_sprite;
 
 /*
@@ -560,12 +531,7 @@ typedef struct	s_sp
 */
 
 # define HEADERSIZE		54
-# define INFODATASIZE	40
 # define PIXOFFSET		4
-# define BPP			24
-# define PLANECOLOR		1
-# define XPIXELS		0x0B13
-# define YPIXELS		0x0B13
 # define FILLOF0		0
 # define TYPEFILE0		0
 # define FILESIZE2		2
