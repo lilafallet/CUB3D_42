@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 10:20:42 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:37:56 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 15:53:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	left_or_right(t_graph *gr)
 	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 	{
 		gr->mv.new_posx = gr->mv.log & MV_RIGHT ? gr->mv.comb_posx
-							- gr->rting.diry * gr->mv.speed_mv : gr->mv.comb_posx
-							+ gr->rting.diry * gr->mv.speed_mv;
+						- gr->rting.diry * gr->mv.speed_mv
+						: gr->mv.comb_posx + gr->rting.diry * gr->mv.speed_mv;
 		gr->mv.new_posy = gr->mv.log & MV_RIGHT ? gr->mv.comb_posy
-							+ gr->rting.dirx * gr->mv.speed_mv : gr->mv.comb_posy
-							- gr->rting.dirx * gr->mv.speed_mv;
+						+ gr->rting.dirx * gr->mv.speed_mv : gr->mv.comb_posy
+						- gr->rting.dirx * gr->mv.speed_mv;
 	}
 	else
 	{
@@ -38,10 +38,10 @@ void	up_or_down(t_graph *gr)
 {
 	gr->mv.new_posx = gr->mv.log & MV_UP ? gr->rting.posx + gr->rting.dirx
 						* gr->mv.speed_mv : gr->rting.posx - gr->rting.dirx
-						*gr->mv.speed_mv;
+						* gr->mv.speed_mv;
 	gr->mv.new_posy = gr->mv.log & MV_UP ? gr->rting.posy + gr->rting.diry
 						* gr->mv.speed_mv : gr->rting.posy - gr->rting.diry
-						*gr->mv.speed_mv;
+						* gr->mv.speed_mv;
 	if (gr->mv.log & MV_LEFT || gr->mv.log & MV_RIGHT)
 	{
 		gr->mv.comb_posx = gr->mv.new_posx;

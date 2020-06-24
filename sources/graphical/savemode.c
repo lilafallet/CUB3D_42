@@ -6,15 +6,14 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 15:40:00 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:55:30 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:17:13 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
-#include <string.h>
 
-static int		get_color(t_graph *gr, t_map *map, int x, int y)
+static int	get_color(t_graph *gr, t_map *map, int x, int y)
 {
 	int *color;
 
@@ -22,7 +21,7 @@ static int		get_color(t_graph *gr, t_map *map, int x, int y)
 	return (*(int *)color);
 }
 
-static void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
+static void	bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 {
 	unsigned char	header[HEADERSIZE];
 
@@ -38,38 +37,36 @@ static void			bmp_header(t_graph *gr, t_map *map, int fd, int filesize)
 	header[BPP28] = (unsigned char)(24);
 	if (write(fd, header, HEADERSIZE) == FAILURE)
 	{
-		perror("Error\nFail to write the header on the bmp file");
+		perror(FAIL_WRITE_HEADER);
 		exitred(gr, FAILURE);
 	}
 }
 
-static void		bmp_data(t_graph *gr, t_map *map, int fd, int pad)
+static void	bmp_data(t_graph *gr, t_map *map, int fd, int pad)
 {
-	const unsigned char	zero[3] = {0, 0, 0};
-	int					y;
-	int					x;
+	const unsigned char	zero[SIZE_PAD] = {0, 0, 0};
 	int					color;
 
-	y = map->recup.resolution[AXE_Y] - 1;
-	while (y >= 0)
+	gr->draw.bmp_y = map->recup.resolution[AXE_Y] - 1;
+	while (gr->draw.bmp_y >= 0)
 	{
-		x = 0;
-		while (x < map->recup.resolution[AXE_X])
+		gr->draw.bmp_x = 0;
+		while (gr->draw.bmp_x < map->recup.resolution[AXE_X])
 		{
-			color = get_color(gr, map, x, y);
-			if (write(fd, &color, 3) < 0)
+			color = get_color(gr, map, gr->draw.bmp_x, gr->draw.bmp_y);
+			if (write(fd, &color, SIZE_PAD) == FAILURE)
 			{
-				perror("Error\nFail to write color the bmp file");
+				perror(FAIL_WRITE_COLOR);
 				exitred(gr, FAILURE);
 			}
-			if (pad > 0 && write(fd, &zero, pad) < 0)
+			if (pad > 0 && write(fd, &zero, pad) == FAILURE)
 			{
-				perror("Error\nFail to write the pading the bmp file");
+				perror(FAIL_WRITE_PADING);
 				exitred(gr, FAILURE);
 			}
-			x++;
+			gr->draw.bmp_x++;
 		}
-		y--;
+		gr->draw.bmp_y--;
 	}
 }
 
@@ -79,20 +76,22 @@ void		savemode(t_map *map, t_graph *gr)
 	int			fd;
 	int			pad;
 
-	pad = (PIXOFFSET - ((int)map->recup.resolution[AXE_X] * 3) % PIXOFFSET) % 4;
-	filesize = HEADERSIZE + (OCTET3 * ((int)map->recup.resolution[AXE_X]
-					+ pad) * (int)map->recup.resolution[AXE_Y]);
+	pad = (PIXOFFSET - (map->recup.resolution[AXE_X] * SIZE_PAD) % PIXOFFSET)
+			% PIXOFFSET;
+	filesize = HEADERSIZE + (OCTET3 * map->recup.resolution[AXE_Y]
+							* (map->recup.resolution[AXE_X] + pad));
 	fd = open(SCREENSHOT, O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0644);
 	if (fd == FAILURE)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\n%s: %s\n", SCREENSHOT, strerror(errno));
+		ft_dprintf(STDERR_FILENO, "Error\n%s: %s\n", SCREENSHOT,
+					strerror(errno));
 		exitred(gr, FAILURE);
 	}
 	bmp_header(gr, map, fd, filesize);
 	bmp_data(gr, map, fd, pad);
 	if (close(fd) == FAILURE)
 	{
-		perror("Error\nFail to close the screenshot");
+		perror(FAIL_CLOSE_SCREEN);
 		exitred(gr, FAILURE);
 	}
 	exitred(gr, SUCCESS);

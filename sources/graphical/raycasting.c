@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:22:54 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 12:19:05 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 16:00:24 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 							* gr->rting.camerax;
 	gr->rting.mapx = (int)gr->rting.posx;
 	gr->rting.mapy = (int)gr->rting.posy;
-
 	gr->rting.deltadistx = fabs(1 / gr->rting.raydirx);
 	gr->rting.deltadisty = fabs(1 / gr->rting.raydiry);
 }
@@ -29,7 +28,7 @@ static void	init_raycasting(t_map *map, t_graph *gr, int x)
 static void	init_step_distray(t_graph *gr)
 {
 	if (gr->rting.raydirx < 0)
-	{	
+	{
 		gr->rting.stepx = -1;
 		gr->rting.distx = (gr->rting.posx - gr->rting.mapx)
 							* gr->rting.deltadistx;
@@ -73,7 +72,7 @@ static void	check_wall(t_map *map, t_graph *gr)
 		}
 		if (map->recup.tab_map[gr->rting.mapy][gr->rting.mapx] == 1)
 			gr->rting.hit = 1;
-	} 
+	}
 }
 
 static void	calcul_draw(t_map *map, t_graph *gr)
@@ -92,7 +91,7 @@ static void	calcul_draw(t_map *map, t_graph *gr)
 		gr->draw.end = 0;
 }
 
-void	start_raycasting(t_map *map, t_graph *gr)
+void		start_raycasting(t_map *map, t_graph *gr)
 {
 	int	x;
 
@@ -106,7 +105,6 @@ void	start_raycasting(t_map *map, t_graph *gr)
 			gr->rting.perpwalldist = (gr->rting.mapx - gr->rting.posx
 					+ (1 - gr->rting.stepx) / 2) / gr->rting.raydirx;
 		else
-
 			gr->rting.perpwalldist = (gr->rting.mapy - gr->rting.posy
 					+ (1 - gr->rting.stepy) / 2) / gr->rting.raydiry;
 		calcul_draw(map, gr);

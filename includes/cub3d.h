@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 15:50:00 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:11:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,10 @@ typedef struct	s_map
 # define ERR28					"WIN_PTR : mlx_new_window failed\n"
 # define FAIL_OPEN_MAP			"Error\nFail to open the map"
 # define FAIL_CLOSE_MAP			"Error\nFail to close the map"
+# define FAIL_WRITE_HEADER		"Error\nFail to write the header on the bmp file"
+# define FAIL_WRITE_COLOR		"Error\nFail to write color on the bmp file"
+# define FAIL_WRITE_PADING		"Error\nFail to write the pading on the bmp file"
+# define FAIL_CLOSE_SCREEN		"Error\nFail to close the screenshot"
 
 /*
 **###########_STATE_#################
@@ -408,6 +412,8 @@ typedef struct	s_draw
 	int		start;
 	int		end;
 	int		no_sky;
+	int		bmp_x;
+	int		bmp_y;
 }				t_draw;
 
 /*
@@ -571,6 +577,7 @@ typedef struct	s_sp
 # define CHAR0			'0'
 # define OCTET3			3
 # define STR_SAVE		"--save"
+# define SIZE_PAD		3
 
 /*
 **###########_GRAPH_#################
