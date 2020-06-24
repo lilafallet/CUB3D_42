@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 22:44:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 11:15:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-/*static int	debug_print_map(t_map *map, size_t i, size_t j,
-				t_state_machine *machine)
-{
-	(void)machine;
-	ft_printf("%d%c", map->recup.tab_map[i][j],
-			(j + 1 == map->utils.max_index) ? '\n' : ' '); //DEBUG//
-	return (TRUE);
-}*/
-
-/*static void	debug(t_map *map, t_state_machine *machine)
-{
-	ft_printf("R:\t\t%d %d\n",			map->recup.resolution[0],
-										map->recup.resolution[1]);
-	ft_printf("NO:\t\t%s\n",			map->recup.str_texture[0]);
-	ft_printf("SO:\t\t%s\n",			map->recup.str_texture[1]);
-	ft_printf("WE:\t\t%s\n",			map->recup.str_texture[2]);
-	ft_printf("EA:\t\t%s\n",			map->recup.str_texture[3]);
-	ft_printf("S:\t\t%s\n",				map->recup.str_texture[4]);
-	ft_printf("F:\t\t%d %d %d\n",		map->recup.tab_color_f[0],
-										map->recup.tab_color_f[1],
-										map->recup.tab_color_f[2]);
-	ft_printf("C:\t\t%d %d %d\n\n",		map->recup.tab_color_c[0],
-										map->recup.tab_color_c[1],
-										map->recup.tab_color_c[2]);
-	iter_map(map, debug_print_map, machine);
-}*/
 
 static int	ft_cub3d(int fd, t_map *map)
 {
@@ -55,30 +28,28 @@ static int	ft_cub3d(int fd, t_map *map)
 	{
 		if (verification_global_map(map, &machine) == ERROR)
 		{
-			printf_errors(machine.info, 0, NULL);
+			printf_errors(machine.info, NO_LINE, NO_VECTOR);
 			return (FAILURE);
 		}
-		//else
-			//debug(map, &machine); // DEBUG
 	}
 	return (ret);
 }
 
 static int	parser_argument(int ac, char **av, t_map *map)
 {
-	if (ac < 2 || ac > 3)
+	if (ac < SECOND_ARG || ac > THIRD_ARG)
 	{
-		if (ac < 2)
-			printf_errors(ERROR_ARG_LITTLE, 0, NULL);
-		if (ac > 3)
-			printf_errors(ERROR_ARG_BIG, 0, NULL);
+		if (ac < SECOND_ARG)
+			printf_errors(ERROR_ARG_LITTLE, NO_LINE, NO_VECTOR);
+		if (ac > THIRD_ARG)
+			printf_errors(ERROR_ARG_BIG, NO_LINE, NO_VECTOR);
 		return (FAILURE);
 	}
-	if (is_good_file(av[1]) == FAILURE)
+	if (is_good_file(av[FIRST_ARG]) == FAILURE)
 		return (FAILURE);
-	if (ac == 3)
+	if (ac == THIRD_ARG)
 	{
-		if (parser_savemode(av[2], map) == FAILURE)
+		if (parser_savemode(av[SECOND_ARG], map) == FAILURE)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -96,13 +67,14 @@ int			main(int ac, char **av)
 	ft_bzero(&map, sizeof(map));
 	ret = parser_argument(ac, av, &map);
 	if (ret == SUCCESS)
-		fd = open(av[1], O_RDONLY);
-	if (ret != FAILURE && fd != FAILURE && (ret = ft_cub3d(fd, &map)) != FAILURE)
+		fd = open(av[FIRST_ARG], O_RDONLY);
+	if (ret != FAILURE && fd != FAILURE
+			&& (ret = ft_cub3d(fd, &map)) != FAILURE)
 		start_graph(&map);
 	if (fd == FAILURE)
-		perror("Error\nFail to open the map");
-	ft_free(&map, NULL);
+		perror(FAIL_OPEN_MAP);
+	ft_free(&map, NO_VECTOR);
 	if (close(fd) == FAILURE)
-		perror("Error\nFail to close the map");
+		perror(FAIL_CLOSE_MAP);
 	return (ret == FAILURE || fd == FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
 }

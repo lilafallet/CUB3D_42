@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:26:43 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 11:11:49 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@
 # define STR_TEXTURE 		"NOSOWEEA"
 # define STRING_SPACE_TAB	" \t"
 # define TAB 				'\t'
+# define FIRST_ARG			1
+# define SECOND_ARG			2
+# define THIRD_ARG			3
+# define NO_LINE			0
+# define NO_VECTOR			NULL
 
 /*
 **###########_TEXTURE_#############
@@ -276,6 +281,8 @@ typedef struct	s_map
 # define ERR26					"DIST : malloc dist sprite failed\n"
 # define ERR27					"MLX_PTR : mlx_init failed\n"
 # define ERR28					"WIN_PTR : mlx_new_window failed\n"
+# define FAIL_OPEN_MAP			"Error\nFail to open the map"
+# define FAIL_CLOSE_MAP			"Error\nFail to close the map"
 
 /*
 **###########_STATE_#################
