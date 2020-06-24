@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/22 15:42:24 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:00:50 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	is_texture(uint8_t *count, t_vector *split, t_state_machine *machine,
 		const char *tab_texture[NB_TEXTURE])
 {
 	while (*count < NB_TEXTURE
-			&& ft_strequ(vct_getstr(split), (char *)tab_texture[*count]) == FALSE)
+			&& ft_strequ(vct_getstr(split), (char *)tab_texture[*count])
+							== FALSE)
 		*count = *count + 1;
 	if (*count == NB_TEXTURE)
 		machine->state = COLOR;

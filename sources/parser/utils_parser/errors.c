@@ -6,34 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:53:10 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 13:54:40 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:25:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h> /*DEBUG*/
-
-int			gestion_parser(int ret, t_vector *line, t_map *map,
-							t_state_machine *machine, int fd)
-{
-	if (ret == FAILURE)
-	{
-		vct_del(&line);
-		if (close(fd) == FAILURE)
-			perror(FAIL_CLOSE_MAP);
-		ft_free(map, line);
-		exit(EXIT_FAILURE);
-	}
-	if (machine->info & IS_ERROR || ret == FAILURE)
-	{
-		printf_errors(machine->info, map->utils.nb_line, line);
-		vct_del(&line);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
 
 void		error(t_map *map, unsigned long flag, t_vector *vct)
 {
@@ -58,31 +37,32 @@ int			is_good_file(char *str)
 
 	ret = SUCCESS;
 	len = ft_strlen(str);
-	if (len <= 4)
+	if (len <= SIZE_FORMAT)
 		ret = FAILURE;
 	if (ret != FAILURE)
 	{
-		if (ft_strequ(str + len - 4, ".cub") == FALSE)
+		if (ft_strequ(str + len - SIZE_FORMAT, STR_FORMAT) == FALSE)
 			ret = FAILURE;
 	}
 	if (ret == FAILURE)
-		printf_errors(ERROR_FORMAT, 0, NULL);
+		printf_errors(ERROR_FORMAT, NO_LINE, NO_VECTOR);
 	return (ret);
 }
 
 int			parser_savemode(char *argument, t_map *map)
 {
-	if (ft_strequ(argument, "--save") == FALSE)
+	if (ft_strequ(argument, STR_SAVE) == FALSE)
 	{
 		map->utils.save_mode = FALSE;
-		printf_errors(ERROR_SAVE, 0, NULL);
+		printf_errors(ERROR_SAVE, NO_LINE, NO_VECTOR);
 		return (FAILURE);
-	}	
+	}
 	map->utils.save_mode = TRUE;
 	return (SUCCESS);
 }
 
-void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
+static void	process_printf_errors(unsigned long index, t_vector *line,
+									unsigned long nb_line)
 {
 	const char		*error[NB_ERROR] = {ERR1, ERR2, ERR3, ERR4, ERR5, ERR6,
 										ERR7, ERR8, ERR9, ERR10, ERR11, ERR12,
@@ -90,14 +70,9 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 										ERR18, ERR19, ERR20, ERR21, ERR22,
 										ERR23, ERR24, ERR25, ERR26, ERR27,
 										ERR28};
-	unsigned long	index;
 	size_t			i;
-	static size_t	loops_function = 0;
-	
+
 	i = 0;
-	if (loops_function != 0)
-		return ;
-	index = flag >> 24;
 	while (i < NB_ERROR)
 	{
 		if (index & (1 << i))
@@ -114,4 +89,16 @@ void		printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line)
 		}
 		i++;
 	}
+}
+
+void		printf_errors(unsigned long flag, unsigned long nb_line,
+							t_vector *line)
+{
+	unsigned long	index;
+	static size_t	loops_function = 0;
+
+	if (loops_function != 0)
+		return ;
+	index = flag >> 24;
+	process_printf_errors(index, line, nb_line);
 }

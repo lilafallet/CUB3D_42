@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 13:54:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:12:37 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@
 # define MAP_OFFSET			150
 # define PLAYER_POS			0
 # define MID_NB_MAP			5
+# define SIZE_FORMAT		4
+# define STR_FORMAT			".cub"
 
 # define MIN_PAD			0.11
 /*
@@ -187,6 +189,7 @@ typedef struct	s_utils
 	size_t			save_mode;
 	size_t			count_resolution;
 	size_t			not_map;
+	int				fd;
 
 }				t_utils;
 
@@ -566,6 +569,7 @@ typedef struct	s_sp
 # define YCOLOR42		42
 # define CHAR0			'0'
 # define OCTET3			3
+# define STR_SAVE		"--save"
 
 /*
 **###########_GRAPH_#################
@@ -675,6 +679,6 @@ void			savemode(t_map *map, t_graph *gr);
 void			draw_sprite(t_graph *gr, int startx, t_map *map);
 void			error(t_map *map, unsigned long flag, t_vector *vct);
 int				gestion_parser(int ret, t_vector *line, t_map *map,
-									t_state_machine *machine, int fd);
+									t_state_machine *machine);
 
 #endif

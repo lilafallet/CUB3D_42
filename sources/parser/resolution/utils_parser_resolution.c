@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:21:37 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 13:59:53 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	is_number_resolution(t_vector *split, t_state_machine *machine,
 
 void	is_indic_resolution(t_vector *split, t_state_machine *machine)
 {
-	if (ft_strequ(vct_getstr(split), "R") == FALSE)
+	if (ft_strequ(vct_getstr(split), STR_RESOLUTION) == FALSE)
 		machine->state = TEXTURE;
 	else
 	{

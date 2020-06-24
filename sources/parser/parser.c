@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 13:54:23 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:12:29 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,9 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 			&& function[machine->state](line, map, machine) == FAILURE)
 			vct_split(NO_VECTOR, NO_VECTOR, INIT);
 	}
+	map->utils.fd = fd;
 	vct_readline(NO_VECTOR, CLEANUP);
-	ret_function = gestion_parser(ret, line, map, machine, fd);
+	ret_function = gestion_parser(ret, line, map, machine);
 	vct_del(&line);
 	return (ret_function);
 }

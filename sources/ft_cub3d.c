@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 11:15:32 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 14:21:08 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,26 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+int			gestion_parser(int ret, t_vector *line, t_map *map,
+							t_state_machine *machine)
+{
+	if (ret == FAILURE)
+	{
+		vct_del(&line);
+		if (close(map->utils.fd) == FAILURE)
+			perror(FAIL_CLOSE_MAP);
+		ft_free(map, line);
+		exit(EXIT_FAILURE);
+	}
+	if (machine->info & IS_ERROR || ret == FAILURE)
+	{
+		printf_errors(machine->info, map->utils.nb_line, line);
+		vct_del(&line);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
 
 static int	ft_cub3d(int fd, t_map *map)
 {
