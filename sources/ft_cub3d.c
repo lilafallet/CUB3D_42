@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:43:22 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 14:21:08 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 20:03:06 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,32 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+static int	debug_print_map(t_map *map, size_t i, size_t j,
+				t_state_machine *machine)
+{
+	(void)machine;
+	ft_printf("%d%c", map->recup.tab_map[i][j],
+			(j + 1 == map->utils.max_index) ? '\n' : ' '); //DEBUG//
+	return (TRUE);
+}
 
+static void	debug(t_map *map, t_state_machine *machine)
+{
+	ft_printf("R:\t\t%d %d\n",			map->recup.resolution[0],
+										map->recup.resolution[1]);
+	ft_printf("NO:\t\t%s\n",			map->recup.str_texture[0]);
+	ft_printf("SO:\t\t%s\n",			map->recup.str_texture[1]);
+	ft_printf("WE:\t\t%s\n",			map->recup.str_texture[2]);
+	ft_printf("EA:\t\t%s\n",			map->recup.str_texture[3]);
+	ft_printf("S:\t\t%s\n",				map->recup.str_texture[4]);
+	ft_printf("F:\t\t%d %d %d\n",		map->recup.tab_color_f[0],
+										map->recup.tab_color_f[1],
+										map->recup.tab_color_f[2]);
+	ft_printf("C:\t\t%d %d %d\n\n",		map->recup.tab_color_c[0],
+										map->recup.tab_color_c[1],
+										map->recup.tab_color_c[2]);
+	iter_map(map, debug_print_map, machine);
+}
 int			gestion_parser(int ret, t_vector *line, t_map *map,
 							t_state_machine *machine)
 {
@@ -31,7 +56,6 @@ int			gestion_parser(int ret, t_vector *line, t_map *map,
 	if (machine->info & IS_ERROR || ret == FAILURE)
 	{
 		printf_errors(machine->info, map->utils.nb_line, line);
-		vct_del(&line);
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -51,6 +75,8 @@ static int	ft_cub3d(int fd, t_map *map)
 			printf_errors(machine.info, NO_LINE, NO_VECTOR);
 			return (FAILURE);
 		}
+		else
+			debug(map, &machine); //
 	}
 	return (ret);
 }
