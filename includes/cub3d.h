@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 17:11:47 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:42:52 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,10 @@ typedef struct	s_state_machine
 /*
 **###########_WINDOWS_#################
 */
+
+# define MAX_AXE_X 		1088
+# define MAX_AXE_Y 		612
+# define WINDOW_NAME	"Cub3D"
 
 typedef struct	s_windows
 {

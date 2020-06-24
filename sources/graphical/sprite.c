@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 11:55:50 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:20:25 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	swap_sprite(t_graph *gr)
 }
 
 static void	calcpos_sprite(t_graph *gr, size_t i, t_map *map)
-{	
+{
 	gr->sp.x = gr->sp.pos[i].x - gr->rting.posx;
 	gr->sp.y = gr->sp.pos[i].y - gr->rting.posy;
 	gr->sp.rot = 1.0 / (gr->rting.planecamx * gr->rting.diry - gr->rting.dirx
@@ -98,7 +98,7 @@ void		hub_sprite(t_map *map, t_graph *gr)
 		{
 			draw_sprite(gr, tmp_startx, map);
 			tmp_startx++;
-		}	
+		}
 		i++;
 	}
 	free(gr->sp.dist);
