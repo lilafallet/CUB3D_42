@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 17:42:52 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 18:05:47 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@
 # define GREEN				0x33cc33
 # define BLACK				0x000000
 # define GREY				0x696969
-# define BLUE				0x3333ff				
+# define BLUE				0x3333ff
 # define RED				0xff0000
 # define CASE_MAX_SIZE		20
 # define UNDEFINED			-1
@@ -140,6 +140,7 @@
 # define STR_FORMAT			".cub"
 
 # define MIN_PAD			0.11
+
 /*
 ** #############################################################################
 **_____________________________STRUCTURE MAP____________________________________
@@ -193,7 +194,6 @@ typedef struct	s_utils
 
 }				t_utils;
 
-	
 typedef struct	s_map
 {
 	t_recup			recup;
@@ -267,40 +267,40 @@ typedef struct	s_map
 # define ERROR_MLX_PTR									0x4000000000000
 # define ERROR_WIN_PTR									0x8000000000000
 
-# define ERR1					"RESOLUTION : the number of information is not good\n"
-# define ERR2					"TEXTURE = too much information\n"
-# define ERR3					"COLOR = wrong type of number\n"
-# define ERR4					"COLOR = number of color is invalid\n"
-# define ERR5					"COLOR = data format not good\n"
-# define ERR6					"COLOR = already have color\n"
-# define ERR7					"MAP = invalid map\n"
-# define ERR8					"RESOLUTION = wrong type of number\n"
-# define ERR9					"RESOLUTION = wrong type of indicator\n"
-# define ERR10					"TEXTURE = already have a texture\n"
-# define ERR11					"COLOR = the argument is not a number\n"
-# define ERR12					"TEXTURE = no path to the texture\n"
-# define ERR13					"MAP = too much information\n"
-# define ERR14			 		"one line is invalid\n"
-# define ERR15					"SAVE : if you want to be in save mode, please enter : --save\n"
-# define ERR16					"ARGUMENTS : wrong format (expecting .cub)\n"
-# define ERR17			 		"ARGUMENTS : to much arguments\n"
-# define ERR18				 	"ARGUMENTS : missing second argument\n"
-# define ERR19					"CPY_TAB : malloc failed\n"
-# define ERR20					"IMG_PTR : mlx_new_image failed\n"
-# define ERR21					"WIN_DATA : mlx_get_data_addr failed\n"
-# define ERR22					"RAYBUFF : malloc raybuff failed\n"
-# define ERR23					"POS : malloc sprite pos failed\n"
-# define ERR24					"IMG : mlx_xmp_file_to_image failed\n"
-# define ERR25					"DATA : mlx_get_data_addr failed\n"
-# define ERR26					"DIST : malloc dist sprite failed\n"
-# define ERR27					"MLX_PTR : mlx_init failed\n"
-# define ERR28					"WIN_PTR : mlx_new_window failed\n"
-# define FAIL_OPEN_MAP			"Error\nFail to open the map"
-# define FAIL_CLOSE_MAP			"Error\nFail to close the map"
-# define FAIL_WRITE_HEADER		"Error\nFail to write the header on the bmp file"
-# define FAIL_WRITE_COLOR		"Error\nFail to write color on the bmp file"
-# define FAIL_WRITE_PADING		"Error\nFail to write the pading on the bmp file"
-# define FAIL_CLOSE_SCREEN		"Error\nFail to close the screenshot"
+# define ERR1			"RESOLUTION : the number of information is not good\n"
+# define ERR2			"TEXTURE = too much information\n"
+# define ERR3			"COLOR = wrong type of number\n"
+# define ERR4			"COLOR = number of color is invalid\n"
+# define ERR5			"COLOR = data format not good\n"
+# define ERR6			"COLOR = already have color\n"
+# define ERR7			"MAP = invalid map\n"
+# define ERR8			"RESOLUTION = wrong type of number\n"
+# define ERR9			"RESOLUTION = wrong type of indicator\n"
+# define ERR10			"TEXTURE = already have a texture\n"
+# define ERR11			"COLOR = the argument is not a number\n"
+# define ERR12			"TEXTURE = no path to the texture\n"
+# define ERR13			"MAP = too much information\n"
+# define ERR14			"one line is invalid\n"
+# define ERR15			"SAVE : if you want to be in save mode : --save\n"
+# define ERR16			"ARGUMENTS : wrong format (expecting .cub)\n"
+# define ERR17			"ARGUMENTS : to much arguments\n"
+# define ERR18			"ARGUMENTS : missing second argument\n"
+# define ERR19			"CPY_TAB : malloc failed\n"
+# define ERR20			"IMG_PTR : mlx_new_image failed\n"
+# define ERR21			"WIN_DATA : mlx_get_data_addr failed\n"
+# define ERR22			"RAYBUFF : malloc raybuff failed\n"
+# define ERR23			"POS : malloc sprite pos failed\n"
+# define ERR24			"IMG : mlx_xmp_file_to_image failed\n"
+# define ERR25			"DATA : mlx_get_data_addr failed\n"
+# define ERR26			"DIST : malloc dist sprite failed\n"
+# define ERR27			"MLX_PTR : mlx_init failed\n"
+# define ERR28			"WIN_PTR : mlx_new_window failed\n"
+# define FAIL_OPEN_MAP		"Error\nFail to open the map"
+# define FAIL_CLOSE_MAP		"Error\nFail to close the map"
+# define FAIL_WRITE_HEADER	"Error\nFail to write the header on the bmp file"
+# define FAIL_WRITE_COLOR	"Error\nFail to write color on the bmp file"
+# define FAIL_WRITE_PADING	"Error\nFail to write the pading on the bmp file"
+# define FAIL_CLOSE_SCREEN	"Error\nFail to close the screenshot"
 
 /*
 **###########_STATE_#################
@@ -614,7 +614,8 @@ int				hub_verification_map(t_state_machine *machine, t_vector *line,
 										unsigned long nb_line);
 void			ft_free(t_map *map, t_vector *line);
 int				first_parser(t_map *map, int fd, t_state_machine *machine);
-void			printf_errors(unsigned long flag, unsigned long nb_line, t_vector *line);
+void			printf_errors(unsigned long flag, unsigned long nb_line,
+								t_vector *line);
 int				is_map(t_vector *vct);
 int				recuperation_map(t_vector *line, t_map *map);
 int				recuperation_eachelem(t_state_machine *machine,

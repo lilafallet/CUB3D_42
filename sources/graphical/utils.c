@@ -6,13 +6,13 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 10:52:06 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 15:48:16 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 18:01:39 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			is_wall(t_graph *gr, t_map *map)
+int		is_wall(t_graph *gr, t_map *map)
 {
 	if (is_posy_into_wall(gr, map) == TRUE)
 		gr->mv.new_posy = gr->mv.old_posy;
@@ -21,7 +21,7 @@ int			is_wall(t_graph *gr, t_map *map)
 	return (FALSE);
 }
 
-int			update(t_graph *gr)
+int		update(t_graph *gr)
 {
 	return (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN || gr->mv.log & MV_LEFT
 			|| gr->mv.log & MV_RIGHT || gr->mv.log & LK_LEFT
@@ -43,7 +43,7 @@ t_graph	*gr_holder(t_graph *gr)
 	return (gr_keep);
 }
 
-int	get_rgb(int r, int g, int b)
+int		get_rgb(int r, int g, int b)
 {
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
