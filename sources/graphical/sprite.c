@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 14:30:50 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 17:20:25 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 21:08:23 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static void	swap_sprite(t_graph *gr)
 	size_t	i;
 
 	i = 0;
+	if (gr->sp.nb_sprite < 2)
+		return ;
 	while (i < gr->sp.nb_sprite - 1)
 	{
 		if (gr->sp.dist[i] < gr->sp.dist[i + 1])
