@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 11:05:25 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 21:35:41 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/24 15:42:41 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 static void	init_moove_look(t_graph *gr, t_map *map)
 {
-		init_graph(gr, map);
-		process_window(gr);
-		gr->mv.old_posx = gr->mv.new_posx;
-		gr->mv.old_posy = gr->mv.new_posy;
+	init_graph(gr, map);
+	process_window(gr);
+	gr->mv.old_posx = gr->mv.new_posx;
+	gr->mv.old_posy = gr->mv.new_posy;
 }
 
 static void	hub_moove_look(t_graph *gr)
 {
 	double	tmp_dirx;
 	double	tmp_planecamx;
-	
+
 	tmp_dirx = gr->rting.dirx;
 	tmp_planecamx = gr->rting.planecamx;
 	if (gr->mv.log & LK_RIGHT || gr->mv.log & LK_LEFT)
 	{
 		if ((gr->mv.log & LK_LEFT && ((gr->mv.log & LK_RIGHT) == FALSE))
 				|| (gr->mv.log & LK_RIGHT && ((gr->mv.log & LK_LEFT) == FALSE)))
-				gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
-										: look_left(gr, tmp_dirx, tmp_planecamx);
+			gr->mv.log & LK_RIGHT ? look_right(gr, tmp_dirx, tmp_planecamx)
+									: look_left(gr, tmp_dirx, tmp_planecamx);
 	}
 	if (gr->mv.log & MV_UP || gr->mv.log & MV_DOWN)
 		moove_up_down(gr);
@@ -40,10 +40,10 @@ static void	hub_moove_look(t_graph *gr)
 		moove_left_right(gr);
 }
 
-int	moove(t_graph *gr)
+int			moove(t_graph *gr)
 {
 	t_map	*map;
-	
+
 	if (update(gr) == TRUE)
 	{
 		map = get_map(NULL);
@@ -57,7 +57,7 @@ int	moove(t_graph *gr)
 	return (FALSE);
 }
 
-int	keyrelease(int key, t_graph *gr)
+int			keyrelease(int key, t_graph *gr)
 {
 	if (gr->mv.log & MV_UP && key == KMV_UP)
 		gr->mv.log &= ~MV_UP;
@@ -74,7 +74,7 @@ int	keyrelease(int key, t_graph *gr)
 	return (TRUE);
 }
 
-int	keypress(int key, t_graph *gr)
+int			keypress(int key, t_graph *gr)
 {
 	if (key == KEY_ESCAPE)
 		exitred(gr, SUCCESS);
