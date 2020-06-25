@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 17:24:23 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 19:36:46 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 13:36:10 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,6 @@ int			first_parser(t_map *map, int fd, t_state_machine *machine)
 			&& (ret = vct_readline(line, fd)) > 0)
 	{
 		map->utils.nb_line++;
-		if (line->len == 0 && machine->state != MAP)
-			continue ;
 		vct_split(NO_VECTOR, NO_VECTOR, INIT);
 		while ((machine->info & IS_ERROR) == FALSE
 			&& function[machine->state](line, map, machine) == FAILURE)
