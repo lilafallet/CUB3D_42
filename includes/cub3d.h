@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 20:41:48 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 20:58:35 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 13:59:32 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,5 +662,6 @@ int				gestion_parser(int ret, t_vector *line, t_map *map,
 void			pos(t_graph *gr, size_t x, size_t y);
 int				is_posy_into_wall(t_graph *gr, t_map *map);
 int				is_posx_into_wall(t_graph *gr, t_map *map);
+int				last_line(t_map *map, size_t y);
 
 #endif

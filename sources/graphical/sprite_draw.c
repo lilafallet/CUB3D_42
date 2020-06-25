@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:23:14 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/25 13:10:19 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 13:57:11 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	colorisation_sprite(t_graph *gr, int starty, int startx, t_map *map)
 {
-	//printf("textw = %d\n", gr->sp.textw); //
-	//printf("texty = %d\n", gr->sp.texty); //
 	if (gr->sp.textx < 0)
 		gr->sp.textx = 0;
 	if (gr->sp.texty < 0)

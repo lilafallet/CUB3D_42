@@ -6,11 +6,26 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 13:46:34 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/25 10:31:14 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 14:03:27 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int				last_line(t_map *map, size_t y)
+{
+	size_t	x;
+
+	x = 0;
+	while (x < map->utils.max_index)
+	{
+		if (map->recup.tab_map[y][x] == OUT || map->recup.tab_map[y][x] == WALL)
+			x++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
 
 size_t			fill_line(t_map *map, enum e_map **cpy_tab)
 {
