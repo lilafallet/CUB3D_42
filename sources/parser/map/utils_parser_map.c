@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/17 20:59:20 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/23 12:49:38 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 11:27:36 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,30 @@ static int	is_valid(enum e_map map_case)
 			&& map_case != WRONG_INFO_MAP);
 }
 
+static int	last_line(t_map *map, size_t y)
+{
+	size_t	x;
+
+	x = 0;
+	while (x < map->utils.max_index)
+	{
+		if (map->recup.tab_map[y][x] == OUT || map->recup.tab_map[y][x] == WALL)
+			x++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
 static int	is_bad_neighborhood(t_map *map, size_t x, size_t y)
 {
 	return ((x > 0 && is_valid(map->recup.tab_map[y][x - 1]) == FALSE)
-			|| (x + 1 < map->utils.max_index
-				&& is_valid(map->recup.tab_map[y][x + 1]) == FALSE)
+			
+			|| (x + 1 < map->utils.max_index && is_valid(map->recup.tab_map[y][x + 1]) == FALSE)
+			
 			|| (y > 0 && is_valid(map->recup.tab_map[y - 1][x]) == FALSE)
-			|| (y + 1 < map->utils.max_line
-				&& is_valid(map->recup.tab_map[y + 1][x]) == FALSE));
+			
+			|| (y + 1 < map->utils.max_line && is_valid(map->recup.tab_map[y + 1][x]) == FALSE));
 }
 
 int			iter_map(t_map *map, int (*f)(t_map *map, size_t y, size_t x,
@@ -73,5 +89,10 @@ int			verification_global_map(t_map *map, t_state_machine *machine)
 	iter_map(map, clean_and_print, machine);
 	if (iter_map(map, verif_map, machine) == FALSE)
 		return (ERROR);
+	if (last_line(map, map->utils.max_line - 1) == FALSE)
+	{
+		machine->info |= ERROR_MAP_NOT_VALID;
+		return (ERROR);
+	}
 	return (TRUE);
 }
