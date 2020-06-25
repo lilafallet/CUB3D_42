@@ -6,7 +6,7 @@
 /*   By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 12:23:14 by lfallet           #+#    #+#             */
-/*   Updated: 2020/06/24 21:19:13 by lfallet          ###   ########.fr       */
+/*   Updated: 2020/06/25 13:10:19 by lfallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void		draw_sprite(t_graph *gr, int startx, t_map *map)
 
 void		calcdraw_sprite(t_graph *gr, t_map *map)
 {
-	gr->sp.height = labs((long)(map->recup.resolution[AXE_Y]
+	if (gr->sp.playposy < 0.00001)
+		gr->sp.height = 0;
+	else
+		gr->sp.height = labs((long)(map->recup.resolution[AXE_Y]
 						/ gr->sp.playposy));
 	gr->sp.starty = -gr->sp.height / 2 + map->recup.resolution[AXE_Y] / 2;
 	if (gr->sp.starty < 0)
