@@ -1,6 +1,6 @@
 SO ./resources/textures/south.xpm
 WE ./resources/textures/west.xpm
-EA ./resources/textures/east.xp
+EA ./resources/textures/east.xpm
 S ./resources/textures/sprite.xpm
 C 0,0,100
 F 46,46,46

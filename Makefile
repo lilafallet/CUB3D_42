@@ -6,11 +6,11 @@
 #    By: lfallet <lfallet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/09 16:08:02 by lfallet           #+#    #+#              #
-#    Updated: 2020/06/25 22:28:13 by lfallet          ###   ########.fr        #
+#    Updated: 2020/06/25 22:47:37 by lfallet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 NAME = Cub3D
-NAME_BONUS = Cub3D_bonus
 LIBDIR = ./libft
 LIB = $(LIBDIR)libft.a
 
