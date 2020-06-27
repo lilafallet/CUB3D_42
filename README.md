@@ -40,7 +40,7 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 * Wall collisions
 * An HUD
 * Life bar
-* Obkect collisions
+* Object collisions
 * Earning points/or losing life by picking up objects/traps
 * Minimap
 * Restart mode
