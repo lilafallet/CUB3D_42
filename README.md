@@ -12,10 +12,14 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 
 ``$> ./Cub3D resources/map/perfect.cub``
 
+> Editing map :
+
 > Control :
 
 * Moove : WASD (qwerty) or ZQSD (azerty)
 * Close the window : ESC key or red cross
-* Save a rendered image in bmp format : second argument is -> "--save"
+* Save a rendered image in bmp format : second argument is "--save"
 
 ``$> ./Cub3D resources/map/perfect.cub --save``
+
+![](images/screenshot.png)
