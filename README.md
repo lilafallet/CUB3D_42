@@ -55,6 +55,6 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 ![](images/lost_life.png)
 ![](images/almost_dead.png)
 
-> Restart mode
+> Restart mode (press R key)
 
 ![](images/restart.png)
