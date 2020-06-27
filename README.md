@@ -12,7 +12,9 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 
 ``$> ./Cub3D resources/map/perfect.cub``
 
-> Editing map :
+> Editing map : You can change all the concerning the game environment in ressources/map/ .cub file
+
+![](images/map.png)
 
 > Control :
 
@@ -23,3 +25,36 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 ``$> ./Cub3D resources/map/perfect.cub --save``
 
 ![](images/screenshot.png)
+
+# Building Bonus part
+
+``$> git clone https://github.com/lilafallet/CUB3D_42.git ``
+
+``$> cd CUB3D_42``
+
+``$> make bonus``
+
+``$> ./Cub3D resources/map/perfect.cub``
+
+> List of bonus :
+* Wall collisions
+* An HUD
+* Life bar
+* Obkect collisions
+* Earning points/or losing life by picking up objects/traps
+* Minimap
+* Restart mode
+* Advanced key and window's resolution management
+
+> Life bar and minimap
+
+![](images/bonus_start.png)
+
+> Lost life
+
+![](images/lost_life.png)
+![](images/almost_dead.png)
+
+> Restart mode
+
+![](images/restart.png)
