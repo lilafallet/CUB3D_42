@@ -1,6 +1,6 @@
 # CUB3D_42
 
-This project is inspired by the world-famous eponymous 90’s game, which was the first FPS ever : Wolfenstein 3D. The goal of this project is to learn raycasting and to make a dynamic view inside a maze in which you’ll have to find your way. Enjoy this Doctor Who theme !
+This project is inspired by the world-famous eponymous 90’s game, which was the very first FPS ever : Wolfenstein 3D. The purpose of this project is to learn about raycasting and to make a dynamic view inside a maze in which you will have to find your way. Enjoy this Doctor Who theme !
 
 # Building Mandatory part
 
@@ -12,7 +12,7 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 
 ``$> ./Cub3D resources/map/perfect.cub``
 
-> Editing map : You can change all the game environment in ressources/map/ .cub file
+> Editing map : You can change the entire game environment in ressources/map/ .cub file
 
 ![](images/map.png)
 
@@ -37,10 +37,10 @@ This project is inspired by the world-famous eponymous 90’s game, which was th
 ``$> ./Cub3D resources/map/perfect.cub``
 
 > List of bonus :
-* Wall collisions
+* Collision wall
 * An HUD
 * Life bar
-* Object collisions
+* Collision object
 * Earning points/or losing life by picking up objects/traps
 * Minimap
 * Restart mode
